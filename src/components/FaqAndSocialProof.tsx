@@ -102,22 +102,22 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
   ];
 
   return (
-    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200/80">
+    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#07090F] border-b border-slate-200/80 dark:border-white/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         
         {/* Verified Reviews Section */}
         <div className="mb-24">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[#8C6D2D] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-[#8C6D2D] dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
               <MessageSquareQuote className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Verified Client Testimonials & Endorsements</span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               What Our Elite <span className="gold-gradient-text font-serif italic">Clients Say</span>
             </h2>
             
-            <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+            <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
               Read authentic feedback from high-net-worth investors, multinational executives, and families who completed their UAE sovereign transition with our VIP desk.
             </p>
           </div>
@@ -126,7 +126,7 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
             {testimonials.map((item, idx) => (
               <div 
                 key={idx}
-                className="p-8 rounded-2xl bg-[#FAF9F6] border border-slate-200 hover:border-[#C5A059] transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between"
+                className="p-8 rounded-2xl bg-[#FAF9F6] dark:bg-[#0E1320] border border-slate-200 dark:border-white/10 hover:border-[#C5A059] dark:hover:border-[#C5A059] transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -135,29 +135,29 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
                         <Star key={i} className="w-4 h-4 fill-[#C5A059]" />
                       ))}
                     </div>
-                    <span className="text-[11px] text-slate-400 font-medium">{item.date}</span>
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">{item.date}</span>
                   </div>
 
-                  <p className="text-sm text-slate-700 leading-relaxed italic mb-6">
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-6">
                     "{item.text}"
                   </p>
                 </div>
 
-                <div className="pt-5 border-t border-slate-200/80">
+                <div className="pt-5 border-t border-slate-200/80 dark:border-white/10">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         <span>{item.name}</span>
                         {item.verified && (
                           <span title="Verified Client">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
                           </span>
                         )}
                       </h4>
-                      <div className="text-xs text-[#8C6D2D] font-semibold">{item.role}</div>
-                      <div className="text-[11px] text-slate-400">{item.location}</div>
+                      <div className="text-xs text-[#8C6D2D] dark:text-amber-400 font-semibold">{item.role}</div>
+                      <div className="text-[11px] text-slate-400 dark:text-slate-500">{item.location}</div>
                     </div>
-                    <span className="px-2 py-1 rounded bg-amber-100/70 text-[#8C6D2D] text-[10px] font-bold text-right max-w-[110px] leading-tight">
+                    <span className="px-2 py-1 rounded bg-amber-100/70 dark:bg-amber-950/60 text-[#8C6D2D] dark:text-amber-300 border border-transparent dark:border-amber-700/30 text-[10px] font-bold text-right max-w-[110px] leading-tight">
                       {item.visaType}
                     </span>
                   </div>
@@ -170,14 +170,14 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
         {/* FAQ Accordion Block */}
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[#8C6D2D] text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-[#8C6D2D] dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
               <HelpCircle className="w-3.5 h-3.5 text-[#C5A059]" />
               <span>Official Regulatory Guidance</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               {t.faq.title}
             </h2>
-            <p className="mt-3 text-slate-600 text-sm">
+            <p className="mt-3 text-slate-600 dark:text-slate-300 text-sm">
               {t.faq.subtitle}
             </p>
           </div>
@@ -188,20 +188,20 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
               return (
                 <div 
                   key={index}
-                  className="rounded-xl border border-slate-200 bg-white overflow-hidden transition-all shadow-xs"
+                  className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0E1320] overflow-hidden transition-all shadow-xs"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50 transition-colors"
+                    className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                   >
-                    <span className="text-sm sm:text-base font-bold text-slate-900">
+                    <span className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
                       {faq.q}
                     </span>
                     <ChevronDown className={`w-5 h-5 text-[#C5A059] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                    <div className="px-5 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/10 pt-3">
                       {faq.a}
                     </div>
                   )}

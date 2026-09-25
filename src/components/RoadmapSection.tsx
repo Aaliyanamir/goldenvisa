@@ -42,19 +42,19 @@ export const RoadmapSection: React.FC = () => {
   ];
 
   return (
-    <section id="roadmap" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6] border-y border-slate-200/80">
-      <div className="max-w-7xl mx-auto">
+    <section id="roadmap" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0E1320] border-y border-slate-200/80 dark:border-white/10 transition-colors">
+      <div className="max-w-[1560px] 2xl:max-w-[1720px] mx-auto">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[#8C6D2D] text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[#8C6D2D] dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>Frictionless 4-Stage Protocol</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
             {t.roadmap.title}
           </h2>
-          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             {t.roadmap.subtitle}
           </p>
         </div>
@@ -66,33 +66,34 @@ export const RoadmapSection: React.FC = () => {
             return (
               <div 
                 key={index}
-                className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:border-[#C5A059] hover:shadow-md transition-all flex flex-col justify-between"
+                className="bg-white dark:bg-[#131A2A] rounded-3xl p-7 border border-slate-200 dark:border-white/10 shadow-xs hover:border-[#C5A059] hover:shadow-xl transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-3xl font-black text-[#C5A059]/40 font-mono">
                       {step.num}
                     </span>
-                    <div className="p-2.5 rounded-xl bg-amber-50 text-[#C5A059] border border-amber-100">
+                    <div className="p-2.5 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-[#C5A059] border border-amber-100 dark:border-amber-800/60 group-hover:scale-105 transition-transform">
                       <IconComp className="w-5 h-5" />
                     </div>
                   </div>
 
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#8C6D2D] block mb-2">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#8C6D2D] dark:text-amber-400 block mb-2">
                     {step.turnaround}
                   </span>
 
-                  <h3 className="text-base font-bold text-slate-900 leading-snug">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-snug font-serif">
                     {step.title}
                   </h3>
 
-                  <p className="mt-2.5 text-xs text-slate-500 leading-relaxed">
+                  <p className="mt-2.5 text-xs sm:text-sm text-slate-500 dark:text-slate-300 leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] font-semibold text-slate-400">
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/10 text-[11px] font-semibold text-slate-400 dark:text-slate-400 flex items-center justify-between">
                   <span>Fast-Track Guaranteed</span>
+                  <span className="text-emerald-500 font-bold">100% Direct</span>
                 </div>
               </div>
             );

@@ -9,6 +9,7 @@
 html {
   overflow-x: hidden;
   max-width: 100vw;
+  scroll-behavior: smooth;
 }
 
 @layer base {
@@ -18,30 +19,46 @@ html {
     --gold-dark: #8C6D2D;
     --gold-subtle: #FDFBF7;
     --gold-border: #E8D5B5;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
+    
+    --bg-page: #FFFFFF;
+    --bg-surface: #FFFFFF;
+    --bg-alt: #F8F9FA;
+    --bg-warm: #FAF9F6;
+    --text-main: #0F172A;
     --text-muted: #64748B;
-    --bg-white: #FFFFFF;
-    --bg-warm-light: #F8F9FA;
-    --bg-dark-hero: #0F172A;
+    --border-subtle: #E2E8F0;
+  }
+
+  html.dark {
+    --gold-primary: #D4AF37;
+    --gold-hover: #E5C365;
+    --gold-dark: #A68436;
+    --gold-subtle: #171E2E;
+    --gold-border: rgba(197, 160, 89, 0.3);
+
+    --bg-page: #07090F;
+    --bg-surface: #0E1320;
+    --bg-alt: #131A2A;
+    --bg-warm: #182236;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border-subtle: rgba(255, 255, 255, 0.1);
   }
 
   html {
-    scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
-  /* RTL font enhancement */
   html[dir="rtl"] {
     font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif;
   }
 
   body {
-    background-color: #FFFFFF;
-    color: #0F172A;
+    background-color: var(--bg-page);
+    color: var(--text-main);
     overflow-x: hidden;
-    /* Prevent content from being hidden under iOS/Android browser chrome */
     min-height: 100dvh;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Better tap targets on mobile */
@@ -49,16 +66,72 @@ html {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* Prevent text inflation on mobile landscape */
   * {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
 }
 
+/* Dark Mode Global Overrides for Complete Theme Transformation */
+html.dark body {
+  background-color: #07090F;
+  color: #F8FAFC;
+}
+
+html.dark header {
+  background: rgba(14, 19, 32, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark header nav button {
+  color: #94A3B8;
+}
+
+html.dark header nav button:hover {
+  color: #FFFFFF;
+}
+
+html.dark header nav button .text-slate-950 {
+  color: #FFFFFF !important;
+}
+
+html.dark header nav button .text-slate-700 {
+  color: #CBD5E1 !important;
+}
+
+html.dark .white-gold-card {
+  background: #0E1320 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark .white-gold-card:hover {
+  border-color: #C5A059 !important;
+  box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.2) !important;
+}
+
+html.dark .white-gold-card h3,
+html.dark .white-gold-card h4 {
+  color: #FFFFFF !important;
+}
+
+html.dark .white-gold-card p {
+  color: #94A3B8 !important;
+}
+
+html.dark .section-contrast-warm {
+  background-color: #0E1320 !important;
+}
+
+html.dark .section-contrast-light {
+  background-color: #07090F !important;
+}
+
 /* Luxury Editorial Styling */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #D4AF37 0%, #C5A059 40%, #997328 100%);
+  background: linear-gradient(135deg, #E5C365 0%, #D4AF37 40%, #B38933 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -71,13 +144,13 @@ html {
   background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%);
   color: #0F172A;
   font-weight: 700;
-  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.3);
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.35);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gold-btn:hover {
   background: linear-gradient(135deg, #E5C365 0%, #D4AF37 100%);
-  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.45);
+  box-shadow: 0 6px 22px rgba(197, 160, 89, 0.5);
   transform: translateY(-1px);
 }
 
@@ -92,6 +165,26 @@ html {
   border-color: #C5A059;
   box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.15);
   transform: translateY(-2px);
+}
+
+/* Smooth Horizontal Animated Live Ticker / News Bar */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker 42s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
 }
 
 /* Aevora-style Rotating Wireframe / Orbit Geometry Animations */
@@ -148,5 +241,15 @@ html {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C5A059;
+  background: #94A3B8;
+}
+
+html.dark ::-webkit-scrollbar-track {
+  background: #0E1320;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }

@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
 import { 
   Award, Shield, FileCheck2, Landmark, 
-  Briefcase, ArrowUpRight, CheckCircle2, ChevronRight,
-  TrendingUp, Building2
+  ArrowUpRight, CheckCircle2, ChevronRight,
+  Stamp, BookOpen, Scale, Sparkles
 } from 'lucide-react';
 
 interface ServicesSectionProps {
@@ -14,7 +14,8 @@ interface ServicesSectionProps {
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculator }) => {
   const { t } = useLanguage();
-  const [activeCategory, setActiveCategory] = useState<'residency' | 'corporate' | 'legal'>('residency');
+  // Category 2 (Corporate) removed per client instructions. Only residency & legal PRO remain.
+  const [activeCategory, setActiveCategory] = useState<'residency' | 'legal'>('residency');
 
   const services = {
     residency: [
@@ -23,7 +24,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
         title: 'Real Estate Investor Golden Visa',
         validity: '10 Years Renewable',
         minVal: 'AED 2,000,000 Property Value',
-        desc: 'Direct liaison with the Dubai Land Department (DLD). Off-plan and mortgaged properties eligible with bank NOC. Includes 100% ownership rights with no sponsor required.',
+        desc: 'Direct liaison with the Dubai Land Department (DLD). Off-plan and mortgaged properties eligible with bank NOC. Includes 100% ownership rights with no local sponsor required.',
         benefits: ['0% Personal Income Tax in UAE', 'Sponsor Family, Housemaid & Driver', 'Unrestricted Travel (No 6-month stay rule)'],
         badge: 'Top Investor Choice',
       },
@@ -53,44 +54,6 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
         desc: 'Ensure total long-term stability for your spouse, sons up to age 25, unmarried daughters of any age, and dependent parents.',
         benefits: ['Permanent residency status', 'Local school and university admission', 'Immediate Emirates ID issuance'],
         badge: 'Full Family Security',
-      },
-    ],
-    corporate: [
-      {
-        id: 'mainland',
-        title: 'Dubai Mainland LLC Incorporation',
-        validity: 'Commercial License',
-        minVal: '100% Foreign Ownership Permitted',
-        desc: 'Form your enterprise directly under the Dubai Department of Economy and Tourism (DET) without requiring a local Emirati partner.',
-        benefits: ['Trade anywhere in UAE and internationally', 'Bid for government contracts', 'Unlimited commercial office locations'],
-        badge: '100% Foreign Owned',
-      },
-      {
-        id: 'freezone',
-        title: 'Dubai Free Zone Company Setup',
-        validity: 'Freezone License',
-        minVal: '0% Corporate & Personal Tax Hubs',
-        desc: 'Cost-effective incorporation in IFZA, Meydan, DMCC, or DAFZA with flexi-desk facilities, virtual offices, and multi-year options.',
-        benefits: ['100% capital and profit repatriation', 'No customs duties on imports/exports', 'Digital license issued within 48-72 hours'],
-        badge: 'Tax Free Hub',
-      },
-      {
-        id: 'corp-bank',
-        title: 'VIP Corporate Bank Account Assistance',
-        validity: 'Multi-Currency',
-        minVal: 'Leading UAE Tier-1 Banks',
-        desc: 'Guaranteed compliance file preparation and executive presentation to Emirates NBD, Mashreq, and First Abu Dhabi Bank (FAB).',
-        benefits: ['Dedicated VIP Relationship Manager', 'Multi-currency accounts (AED, USD, EUR, GBP)', 'Swift international wire clearance'],
-        badge: 'Tier-1 Banking',
-      },
-      {
-        id: 'trademark',
-        title: 'Trademark & Sovereign IP Registration',
-        validity: '10 Years Legal Protection',
-        minVal: 'Ministry of Economy Clearance',
-        desc: 'Register and secure your brand logos, trademarks, and intellectual property across the UAE and GCC legal jurisdictions.',
-        benefits: ['Legal enforcement against infringement', 'Official government gazette registration', 'GCC expansion coverage'],
-        badge: 'Asset Protection',
       },
     ],
     legal: [
@@ -134,36 +97,35 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
   };
 
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#F8F9FA] dark:bg-[#07090F] border-t border-b border-slate-200 dark:border-white/10 transition-colors">
+      <div className="max-w-[1560px] 2xl:max-w-[1720px] mx-auto">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[#8C6D2D] text-xs font-bold uppercase tracking-wider mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[#8C6D2D] dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
             <Award className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span>Comprehensive Solutions Portfolio</span>
+            <span>Official Government Facilitation Portfolio</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
             {t.servicesSection.title}
           </h2>
-          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             {t.servicesSection.subtitle}
           </p>
 
-          {/* Clean Segmented Control Tabs */}
-          <div className="mt-8 inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200 shadow-inner">
+          {/* Clean Re-Aligned Segmented Control Tabs (Category 1 & Category 3 Only) */}
+          <div className="mt-8 inline-flex p-1.5 rounded-2xl bg-white dark:bg-[#0E1320] border border-slate-200 dark:border-slate-800 shadow-sm">
             {[
-              { id: 'residency', label: t.servicesSection.residencyTab },
-              { id: 'corporate', label: t.servicesSection.corporateTab },
-              { id: 'legal', label: t.servicesSection.legalTab },
+              { id: 'residency', label: '1. Residency & Long-Term Visas' },
+              { id: 'legal', label: '2. Government & Legal PRO' },
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveCategory(tab.id as any)}
-                className={`px-5 sm:px-8 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`px-6 sm:px-10 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeCategory === tab.id
-                    ? 'bg-white text-slate-900 shadow-sm border border-slate-200/80 font-extrabold text-[#8C6D2D]'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-gradient-to-r from-amber-50 to-amber-100/60 dark:from-amber-950/80 dark:to-amber-900/60 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-700 shadow-xs font-extrabold'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 {tab.label}
@@ -172,61 +134,62 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
           </div>
         </div>
 
-        {/* Clean Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Clean Service Cards Grid: Seamlessly re-aligned across 2-column layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {services[activeCategory].map((service) => (
             <div
               key={service.id}
-              className="p-8 rounded-2xl white-gold-card flex flex-col justify-between"
+              className="p-8 sm:p-9 rounded-3xl white-gold-card dark:bg-[#0E1320] dark:border-white/10 dark:text-white flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all duration-300"
             >
               <div>
                 <div className="flex items-start justify-between gap-4 mb-3">
-                  <span className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-50 text-[#8C6D2D] border border-amber-200">
+                  <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/50 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                     {service.badge}
                   </span>
-                  <span className="text-xs text-slate-400 font-semibold">
+                  <span className="text-xs text-slate-400 dark:text-slate-400 font-semibold">
                     {service.validity}
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-bold text-slate-900">
+                <h3 className="text-2xl sm:text-[1.65rem] font-bold text-slate-900 dark:text-white leading-tight mt-1 font-serif group-hover:text-[#8C6D2D] dark:group-hover:text-amber-400 transition-colors">
                   {service.title}
                 </h3>
                 
-                <div className="mt-1.5 text-xs font-bold text-[#C5A059]">
-                  {service.minVal}
+                <div className="mt-2 text-xs font-extrabold text-[#C5A059] flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>{service.minVal}</span>
                 </div>
 
-                <p className="mt-4 text-slate-600 text-xs sm:text-sm leading-relaxed">
+                <p className="mt-4 text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
                   {service.desc}
                 </p>
 
                 {/* Key Benefits */}
-                <div className="mt-6 space-y-2.5 pt-4 border-t border-slate-100">
+                <div className="mt-6 space-y-2.5 pt-4 border-t border-slate-100 dark:border-white/10">
                   {service.benefits.map((b, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>{b}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Action Trigger */}
-              <div className="mt-8 pt-5 border-t border-slate-100 flex items-center justify-between">
+              {/* Action Triggers */}
+              <div className="mt-8 pt-5 border-t border-slate-100 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <button
                   onClick={onOpenCalculator}
-                  className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                 >
                   <span>{t.servicesSection.calculateFees}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#C5A059]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-950" />
                 </button>
 
                 <a
-                  href="https://wa.me/971503853305"
+                  href={`https://wa.me/971503853305?text=${encodeURIComponent(`Hello, I would like to inquire about the ${service.title}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-slate-600 hover:text-emerald-700 font-semibold flex items-center gap-1 transition-colors"
+                  className="w-full sm:w-auto text-xs text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-bold flex items-center justify-center gap-1 transition-colors py-2"
                 >
                   <span>Inquire via WhatsApp</span>
                   <ChevronRight className="w-3.5 h-3.5" />

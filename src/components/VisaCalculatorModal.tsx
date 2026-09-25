@@ -2,11 +2,11 @@
 
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '@/lib/LanguageContext';
-import { 
-  X, CheckCircle2, FileText, ArrowRight, ShieldCheck, 
-  Sparkles, Building2, UserCheck, HeartHandshake, Award 
+import {
+  X, CheckCircle2, ArrowRight, ShieldCheck,
+  Sparkles, Building2, UserCheck, HeartHandshake, Award,
+  Minus, Plus, Zap, Clock, MessageSquare, FileText
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 interface VisaCalculatorModalProps {
   isOpen: boolean;
@@ -16,379 +16,270 @@ interface VisaCalculatorModalProps {
 type Currency = 'AED' | 'USD' | 'EUR' | 'GBP';
 type CategoryKey = 'investor' | 'executive' | 'talent' | 'family';
 
+const pathways: { key: CategoryKey; icon: React.ElementType; title: string; subtitle: string; baseAED: number; color: string }[] = [
+  { key: 'investor',  icon: Building2,      title: 'Real Estate Investor (AED 2M+)', subtitle: 'Direct DLD Route',      baseAED: 3864, color: 'amber' },
+  { key: 'executive', icon: UserCheck,       title: 'Senior Executive & Director',   subtitle: 'MOHRE Fast-Lane',        baseAED: 4250, color: 'blue'  },
+  { key: 'talent',    icon: Award,           title: 'Specialized Talent / Doctor / AI', subtitle: 'Ministry Nominated', baseAED: 3500, color: 'purple'},
+  { key: 'family',    icon: HeartHandshake,  title: 'Family & Dependent Package',    subtitle: 'Full Coverage',          baseAED: 2850, color: 'green' },
+];
+
+const iconColorMap = {
+  amber:  { bg: 'bg-amber-500/10',  text: 'text-amber-400',  border: 'border-amber-500/30'  },
+  blue:   { bg: 'bg-blue-500/10',   text: 'text-blue-400',   border: 'border-blue-500/30'   },
+  purple: { bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/30' },
+  green:  { bg: 'bg-emerald-500/10',text: 'text-emerald-400',border: 'border-emerald-500/30'},
+};
+
 export const VisaCalculatorModal: React.FC<VisaCalculatorModalProps> = ({ isOpen, onClose }) => {
-  const { t, isRTL } = useLanguage();
+  const { isRTL } = useLanguage();
 
-  const [category, setCategory] = useState<CategoryKey>('investor');
-  const [propertyValue, setPropertyValue] = useState<number>(2500000);
-  const [salary, setSalary] = useState<number>(35000);
+  const [category, setCategory]     = useState<CategoryKey>('investor');
   const [dependents, setDependents] = useState<number>(1);
-  const [isVipSpeed, setIsVipSpeed] = useState<boolean>(true);
-  const [currency, setCurrency] = useState<Currency>('AED');
+  const [isVip, setIsVip]           = useState<boolean>(true);
+  const [currency, setCurrency]     = useState<Currency>('AED');
 
-  const rates: Record<Currency, number> = {
-    AED: 1,
-    USD: 0.272,
-    EUR: 0.252,
-    GBP: 0.215,
-  };
+  const rates: Record<Currency, number> = { AED: 1, USD: 0.272, EUR: 0.252, GBP: 0.215 };
+  const syms:  Record<Currency, string> = { AED: 'AED', USD: '$', EUR: '€', GBP: '£' };
 
-  const currencySymbols: Record<Currency, string> = {
-    AED: 'AED',
-    USD: '$',
-    EUR: '€',
-    GBP: '£',
-  };
-
-  const calculatedFees = useMemo(() => {
-    let govFee = 0;
-    let medicalFee = 0;
-    let emiratesIdFee = 0;
-    let conciergeFee = 0;
-
-    switch (category) {
-      case 'investor':
-        govFee = 2750;
-        medicalFee = 750;
-        emiratesIdFee = 1150;
-        conciergeFee = 3200;
-        break;
-      case 'executive':
-        govFee = 2850;
-        medicalFee = 750;
-        emiratesIdFee = 1150;
-        conciergeFee = 2900;
-        break;
-      case 'talent':
-        govFee = 2650;
-        medicalFee = 750;
-        emiratesIdFee = 1150;
-        conciergeFee = 3100;
-        break;
-      case 'family':
-        govFee = 1450 * Math.max(1, dependents);
-        medicalFee = 750 * Math.max(1, dependents);
-        emiratesIdFee = 570 * Math.max(1, dependents);
-        conciergeFee = 1500 + 600 * Math.max(1, dependents);
-        break;
-    }
-
-    if (category !== 'family' && dependents > 0) {
-      govFee += dependents * 1350;
-      medicalFee += dependents * 700;
-      emiratesIdFee += dependents * 570;
-      conciergeFee += dependents * 750;
-    }
-
-    if (isVipSpeed) {
-      conciergeFee += 1850;
-      medicalFee += 450;
-    }
-
-    const totalAED = govFee + medicalFee + emiratesIdFee + conciergeFee;
+  const fees = useMemo(() => {
+    const p = pathways.find(x => x.key === category)!;
+    let total = p.baseAED;
+    // dependents add-on (each +850 AED)
+    if (dependents > 0) total += dependents * 850;
+    // VIP fast-track surcharge
+    if (isVip) total += 1850;
     const rate = rates[currency];
-
     return {
-      gov: Math.round(govFee * rate),
-      medical: Math.round(medicalFee * rate),
-      id: Math.round(emiratesIdFee * rate),
-      concierge: Math.round(conciergeFee * rate),
-      total: Math.round(totalAED * rate),
-      totalAED,
+      base:   Math.round(p.baseAED * rate),
+      deps:   Math.round(dependents * 850 * rate),
+      vip:    isVip ? Math.round(1850 * rate) : 0,
+      total:  Math.round(total * rate),
     };
-  }, [category, propertyValue, salary, dependents, isVipSpeed, currency]);
+  }, [category, dependents, isVip, currency]);
+
+  const handleWhatsApp = () => {
+    const p = pathways.find(x => x.key === category)!;
+    const msg = `Hello Golden Visa Dubai VIP Team,\n\nI would like to get a detailed quote for:\n• Pathway: ${p.title}\n• Dependents: ${dependents}\n• Processing: ${isVip ? 'VIP Express (48-72h)' : 'Standard (7-10 days)'}\n• Estimated Total: ${syms[currency]} ${fees.total.toLocaleString()} ${currency}\n\nPlease assign a Case Officer. Thank you.`;
+    window.open(`https://wa.me/971503853305?text=${encodeURIComponent(msg)}`, '_blank');
+  };
 
   if (!isOpen) return null;
 
-  const triggerWhatsApp = () => {
-    confetti({
-      particleCount: 65,
-      spread: 60,
-      origin: { y: 0.7 },
-      colors: ['#C5A059', '#10B981', '#0F172A']
-    });
-
-    const msg = `Hello VIP Concierge Team, I would like to proceed with the UAE 10-Year Golden Visa application.
-Details:
-- Category: ${t.calculator.categories[category]}
-- Dependents: ${dependents}
-- Priority: ${isVipSpeed ? 'VIP Express 48-72h' : 'Standard'}
-- Estimated Total: ${currencySymbols[currency]} ${calculatedFees.total.toLocaleString()} (${currency})
-Please assign an Executive Case Officer.`;
-
-    const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/971500000000?text=${encoded}`, '_blank');
-  };
-
-  const handleDownloadPDF = () => {
-    confetti({
-      particleCount: 45,
-      spread: 60,
-      origin: { y: 0.6 },
-    });
-    alert(`Official Quote #${Math.floor(100000 + Math.random() * 900000)} Generated!\nEstimated Total: ${currencySymbols[currency]} ${calculatedFees.total.toLocaleString()}`);
-  };
+  const sym = syms[currency];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto bg-slate-950/70 backdrop-blur-sm animate-fadeIn">
-      <div 
-        className="relative w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white text-slate-900 shadow-2xl border border-slate-200 overflow-hidden"
-        style={{ direction: isRTL ? 'rtl' : 'ltr' }}
-      >
-        {/* Header Bar */}
-        <div className="relative px-6 py-5 border-b border-slate-200 flex items-center justify-between bg-[#FAF9F6]">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[#C5A059]">
-              <Sparkles className="w-5 h-5" />
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ direction: isRTL ? 'rtl' : 'ltr' }}
+    >
+      <div className="relative w-full max-w-2xl max-h-[96vh] flex flex-col rounded-2xl bg-[#0D1117] text-white shadow-2xl border border-white/10 overflow-hidden">
+
+        {/* ── Header ── */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#0D1117]">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-xl font-extrabold tracking-tight text-slate-900">{t.calculator.modalTitle}</h3>
-                <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  LIVE 2026 TARIFFS
-                </span>
-              </div>
-              <p className="text-xs text-slate-500 mt-0.5">{t.calculator.subtitle}</p>
-            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-amber-400">Live Cost Estimator</span>
           </div>
-          
-          <button 
-            onClick={onClose}
-            className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-3">
+            <span className="text-lg font-extrabold text-white tracking-tight">Visa Fee Calculator</span>
+          </div>
+          {/* Currency switcher */}
+          <div className="flex items-center gap-1">
+            {(['AED','USD','EUR','GBP'] as Currency[]).map(cur => (
+              <button
+                key={cur}
+                onClick={() => setCurrency(cur)}
+                className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all cursor-pointer ${
+                  currency === cur
+                    ? 'bg-[#C5A059] text-slate-950'
+                    : 'bg-white/5 text-slate-400 hover:bg-white/10'
+                }`}
+              >{cur}</button>
+            ))}
+            <button onClick={onClose} className="ml-2 p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        {/* Modal Body */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          
-          {/* Currency Switcher */}
-          <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-xs font-semibold text-slate-600">Currency:</span>
-            <div className="flex gap-1.5">
-              {(['AED', 'USD', 'EUR', 'GBP'] as Currency[]).map((cur) => (
-                <button
-                  key={cur}
-                  onClick={() => setCurrency(cur)}
-                  className={`px-3.5 py-1 rounded-lg text-xs font-bold transition-all ${
-                    currency === cur
-                      ? 'gold-btn shadow-sm'
-                      : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
-                  }`}
-                >
-                  {cur}
-                </button>
-              ))}
-            </div>
-          </div>
+        {/* ── Scrollable Body ── */}
+        <div className="flex-1 overflow-y-auto">
 
-          {/* Visa Category Selector */}
-          <div>
-            <label className="block text-xs font-extrabold uppercase tracking-wider text-slate-900 mb-3">
-              1. {t.calculator.visaCategory}
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {[
-                { key: 'investor' as CategoryKey, icon: Building2, title: t.calculator.categories.investor, desc: t.calculator.categories.investorDesc },
-                { key: 'executive' as CategoryKey, icon: UserCheck, title: t.calculator.categories.executive, desc: t.calculator.categories.executiveDesc },
-                { key: 'talent' as CategoryKey, icon: Award, title: t.calculator.categories.talent, desc: t.calculator.categories.talentDesc },
-                { key: 'family' as CategoryKey, icon: HeartHandshake, title: t.calculator.categories.family, desc: t.calculator.categories.familyDesc },
-              ].map((item) => {
-                const IconComponent = item.icon;
-                const isSelected = category === item.key;
+          {/* 1. Residency Pathway Selection */}
+          <div className="px-5 pt-5 pb-3">
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">1. Select Residency Pathway</p>
+            <div className="space-y-2">
+              {pathways.map(p => {
+                const colors = iconColorMap[p.color as keyof typeof iconColorMap];
+                const IconComp = p.icon;
+                const isSelected = category === p.key;
+                const displayAmt = Math.round(p.baseAED * rates[currency]);
                 return (
-                  <div
-                    key={item.key}
-                    onClick={() => setCategory(item.key)}
-                    className={`cursor-pointer p-4 rounded-xl border transition-all duration-200 flex items-start gap-3.5 ${
+                  <button
+                    key={p.key}
+                    onClick={() => setCategory(p.key)}
+                    className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl border transition-all cursor-pointer text-left ${
                       isSelected
-                        ? 'border-[#C5A059] bg-[#FAF7F2] shadow-sm ring-1 ring-[#C5A059]'
-                        : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+                        ? 'bg-[#C5A059]/10 border-[#C5A059]/60 shadow-[0_0_20px_rgba(197,160,89,0.12)]'
+                        : 'bg-white/3 border-white/8 hover:bg-white/6 hover:border-white/15'
                     }`}
                   >
-                    <div className={`p-2.5 rounded-xl mt-0.5 ${isSelected ? 'bg-amber-100 text-[#8C6D2D]' : 'bg-slate-100 text-slate-600'}`}>
-                      <IconComponent className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-sm font-bold text-slate-900">{item.title}</h4>
-                        {isSelected && <CheckCircle2 className="w-4 h-4 text-[#8C6D2D]" />}
+                    <div className="flex items-center gap-3">
+                      <div className={`w-9 h-9 rounded-xl ${colors.bg} border ${colors.border} flex items-center justify-center shrink-0`}>
+                        <IconComp className={`w-4.5 h-4.5 ${colors.text}`} />
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 leading-relaxed">{item.desc}</p>
+                      <div>
+                        <div className={`text-sm font-bold ${isSelected ? 'text-[#C5A059]' : 'text-white'}`}>{p.title}</div>
+                        <div className="text-[11px] text-slate-500 mt-0.5">{p.subtitle}</div>
+                      </div>
                     </div>
-                  </div>
+                    <div className="text-right shrink-0">
+                      <div className={`text-sm font-extrabold ${isSelected ? 'text-[#C5A059]' : 'text-slate-300'}`}>
+                        {sym} {displayAmt.toLocaleString()}
+                      </div>
+                      {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A059] mt-0.5 ml-auto" />}
+                    </div>
+                  </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Dynamic Sliders */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {category === 'investor' && (
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-slate-600 font-semibold">{t.calculator.propValue}</span>
-                  <span className="text-sm font-extrabold text-[#8C6D2D]">AED {propertyValue.toLocaleString()}</span>
-                </div>
-                <input
-                  type="range"
-                  min="2000000"
-                  max="15000000"
-                  step="250000"
-                  value={propertyValue}
-                  onChange={(e) => setPropertyValue(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#C5A059]"
-                />
-                <div className="flex justify-between text-[11px] text-slate-400 mt-1 font-medium">
-                  <span>Min: 2,000,000 AED</span>
-                  <span>15,000,000+ AED</span>
-                </div>
+          {/* 2. Dependents & Speed */}
+          <div className="px-5 pt-3 pb-3 grid grid-cols-2 gap-3">
+            {/* Dependents */}
+            <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">Dependents</p>
+              <div className="flex items-center justify-between">
+                <button
+                  onClick={() => setDependents(Math.max(0, dependents - 1))}
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
+                >
+                  <Minus className="w-4 h-4" />
+                </button>
+                <span className="text-2xl font-extrabold text-white">{dependents}</span>
+                <button
+                  onClick={() => setDependents(Math.min(8, dependents + 1))}
+                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 flex items-center justify-center text-white transition-colors cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
               </div>
-            )}
-
-            {category === 'executive' && (
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-xs text-slate-600 font-semibold">{t.calculator.monthlySalary}</span>
-                  <span className="text-sm font-extrabold text-[#8C6D2D]">AED {salary.toLocaleString()}</span>
-                </div>
-                <input
-                  type="range"
-                  min="30000"
-                  max="120000"
-                  step="5000"
-                  value={salary}
-                  onChange={(e) => setSalary(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#C5A059]"
-                />
-                <div className="flex justify-between text-[11px] text-slate-400 mt-1 font-medium">
-                  <span>Min: 30,000 AED</span>
-                  <span>120,000+ AED</span>
-                </div>
-              </div>
-            )}
-
-            {/* Dependents Counter */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <div className="flex justify-between items-center mb-2.5">
-                <span className="text-xs text-slate-600 font-semibold">{t.calculator.dependents}</span>
-                <span className="text-sm font-extrabold text-[#8C6D2D]">{dependents} {dependents === 1 ? 'Person' : 'Persons'}</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                {[0, 1, 2, 3, 4, 5].map((num) => (
-                  <button
-                    key={num}
-                    onClick={() => setDependents(num)}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition-all ${
-                      dependents === num
-                        ? 'border-[#C5A059] bg-[#FAF7F2] text-[#8C6D2D]'
-                        : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-100'
-                    }`}
-                  >
-                    {num}
-                  </button>
-                ))}
-              </div>
+              {dependents > 0 && (
+                <p className="text-center text-[10px] text-slate-500 mt-2">+{sym} {Math.round(dependents * 850 * rates[currency]).toLocaleString()} added</p>
+              )}
             </div>
 
-            {/* Speed Priority */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-              <div className="text-xs text-slate-600 font-semibold mb-2.5">{t.calculator.processingSpeed}</div>
-              <div className="grid grid-cols-2 gap-2">
+            {/* Processing Speed */}
+            <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-3">Fast-Track</p>
+              <div className="space-y-2">
                 <button
-                  onClick={() => setIsVipSpeed(false)}
-                  className={`p-2.5 rounded-lg border text-left text-xs font-medium transition-all ${
-                    !isVipSpeed
-                      ? 'border-slate-400 bg-white text-slate-900 font-bold'
-                      : 'border-slate-200 bg-white text-slate-500 hover:text-slate-800'
+                  onClick={() => setIsVip(false)}
+                  className={`w-full py-2 px-3 rounded-lg border text-left transition-all cursor-pointer ${
+                    !isVip
+                      ? 'bg-white/10 border-white/30 text-white'
+                      : 'bg-transparent border-white/5 text-slate-500 hover:border-white/15'
                   }`}
                 >
-                  <div className="font-bold text-slate-900">Standard</div>
-                  <div className="text-[10px] text-slate-500">7-10 Days</div>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span className="text-xs font-bold">Standard</span>
+                  </div>
+                  <div className="text-[10px] opacity-70 mt-0.5">7–10 Days</div>
                 </button>
                 <button
-                  onClick={() => setIsVipSpeed(true)}
-                  className={`p-2.5 rounded-lg border text-left text-xs font-medium transition-all ${
-                    isVipSpeed
-                      ? 'border-[#C5A059] bg-[#FAF7F2] text-[#8C6D2D] font-bold ring-1 ring-[#C5A059]'
-                      : 'border-slate-200 bg-white text-slate-500 hover:text-slate-800'
+                  onClick={() => setIsVip(true)}
+                  className={`w-full py-2 px-3 rounded-lg border text-left transition-all cursor-pointer ${
+                    isVip
+                      ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
+                      : 'bg-transparent border-white/5 text-slate-500 hover:border-white/15'
                   }`}
                 >
-                  <div className="font-bold text-[#8C6D2D] flex items-center gap-1">
-                    <span>VIP Express</span>
-                    <Sparkles className="w-3 h-3 text-[#C5A059]" />
+                  <div className="flex items-center gap-1.5">
+                    <Zap className="w-3.5 h-3.5" />
+                    <span className="text-xs font-bold">VIP (48–72h)</span>
                   </div>
-                  <div className="text-[10px] text-[#8C6D2D]/70">48-72 Hours</div>
+                  <div className="text-[10px] opacity-70 mt-0.5">Priority Express</div>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Breakdown Section */}
-          <div className="p-5 rounded-2xl bg-[#FAF9F6] border border-slate-200">
-            <div className="flex items-center justify-between mb-4 border-b border-slate-200 pb-2">
-              <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-800">{t.calculator.breakdownTitle}</h4>
-              <span className="text-[11px] text-slate-500 flex items-center gap-1 font-medium">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Official Tariff Verified
-              </span>
-            </div>
-
-            <div className="space-y-2.5 text-xs">
-              <div className="flex justify-between text-slate-600">
-                <span>{t.calculator.govFee}</span>
-                <span className="font-bold text-slate-900">{currencySymbols[currency]} {calculatedFees.gov.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>{t.calculator.medicalFitness}</span>
-                <span className="font-bold text-slate-900">{currencySymbols[currency]} {calculatedFees.medical.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>{t.calculator.emiratesId}</span>
-                <span className="font-bold text-slate-900">{currencySymbols[currency]} {calculatedFees.id.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-slate-600">
-                <span>{t.calculator.vipConcierge}</span>
-                <span className="font-bold text-[#8C6D2D]">{currencySymbols[currency]} {calculatedFees.concierge.toLocaleString()}</span>
-              </div>
-            </div>
-
-            {/* Total Row */}
-            <div className="mt-4 pt-3.5 border-t border-slate-200 flex items-center justify-between">
-              <div>
-                <span className="text-xs text-slate-500 block font-semibold">{t.calculator.totalEst}</span>
-                <div className="text-2xl font-black text-slate-900 tracking-tight">
-                  {currencySymbols[currency]} {calculatedFees.total.toLocaleString()}
-                  <span className="text-xs font-semibold text-slate-500 ml-1.5">({currency})</span>
+          {/* 3. Fee Breakdown */}
+          <div className="px-5 pb-5">
+            <div className="bg-white/3 border border-white/8 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-3 pb-2.5 border-b border-white/8">
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Estimated Total Investment</p>
+                <div className="flex items-center gap-1 text-[10px] text-emerald-400 font-semibold">
+                  <ShieldCheck className="w-3 h-3" />
+                  <span>Govt. All-Inclusive</span>
                 </div>
               </div>
-              <div className="text-right">
-                <span className="inline-block px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                  Fixed Pricing Guarantee
-                </span>
+
+              <div className="space-y-2 text-xs mb-3">
+                <div className="flex justify-between text-slate-400">
+                  <span>Base Government Fees</span>
+                  <span className="text-slate-200 font-semibold">{sym} {fees.base.toLocaleString()}</span>
+                </div>
+                {fees.deps > 0 && (
+                  <div className="flex justify-between text-slate-400">
+                    <span>Dependents ({dependents}×)</span>
+                    <span className="text-slate-200 font-semibold">{sym} {fees.deps.toLocaleString()}</span>
+                  </div>
+                )}
+                {fees.vip > 0 && (
+                  <div className="flex justify-between text-emerald-400">
+                    <span className="flex items-center gap-1"><Zap className="w-3 h-3" />VIP Fast-Track</span>
+                    <span className="font-semibold">{sym} {fees.vip.toLocaleString()}</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                <div>
+                  <div className="text-[10px] text-slate-500 font-semibold mb-0.5">Total Estimate</div>
+                  <div className="text-3xl font-black text-white tracking-tight">
+                    {sym} <span className="text-[#C5A059]">{fees.total.toLocaleString()}</span>
+                    <span className="text-sm font-semibold text-slate-500 ml-1">{currency}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold">
+                    <Sparkles className="w-3 h-3" />
+                    Fixed Price
+                  </div>
+                  <div className="text-[10px] text-slate-600 mt-1">No hidden charges</div>
+                </div>
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 mt-2 italic">{t.calculator.legalNote}</p>
           </div>
         </div>
 
-        {/* Modal Footer / CTAs */}
-        <div className="p-4 sm:p-5 border-t border-slate-200 bg-white flex flex-col sm:flex-row gap-3">
+        {/* ── Footer Actions ── */}
+        <div className="px-5 pb-5 pt-3 border-t border-white/10 bg-[#0D1117] space-y-2.5">
           <button
-            onClick={triggerWhatsApp}
-            className="flex-1 py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer"
+            onClick={handleWhatsApp}
+            className="w-full py-3.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-lg shadow-emerald-900/30"
           >
-            <span>{t.calculator.instantWhatsapp}</span>
-            <ArrowRight className="w-4 h-4" />
+            <MessageSquare className="w-4.5 h-4.5 shrink-0" />
+            <span>Get Instant WhatsApp Quote</span>
+            <ArrowRight className="w-4 h-4 ml-auto shrink-0" />
           </button>
-          
           <button
-            onClick={handleDownloadPDF}
-            className="py-3.5 px-5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+            onClick={() => alert(`Quote #GV-${Math.floor(100000 + Math.random() * 900000)} — Total: ${sym} ${fees.total.toLocaleString()} — Our team will contact you within 2 hours.`)}
+            className="w-full py-3 px-5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 font-semibold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
-            <FileText className="w-4 h-4 text-[#C5A059]" />
-            <span>{t.calculator.pdfQuote}</span>
+            <FileText className="w-4 h-4 text-[#C5A059] shrink-0" />
+            <span>Download Official Quote PDF</span>
           </button>
+          <p className="text-center text-[10px] text-slate-600">
+            Estimates include GDRFA/ICP government fees, Emirates ID, medical screening & VIP concierge. Final fees confirmed by your case officer.
+          </p>
         </div>
       </div>
     </div>
