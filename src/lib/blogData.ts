@@ -1,0 +1,135 @@
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: 'Golden Visa' | 'Real Estate' | 'Corporate' | 'Regulations';
+  readTime: string;
+  day: string;
+  month: string;
+  year: string;
+  author: string;
+  image: string;
+  featured?: boolean;
+}
+
+export const blogPosts: BlogPost[] = [
+  {
+    id: '1',
+    slug: 'dubai-golden-visa-property-investment-2026',
+    title: 'UAE Property Investor Golden Visa: Complete 2026 Rules & DLD Guidelines',
+    excerpt: 'Explore the updated criteria for AED 2,000,000 property investors. Learn how off-plan, mortgaged properties, and combined deeds qualify for official long-term residency.',
+    category: 'Real Estate',
+    readTime: '4 min read',
+    day: '24',
+    month: 'AUG',
+    year: '2026',
+    author: 'Legal Counsel Desk',
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
+    featured: true,
+  },
+  {
+    id: '2',
+    slug: 'sponsor-family-under-10-year-golden-visa',
+    title: 'How to Sponsor Your Family, Parents & Domestic Staff Under the Golden Visa',
+    excerpt: 'A comprehensive step-by-step walkthrough on sponsoring your spouse, sons up to 25, unmarried daughters with zero age limit, and dependent parents without a local guarantor.',
+    category: 'Golden Visa',
+    readTime: '5 min read',
+    day: '23',
+    month: 'AUG',
+    year: '2026',
+    author: 'GDRFA Liaison Officer',
+    image: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '3',
+    slug: 'executive-c-suite-leadership-visa-criteria',
+    title: 'Senior Executive 10-Year Golden Visa: MOHRE Contract & Salary Benchmarks',
+    excerpt: 'Understand the legal verification protocols for the AED 30,000 monthly salary requirement, accredited degree attestations, and executive nomination filing.',
+    category: 'Golden Visa',
+    readTime: '3 min read',
+    day: '23',
+    month: 'AUG',
+    year: '2026',
+    author: 'Executive Relations',
+    image: 'https://images.unsplash.com/photo-152207182399e-b89e7df91b62?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '4',
+    slug: 'dubai-mainland-vs-freezone-company-setup',
+    title: 'Dubai Mainland LLC vs. Free Zone: Which Structure Best Fits Your Enterprise?',
+    excerpt: 'Detailed comparison of 100% foreign ownership on the Mainland versus 0% corporate tax free zones (IFZA, Meydan, DMCC) with banking pre-approvals.',
+    category: 'Corporate',
+    readTime: '6 min read',
+    day: '22',
+    month: 'AUG',
+    year: '2026',
+    author: 'Corporate Formation Team',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '5',
+    slug: 'mortgaged-property-golden-visa-noc',
+    title: 'Can You Get a 10-Year Golden Visa on a Mortgaged Dubai Property?',
+    excerpt: 'Official procedures for securing the required Bank NOC letter from UAE lenders to present at the Dubai Land Department for your 10-year residency.',
+    category: 'Real Estate',
+    readTime: '4 min read',
+    day: '21',
+    month: 'AUG',
+    year: '2026',
+    author: 'Property Legal Liaison',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '6',
+    slug: 'stay-outside-uae-golden-visa-rules',
+    title: 'The 6-Month Stay Exemption: Freedom of Global Travel for Visa Holders',
+    excerpt: 'Unlike standard 2-year residence visas that expire after 180 days abroad, the 10-Year Golden Visa allows you to travel and live overseas without losing your UAE residency.',
+    category: 'Regulations',
+    readTime: '3 min read',
+    day: '21',
+    month: 'AUG',
+    year: '2026',
+    author: 'Immigration Specialist',
+    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '7',
+    slug: 'specialized-talents-doctors-ai-scientists',
+    title: 'Golden Visa for Doctors, AI Researchers, and Creative Cultural Talents',
+    excerpt: 'Clear pathways for medical professionals with DHA/MOH licenses, PhD researchers, and innovators approved by the Emirates Scientists Council.',
+    category: 'Golden Visa',
+    readTime: '5 min read',
+    day: '18',
+    month: 'AUG',
+    year: '2026',
+    author: 'Innovation Board Officer',
+    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '8',
+    slug: 'corporate-tax-uae-residency-benefits',
+    title: 'UAE Corporate & Personal Tax Advantages for High-Net-Worth Residents',
+    excerpt: 'How securing UAE tax residency protects international wealth, eliminates personal income taxes, and integrates double taxation avoidance treaties.',
+    category: 'Corporate',
+    readTime: '5 min read',
+    day: '18',
+    month: 'AUG',
+    year: '2026',
+    author: 'Tax & Compliance Lead',
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '9',
+    slug: 'document-attestation-mofa-guide',
+    title: 'Global Degree and Marriage Certificate Attestation for UAE Residency',
+    excerpt: 'Everything you need to know about Home Country Notary, Ministry of Foreign Affairs, UAE Embassy, and MOFA electronic apostilles in Dubai.',
+    category: 'Regulations',
+    readTime: '4 min read',
+    day: '17',
+    month: 'AUG',
+    year: '2026',
+    author: 'Attestation Desk',
+    image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+  },
+];

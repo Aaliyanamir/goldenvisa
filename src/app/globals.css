@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+/* Global box-sizing & overflow safeguard */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Prevent any element from causing horizontal scroll */
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+@layer base {
+  :root {
+    --gold-primary: #C5A059;
+    --gold-hover: #D4AF37;
+    --gold-dark: #8C6D2D;
+    --gold-subtle: #FDFBF7;
+    --gold-border: #E8D5B5;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #F8F9FA;
+    --bg-dark-hero: #0F172A;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  /* RTL font enhancement */
+  html[dir="rtl"] {
+    font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #0F172A;
+    overflow-x: hidden;
+    /* Prevent content from being hidden under iOS/Android browser chrome */
+    min-height: 100dvh;
+  }
+
+  /* Better tap targets on mobile */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent text inflation on mobile landscape */
+  * {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+}
+
+/* Luxury Editorial Styling */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D4AF37 0%, #C5A059 40%, #997328 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #DFBE74 0%, #C5A059 50%, #B38933 100%);
+}
+
+.gold-btn {
+  background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%);
+  color: #0F172A;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-btn:hover {
+  background: linear-gradient(135deg, #E5C365 0%, #D4AF37 100%);
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.45);
+  transform: translateY(-1px);
+}
+
+.white-gold-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s ease;
+}
+
+.white-gold-card:hover {
+  border-color: #C5A059;
+  box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Aevora-style Rotating Wireframe / Orbit Geometry Animations */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinSlowReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulseGoldGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 24s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spinSlowReverse 32s linear infinite;
+}
+
+.animate-pulse-gold {
+  animation: pulseGoldGlow 4s ease-in-out infinite;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A059;
+}
