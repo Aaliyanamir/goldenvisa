@@ -75,7 +75,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'About Us', icon: Info, action: () => { onNavigate?.('about'); setMobileMenuOpen(false); }, isActive: currentView === 'about' },
     { label: 'Career', icon: Users, action: () => { window.open('https://wa.me/971503853305?text=Hello%2C%20I%20am%20inquiring%20about%20career%20opportunities%20at%20Golden%20Visa%20Dubai.', '_blank'); }, isActive: false },
     { label: 'Contact Us', icon: Headphones, action: () => { window.open('https://wa.me/971503853305?text=Hello%2C%20I%20would%20like%20to%20request%20an%20advisory%20consultation.', '_blank'); }, isActive: false },
-    { label: 'FAQ', icon: HelpCircle, action: () => { onNavigate?.('home'); setMobileMenuOpen(false); setTimeout(() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }), 100); }, isActive: false },
   ];
 
 
@@ -125,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* ─── Floating Pill Glassmorphic Header (Fluid & Large Display Scaled) ─── */}
         <div className="w-full px-3 sm:px-6 lg:px-10 pt-2 sm:pt-3">
-          <header className="max-w-[1720px] mx-auto pointer-events-auto rounded-full bg-white/95 dark:bg-[#0E1320]/95 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.18)] dark:shadow-[0_12px_40px_-5px_rgba(0,0,0,0.7)] transition-all duration-300 px-3.5 sm:px-6 2xl:px-8 py-2.5">
+          <header className="site-nav-header max-w-[1720px] mx-auto pointer-events-auto rounded-full bg-white/95 dark:bg-[#0E1320]/95 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.18)] dark:shadow-[0_12px_40px_-5px_rgba(0,0,0,0.7)] transition-all duration-300 px-3.5 sm:px-6 2xl:px-8 py-2.5">
             
             <div className="flex items-center justify-between gap-2 lg:gap-4 xl:gap-6">
 
@@ -262,13 +261,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   )}
                 </button>
 
-                {/* Compact VISA Calculator Button (matches reference) */}
+                {/* Header Visa Calculator CTA Button */}
                 <button
                   onClick={onOpenCalculator}
-                  className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#0F172A] dark:bg-slate-800 hover:bg-slate-900 dark:hover:bg-slate-700 text-white font-bold text-[11px] uppercase tracking-widest cursor-pointer shadow-sm transition-all active:scale-95 whitespace-nowrap border border-white/10"
+                  className="hidden xl:flex items-center gap-1.5 px-3.5 py-2 rounded-full gold-btn text-slate-950 font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-md transition-all hover:scale-[1.03] active:scale-95 whitespace-nowrap shrink-0 group"
                 >
-                  <Calculator className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
-                  <span>VISA</span>
+                  <Calculator className="w-3.5 h-3.5 text-slate-950 group-hover:rotate-12 transition-transform duration-300 shrink-0" />
+                  <span>Visa Calculator</span>
                 </button>
 
                 {/* Mobile Hamburger Drawer Trigger */}

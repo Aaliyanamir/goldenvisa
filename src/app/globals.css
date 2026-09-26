@@ -38,8 +38,8 @@ html {
 
     --bg-page: #07090F;
     --bg-surface: #0E1320;
-    --bg-alt: #131A2A;
-    --bg-warm: #182236;
+    --bg-alt: #0B0F19;
+    --bg-warm: #131A2A;
     --text-main: #F8FAFC;
     --text-muted: #94A3B8;
     --border-subtle: rgba(255, 255, 255, 0.1);
@@ -61,7 +61,6 @@ html {
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
-  /* Better tap targets on mobile */
   button, a {
     -webkit-tap-highlight-color: transparent;
   }
@@ -72,14 +71,66 @@ html {
   }
 }
 
-/* Dark Mode Global Overrides for Complete Theme Transformation */
+/* ─── White Gold Card Base (Light Mode) ─── */
+.white-gold-card {
+  background-color: #FFFFFF !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #0F172A !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+  transition: all 0.3s ease;
+}
+
+.white-gold-card:hover {
+  border-color: #C5A059 !important;
+  box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.2);
+  transform: translateY(-2px);
+}
+
+.white-gold-card h3,
+.white-gold-card h4 {
+  color: #0F172A !important;
+}
+
+.white-gold-card p {
+  color: #1E293B !important;
+}
+
+html:not(.dark) .white-gold-card {
+  border-color: #D8C28C !important;
+}
+
+html:not(.dark) .white-gold-card .text-slate-200,
+html:not(.dark) .white-gold-card .text-slate-300,
+html:not(.dark) .white-gold-card .text-slate-400 {
+  color: #334155 !important;
+}
+
+html:not(.dark) .white-gold-card .text-amber-400,
+html:not(.dark) .white-gold-card .text-amber-900,
+html:not(.dark) .white-gold-card .text-amber-950 {
+  color: #806020 !important;
+}
+
+html:not(.dark) .white-gold-card span.bg-amber-100\/90,
+html:not(.dark) .white-gold-card span.dark\:bg-amber-950\/60 {
+  background-color: #F8F1DF !important;
+  color: #6F5114 !important;
+  border-color: #D8C28C !important;
+}
+
+html:not(.dark) .white-gold-card .border-slate-200,
+html:not(.dark) .white-gold-card .dark\:border-white\/10 {
+  border-color: #E8DFCB !important;
+}
+
+/* ─── Dark Mode Card & Global Overrides ─── */
 html.dark body {
-  background-color: #07090F;
-  color: #F8FAFC;
+  background-color: #07090F !important;
+  color: #F8FAFC !important;
 }
 
 html.dark header {
-  background: rgba(14, 19, 32, 0.92) !important;
+  background: rgba(14, 19, 32, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7) !important;
 }
@@ -101,7 +152,7 @@ html.dark header nav button .text-slate-700 {
 }
 
 html.dark .white-gold-card {
-  background: #0E1320 !important;
+  background-color: #0E1320 !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
   color: #F8FAFC !important;
   box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4) !important;
@@ -109,7 +160,7 @@ html.dark .white-gold-card {
 
 html.dark .white-gold-card:hover {
   border-color: #C5A059 !important;
-  box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.2) !important;
+  box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.25) !important;
 }
 
 html.dark .white-gold-card h3,
@@ -118,15 +169,7 @@ html.dark .white-gold-card h4 {
 }
 
 html.dark .white-gold-card p {
-  color: #94A3B8 !important;
-}
-
-html.dark .section-contrast-warm {
-  background-color: #0E1320 !important;
-}
-
-html.dark .section-contrast-light {
-  background-color: #07090F !important;
+  color: #CBD5E1 !important;
 }
 
 /* Luxury Editorial Styling */
@@ -154,19 +197,6 @@ html.dark .section-contrast-light {
   transform: translateY(-1px);
 }
 
-.white-gold-card {
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-  transition: all 0.3s ease;
-}
-
-.white-gold-card:hover {
-  border-color: #C5A059;
-  box-shadow: 0 12px 30px -5px rgba(197, 160, 89, 0.15);
-  transform: translateY(-2px);
-}
-
 /* Smooth Horizontal Animated Live Ticker / News Bar */
 @keyframes ticker {
   0% {
@@ -185,48 +215,6 @@ html.dark .section-contrast-light {
 
 .animate-ticker:hover {
   animation-play-state: paused;
-}
-
-/* Aevora-style Rotating Wireframe / Orbit Geometry Animations */
-@keyframes spinSlow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes spinSlowReverse {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-@keyframes pulseGoldGlow {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.02);
-  }
-}
-
-.animate-spin-slow {
-  animation: spinSlow 24s linear infinite;
-}
-
-.animate-spin-slow-reverse {
-  animation: spinSlowReverse 32s linear infinite;
-}
-
-.animate-pulse-gold {
-  animation: pulseGoldGlow 4s ease-in-out infinite;
 }
 
 /* Custom scrollbars */
@@ -252,4 +240,64 @@ html.dark ::-webkit-scrollbar-thumb {
 }
 html.dark ::-webkit-scrollbar-thumb:hover {
   background: #475569;
+}
+
+/* Light theme: white, black, and gold across the site, except the video hero. */
+html:not(.dark) #site-shell {
+  background: #FFFFFF !important;
+  color: #111827 !important;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):not(.site-nav-header):is(section, header, footer, aside, article) {
+  background-color: #FFFFFF !important;
+  border-color: #E5E7EB;
+  color: #111827;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):not(.site-nav-header):is([class*="bg-[#"], [class*="bg-slate-"], [class*="bg-gray-"], [class*="bg-zinc-"], [class*="bg-neutral-"]) {
+  background-color: #FFFFFF !important;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is([class*="bg-gradient-to-"]) {
+  background-color: #FFFFFF !important;
+  background-image: none !important;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is([class*="text-white"], [class*="text-slate-"], [class*="text-gray-"], [class*="text-zinc-"], [class*="text-neutral-"]) {
+  color: #111827 !important;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is(h1, h2, h3, h4, h5, h6) {
+  color: #8C6D2D !important;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is(h1, h2, h3, h4, h5, h6):is([class*="text-white"], [class*="text-slate-"], [class*="text-gray-"], [class*="text-zinc-"], [class*="text-neutral-"]) {
+  color: #8C6D2D !important;
+}
+
+html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is(.gold-btn, a[class*="bg-gradient-to-"]) {
+  background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%) !important;
+  border-color: #C5A059 !important;
+  color: #111827 !important;
+}
+
+html:not(.dark) #site-shell .site-nav-header {
+  background: #FFF2C6 !important;
+  border-color: #E7D39A !important;
+}
+
+html:not(.dark) #site-shell .site-nav-header nav button {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: #111827 !important;
+  font-weight: 700;
+}
+
+html:not(.dark) #site-shell .site-nav-header nav button span {
+  color: #111827 !important;
+  font-weight: 700;
+}
+
+html:not(.dark) #site-shell .site-nav-header nav button:hover {
+  background: #F2E2B3 !important;
 }

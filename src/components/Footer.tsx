@@ -114,20 +114,20 @@ export const Footer: React.FC<FooterProps> = ({
       {/* ─── Persistent B2B Referral / Executive Partnership Banner ─── */}
       <aside
         aria-label="Executive Partnership Program"
-        className="bg-gradient-to-r from-[#1A1E2C] via-[#232323] to-[#1A1E2C] border-t border-b border-amber-500/20 py-8 px-4 sm:px-6 lg:px-10 text-white"
+        className="bg-gradient-to-r from-amber-100/80 via-amber-50 to-amber-100/80 dark:from-[#1A1E2C] dark:via-[#232323] dark:to-[#1A1E2C] border-t border-b border-amber-300 dark:border-amber-500/20 py-8 px-4 sm:px-6 lg:px-10 text-slate-900 dark:text-white transition-colors duration-300"
       >
         <div className="max-w-[1720px] mx-auto text-center flex flex-col items-center gap-5">
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[10px] font-black uppercase tracking-widest">
-            <Handshake className="w-3.5 h-3.5 shrink-0" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-200/80 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest">
+            <Handshake className="w-3.5 h-3.5 shrink-0 text-[#C5A059]" />
             <span>B2B Partner Program</span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
             Grow Together With Our B2B Referral Program
           </h2>
 
-          <p className="max-w-2xl text-slate-300 text-sm sm:text-base leading-relaxed">
+          <p className="max-w-2xl text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
             Partner with Golden Visa Dubai through our structured B2B and Corporate Referral Program. Refer clients who need Golden Visa, Family Visa, Attestation, or PRO services and earn tiered commissions with dedicated partner support.
           </p>
 

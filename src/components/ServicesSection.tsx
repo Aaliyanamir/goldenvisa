@@ -139,14 +139,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
           {services[activeCategory].map((service) => (
             <div
               key={service.id}
-              className="p-8 sm:p-9 rounded-3xl white-gold-card dark:bg-[#0E1320] dark:border-white/10 dark:text-white flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all duration-300"
+              className="p-8 sm:p-9 rounded-3xl white-gold-card flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all duration-300"
             >
               <div>
                 <div className="flex items-start justify-between gap-4 mb-3">
-                  <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/50 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                  <span className="text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-100/90 dark:bg-amber-950/60 text-amber-950 dark:text-amber-300 border border-amber-300/80 dark:border-amber-800">
                     {service.badge}
                   </span>
-                  <span className="text-xs text-slate-400 dark:text-slate-400 font-semibold">
+                  <span className="text-xs text-slate-700 dark:text-slate-400 font-bold">
                     {service.validity}
                   </span>
                 </div>
@@ -155,20 +155,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                   {service.title}
                 </h3>
                 
-                <div className="mt-2 text-xs font-extrabold text-[#C5A059] flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" />
+                <div className="mt-2 text-xs font-black text-amber-900 dark:text-amber-400 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>{service.minVal}</span>
                 </div>
 
-                <p className="mt-4 text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                <p className="mt-4 text-[#1E293B] dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
                   {service.desc}
                 </p>
 
                 {/* Key Benefits */}
-                <div className="mt-6 space-y-2.5 pt-4 border-t border-slate-100 dark:border-white/10">
+                <div className="mt-6 space-y-2.5 pt-4 border-t border-slate-200 dark:border-white/10">
                   {service.benefits.map((b, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-[#0F172A] dark:text-slate-200 font-semibold">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-500 shrink-0" />
                       <span>{b}</span>
                     </div>
                   ))}
@@ -176,7 +176,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
               </div>
 
               {/* Action Triggers */}
-              <div className="mt-8 pt-5 border-t border-slate-100 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="mt-8 pt-5 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
                 <button
                   onClick={onOpenCalculator}
                   className="w-full sm:w-auto px-5 py-2.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs"
@@ -189,7 +189,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                   href={`https://wa.me/971503853305?text=${encodeURIComponent(`Hello, I would like to inquire about the ${service.title}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto text-xs text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-bold flex items-center justify-center gap-1 transition-colors py-2"
+                  className="w-full sm:w-auto text-xs text-slate-900 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400 font-extrabold flex items-center justify-center gap-1 transition-colors py-2"
                 >
                   <span>Inquire via WhatsApp</span>
                   <ChevronRight className="w-3.5 h-3.5" />

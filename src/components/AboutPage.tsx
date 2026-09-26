@@ -87,29 +87,29 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-white">
+    <div className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-white transition-colors duration-300">
 
       {/* ── Hero Banner ── */}
-      <section className="relative pt-36 pb-20 px-4 sm:px-6 lg:px-10 bg-[#0D1117] text-white overflow-hidden">
+      <section className="relative pt-36 pb-20 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0D1117] text-slate-900 dark:text-white overflow-hidden transition-colors duration-300 border-b border-slate-200 dark:border-white/10">
         {/* Dot grid background */}
         <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none" />
         {/* Amber glow */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[400px] bg-amber-500/8 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[400px] bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
 
         <div className="max-w-[1720px] mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
-                <Sparkles className="w-3 h-3" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
+                <Sparkles className="w-3 h-3 text-[#C5A059]" />
                 <span>About Golden Visa Dubai</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white">
-                About <span className="text-[#C5A059] font-serif italic">Brightlink</span> —<br />
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white font-serif">
+                About <span className="gold-gradient-text italic font-serif">Brightlink</span> —<br />
                 Your Trusted UAE<br />
                 <span className="text-[#C5A059]">Consultancy</span>
               </h1>
-              <p className="mt-6 text-slate-300 text-base leading-relaxed max-w-xl">
+              <p className="mt-6 text-slate-700 dark:text-slate-300 text-base leading-relaxed max-w-xl font-normal">
                 Golden Visa Dubai is the UAE's premier residency facilitation partner. We have successfully guided over 2,400 investors, entrepreneurs, executives, and families to secure their 10-Year UAE Golden Visa — with a 98% approval success rate.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -118,16 +118,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg"
                 >
                   <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-                  Calculate My Visa Fees
+                  <span>Calculate My Visa Fees</span>
                 </button>
                 <a
                   href="https://wa.me/971503853305"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-md"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
-                  Speak to a Consultant
+                  <span>Speak to a Consultant</span>
                 </a>
               </div>
             </div>
@@ -135,26 +135,26 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
             {/* Right: Logo card */}
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-[320px] sm:w-[380px]">
-                <div className="rounded-3xl bg-gradient-to-br from-[#1A1E2C] to-[#0D1117] border border-amber-500/20 p-8 shadow-2xl">
+                <div className="rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#1A1E2C] dark:to-[#0D1117] border border-slate-200 dark:border-amber-500/20 p-8 shadow-2xl">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center p-2 shrink-0">
                       <Image src="/assets/images/Golden Visa-icon.png" alt="Golden Visa Dubai" width={64} height={64} className="object-contain" />
                     </div>
                     <div>
-                      <div className="text-xl font-black text-white font-serif">GOLDEN VISA</div>
+                      <div className="text-xl font-black text-slate-900 dark:text-white font-serif">GOLDEN VISA</div>
                       <div className="text-[#C5A059] font-black text-xl font-serif italic">DUBAI</div>
-                      <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider mt-0.5">UAE Residency & Legal Consultancy</div>
+                      <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-0.5">UAE Residency &amp; Legal Consultancy</div>
                     </div>
                   </div>
                   <div className="space-y-2.5">
                     {certifications.slice(0, 4).map((cert, i) => (
-                      <div key={i} className="flex items-center gap-2.5 text-xs text-slate-300">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <div key={i} className="flex items-center gap-2.5 text-xs text-slate-800 dark:text-slate-300 font-medium">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                         <span>{cert}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-2 text-[11px] text-slate-400">
+                  <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10 flex items-center gap-2 text-[11px] text-slate-600 dark:text-slate-400 font-medium">
                     <MapPin className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
                     <span>Al Garhoud, Dubai, United Arab Emirates</span>
                   </div>
@@ -170,7 +170,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Stats Row ── */}
-      <section className="py-14 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0B0F19] border-y border-slate-200 dark:border-white/10">
+      <section className="py-14 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#0B0F19] border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
         <div className="max-w-[1720px] mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((s, i) => {
@@ -181,7 +181,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                     <IconComp className="w-5 h-5 text-[#C5A059]" />
                   </div>
                   <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">{s.value}</div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400 font-semibold mt-1">{s.label}</div>
+                  <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">{s.label}</div>
                 </div>
               );
             })}
@@ -190,17 +190,17 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Strong Foundation ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#07090F]">
+      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#07090F] transition-colors duration-300">
         <div className="max-w-[1720px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             {/* Image / visual */}
             <div className="relative">
-              <div className="rounded-3xl bg-gradient-to-br from-[#0D1117] to-[#1A1E2C] p-8 border border-white/10 shadow-2xl">
+              <div className="rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#0D1117] dark:to-[#1A1E2C] p-8 border border-slate-200 dark:border-white/10 shadow-2xl">
                 <div className="grid grid-cols-2 gap-4">
                   {certifications.map((cert, i) => (
-                    <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-white/3 border border-white/8">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <span className="text-[11px] text-slate-300 leading-tight font-medium">{cert}</span>
+                    <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-slate-50 dark:bg-white/3 border border-slate-200 dark:border-white/8">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                      <span className="text-[11px] text-slate-800 dark:text-slate-300 leading-tight font-semibold">{cert}</span>
                     </div>
                   ))}
                 </div>
@@ -214,18 +214,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
 
             {/* Text */}
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-[#8C6D2D] dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-5">
-                <Award className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800/50 text-amber-950 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-5">
+                <Award className="w-3.5 h-3.5 text-[#C5A059]" />
                 Officially Licensed for Government Applications
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight font-serif">
                 A Strong Foundation Builds a{' '}
-                <span className="gold-gradient-text font-serif italic">Strong Foundation</span>
+                <span className="gold-gradient-text italic font-serif">Strong Foundation</span>
               </h2>
-              <p className="mt-5 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              <p className="mt-5 text-[#1E293B] dark:text-slate-300 text-sm leading-relaxed font-normal">
                 Founded with a singular mission — to make UAE Golden Visa obtainment seamless and stress-free — our consultancy has built deep institutional relationships with GDRFA, ICP, Dubai Land Department, and MOHRE. Every file we handle is backed by our 98% approval track record.
               </p>
-              <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              <p className="mt-4 text-[#1E293B] dark:text-slate-300 text-sm leading-relaxed font-normal">
                 Whether you are a property investor from London, a senior executive relocating from Singapore, or a family seeking permanent UAE residency, our dedicated case officers handle everything — from first document audit to final Emirates ID delivery at your door.
               </p>
               <div className="mt-7 space-y-2.5">
@@ -235,8 +235,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   'Complete family sponsorship in a single coordinated application',
                   'Door-to-door Emirates ID collection and delivery service',
                 ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <div key={i} className="flex items-center gap-2.5 text-sm text-[#0F172A] dark:text-slate-200 font-semibold">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-500 shrink-0" />
                     <span>{item}</span>
                   </div>
                 ))}
@@ -254,17 +254,17 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Our Strength in Numbers ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#F8F9FA] dark:bg-[#0B0F19] border-y border-slate-200 dark:border-white/10">
+      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#0B0F19] border-y border-slate-200 dark:border-white/10 transition-colors duration-300">
         <div className="max-w-[1720px] mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-[#8C6D2D] dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
               <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
               Our Strength in Numbers
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Why Clients Choose <span className="gold-gradient-text font-serif italic">Golden Visa Dubai</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
+              Why Clients Choose <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span>
             </h2>
-            <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            <p className="mt-4 text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-medium">
               Trusted by investors, executives, medical professionals, and families across 90+ nationalities.
             </p>
           </div>
@@ -281,7 +281,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                     <IconComp className="w-5 h-5" />
                   </div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">{s.title}</h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{s.desc}</p>
+                  <p className="text-xs text-[#1E293B] dark:text-slate-400 leading-relaxed font-normal">{s.desc}</p>
                 </div>
               );
             })}
@@ -290,19 +290,19 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Partner Trusted Section ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#0D1117] text-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0D1117] text-slate-900 dark:text-white transition-colors duration-300 border-b border-slate-200 dark:border-white/10">
         <div className="max-w-[1720px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-xs font-bold uppercase tracking-wider mb-6">
-                <HeartHandshake className="w-3.5 h-3.5" />
-                Your Trusted Partner for Business, Residency & Professional Services in the UAE
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-6">
+                <HeartHandshake className="w-3.5 h-3.5 text-[#C5A059]" />
+                Your Trusted Partner for Business, Residency &amp; Professional Services in the UAE
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight font-serif">
                 Your Goals Matter to Us —<br />
-                <span className="text-[#C5A059] font-serif italic">Zero Compromise</span>
+                <span className="gold-gradient-text italic font-serif">Zero Compromise</span>
               </h2>
-              <p className="mt-5 text-slate-300 text-sm leading-relaxed">
+              <p className="mt-5 text-[#1E293B] dark:text-slate-300 text-sm leading-relaxed font-normal">
                 From the moment you contact us to the day you receive your physical Emirates ID, our team is your dedicated liaison — managing every interaction with GDRFA, ICP, DLD, and MOHRE on your behalf. No queues. No confusion. No delays.
               </p>
 
@@ -313,9 +313,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   { label: 'Family Files', value: '800+' },
                   { label: 'Partner Agents', value: '120+' },
                 ].map((item, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div key={i} className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
                     <div className="text-2xl font-black text-[#C5A059]">{item.value}</div>
-                    <div className="text-xs text-slate-400 font-semibold mt-0.5">{item.label}</div>
+                    <div className="text-xs text-slate-700 dark:text-slate-400 font-bold mt-0.5">{item.label}</div>
                   </div>
                 ))}
               </div>
@@ -326,16 +326,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   className="px-6 py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg flex items-center gap-2"
                 >
                   <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-                  Start My Application
+                  <span>Start My Application</span>
                 </button>
                 <a
                   href="https://wa.me/971503853305"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors flex items-center gap-2 shadow-md"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
-                  Call Now
+                  <span>Call Now</span>
                 </a>
               </div>
             </div>
@@ -343,18 +343,18 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
             {/* Team Cards */}
             <div className="space-y-4">
               {teamMembers.map((member, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-amber-500/30 transition-all">
+                <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-[#C5A059] dark:hover:border-amber-500/30 transition-all shadow-sm">
                   <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 overflow-hidden">
                     <Image src={member.avatar} alt={member.name} width={56} height={56} className="object-contain p-2" />
                   </div>
                   <div className="flex-1">
-                    <div className="font-bold text-white text-sm">{member.name}</div>
-                    <div className="text-xs text-slate-400 mt-0.5">{member.role}</div>
-                    <div className="text-[10px] text-[#C5A059] font-semibold mt-1">{member.badge}</div>
+                    <div className="font-bold text-slate-900 dark:text-white text-sm">{member.name}</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">{member.role}</div>
+                    <div className="text-[10px] text-amber-900 dark:text-[#C5A059] font-extrabold mt-1">{member.badge}</div>
                   </div>
                   <div className="text-right shrink-0">
                     <div className="text-lg font-black text-[#C5A059]">{member.exp}</div>
-                    <div className="text-[10px] text-slate-500">Experience</div>
+                    <div className="text-[10px] text-slate-500 font-semibold">Experience</div>
                   </div>
                 </div>
               ))}
@@ -364,21 +364,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Contact / CTA Banner ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#07090F] border-t border-slate-200 dark:border-white/10">
+      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#07090F] transition-colors duration-300">
         <div className="max-w-[1720px] mx-auto">
-          <div className="rounded-3xl bg-gradient-to-r from-[#0D1117] to-[#1A1E2C] p-10 sm:p-14 border border-amber-500/20 shadow-2xl text-center relative overflow-hidden">
+          <div className="rounded-3xl bg-gradient-to-r from-amber-50 via-amber-100/60 to-amber-50 dark:from-[#0D1117] dark:to-[#1A1E2C] p-10 sm:p-14 border border-amber-300 dark:border-amber-500/20 shadow-2xl text-center relative overflow-hidden text-slate-900 dark:text-white">
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none" />
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
-                <Sparkles className="w-3 h-3" />
-                Start Your Dubai Business With Confidence
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-200/80 dark:bg-amber-500/10 border border-amber-400 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
+                <Sparkles className="w-3 h-3 text-[#C5A059]" />
+                <span>Start Your Dubai Business With Confidence</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4 font-serif">
                 Top Consultancy with{' '}
-                <span className="text-[#C5A059] font-serif italic">Full Services</span>{' '}
+                <span className="gold-gradient-text italic font-serif">Full Services</span>{' '}
                 and Dedicated Support
               </h2>
-              <p className="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8">
+              <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8 font-medium">
                 From Golden Visa to Emirates ID to PRO services — we handle everything, so you can focus on building your life and business in the UAE.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -387,33 +387,33 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   className="px-8 py-4 rounded-xl gold-btn font-extrabold text-sm uppercase tracking-wider cursor-pointer shadow-lg flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-                  Calculate My Fees — Free
+                  <span>Calculate My Fees — Free</span>
                 </button>
                 <a
                   href="https://wa.me/971503853305"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
+                  className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-md"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
-                  +971 50 385 3305
+                  <span>+971 50 385 3305</span>
                 </a>
               </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-400">
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-700 dark:text-slate-400 font-semibold">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>No Hidden Fees</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>98% Approval Rate</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>2,400+ Visas Approved</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <span>VIP 48–72h Processing</span>
                 </div>
               </div>

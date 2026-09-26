@@ -95,6 +95,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
 
   return (
     <section
+      data-light-theme-exempt
       className="relative w-full flex items-center justify-center border-b border-amber-500/15 overflow-hidden bg-[#090D16]"
       style={{ minHeight: '100svh' }}
     >
@@ -107,10 +108,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
           muted
           playsInline
           preload="auto"
-          className="w-full h-full object-cover object-center"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
         >
-          <source src="/videos/skyline.mp4?v=2" type="video/mp4" />
-          <source src="/assets/videos/skyline.mp4?v=2" type="video/mp4" />
+          <source src="/videos/skyline.mp4" type="video/mp4" />
+          <source src="/assets/videos/skyline.mp4" type="video/mp4" />
         </video>
 
         {/* Balanced Dark Overlay */}
@@ -165,19 +166,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
             {/* CTAs */}
             <div className="mt-8 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
               <button
-                onClick={onOpenCalculator}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl gold-btn text-xs sm:text-sm font-extrabold uppercase tracking-widest flex items-center justify-center gap-2.5 cursor-pointer shadow-lg shadow-amber-500/25 group"
-              >
-                <Calculator className="w-4 h-4 text-slate-950 shrink-0" />
-                <span>Open Full Calculator Modal</span>
-                <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-
-              <button
                 onClick={onOpenMegaMenu}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/18 border border-white/30 text-white font-bold text-xs sm:text-sm uppercase tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer backdrop-blur-md"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl gold-btn text-xs sm:text-sm font-extrabold uppercase tracking-widest flex items-center justify-center gap-2.5 cursor-pointer shadow-lg shadow-amber-500/25 group"
               >
                 <span>Explore All Services</span>
+                <ArrowRight className="w-4 h-4 text-slate-950 group-hover:translate-x-1 transition-transform shrink-0" />
               </button>
             </div>
 

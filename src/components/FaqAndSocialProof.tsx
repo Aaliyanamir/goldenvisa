@@ -138,7 +138,7 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
                     <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">{item.date}</span>
                   </div>
 
-                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic mb-6">
+                  <p className="text-sm text-[#1E293B] dark:text-slate-300 leading-relaxed italic mb-6">
                     "{item.text}"
                   </p>
                 </div>
@@ -154,10 +154,10 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
                           </span>
                         )}
                       </h4>
-                      <div className="text-xs text-[#8C6D2D] dark:text-amber-400 font-semibold">{item.role}</div>
-                      <div className="text-[11px] text-slate-400 dark:text-slate-500">{item.location}</div>
+                      <div className="text-xs text-amber-900 dark:text-amber-400 font-extrabold">{item.role}</div>
+                      <div className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{item.location}</div>
                     </div>
-                    <span className="px-2 py-1 rounded bg-amber-100/70 dark:bg-amber-950/60 text-[#8C6D2D] dark:text-amber-300 border border-transparent dark:border-amber-700/30 text-[10px] font-bold text-right max-w-[110px] leading-tight">
+                    <span className="px-2 py-1 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-700/30 text-[10px] font-extrabold text-right max-w-[110px] leading-tight">
                       {item.visaType}
                     </span>
                   </div>
@@ -177,7 +177,7 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               {t.faq.title}
             </h2>
-            <p className="mt-3 text-slate-600 dark:text-slate-300 text-sm">
+            <p className="mt-3 text-slate-700 dark:text-slate-300 text-sm font-medium">
               {t.faq.subtitle}
             </p>
           </div>
@@ -201,7 +201,7 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/10 pt-3">
+                    <div className="px-5 pb-5 text-xs sm:text-sm text-[#1E293B] dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-white/10 pt-3 font-normal">
                       {faq.a}
                     </div>
                   )}

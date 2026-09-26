@@ -31,7 +31,7 @@ export const MainApp: React.FC = () => {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300">
+        <div id="site-shell" className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300">
           {/* Navigation */}
           <Navbar
             onOpenCalculator={() => setCalculatorOpen(true)}
@@ -49,17 +49,17 @@ export const MainApp: React.FC = () => {
               />
 
               {/* Eligibility Quiz CTA Banner */}
-              <div className="bg-[#090D16] border-b border-amber-500/15 py-5 px-4 sm:px-6 lg:px-8">
+              <div className="bg-amber-500/10 dark:bg-[#090D16] border-b border-amber-500/20 dark:border-amber-500/15 py-5 px-4 sm:px-6 lg:px-8 text-slate-900 dark:text-white transition-colors duration-300">
                 <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
                   <div className="text-center sm:text-left">
-                    <p className="text-[11px] font-bold tracking-widest text-amber-400 uppercase mb-0.5">Free Eligibility Assessment</p>
-                    <p className="text-white font-semibold text-sm sm:text-base">
+                    <p className="text-[11px] font-extrabold tracking-widest text-amber-900 dark:text-amber-400 uppercase mb-0.5">Free Eligibility Assessment</p>
+                    <p className="text-slate-900 dark:text-white font-bold text-sm sm:text-base">
                       Not sure which visa applies to you? Take our 2-minute quiz.
                     </p>
                   </div>
                   <button
                     onClick={() => setQuizOpen(true)}
-                    className="shrink-0 px-6 py-3 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-widest cursor-pointer whitespace-nowrap"
+                    className="shrink-0 px-6 py-3 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-widest cursor-pointer whitespace-nowrap shadow-md"
                   >
                     Check My Eligibility — Free
                   </button>

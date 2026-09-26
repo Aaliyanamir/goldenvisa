@@ -86,7 +86,7 @@ export const RoadmapSection: React.FC = () => {
                     {step.title}
                   </h3>
 
-                  <p className="mt-2.5 text-xs sm:text-sm text-slate-500 dark:text-slate-300 leading-relaxed">
+                  <p className="mt-2.5 text-xs sm:text-sm text-[#1E293B] dark:text-slate-300 leading-relaxed font-normal">
                     {step.desc}
                   </p>
                 </div>
