@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
+import { contactInfo } from '../lib/contactInfo';
 import { Calculator, MessageSquare, ArrowUp } from 'lucide-react';
 
 interface FloatingActionProps {
   onOpenCalculator: () => void;
+  showMobileStickyBar?: boolean;
 }
 
-export const FloatingActionButtons: React.FC<FloatingActionProps> = ({ onOpenCalculator }) => {
+export const FloatingActionButtons: React.FC<FloatingActionProps> = ({ onOpenCalculator, showMobileStickyBar = true }) => {
   const { t } = useLanguage();
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -86,31 +88,28 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({ onOpenCal
       )}
 
       {/* Mobile Sticky Dual-Button Bottom Bar */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0E1320]/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 px-3 py-2 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.2)] pb-[env(safe-area-inset-bottom,8px)]">
-        <div className="flex items-center gap-2 max-w-md mx-auto">
-          
-          {/* 1. Visa Calculator */}
-          <button
-            onClick={onOpenCalculator}
-            className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
-          >
-            <Calculator className="w-4 h-4 text-white shrink-0" />
-            <span>{t.mobileSticky.calcBtn}</span>
-          </button>
-
-          {/* 2. Direct WhatsApp */}
-          <a
-            href="https://wa.me/971503853305"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-3 px-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all whitespace-nowrap text-center"
-          >
-            <MessageSquare className="w-4 h-4 text-white shrink-0" />
-            <span>{t.mobileSticky.whatsappBtn}</span>
-          </a>
-
+      {showMobileStickyBar && (
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0E1320]/95 backdrop-blur-md border-t border-slate-200 dark:border-white/10 px-3 py-2 shadow-[0_-5px_20px_-5px_rgba(0,0,0,0.2)] pb-[env(safe-area-inset-bottom,8px)]">
+          <div className="flex items-center gap-2 max-w-md mx-auto">
+            <button
+              onClick={onOpenCalculator}
+              className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+            >
+              <Calculator className="w-4 h-4 text-white shrink-0" />
+              <span>{t.mobileSticky.calcBtn}</span>
+            </button>
+            <a
+              href={contactInfo.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-3 px-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all whitespace-nowrap text-center"
+            >
+              <MessageSquare className="w-4 h-4 text-white shrink-0" />
+              <span>{t.mobileSticky.whatsappBtn}</span>
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

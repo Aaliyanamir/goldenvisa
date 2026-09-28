@@ -10,17 +10,17 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "UAE Golden Visa Dubai | 10-Year Residency & Legal Advisory",
-  description: "Authorised private legal advisory for UAE 10-Year Golden Visa — Real Estate Investors, Senior Executives, Specialized Talents & Families. GDRFA & DLD facilitated. Fast-track 48–72h processing.",
+  title: "Brightlink Consulting | UAE Business Setup, Visas & Residency",
+  description: "Brightlink Consulting supports UAE business setup, Golden Visa, family visa, and professional services from Dubai.",
   keywords: "UAE Golden Visa, Dubai Golden Visa 2026, 10 year residency UAE, GDRFA, DLD, real estate investor visa, UAE long term residency",
   icons: {
     icon: "/assets/images/Golden Visa-icon.png",
   },
   openGraph: {
-    title: "UAE Golden Visa Dubai | 10-Year Residency Advisory",
-    description: "Private legal facilitation for UAE Golden Visa. Property investors, executives, and global families. GDRFA & DLD authorized.",
-    url: "https://goldenvisauae.net",
-    siteName: "Golden Visa Dubai",
+    title: "Brightlink Consulting | UAE Business Setup, Visas & Residency",
+    description: "Business setup, Golden Visa, family visa, and professional services in the UAE.",
+    url: "https://brightlinkconsulting.ae",
+    siteName: "Brightlink Consulting",
     locale: "en_US",
     type: "website",
   },
@@ -61,7 +61,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-white text-slate-900 antialiased overflow-x-hidden">
+      <body className="min-h-screen antialiased overflow-x-hidden">
         {children}
 
         {/* ─── Tawk.to Live Chat Widget ─── */}

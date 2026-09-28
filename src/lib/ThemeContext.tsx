@@ -1,6 +1,5 @@
 "use client";
-
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useSyncExternalStore } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -10,6 +9,30 @@ interface ThemeContextType {
   setTheme: (theme: Theme) => void;
 }
 
+const THEME_EVENT = 'gv_theme_change';
+
+const readTheme = (): Theme => {
+  if (typeof window === 'undefined') return 'light';
+  const saved = localStorage.getItem('gv_theme');
+  return saved === 'dark' ? 'dark' : 'light';
+};
+
+const subscribeToTheme = (onChange: () => void) => {
+  window.addEventListener(THEME_EVENT, onChange);
+  window.addEventListener('storage', onChange);
+  return () => {
+    window.removeEventListener(THEME_EVENT, onChange);
+    window.removeEventListener('storage', onChange);
+  };
+};
+
+const applyTheme = (theme: Theme) => {
+  const root = document.documentElement;
+  root.classList.toggle('dark', theme === 'dark');
+  root.setAttribute('data-theme', theme);
+  root.style.colorScheme = theme;
+};
+
 const ThemeContext = createContext<ThemeContextType>({
   theme: 'light',
   toggleTheme: () => {},
@@ -17,45 +40,19 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('light');
-  const [mounted, setMounted] = useState(false);
+  const theme = useSyncExternalStore<Theme>(subscribeToTheme, readTheme, () => 'light');
 
   useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem('gv_theme') as Theme | null;
-    if (saved === 'dark' || saved === 'light') {
-      setThemeState(saved);
-      applyTheme(saved);
-    } else {
-      // Default to light as requested
-      setThemeState('light');
-      applyTheme('light');
-    }
-  }, []);
+    applyTheme(theme);
+  }, [theme]);
 
-  const applyTheme = (t: Theme) => {
-    const root = document.documentElement;
-    if (t === 'dark') {
-      root.classList.add('dark');
-      root.setAttribute('data-theme', 'dark');
-      root.style.colorScheme = 'dark';
-    } else {
-      root.classList.remove('dark');
-      root.setAttribute('data-theme', 'light');
-      root.style.colorScheme = 'light';
-    }
+  const setTheme = (nextTheme: Theme) => {
+    localStorage.setItem('gv_theme', nextTheme);
+    applyTheme(nextTheme);
+    window.dispatchEvent(new Event(THEME_EVENT));
   };
 
-  const setTheme = (t: Theme) => {
-    setThemeState(t);
-    localStorage.setItem('gv_theme', t);
-    applyTheme(t);
-  };
-
-  const toggleTheme = () => {
-    const next = theme === 'light' ? 'dark' : 'light';
-    setTheme(next);
-  };
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

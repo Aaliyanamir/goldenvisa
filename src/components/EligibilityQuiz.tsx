@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import { contactInfo } from '../lib/contactInfo';
 import { 
   X, ChevronRight, ChevronLeft, CheckCircle2, 
   Building2, Briefcase, Star, Users, MessageSquare,
@@ -182,19 +183,19 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden">
+      <div className="eligibility-quiz-dialog relative w-full max-w-lg bg-white dark:bg-[#0E1320] rounded-3xl shadow-2xl overflow-hidden">
 
         {/* Header */}
-        <div className="bg-[#090D16] px-6 py-5 flex items-center justify-between">
+        <div className="bg-[#fffaf0] dark:bg-[#090D16] px-6 py-5 flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-bold tracking-[0.2em] text-amber-400 uppercase mb-0.5">
+            <p className="text-[10px] font-bold tracking-[0.2em] text-[#8C6D2D] dark:text-amber-400 uppercase mb-0.5">
               Eligibility Check
             </p>
-            <h3 className="text-base font-bold text-white">UAE Golden Visa — Free Assessment</h3>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">UAE Golden Visa — Free Assessment</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-full hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -223,7 +224,7 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
 
             {/* Question */}
             <div className="mb-6">
-              <h4 className="text-lg font-bold text-slate-900 leading-snug">{currentQ.question}</h4>
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white leading-snug">{currentQ.question}</h4>
               {currentQ.subtitle && (
                 <p className="text-sm text-slate-500 mt-1">{currentQ.subtitle}</p>
               )}
@@ -240,11 +241,11 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
                     onClick={() => handleAnswer(opt.value)}
                     className={`w-full flex items-center gap-3.5 px-4 py-3.5 rounded-xl border text-left transition-all cursor-pointer group ${
                       isSelected
-                        ? 'border-amber-400 bg-amber-50 text-slate-900'
-                        : 'border-slate-200 hover:border-amber-300 hover:bg-amber-50/50 text-slate-700'
+                        ? 'border-amber-400 bg-amber-50 dark:bg-amber-500/10 text-slate-900 dark:text-amber-200'
+                        : 'border-slate-200 dark:border-white/10 hover:border-amber-300 hover:bg-amber-50/50 dark:hover:bg-white/5 text-slate-700 dark:text-slate-300'
                     }`}
                   >
-                    <div className={`p-2 rounded-lg shrink-0 ${isSelected ? 'bg-amber-100 text-[#8C6D2D]' : 'bg-slate-100 text-slate-500 group-hover:bg-amber-100/60 group-hover:text-[#8C6D2D]'}`}>
+                    <div className={`p-2 rounded-lg shrink-0 ${isSelected ? 'bg-amber-100 dark:bg-amber-500/20 text-[#8C6D2D] dark:text-amber-300' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300 group-hover:bg-amber-100/60 group-hover:text-[#8C6D2D]'}`}>
                       <Icon className="w-4 h-4" />
                     </div>
                     <span className="text-sm font-semibold">{opt.label}</span>
@@ -285,7 +286,7 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
             {/* Points */}
             <div className="mb-6 space-y-2">
               {result.points.map((point, i) => (
-                <div key={i} className="flex items-center gap-2.5 text-sm text-slate-700">
+                <div key={i} className="flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                   <span>{point}</span>
                 </div>
@@ -295,7 +296,7 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
             {/* CTAs */}
             <div className="space-y-2.5">
               <a
-                href={`https://wa.me/971503853305?text=${encodeURIComponent('Hello, I just completed the UAE Golden Visa eligibility quiz on your website and would like to request a free consultation. My result: ' + result.title)}`}
+                href={`${contactInfo.whatsappHref}?text=${encodeURIComponent('Hello, I just completed the UAE Golden Visa eligibility quiz on your website and would like to request a free consultation. My result: ' + result.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3.5 rounded-xl gold-btn font-extrabold text-sm uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer"

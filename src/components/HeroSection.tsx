@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
+import { contactInfo } from '../lib/contactInfo';
 import { 
   Calculator, ArrowRight, ShieldCheck, 
   Send, User, Phone, Globe, ChevronDown, 
@@ -89,7 +90,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
     const encoded = encodeURIComponent(msg);
     setTimeout(() => {
       setIsGenerating(false);
-      window.open(`https://wa.me/971503853305?text=${encoded}`, '_blank');
+      window.open(`${contactInfo.whatsappHref}?text=${encoded}`, '_blank');
     }, 450);
   };
 
@@ -132,9 +133,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
       {/* ─── Hero Main Content Grid ─── */}
       <div
         className="relative z-10 w-full"
-        style={{ maxWidth: '1720px', margin: '0 auto', padding: '8.5rem 1.25rem 5.5rem' }}
+        style={{ maxWidth: '1720px', margin: '0 auto', padding: 'calc(var(--site-header-offset) + 2rem) 1.25rem 2.5rem' }}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-18 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center">
 
           {/* LEFT: Typography & Strategic Headline */}
           <div className="lg:col-span-7 flex flex-col items-start text-left relative">
@@ -194,26 +195,26 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
           {/* RIGHT: Live Interactive Visa Calculator Widget (Replacing Static Contact Form) */}
           <div className="lg:col-span-5 w-full">
             <div
-              className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl transition-all"
+              className="relative rounded-2xl overflow-hidden border border-amber-200/30 ring-1 ring-white/10 shadow-[0_28px_80px_-35px_rgba(0,0,0,0.9)] transition-all"
               style={{
-                background: 'rgba(11,15,26,0.68)',
-                backdropFilter: 'blur(20px)',
+                background: 'rgba(11,15,26,0.82)',
+                backdropFilter: 'blur(18px)',
                 WebkitBackdropFilter: 'blur(20px)'
               }}
             >
               {/* Subtle top gold accent glow */}
               <div className="h-1 w-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600" />
 
-              <div className="p-5 sm:p-7">
+              <div className="p-4 sm:p-5">
                 
                 {/* Header with Currency Switcher */}
-                <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-white/10">
+                <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-white/10">
                   <div>
                     <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 flex items-center gap-1.5">
                       <Sparkles className="w-3 h-3" />
                       Live Cost Estimator
                     </span>
-                    <h3 className="text-lg font-bold text-white tracking-tight mt-0.5">
+                    <h3 className="text-base sm:text-lg font-bold text-white tracking-tight mt-0.5">
                       Visa Fee Calculator
                     </h3>
                   </div>
@@ -238,7 +239,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                 </div>
 
                 {/* 1. Pathway Selector */}
-                <div className="space-y-1.5 mb-4">
+                <div className="space-y-1.5 mb-3">
                   <label className="text-[11px] font-semibold text-slate-300 uppercase tracking-wider block">
                     1. Select Residency Pathway
                   </label>
@@ -274,10 +275,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                 </div>
 
                 {/* 2. Dependents & Speed Controls */}
-                <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="grid grid-cols-2 gap-2.5 mb-3">
                   
                   {/* Dependents Counter */}
-                  <div className="bg-white/5 p-3 rounded-2xl border border-white/10">
+                  <div className="bg-white/5 p-2.5 rounded-xl border border-white/10">
                     <span className="text-[11px] font-semibold text-slate-300 block mb-1.5">
                       Dependents
                     </span>
@@ -285,7 +286,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                       <button
                         type="button"
                         onClick={() => setDependents(Math.max(0, dependents - 1))}
-                        className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center cursor-pointer transition-colors active:scale-95"
+                        className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center cursor-pointer transition-colors active:scale-95"
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -295,7 +296,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                       <button
                         type="button"
                         onClick={() => setDependents(Math.min(10, dependents + 1))}
-                        className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center cursor-pointer transition-colors active:scale-95"
+                        className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center cursor-pointer transition-colors active:scale-95"
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -305,7 +306,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                   {/* Processing Tier Toggle */}
                   <div 
                     onClick={() => setIsFastTrack(!isFastTrack)}
-                    className={`p-3 rounded-2xl border cursor-pointer transition-all flex flex-col justify-between ${
+                    className={`p-2.5 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${
                       isFastTrack
                         ? 'bg-emerald-500/15 border-emerald-400/60'
                         : 'bg-white/5 border-white/10 hover:border-white/20'
@@ -323,7 +324,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                 </div>
 
                 {/* 3. Live Total Price Card */}
-                <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-400/40 mb-4">
+                <div className="p-3 rounded-xl bg-gradient-to-r from-amber-500/20 via-amber-500/10 to-transparent border border-amber-400/40 mb-3">
                   <div className="flex items-center justify-between text-[11px] text-slate-300 mb-1">
                     <span>Estimated Total Investment</span>
                     <span className="text-emerald-400 font-bold flex items-center gap-1">
@@ -332,7 +333,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                     </span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="text-2xl sm:text-3xl font-black text-white tabular-nums tracking-tight">
+                    <span className="text-2xl font-black text-white tabular-nums tracking-tight">
                       {currencyInfo.symbol} {convertedTotal.toLocaleString()}{' '}
                       <span className="text-xs text-amber-300 font-bold">{currency}</span>
                     </span>
@@ -351,14 +352,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                   type="button"
                   onClick={handleClaimQuote}
                   disabled={isGenerating}
-                  className="w-full py-3.5 rounded-xl gold-btn font-extrabold text-[13px] uppercase tracking-widest text-slate-950 flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg hover:shadow-amber-500/30 active:scale-[0.99]"
+                  className="w-full py-3 rounded-xl gold-btn font-extrabold text-[12px] uppercase tracking-widest text-slate-950 flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg hover:shadow-amber-500/30 active:scale-[0.99]"
                 >
                   <Send className="w-3.5 h-3.5 text-slate-950 shrink-0" />
                   <span>Lock In Quote on WhatsApp</span>
                 </button>
 
                 {/* Trust Footer */}
-                <div className="mt-3.5 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+                <div className="mt-2.5 pt-2.5 border-t border-white/10 flex items-start justify-between gap-3 text-[10px] text-slate-400">
                   <span className="flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                     <span>Official GDRFA Direct File</span>

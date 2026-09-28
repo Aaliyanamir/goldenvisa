@@ -2,20 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useLanguage } from '../lib/LanguageContext';
 import { useTheme } from '../lib/ThemeContext';
 import { Language } from '../lib/translations';
-import { 
-  Home, Briefcase, Map, BookOpen, 
-  HelpCircle, Calculator, Globe, ChevronDown, 
+import { contactInfo } from '../lib/contactInfo';
+import {
+  Home, Briefcase, Map, BookOpen,
+  Calculator, Globe, ChevronDown,
   X, Menu as MenuIcon, PhoneCall, Sun, Moon,
-  MessageSquare, Info, Users, Headphones, Sparkles
+  MessageSquare, Info, Users, Headphones
 } from 'lucide-react';
 
 interface NavbarProps {
   onOpenCalculator: () => void;
   onOpenMegaMenu: () => void;
-  currentView?: 'home' | 'blog' | 'about';
+  currentView?: 'home' | 'blog' | 'about' | 'contact' | 'career';
   onNavigate?: (view: 'home' | 'blog' | 'about') => void;
 }
 
@@ -26,14 +28,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate 
 }) => {
   const { language, setLanguage, isRTL } = useLanguage();
+  const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Close mobile drawer on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [currentView]);
+  const [navCollapsed, setNavCollapsed] = useState(false);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -44,6 +43,29 @@ export const Navbar: React.FC<NavbarProps> = ({
     }
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
+
+  const navigateView = (view: 'home' | 'blog' | 'about') => {
+    if (view === 'about') {
+      router.push('/about');
+      setMobileMenuOpen(false);
+      return;
+    }
+
+    if (view === 'home') {
+      if (onNavigate) {
+        onNavigate(view);
+      } else {
+        router.push('/');
+      }
+    } else if (view === 'blog') {
+      if (onNavigate) {
+        onNavigate(view);
+      } else {
+        router.push('/');
+      }
+    }
+    setMobileMenuOpen(false);
+  };
 
   const languagesList: { code: Language; label: string; native: string }[] = [
     { code: 'EN', label: 'English', native: 'EN' },
@@ -58,32 +80,31 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   // Real-time live alerts for the smooth ticker
   const tickerAlerts = [
-    "⭐ Sarah Jenkins (UK) granted 10-Year Golden Visa 2 hours ago",
-    "🏢 DLD Title Deed Approved for Luxury Villa in Palm Jumeirah (AED 3.8M)",
-    "👨‍👩‍👧 Family of 4 received Emirates IDs via GDRFA VIP Fast-Track",
-    "🇦🇪 Dr. Alexander Meyer nominated for Specialized Talent Directive",
-    "📜 100% Tax-Free UAE Residence Visa issued in Dubai",
-    "⚡ 48-Hour Priority Fast-Track Processing Active today",
+    "Golden Visa eligibility depends on your category and supporting documents",
+    "Brightlink office: Crystal Tower, Business Bay, Dubai",
+    "Visa inquiries: visa@brightlinkconsulting.ae",
+    "Office hours: Monday to Friday, 9 AM to 6 PM; Saturday, 10 AM to 5 PM",
+    "WhatsApp Brightlink at +971 56 655 6645",
   ];
 
   // Header Navigation: Includes Articles, About Us, Career, Contact Us as requested
   const navLinks = [
-    { label: 'Home', icon: Home, action: () => { onNavigate?.('home'); setMobileMenuOpen(false); }, isActive: currentView === 'home' },
+    { label: 'Home', icon: Home, action: () => navigateView('home'), isActive: currentView === 'home' },
     { label: 'Services', icon: Briefcase, action: () => { onOpenMegaMenu(); setMobileMenuOpen(false); }, isActive: false, hasBadge: true },
-    { label: 'Roadmap', icon: Map, action: () => { onNavigate?.('home'); setMobileMenuOpen(false); setTimeout(() => document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' }), 100); }, isActive: false },
-    { label: 'Articles', icon: BookOpen, action: () => { onNavigate?.('blog'); setMobileMenuOpen(false); }, isActive: currentView === 'blog' },
-    { label: 'About Us', icon: Info, action: () => { onNavigate?.('about'); setMobileMenuOpen(false); }, isActive: currentView === 'about' },
-    { label: 'Career', icon: Users, action: () => { window.open('https://wa.me/971503853305?text=Hello%2C%20I%20am%20inquiring%20about%20career%20opportunities%20at%20Golden%20Visa%20Dubai.', '_blank'); }, isActive: false },
-    { label: 'Contact Us', icon: Headphones, action: () => { window.open('https://wa.me/971503853305?text=Hello%2C%20I%20would%20like%20to%20request%20an%20advisory%20consultation.', '_blank'); }, isActive: false },
+    { label: 'Roadmap', icon: Map, action: () => { navigateView('home'); setTimeout(() => document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' }), 100); }, isActive: false },
+    { label: 'Articles', icon: BookOpen, action: () => navigateView('blog'), isActive: currentView === 'blog' },
+    { label: 'About Us', icon: Info, action: () => navigateView('about'), isActive: currentView === 'about' },
+    { label: 'Career', icon: Users, action: () => { router.push('/career'); setMobileMenuOpen(false); }, isActive: currentView === 'career' },
+    { label: 'Contact Us', icon: Headphones, action: () => { router.push('/contact-us'); setMobileMenuOpen(false); }, isActive: currentView === 'contact' },
   ];
 
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-40 w-full pointer-events-none">
+      <div className={`site-header-shell fixed top-0 left-0 right-0 z-40 w-full pointer-events-none ${navCollapsed ? 'is-collapsed' : ''}`}>
         
         {/* ─── Top Bar with Animated Horizontal Live Ticker / News Bar ─── */}
-        <div className="pointer-events-auto bg-[#090D16] text-white text-xs py-1.5 px-3 sm:px-6 lg:px-10 border-b border-white/10 shadow-sm overflow-hidden">
+        <div className="site-nav-topbar pointer-events-auto bg-[#fffaf0] text-slate-700 dark:bg-[#090D16] dark:text-white text-xs py-1.5 px-3 sm:px-6 lg:px-10 border-b border-[#eadcc0] dark:border-white/10 shadow-sm overflow-hidden">
           <div className="max-w-[1720px] mx-auto flex items-center justify-between gap-4">
             
             {/* Left: Authority Badge */}
@@ -92,8 +113,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="hidden sm:inline font-bold text-amber-400 uppercase tracking-widest text-[11px]">
-                GDRFA &amp; DLD Desk
+              <span className="hidden sm:inline font-bold text-[#8C6D2D] dark:text-amber-400 uppercase tracking-widest text-[11px]">
+                Brightlink Updates
               </span>
             </div>
 
@@ -101,9 +122,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex-1 overflow-hidden relative mx-2 sm:mx-6 py-0.5">
               <div className="animate-ticker flex items-center gap-8 whitespace-nowrap">
                 {tickerAlerts.concat(tickerAlerts).map((alert, i) => (
-                  <div key={i} className="inline-flex items-center gap-2 text-[11px] sm:text-xs text-slate-200 font-medium">
+                  <div key={i} className="inline-flex items-center gap-2 text-[11px] sm:text-xs text-slate-700 dark:text-slate-200 font-medium">
                     <span>{alert}</span>
-                    <span className="text-amber-500/60 font-bold">•</span>
+                    <span className="text-[#C5A059] dark:text-amber-500/60 font-bold">•</span>
                   </div>
                 ))}
               </div>
@@ -111,11 +132,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Right: Direct Phone Hotline */}
             <a 
-              href="tel:+971503853305" 
-              className="flex items-center gap-1.5 text-amber-300 hover:text-amber-200 font-bold text-xs tracking-wide transition-colors shrink-0"
+              href={contactInfo.phoneHref}
+              className="flex items-center gap-1.5 text-[#8C6D2D] hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200 font-bold text-xs tracking-wide transition-colors shrink-0"
             >
-              <PhoneCall className="w-3.5 h-3.5 shrink-0 text-amber-400" />
-              <span className="hidden md:inline">+971 50 385 3305</span>
+              <PhoneCall className="w-3.5 h-3.5 shrink-0 text-[#C5A059] dark:text-amber-400" />
+              <span className="hidden md:inline">{contactInfo.phone}</span>
               <span className="md:hidden">Call</span>
             </a>
 
@@ -123,38 +144,45 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* ─── Floating Pill Glassmorphic Header (Fluid & Large Display Scaled) ─── */}
-        <div className="w-full px-3 sm:px-6 lg:px-10 pt-2 sm:pt-3">
-          <header className="site-nav-header max-w-[1720px] mx-auto pointer-events-auto rounded-full bg-white/95 dark:bg-[#0E1320]/95 backdrop-blur-2xl border border-white/50 dark:border-white/10 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.18)] dark:shadow-[0_12px_40px_-5px_rgba(0,0,0,0.7)] transition-all duration-300 px-3.5 sm:px-6 2xl:px-8 py-2.5">
+        <div className="site-nav-frame w-full px-3 sm:px-6 lg:px-10 pt-2 sm:pt-3">
+          <header className={`site-nav-header max-w-[1720px] mx-auto pointer-events-auto rounded-full bg-white/95 dark:bg-[#0E1320]/95 backdrop-blur-2xl border border-amber-200/70 dark:border-white/10 shadow-[0_12px_40px_-5px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_40px_-5px_rgba(0,0,0,0.7)] transition-all duration-300 px-3.5 sm:px-6 2xl:px-8 py-2.5 ${navCollapsed ? 'is-collapsed' : ''}`}>
             
-            <div className="flex items-center justify-between gap-2 lg:gap-4 xl:gap-6">
+            <div className="site-nav-layout flex items-center justify-between gap-2 lg:gap-4 xl:gap-6">
 
               {/* 1. Official Branding Emblem & Logo */}
-              <button 
-                onClick={() => { onNavigate?.('home'); }}
-                className="flex items-center gap-3 group text-left cursor-pointer shrink-0"
+              <button
+                onClick={() => {
+                  setNavCollapsed((collapsed) => !collapsed);
+                  setLangDropdownOpen(false);
+                  setMobileMenuOpen(false);
+                }}
+                aria-label={navCollapsed ? 'Expand navigation' : 'Collapse navigation'}
+                aria-expanded={!navCollapsed}
+                title={navCollapsed ? 'Expand navigation' : 'Collapse navigation'}
+                className="site-nav-brand flex items-center gap-3 group text-left cursor-pointer shrink-0"
               >
-                <div className="relative w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden p-1.5 bg-gradient-to-tr from-amber-200/80 via-amber-100 to-amber-50 dark:from-amber-900/60 dark:to-amber-950/60 border border-amber-300/60 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                  <Image 
-                    src="/assets/images/Golden Visa-icon.png" 
-                    alt="Golden Visa Emblem" 
-                    width={42} 
+                <div className="site-nav-brand-mark relative w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden p-1.5 bg-gradient-to-tr from-amber-200/80 via-amber-100 to-amber-50 dark:from-amber-900/60 dark:to-amber-950/60 border border-amber-300/60 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <Image
+                    src="/assets/images/Golden Visa-icon.png"
+                    alt="Golden Visa Emblem"
+                    width={42}
                     height={42}
                     className="object-contain w-full h-full drop-shadow-sm"
                     priority
                   />
                 </div>
-                <div className="flex flex-col">
+                <div className="site-nav-brand-copy flex flex-col">
                   <span className="text-base sm:text-lg xl:text-xl font-black tracking-tight text-slate-900 dark:text-white leading-tight font-serif whitespace-nowrap">
-                    Golden Visa <span className="text-[#C5A059] italic font-serif">Dubai</span>
+                    BRIGHTLINK
                   </span>
                   <span className="hidden md:inline text-[10px] xl:text-[11px] text-slate-500 dark:text-slate-400 font-semibold tracking-wide">
-                    UAE Residency &amp; Legal Consultancy
+                    Management Consultancy
                   </span>
                 </div>
               </button>
 
               {/* 2. Desktop Navigation Links (Includes Articles, About Us, Career, Contact Us) */}
-              <nav className="hidden lg:flex items-center gap-1 xl:gap-2.5 2xl:gap-3.5 justify-center flex-1 max-w-4xl">
+              <nav className="site-nav-links hidden lg:flex items-center gap-1 xl:gap-2.5 2xl:gap-3.5 justify-center flex-1 max-w-4xl">
                 {navLinks.map((link) => {
                   const Icon = link.icon;
                   return (
@@ -162,7 +190,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       key={link.label}
                       onClick={link.action}
                       className={`group flex flex-col items-center gap-0.5 px-2.5 xl:px-3.5 py-1 rounded-xl transition-all cursor-pointer ${
-                        link.isActive 
+                        link.isActive
                           ? 'text-slate-950 dark:text-white font-extrabold' 
                           : 'text-slate-600 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white'
                       }`}
@@ -186,11 +214,11 @@ export const Navbar: React.FC<NavbarProps> = ({
               </nav>
 
               {/* 3. Right Toolbar: Language, Theme Toggle, WhatsApp & Visa Calculator CTA */}
-              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+              <div className="site-nav-actions flex items-center gap-2 sm:gap-2.5 shrink-0">
 
                 {/* WhatsApp Icon-Only Button */}
                 <a
-                  href="https://wa.me/971503853305?text=Hello%20Golden%20Visa%20Dubai%20Team%2C%20I%20would%20like%20to%20request%20an%20instant%20consultation."
+                  href={`${contactInfo.whatsappHref}?text=Hello%20Brightlink%20Team%2C%20I%20would%20like%20to%20request%20a%20consultation.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hidden xl:flex items-center justify-center w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition-colors shadow-sm"
@@ -286,125 +314,134 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* ─── Mobile Slide-In Navigation Drawer ─── */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div 
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setMobileMenuOpen(false)}
-          />
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          mobileMenuOpen
+            ? 'pointer-events-auto opacity-100 visible'
+            : 'pointer-events-none opacity-0 invisible'
+        }`}
+      >
+        <div
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
 
-          <div className="absolute top-0 right-0 h-full w-[320px] max-w-[85vw] bg-white dark:bg-[#0E1320] shadow-2xl flex flex-col text-slate-900 dark:text-white">
-            
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-amber-200/80 to-amber-50 dark:from-amber-900/60 dark:to-amber-950 border border-amber-300/60 flex items-center justify-center">
-                  <Image 
-                    src="/assets/images/Golden Visa-icon.png" 
-                    alt="Logo" 
-                    width={28} 
-                    height={28}
-                    className="object-contain w-full h-full"
-                  />
-                </div>
-                <div>
-                  <div className="text-sm font-black text-slate-900 dark:text-white font-serif">
-                    Golden Visa <span className="text-[#C5A059] italic">Dubai</span>
-                  </div>
-                  <div className="text-[10px] text-slate-400">UAE Residency &amp; Legal Consultancy</div>
-                </div>
+        <div
+          className={`absolute top-0 left-0 h-full w-[320px] max-w-[85vw] bg-white dark:bg-[#0E1320] shadow-2xl flex flex-col text-slate-900 dark:text-white origin-left transition-transform duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+            mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-amber-200/80 to-amber-50 dark:from-amber-900/60 dark:to-amber-950 border border-amber-300/60 flex items-center justify-center">
+                <Image
+                  src="/assets/images/Golden Visa-icon.png"
+                  alt="Logo"
+                  width={28}
+                  height={28}
+                  className="object-contain w-full h-full"
+                />
               </div>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div>
+                <div className="text-sm font-black text-slate-900 dark:text-white font-serif">
+                  BRIGHTLINK
+                </div>
+                <div className="text-[10px] text-slate-400">Management Consultancy</div>
+              </div>
             </div>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
 
-            {/* Nav Links in Drawer */}
-            <div className="flex-1 overflow-y-auto py-4 px-3">
-              <div className="space-y-1">
-                {navLinks.map((link) => {
-                  const Icon = link.icon;
-                  return (
-                    <button
-                      key={link.label}
-                      onClick={link.action}
-                      className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
-                        link.isActive 
-                          ? 'bg-amber-50 dark:bg-amber-950/50 text-[#8C6D2D] dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-bold'
-                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 shrink-0 ${link.isActive ? 'text-[#C5A059]' : 'text-slate-500 dark:text-slate-400'}`} />
-                      <span>{link.label}</span>
-                      {link.label === 'Services' && (
-                        <ChevronDown className="w-4 h-4 text-slate-400 ml-auto" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Theme & Language Switcher in Drawer */}
-              <div className="mt-6 px-1 pt-4 border-t border-slate-100 dark:border-slate-800">
-                <div className="flex items-center justify-between mb-3 px-3">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Theme</span>
+          {/* Nav Links in Drawer */}
+          <div className="flex-1 overflow-y-auto py-4 px-3">
+            <div className="space-y-1">
+              {navLinks.map((link) => {
+                const Icon = link.icon;
+                return (
                   <button
-                    onClick={toggleTheme}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                    key={link.label}
+                    onClick={link.action}
+                    className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all cursor-pointer ${
+                      link.isActive
+                        ? 'bg-amber-50 dark:bg-amber-950/50 text-[#8C6D2D] dark:text-amber-400 border border-amber-200 dark:border-amber-800 font-bold'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                    }`}
                   >
-                    {theme === 'dark' ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5 text-slate-700" />}
-                    <span>{theme === 'dark' ? 'Dark' : 'Light'}</span>
+                    <Icon className={`w-4 h-4 shrink-0 ${link.isActive ? 'text-[#C5A059]' : 'text-slate-500 dark:text-slate-400'}`} />
+                    <span>{link.label}</span>
+                    {link.label === 'Services' && (
+                      <ChevronDown className="w-4 h-4 text-slate-400 ml-auto" />
+                    )}
                   </button>
-                </div>
-
-                <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 px-3">Language</div>
-                <div className="grid grid-cols-4 gap-2">
-                  {languagesList.map((item) => (
-                    <button
-                      key={item.code}
-                      onClick={() => setLanguage(item.code)}
-                      className={`py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                        language === item.code
-                          ? 'bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700'
-                          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-                      }`}
-                    >
-                      {item.native}
-                    </button>
-                  ))}
-                </div>
-              </div>
+                );
+              })}
             </div>
 
-            {/* Drawer Bottom Actions */}
-            <div className="p-4 border-t border-slate-100 dark:border-slate-800 space-y-2.5">
-              <button
-                onClick={() => { onOpenCalculator(); setMobileMenuOpen(false); }}
-                className="w-full py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
-              >
-                <Calculator className="w-4 h-4 text-slate-950 shrink-0" />
-                <span>Visa Fee Calculator</span>
-              </button>
-              <a
-                href="https://wa.me/971503853305"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <MessageSquare className="w-4 h-4 shrink-0" />
-                <span>WhatsApp Consultation</span>
-              </a>
-              <div className="text-center text-[11px] text-slate-400 pt-1">
-                <a href="tel:+971503853305" className="text-amber-500 font-semibold">+971 50 385 3305</a>
+            {/* Theme & Language Switcher in Drawer */}
+            <div className="mt-6 px-1 pt-4 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center justify-between mb-3 px-3">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Theme</span>
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                >
+                  {theme === 'dark' ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5 text-slate-700" />}
+                  <span>{theme === 'dark' ? 'Dark' : 'Light'}</span>
+                </button>
+              </div>
+
+              <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 px-3">Language</div>
+              <div className="grid grid-cols-4 gap-2">
+                {languagesList.map((item) => (
+                  <button
+                    key={item.code}
+                    onClick={() => setLanguage(item.code)}
+                    className={`py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      language === item.code
+                        ? 'bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    }`}
+                  >
+                    {item.native}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
+
+          {/* Drawer Bottom Actions */}
+          <div className="p-4 border-t border-slate-100 dark:border-slate-800 space-y-2.5">
+            <button
+              onClick={() => { onOpenCalculator(); setMobileMenuOpen(false); }}
+              className="w-full py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
+            >
+              <Calculator className="w-4 h-4 text-slate-950 shrink-0" />
+              <span>Visa Fee Calculator</span>
+            </button>
+            <a
+              href={contactInfo.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <MessageSquare className="w-4 h-4 shrink-0" />
+              <span>WhatsApp Consultation</span>
+            </a>
+            <div className="text-center text-[11px] text-slate-400 pt-1">
+              <a href={contactInfo.phoneHref} className="text-amber-500 font-semibold">{contactInfo.phone}</a>
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

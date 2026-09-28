@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
+import { contactInfo } from '../lib/contactInfo';
 import { 
   Award, Shield, FileCheck2, Landmark, 
   ArrowUpRight, CheckCircle2, ChevronRight,
@@ -21,6 +22,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
     residency: [
       {
         id: 'prop-inv',
+        href: '/golden-visa',
         title: 'Real Estate Investor Golden Visa',
         validity: '10 Years Renewable',
         minVal: 'AED 2,000,000 Property Value',
@@ -30,6 +32,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'exec-dir',
+        href: '/golden-visa',
         title: 'Executive & C-Suite Leadership Visa',
         validity: '10 Years Renewable',
         minVal: 'AED 30,000+ Verified Monthly Salary',
@@ -39,6 +42,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'talents',
+        href: '/golden-visa',
         title: 'Specialized Talents, Doctors & Scientists',
         validity: '10 Years Renewable',
         minVal: 'Ministry & Council Endorsement',
@@ -48,6 +52,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'family-dep',
+        href: '/family-visa',
         title: 'Family & Dependent Visa Sponsorship',
         validity: '10 Years (Synced to Principal)',
         minVal: 'Spouse, Children & Parents',
@@ -59,6 +64,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
     legal: [
       {
         id: 'dld',
+        href: '/dld-trustee-services',
         title: 'Dubai Land Department (DLD) VIP Desk',
         validity: 'Express Clearance',
         minVal: 'Official Deeds & NOCs',
@@ -68,6 +74,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'attestation',
+        href: '/attestation',
         title: 'Embassy & MOFA Global Document Attestation',
         validity: 'Certified Sovereign Seal',
         minVal: 'Worldwide Coverage (120+ Countries)',
@@ -77,6 +84,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'translation',
+        href: '/translation',
         title: 'Ministry-Certified Legal Translation',
         validity: 'Ministry of Justice Certified',
         minVal: 'Official Court Sworn Translators',
@@ -86,6 +94,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'pro',
+        href: '/pro-services',
         title: 'Dedicated Corporate PRO & VIP Concierge',
         validity: 'Executive Retainer',
         minVal: 'Personal Government Officer',
@@ -115,13 +124,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
 
           {/* Clean Re-Aligned Segmented Control Tabs (Category 1 & Category 3 Only) */}
           <div className="mt-8 inline-flex p-1.5 rounded-2xl bg-white dark:bg-[#0E1320] border border-slate-200 dark:border-slate-800 shadow-sm">
-            {[
+            {([
               { id: 'residency', label: '1. Residency & Long-Term Visas' },
               { id: 'legal', label: '2. Government & Legal PRO' },
-            ].map((tab) => (
+            ] as const).map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveCategory(tab.id as any)}
+                onClick={() => setActiveCategory(tab.id)}
                 className={`px-6 sm:px-10 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeCategory === tab.id
                     ? 'bg-gradient-to-r from-amber-50 to-amber-100/60 dark:from-amber-950/80 dark:to-amber-900/60 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-700 shadow-xs font-extrabold'
@@ -186,7 +195,15 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                 </button>
 
                 <a
-                  href={`https://wa.me/971503853305?text=${encodeURIComponent(`Hello, I would like to inquire about the ${service.title}.`)}`}
+                  href={service.href}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-[#E8D5B5] bg-[#fffaf0] text-xs font-extrabold uppercase tracking-wider text-[#8C6D2D] hover:bg-[#f9f1df] transition-colors flex items-center justify-center gap-1.5"
+                >
+                  <span>View details</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </a>
+
+                <a
+                  href={`${contactInfo.whatsappHref}?text=${encodeURIComponent(`Hello, I would like to inquire about the ${service.title}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto text-xs text-slate-900 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400 font-extrabold flex items-center justify-center gap-1 transition-colors py-2"

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useLanguage } from '../lib/LanguageContext';
+import { contactInfo } from '../lib/contactInfo';
 import { 
   FileCheck, ShieldCheck, HeartPulse, 
   CreditCard, ArrowRight, Sparkles 
@@ -100,19 +101,19 @@ export const RoadmapSection: React.FC = () => {
           })}
         </div>
 
-        {/* Fast Track Callout Box in Gold & Dark Navy */}
-        <div className="mt-12 p-8 rounded-2xl bg-[#0F172A] text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-amber-500/20 shadow-xl">
+        {/* Fast Track Callout */}
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-white text-slate-900 dark:bg-[#0F172A] dark:text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-[#E8D5B5] dark:border-amber-500/20 shadow-lg">
           <div className="flex items-center gap-5">
-            <div className="p-3.5 rounded-xl bg-amber-500/20 text-[#D4AF37] border border-amber-500/30">
+            <div className="p-3.5 rounded-xl bg-amber-50 text-[#8C6D2D] dark:bg-amber-500/20 dark:text-[#D4AF37] border border-amber-200 dark:border-amber-500/30">
               <ShieldCheck className="w-8 h-8" />
             </div>
             <div>
-              <h4 className="text-xl font-bold text-white">Need an expedited case evaluation within 24 hours?</h4>
-              <p className="text-xs text-slate-300 mt-1">Our accredited government liaison files nominations with zero wait time.</p>
+              <h4 className="text-xl font-bold text-slate-900 dark:text-white">Need an expedited case evaluation within 24 hours?</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">Our accredited government liaison files nominations with zero wait time.</p>
             </div>
           </div>
           <a
-            href="https://wa.me/971503853305"
+            href={contactInfo.whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full md:w-auto px-6 py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"

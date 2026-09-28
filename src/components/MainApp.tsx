@@ -31,13 +31,13 @@ export const MainApp: React.FC = () => {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div id="site-shell" className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300">
+        <div id="site-shell" className="site-shell min-h-screen selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300">
           {/* Navigation */}
           <Navbar
             onOpenCalculator={() => setCalculatorOpen(true)}
             onOpenMegaMenu={() => setMegaMenuOpen(true)}
             currentView={currentView}
-            onNavigate={(view) => navigate(view as any)}
+            onNavigate={navigate}
           />
 
           {currentView === 'home' ? (

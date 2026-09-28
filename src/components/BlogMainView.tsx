@@ -31,37 +31,37 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FDFBF7] via-white to-[#FAF9F6]">
+    <div className="min-h-screen bg-gradient-to-b from-[#FDFBF7] via-white to-[#FAF9F6] dark:from-[#07090F] dark:via-[#0E1320] dark:to-[#07090F]">
       
       {/* Editorial Blog Header Banner */}
-      <section className="relative pt-12 pb-16 px-4 sm:px-6 lg:px-8 bg-[#0F172A] text-white overflow-hidden border-b border-amber-500/20">
-        <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#C5A05944_1px,transparent_1px)] [background-size:24px_24px]"></div>
+      <section className="relative pt-10 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F8F5EE] text-slate-900 overflow-hidden border-b border-[#E8D5B5] dark:bg-[#0F172A] dark:text-white dark:border-amber-500/20">
+        <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
         <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center">
           
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[#D4AF37] text-xs font-bold uppercase tracking-wider mb-5 shadow-lg shadow-amber-500/10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[#765719] dark:bg-amber-500/10 dark:border-amber-500/30 dark:text-[#D4AF37] text-xs font-bold uppercase tracking-wider mb-5 shadow-lg shadow-amber-500/10">
             <BookOpen className="w-3.5 h-3.5" />
             <span>UAE Sovereign Insights & Intelligence</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white">
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             Latest News & <span className="gold-gradient-text font-serif italic font-bold">Insights</span>
           </h1>
 
-          <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-2xl font-light leading-relaxed">
+          <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-2xl font-light leading-relaxed">
             Authoritative regulatory updates, executive immigration legal analyses, and sovereign wealth residency strategies in Dubai and the UAE.
           </p>
 
           {/* Search Bar & Quick Categories */}
           <div className="mt-8 w-full max-w-xl relative">
             <div className="relative flex items-center">
-              <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
+              <Search className="w-5 h-5 text-slate-500 dark:text-slate-400 absolute left-4 pointer-events-none" />
               <input
                 type="text"
                 placeholder="Search articles on Golden Visas, DLD rules, corporate tax..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/10 hover:bg-white/15 focus:bg-white/20 border border-white/20 text-white placeholder-slate-400 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] transition-all backdrop-blur-md"
+                className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-white hover:bg-white focus:bg-white border border-slate-300 text-slate-900 placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:ring-2 focus:ring-amber-500/20 transition-all dark:bg-white/10 dark:hover:bg-white/15 dark:focus:bg-white/20 dark:border-white/20 dark:text-white dark:placeholder-slate-400 dark:focus:ring-0"
               />
             </div>
           </div>
@@ -75,7 +75,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? 'gold-btn shadow-md text-slate-950 font-extrabold'
-                    : 'bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10'
+                    : 'bg-white hover:bg-amber-50 text-slate-700 border border-slate-200 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-300 dark:border-white/10'
                 }`}
               >
                 {cat}
@@ -90,9 +90,9 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         
         {/* Results Counter */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
-          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-            Showing <span className="text-slate-900 font-extrabold">{filteredPosts.length}</span> Published Articles
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200 dark:border-white/10">
+          <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+            Showing <span className="text-slate-900 dark:text-white font-extrabold">{filteredPosts.length}</span> Published Articles
           </div>
           <button
             onClick={onOpenCalculator}
@@ -108,7 +108,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
           {filteredPosts.map((post) => (
             <article
               key={post.id}
-              className="group relative bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-[#C5A059] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group relative bg-white dark:bg-[#111827] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-[#C5A059] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 
@@ -146,7 +146,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                 <div className="p-6">
                   
                   {/* Author Line */}
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-3">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400 mb-3">
                     <User className="w-3.5 h-3.5 text-[#C5A059]" />
                     <span>{post.author}</span>
                     <span className="text-slate-300">•</span>
@@ -155,12 +155,12 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-slate-900 leading-snug group-hover:text-[#8C6D2D] transition-colors line-clamp-2">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-snug group-hover:text-[#8C6D2D] transition-colors line-clamp-2">
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="mt-3 text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed line-clamp-3">
                     {post.excerpt}
                   </p>
 
@@ -169,7 +169,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               </div>
 
               {/* Card Footer / Action */}
-              <div className="px-6 pb-6 pt-2 border-t border-slate-100 flex items-center justify-between">
+              <div className="px-6 pb-6 pt-2 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
                 <button
                   onClick={() => alert(`Opening article: "${post.title}"\nFull legal analysis is available for client review.`)}
                   className="text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 flex items-center gap-1.5 transition-all cursor-pointer group/btn"
@@ -180,7 +180,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
 
                 <button
                   onClick={onOpenCalculator}
-                  className="text-[11px] font-semibold text-slate-400 hover:text-slate-700 transition-colors"
+                  className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   Calculate Fees
                 </button>
@@ -191,14 +191,14 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
         </div>
 
         {/* Bottom Fast-Track Consultation Banner */}
-        <div className="mt-16 p-8 rounded-3xl bg-white border border-[#E8D5B5] shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-16 p-8 rounded-3xl bg-white dark:bg-[#111827] border border-[#E8D5B5] dark:border-white/10 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <div className="p-3.5 rounded-2xl bg-amber-50 text-[#C5A059] border border-amber-200">
               <ShieldCheck className="w-8 h-8" />
             </div>
             <div>
-              <h4 className="text-lg font-bold text-slate-900">Have Questions About Your Golden Visa Eligibility?</h4>
-              <p className="text-xs text-slate-500 mt-0.5">Connect with our senior case manager for immediate pre-clearance assistance.</p>
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white">Have Questions About Your Golden Visa Eligibility?</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Connect with our senior case manager for immediate pre-clearance assistance.</p>
             </div>
           </div>
           <button

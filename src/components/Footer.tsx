@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { contactInfo } from '../lib/contactInfo';
 import { useLanguage } from '../lib/LanguageContext';
 import {
   Phone, Mail, MapPin, Clock,
@@ -24,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({
   const socialLinks = [
     {
       label: 'Facebook',
-      href: 'https://facebook.com',
+      href: 'https://www.facebook.com/brightlinkconsulting.uae/',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -33,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'Instagram',
-      href: 'https://instagram.com',
+      href: 'https://www.instagram.com/brightlink.consulting/',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -44,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'TikTok',
-      href: 'https://tiktok.com',
+      href: 'https://www.tiktok.com/@brightlink.consulting',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.2 8.2 0 0 0 4.79 1.53V6.78a4.85 4.85 0 0 1-1.02-.09z" />
@@ -53,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'LinkedIn',
-      href: 'https://linkedin.com',
+      href: 'https://www.linkedin.com/company/brightlink-management-consultancy/',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -64,7 +65,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'YouTube',
-      href: 'https://youtube.com',
+      href: 'https://www.youtube.com/@brightlinkconsulting',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
@@ -74,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'Twitter / X',
-      href: 'https://x.com',
+      href: 'https://twitter.com/BRIGHTLINKCONS1',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -83,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'Pinterest',
-      href: 'https://pinterest.com',
+      href: 'https://www.pinterest.com/brightlinkconsulting/',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.001 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" />
@@ -92,7 +93,7 @@ export const Footer: React.FC<FooterProps> = ({
     },
     {
       label: 'Telegram',
-      href: 'https://t.me',
+      href: 'http://t.me/brightlinkgroup',
       icon: (
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
           <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
@@ -128,11 +129,11 @@ export const Footer: React.FC<FooterProps> = ({
           </h2>
 
           <p className="max-w-2xl text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
-            Partner with Golden Visa Dubai through our structured B2B and Corporate Referral Program. Refer clients who need Golden Visa, Family Visa, Attestation, or PRO services and earn tiered commissions with dedicated partner support.
+            Partner with Brightlink through our structured B2B and Corporate Referral Program. Refer clients who need Golden Visa, Family Visa, Attestation, or PRO services and receive dedicated partner support.
           </p>
 
           <a
-            href={`https://wa.me/971503853305?text=${encodeURIComponent("Hello Partnership Desk, I would like to apply for the Golden Visa Dubai B2B Referral Partner Program.")}`}
+            href={`${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Brightlink Team, I would like to apply for the B2B Referral Partner Program.")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl gold-btn font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:scale-[1.02] transition-transform"
@@ -146,7 +147,7 @@ export const Footer: React.FC<FooterProps> = ({
       </aside>
 
       {/* ─── Main Footer ─── */}
-      <footer className="bg-[#1A1A1A] text-slate-300 text-xs pt-14 pb-6 px-4 sm:px-6 lg:px-10 border-t border-white/10">
+      <footer className="site-footer bg-white text-slate-700 dark:bg-[#1A1A1A] dark:text-slate-300 text-xs pt-14 pb-6 px-4 sm:px-6 lg:px-10 border-t border-[#E8D5B5] dark:border-white/10">
         <div className="max-w-[1720px] mx-auto">
 
           {/* ─── Main Grid: Brand Left | Contact Right ─── */}
@@ -159,7 +160,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <div className="relative w-14 h-14 rounded-2xl overflow-hidden bg-gradient-to-tr from-amber-400/20 to-amber-200/5 border border-amber-400/30 flex items-center justify-center p-1.5 shrink-0">
                   <Image
                     src="/assets/images/Golden Visa-icon.png"
-                    alt="Golden Visa Dubai Logo"
+                    alt="Brightlink Management Consultancy logo"
                     width={56}
                     height={56}
                     className="object-contain w-full h-full"
@@ -167,7 +168,7 @@ export const Footer: React.FC<FooterProps> = ({
                 </div>
                 <div>
                   <span className="text-xl font-black text-white tracking-tight block font-serif leading-tight">
-                    GOLDEN VISA <span className="text-[#C5A059] italic">DUBAI</span>
+                    BRIGHTLINK
                   </span>
                   <span className="text-[10px] text-amber-300/80 font-semibold uppercase tracking-wider block mt-0.5">
                     UAE Residency &amp; Legal Consultancy
@@ -182,46 +183,46 @@ export const Footer: React.FC<FooterProps> = ({
               <div className="space-y-3 text-slate-300">
                 {/* Phone 1 */}
                 <a
-                  href="tel:+971503853305"
+                  href={contactInfo.phoneHref}
                   className="flex items-center gap-2.5 hover:text-white transition-colors group"
                 >
                   <div className="w-7 h-7 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/40 transition-colors shrink-0">
                     <Phone className="w-3.5 h-3.5 text-[#C5A059]" />
                   </div>
-                  <span>+971 50 385 3305</span>
+                  <span>{contactInfo.phone}</span>
                 </a>
 
                 {/* Phone 2 */}
                 <a
-                  href="tel:+971503853305"
+                  href={contactInfo.officePhoneHref}
                   className="flex items-center gap-2.5 hover:text-white transition-colors group"
                 >
                   <div className="w-7 h-7 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/40 transition-colors shrink-0">
                     <Phone className="w-3.5 h-3.5 text-[#C5A059]" />
                   </div>
-                  <span>+971 50 385 3305</span>
+                  <span>{contactInfo.officePhone}</span>
                 </a>
 
                 {/* Email */}
                 <a
-                  href="mailto:info@goldenvisauae.net"
+                  href={`mailto:${contactInfo.generalEmail}`}
                   className="flex items-center gap-2.5 hover:text-white transition-colors group"
                 >
                   <div className="w-7 h-7 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/40 transition-colors shrink-0">
                     <Mail className="w-3.5 h-3.5 text-[#C5A059]" />
                   </div>
-                  <span>info@goldenvisauae.net</span>
+                  <span>{contactInfo.generalEmail}</span>
                 </a>
 
                 {/* Inquiry Email */}
                 <a
-                  href="mailto:visa@goldenvisauae.net"
+                  href={`mailto:${contactInfo.visaEmail}`}
                   className="flex items-center gap-2.5 hover:text-white transition-colors group"
                 >
                   <div className="w-7 h-7 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/40 transition-colors shrink-0">
                     <Mail className="w-3.5 h-3.5 text-[#C5A059]" />
                   </div>
-                  <span>visa@goldenvisauae.net</span>
+                  <span>{contactInfo.visaEmail}</span>
                 </a>
 
                 {/* Hours */}
@@ -230,7 +231,8 @@ export const Footer: React.FC<FooterProps> = ({
                     <Clock className="w-3.5 h-3.5 text-[#C5A059]" />
                   </div>
                   <div>
-                    <span className="block">Monday – Saturday: 9 AM – 6 PM</span>
+                    <span className="block">Monday – Friday: 9 AM – 6 PM</span>
+                    <span className="block">Saturday: 10 AM – 5 PM</span>
                     <span className="block text-slate-500">Sunday: Closed</span>
                   </div>
                 </div>
@@ -241,8 +243,7 @@ export const Footer: React.FC<FooterProps> = ({
                     <MapPin className="w-3.5 h-3.5 text-[#C5A059]" />
                   </div>
                   <span className="leading-relaxed">
-                    Zalfa Building, 2nd Street,<br />
-                    Al Garhoud, Dubai, United Arab Emirates
+                    {contactInfo.address}
                   </span>
                 </div>
               </div>
@@ -265,7 +266,7 @@ export const Footer: React.FC<FooterProps> = ({
 
               {/* Tagline */}
               <p className="text-slate-400 leading-relaxed text-xs max-w-sm">
-                Golden Visa Dubai, your trusted UAE partner for residency facilitation, professional document clearing, and government liaison services — delivering close guidance every step of the way.
+                Brightlink is your UAE partner for residency, business setup, and professional services, with clear guidance throughout.
               </p>
 
               {/* Compliance badge */}
@@ -321,7 +322,7 @@ export const Footer: React.FC<FooterProps> = ({
                     </button>
                   </li>
                   <li>
-                    <a href={`https://wa.me/971503853305`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={contactInfo.whatsappHref} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <ChevronRight className="w-3 h-3 text-amber-500/60 shrink-0 group-hover:translate-x-0.5 transition-transform" />
                       Contact Us
                     </a>
@@ -432,13 +433,13 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* ─── Copyright ─── */}
           <div className="pt-5 text-center text-slate-500 text-[11px]">
-            © {new Date().getFullYear()} Golden Visa Dubai. All Rights Reserved
+            © {new Date().getFullYear()} Brightlink Management Consultancy. All Rights Reserved
           </div>
 
           {/* ─── Legal Disclaimers ─── */}
           <div className="mt-5 pt-5 border-t border-white/10 space-y-3 text-[10px] sm:text-[11px] text-slate-600 leading-relaxed">
             <p>
-              Golden Visa Dubai is an independent private consultancy and trusted professional services provider, authorised by the Dubai Department of Economy and Tourism (DET). License No: 1097307. We are not a government authority and are not affiliated with any UAE government entity. All final approvals, licences, visas, certifications, and government documents are issued by the relevant UAE authorities. Our packages may include Brightlink Meta Partners services. Terms and conditions of third-party services may apply.
+              Brightlink Management Consultancy LLC is an independent private consultancy licensed by Dubai DET (License No. 1053387), and is not a government authority. All approvals, licences, visas, certificates, and government documents are issued by the relevant UAE authorities.
             </p>
             <p>
               <strong className="text-slate-500">Privacy:</strong> We respect your privacy and handle personal information and documents with appropriate care. Information is used for the purpose of providing and facilitating the services requested and is handled in accordance with applicable regulations.

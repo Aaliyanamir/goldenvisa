@@ -1,8 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useLanguage } from '../lib/LanguageContext';
+import { contactInfo } from '../lib/contactInfo';
 import { 
   X, ChevronRight, Calculator, MessageSquare,
   Users, Award, Building2, Heart, UserCheck, CreditCard,
@@ -24,79 +27,60 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
   onNavigateToBlog 
 }) => {
   const { isRTL } = useLanguage();
+  const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState('residency');
 
   if (!isOpen) return null;
 
-  // 1. Top Row Featured Service Cards (Matching Reference Grid of 6)
-  const featuredServices = [
+  const serviceCategories = [
     {
-      title: "Family Visa",
+      id: 'residency',
+      title: 'Residency & Visas',
       icon: Users,
-      bgColor: "bg-rose-50",
-      textColor: "text-rose-500",
-      borderColor: "border-rose-100",
-      action: () => { onClose(); onOpenCalculator(); },
+      services: [
+        { title: 'Golden Visa', href: '/golden-visa', icon: Award },
+        { title: 'Family Visa', href: '/family-visa', icon: Users },
+        { title: 'Newborn Visa', href: '/newborn-visa', icon: Heart },
+        { title: 'Maid Visa', href: '/maid-visa', icon: UserCheck },
+        { title: 'Emirates ID', href: '/emirates-id', icon: CreditCard },
+      ],
     },
     {
-      title: "Golden Visa",
-      icon: Award,
-      bgColor: "bg-amber-50",
-      textColor: "text-[#C5A059]",
-      borderColor: "border-amber-100",
-      action: () => { onClose(); onOpenCalculator(); },
-    },
-    {
-      title: "Property Visa",
+      id: 'property',
+      title: 'Property Services',
       icon: Building2,
-      bgColor: "bg-sky-50",
-      textColor: "text-sky-600",
-      borderColor: "border-sky-100",
-      action: () => { onClose(); onOpenCalculator(); },
+      services: [
+        { title: 'Property Visa', href: '/property-visa', icon: Building2 },
+        { title: 'DLD Trustee Services', href: '/dld-trustee-services', icon: Landmark },
+        { title: 'Property Revaluation', href: '/property-revaluation', icon: Scale },
+      ],
     },
     {
-      title: "Newborn Visa",
-      icon: Heart,
-      bgColor: "bg-pink-50",
-      textColor: "text-pink-500",
-      borderColor: "border-pink-100",
-      action: () => { onClose(); onOpenCalculator(); },
+      id: 'documents',
+      title: 'Documents & PRO',
+      icon: FileText,
+      services: [
+        { title: 'PRO Services', href: '/pro-services', icon: Briefcase },
+        { title: 'Amer Center', href: '/amer-center', icon: Landmark },
+        { title: 'Attestation', href: '/attestation', icon: FileCheck2 },
+        { title: 'Translation', href: '/translation', icon: Globe2 },
+        { title: 'Power of Attorney', href: '/power-of-attorney', icon: FileText },
+        { title: 'Wills & Last Testament', href: '/wills-last-testament', icon: Scale },
+      ],
     },
     {
-      title: "Maid Visa",
-      icon: UserCheck,
-      bgColor: "bg-emerald-50",
-      textColor: "text-emerald-600",
-      borderColor: "border-emerald-100",
-      action: () => { onClose(); onOpenCalculator(); },
-    },
-    {
-      title: "Emirates ID",
-      icon: CreditCard,
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-600",
-      borderColor: "border-purple-100",
-      action: () => { onClose(); onOpenCalculator(); },
+      id: 'compliance',
+      title: 'Checks & Protection',
+      icon: ShieldCheck,
+      services: [
+        { title: 'Medical & EID', href: '/medical-eid', icon: HeartPulse },
+        { title: 'Visa Validity Checker', href: '/visa-validity-checker', icon: ShieldCheck },
+        { title: 'ILOE Insurance', href: '/iloe-insurance', icon: Umbrella },
+      ],
     },
   ];
 
-  // 2. Middle Column: Other Services
-  const otherServices = [
-    { title: "PRO Services", icon: Briefcase, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Amer Center", icon: Landmark, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Attestation", icon: FileCheck2, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Translation", icon: Globe2, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Power of Attorney", icon: FileText, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Wills & Testament", icon: Scale, action: () => { onClose(); onOpenCalculator(); } },
-  ];
-
-  // 3. Middle Column: Property & Support
-  const propertySupportServices = [
-    { title: "DLD Trustee Services", icon: Building2, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Revaluation", icon: Scale, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Medical & EID", icon: HeartPulse, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "Visa Validity Checker", icon: ShieldCheck, action: () => { onClose(); onOpenCalculator(); } },
-    { title: "ILOE Insurance", icon: Umbrella, action: () => { onClose(); onOpenCalculator(); } },
-  ];
+  const selectedCategory = serviceCategories.find((category) => category.id === activeCategory) ?? serviceCategories[0];
 
   // 4. Company Links
   const companyLinks = [
@@ -113,8 +97,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
       icon: Info,
       action: () => {
         onClose();
-        const el = document.getElementById('roadmap');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        router.push('/about');
       },
     },
     {
@@ -122,7 +105,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
       icon: Briefcase,
       action: () => {
         onClose();
-        window.open('https://wa.me/971503853305?text=Hello%2C%20I%20am%20inquiring%20about%20career%20opportunities%20at%20Golden%20Visa%20Dubai.', '_blank');
+        router.push('/career');
       },
     },
     {
@@ -130,7 +113,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
       icon: Headphones,
       action: () => {
         onClose();
-        window.open('https://wa.me/971503853305?text=Hello%2C%20I%20would%20like%20to%20speak%20with%20an%20advisory%20consultant.', '_blank');
+        router.push('/contact-us');
       },
     },
   ];
@@ -143,12 +126,12 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 
       {/* Main Modal Card */}
       <div 
-        className="relative z-10 w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white border border-slate-200/90 shadow-2xl text-slate-900 overflow-hidden"
+        className="mega-menu-dialog relative z-10 w-full max-w-4xl max-h-[92vh] flex flex-col rounded-3xl bg-white dark:bg-[#111827] border border-slate-200/90 dark:border-white/10 shadow-2xl text-slate-900 dark:text-white overflow-hidden"
         style={{ direction: isRTL ? 'rtl' : 'ltr' }}
       >
         
         {/* Header */}
-        <div className="px-6 py-4 sm:py-5 border-b border-slate-100 flex items-center justify-between bg-white shrink-0">
+        <div className="px-6 py-4 sm:py-5 border-b border-slate-100 dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#111827] shrink-0">
           <div className="flex items-center gap-3">
             <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-amber-200/80 to-amber-50 border border-amber-300/60 shadow-xs flex items-center justify-center shrink-0">
               <Image 
@@ -161,7 +144,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 font-serif">
+                <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif">
                   Golden Visa <span className="text-[#C5A059] italic font-serif">Dubai</span>
                 </span>
               </div>
@@ -183,97 +166,64 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         {/* Scrollable Body Content */}
         <div className="flex-1 overflow-y-auto px-5 sm:px-7 py-5 space-y-6">
 
-          {/* 1. TOP ROW GRID: Featured Service Cards (Reference 6 Cards) */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-3">
-            {featuredServices.map((service, idx) => {
-              const IconComp = service.icon;
-              return (
-                <button
-                  key={idx}
-                  onClick={service.action}
-                  className="group flex flex-col items-center justify-center p-3 sm:p-3.5 rounded-2xl bg-white border border-slate-200/80 hover:border-amber-400 hover:shadow-md transition-all duration-200 cursor-pointer text-center"
-                >
-                  <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-2xl ${service.bgColor} ${service.textColor} ${service.borderColor} border flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform shadow-xs`}>
-                    <IconComp className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </div>
-                  <span className="text-xs sm:text-[13px] font-bold text-slate-800 group-hover:text-slate-950 leading-tight">
-                    {service.title}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+          {/* Service categories */}
+          <section aria-label="Browse services by category">
+            <div className="flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Service categories">
+              {serviceCategories.map((category) => {
+                const Icon = category.icon;
+                const isActive = activeCategory === category.id;
+                return (
+                  <button
+                    key={category.id}
+                    id={`service-category-${category.id}`}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => setActiveCategory(category.id)}
+                    className={`inline-flex shrink-0 items-center gap-2 rounded-xl border px-3.5 py-2.5 text-xs sm:text-sm font-bold transition-colors ${isActive ? 'border-amber-400 bg-amber-50 text-[#765719] dark:border-amber-400/50 dark:bg-amber-500/10 dark:text-amber-300' : 'border-slate-200 bg-white text-slate-600 hover:border-amber-300 hover:text-slate-900 dark:border-white/10 dark:bg-[#0E1320] dark:text-slate-300 dark:hover:text-white'}`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {category.title}
+                  </button>
+                );
+              })}
+            </div>
 
-          {/* 2. TWO-COLUMN CATEGORIZED SERVICES (Reference Matched) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 pt-2">
-            
-            {/* Left Column: Other Services */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 rounded-full bg-rose-500 inline-block shrink-0" />
-                <h3 className="text-sm font-bold text-slate-900 tracking-tight">Other Services</h3>
-              </div>
-              <div className="space-y-2">
-                {otherServices.map((item, idx) => {
-                  const Icon = item.icon;
+            <div
+              id="service-category-panel"
+              role="tabpanel"
+              aria-labelledby={`service-category-${selectedCategory.id}`}
+              className="mt-4"
+            >
+              <h3 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">{selectedCategory.title}</h3>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {selectedCategory.services.map((service) => {
+                  const Icon = service.icon;
                   return (
-                    <button
-                      key={idx}
-                      onClick={item.action}
-                      className="w-full flex items-center justify-between p-3 rounded-xl border border-slate-200/70 hover:border-amber-300 hover:bg-amber-50/30 transition-all text-left group cursor-pointer"
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      onClick={onClose}
+                      className="group flex items-center justify-between gap-3 rounded-xl border border-slate-200/70 dark:border-white/10 p-3 text-left transition-colors hover:border-amber-300 hover:bg-amber-50/40 dark:hover:bg-amber-500/5"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-slate-100 text-slate-600 group-hover:bg-amber-100/70 group-hover:text-[#8C6D2D] transition-colors">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-slate-950">
-                          {item.title}
+                      <span className="flex min-w-0 items-center gap-3">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors group-hover:bg-amber-100 group-hover:text-[#8C6D2D]">
+                          <Icon className="h-4 w-4" />
                         </span>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all" />
-                    </button>
+                        <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 group-hover:text-slate-950 dark:group-hover:text-white sm:text-sm">{service.title}</span>
+                      </span>
+                      <ChevronRight className="h-4 w-4 shrink-0 text-slate-400 transition-all group-hover:translate-x-0.5 group-hover:text-amber-600" />
+                    </Link>
                   );
                 })}
               </div>
             </div>
-
-            {/* Right Column: Property & Support */}
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 rounded-full bg-rose-500 inline-block shrink-0" />
-                <h3 className="text-sm font-bold text-slate-900 tracking-tight">Property &amp; Support</h3>
-              </div>
-              <div className="space-y-2">
-                {propertySupportServices.map((item, idx) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={idx}
-                      onClick={item.action}
-                      className="w-full flex items-center justify-between p-3 rounded-xl border border-slate-200/70 hover:border-amber-300 hover:bg-amber-50/30 transition-all text-left group cursor-pointer"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-slate-100 text-slate-600 group-hover:bg-amber-100/70 group-hover:text-[#8C6D2D] transition-colors">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                        <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-slate-950">
-                          {item.title}
-                        </span>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-0.5 transition-all" />
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-          </div>
+          </section>
 
           {/* 3. COMPANY SECTION (Reference Matched) */}
           <div className="pt-2">
             <div className="flex items-center gap-2 mb-3">
               <span className="w-2 h-2 rounded-full bg-rose-500 inline-block shrink-0" />
-              <h3 className="text-sm font-bold text-slate-900 tracking-tight">Company</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">Company</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
               {companyLinks.map((item, idx) => {
@@ -282,13 +232,13 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
                   <button
                     key={idx}
                     onClick={item.action}
-                    className="w-full flex items-center justify-between p-3 rounded-xl border border-slate-200/70 hover:border-amber-300 hover:bg-amber-50/30 transition-all text-left group cursor-pointer"
+                    className="w-full flex items-center justify-between p-3 rounded-xl border border-slate-200/70 dark:border-white/10 hover:border-amber-300 hover:bg-amber-50/30 dark:hover:bg-amber-500/5 transition-all text-left group cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-slate-100 text-slate-600 group-hover:bg-amber-100/70 group-hover:text-[#8C6D2D] transition-colors">
+                      <div className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 group-hover:bg-amber-100/70 group-hover:text-[#8C6D2D] transition-colors">
                         <Icon className="w-4 h-4" />
                       </div>
-                      <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-slate-950">
+                      <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 group-hover:text-slate-950 dark:group-hover:text-white">
                         {item.title}
                       </span>
                     </div>
@@ -302,7 +252,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         </div>
 
         {/* 4. STICKY MODAL FOOTER: Dual Action Buttons (Reference Matched) */}
-        <div className="p-3 sm:p-4 border-t border-slate-200 bg-white/95 backdrop-blur-md shrink-0">
+        <div className="p-3 sm:p-4 border-t border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#111827]/95 backdrop-blur-md shrink-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
             
             {/* Left Button: Red / Rose Visa Calculator */}
@@ -319,7 +269,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 
             {/* Right Button: Green WhatsApp Direct Contact */}
             <a
-              href="https://wa.me/971503853305?text=Hello%20Golden%20Visa%20Dubai%20Team%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
+              href={`${contactInfo.whatsappHref}?text=Hello%20Brightlink%20Team%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-center"

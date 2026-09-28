@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Global box-sizing & overflow safeguard */
 *, *::before, *::after {
@@ -14,13 +15,14 @@ html {
 
 @layer base {
   :root {
+    --site-header-offset: 112px;
     --gold-primary: #C5A059;
     --gold-hover: #D4AF37;
     --gold-dark: #8C6D2D;
     --gold-subtle: #FDFBF7;
     --gold-border: #E8D5B5;
     
-    --bg-page: #FFFFFF;
+    --bg-page: #FAF9F6;
     --bg-surface: #FFFFFF;
     --bg-alt: #F8F9FA;
     --bg-warm: #FAF9F6;
@@ -59,6 +61,20 @@ html {
     overflow-x: hidden;
     min-height: 100dvh;
     transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  #site-shell {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+  }
+
+  .site-page-main {
+    padding-top: var(--site-header-offset);
+  }
+
+  html {
+    scroll-padding-top: var(--site-header-offset);
   }
 
   button, a {
@@ -129,25 +145,25 @@ html.dark body {
   color: #F8FAFC !important;
 }
 
-html.dark header {
+html.dark .site-nav-header {
   background: rgba(14, 19, 32, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7) !important;
 }
 
-html.dark header nav button {
+html.dark .site-nav-header nav button {
   color: #94A3B8;
 }
 
-html.dark header nav button:hover {
+html.dark .site-nav-header nav button:hover {
   color: #FFFFFF;
 }
 
-html.dark header nav button .text-slate-950 {
+html.dark .site-nav-header nav button .text-slate-950 {
   color: #FFFFFF !important;
 }
 
-html.dark header nav button .text-slate-700 {
+html.dark .site-nav-header nav button .text-slate-700 {
   color: #CBD5E1 !important;
 }
 
@@ -175,6 +191,7 @@ html.dark .white-gold-card p {
 /* Luxury Editorial Styling */
 .gold-gradient-text {
   background: linear-gradient(135deg, #E5C365 0%, #D4AF37 40%, #B38933 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -217,6 +234,133 @@ html.dark .white-gold-card p {
   animation-play-state: paused;
 }
 
+.site-header-shell {
+  animation: site-nav-enter 950ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.site-nav-topbar,
+.site-nav-frame,
+.site-nav-header,
+.site-nav-layout,
+.site-nav-brand,
+.site-nav-brand-mark,
+.site-nav-brand-copy,
+.site-nav-links,
+.site-nav-actions {
+  transition-property: width, max-width, max-height, padding, margin, gap, opacity, transform, border-radius, box-shadow, visibility;
+  transition-duration: 900ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-nav-header {
+  width: 100%;
+}
+
+.site-nav-topbar {
+  max-height: 40px;
+}
+
+.site-nav-header.is-collapsed {
+  width: 64px;
+  margin-left: 0;
+  margin-right: auto;
+  padding: 7px;
+  border-radius: 999px;
+}
+
+.site-nav-header.is-collapsed .site-nav-layout {
+  justify-content: center;
+  gap: 0;
+}
+
+.site-nav-header.is-collapsed .site-nav-brand {
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  gap: 0;
+}
+
+.site-nav-header.is-collapsed .site-nav-brand-mark {
+  width: 48px;
+  height: 48px;
+  animation: site-logo-pulse 2.2s ease-in-out infinite;
+}
+
+.site-nav-header.is-collapsed .site-nav-brand-copy {
+  width: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.site-nav-header.is-collapsed .site-nav-links,
+.site-nav-header.is-collapsed .site-nav-actions {
+  flex: 0 0 0;
+  width: 0;
+  max-width: 0;
+  margin: 0;
+  gap: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-8px) scale(0.97);
+  visibility: hidden;
+}
+
+.site-header-shell.is-collapsed .site-nav-topbar {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom-width: 0;
+  border-color: transparent;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-10px);
+  visibility: hidden;
+}
+
+.site-header-shell.is-collapsed .site-nav-frame {
+  padding-top: 8px;
+  padding-left: 12px;
+}
+
+@keyframes site-nav-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes site-logo-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(197, 160, 89, 0), inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(197, 160, 89, 0.13), inset 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header-shell,
+  .site-nav-topbar,
+  .site-nav-frame,
+  .site-nav-header,
+  .site-nav-layout,
+  .site-nav-brand,
+  .site-nav-brand-mark,
+  .site-nav-brand-copy,
+  .site-nav-links,
+  .site-nav-actions {
+    animation: none !important;
+    transition-duration: 1ms !important;
+  }
+}
+
 /* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
@@ -242,62 +386,136 @@ html.dark ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
 
-/* Light theme: white, black, and gold across the site, except the video hero. */
-html:not(.dark) #site-shell {
-  background: #FFFFFF !important;
-  color: #111827 !important;
+html.dark .service-page-theme {
+  background-color: #07090F !important;
+  color: #F8FAFC !important;
 }
 
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):not(.site-nav-header):is(section, header, footer, aside, article) {
-  background-color: #FFFFFF !important;
-  border-color: #E5E7EB;
-  color: #111827;
+html.dark .service-page-theme [class~="bg-white"],
+html.dark .service-page-theme [class~="bg-slate-50"],
+html.dark .service-page-theme [class~="bg-[#fffaf0]"],
+html.dark .service-page-theme [class~="bg-[#F8F1DF]"] {
+  background-color: #0E1320 !important;
 }
 
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):not(.site-nav-header):is([class*="bg-[#"], [class*="bg-slate-"], [class*="bg-gray-"], [class*="bg-zinc-"], [class*="bg-neutral-"]) {
-  background-color: #FFFFFF !important;
-}
-
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is([class*="bg-gradient-to-"]) {
-  background-color: #FFFFFF !important;
+html.dark .service-page-theme [class*="from-[#fffdf9]"],
+html.dark .service-page-theme [class*="from-[#f9f5ec]"] {
   background-image: none !important;
+  background-color: #0E1320 !important;
 }
 
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is([class*="text-white"], [class*="text-slate-"], [class*="text-gray-"], [class*="text-zinc-"], [class*="text-neutral-"]) {
-  color: #111827 !important;
+html.dark .service-page-theme [class~="text-slate-900"],
+html.dark .service-page-theme [class~="text-slate-800"] {
+  color: #F8FAFC !important;
 }
 
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is(h1, h2, h3, h4, h5, h6) {
+html.dark .service-page-theme [class~="text-slate-700"],
+html.dark .service-page-theme [class~="text-slate-600"] {
+  color: #CBD5E1 !important;
+}
+
+html.dark .service-page-theme [class~="text-slate-500"],
+html.dark .service-page-theme [class*="text-[#8C6D2D]"],
+html.dark .service-page-theme [class*="text-[#7d611f]"] {
+  color: #D4AF37 !important;
+}
+
+html.dark .service-page-theme [class~="border-slate-200"],
+html.dark .service-page-theme [class*="border-[#E"] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .mega-menu-dialog {
+  background-color: #111827 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #F8FAFC !important;
+}
+
+html.dark .mega-menu-dialog [class~="bg-white"],
+html.dark .mega-menu-dialog [class~="bg-white/95"] {
+  background-color: #111827 !important;
+}
+
+html.dark .mega-menu-dialog [class~="bg-slate-100"],
+html.dark .mega-menu-dialog [class~="bg-slate-200"] {
+  background-color: #1E293B !important;
+}
+
+html.dark .mega-menu-dialog [class~="text-slate-900"],
+html.dark .mega-menu-dialog [class~="text-slate-800"] {
+  color: #F8FAFC !important;
+}
+
+html.dark .mega-menu-dialog [class~="text-slate-600"],
+html.dark .mega-menu-dialog [class~="text-slate-500"],
+html.dark .mega-menu-dialog [class~="text-slate-400"] {
+  color: #CBD5E1 !important;
+}
+
+html.dark .mega-menu-dialog [class*="border-slate-"] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .eligibility-quiz-dialog {
+  background-color: #0E1320 !important;
+  color: #F8FAFC !important;
+}
+
+html.dark .eligibility-quiz-dialog [class~="bg-slate-100"],
+html.dark .eligibility-quiz-dialog [class~="bg-slate-50"] {
+  background-color: #1E293B !important;
+}
+
+html.dark .eligibility-quiz-dialog [class~="text-slate-900"] {
+  color: #F8FAFC !important;
+}
+
+html.dark .eligibility-quiz-dialog [class~="text-slate-700"],
+html.dark .eligibility-quiz-dialog [class~="text-slate-500"],
+html.dark .eligibility-quiz-dialog [class~="text-slate-400"] {
+  color: #CBD5E1 !important;
+}
+
+html.dark .eligibility-quiz-dialog [class~="border-slate-200"] {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html:not(.dark) .site-footer [class~="text-white"]:not([class~="bg-black"]):not([class*="bg-[#1A1F71]"]):not([class*="bg-[#007BC1]"]) {
+  color: #0F172A !important;
+}
+
+html:not(.dark) .site-footer [class~="bg-black"] [class~="text-white"],
+html:not(.dark) .site-footer [class*="bg-[#1A1F71]"] [class~="text-white"],
+html:not(.dark) .site-footer [class*="bg-[#007BC1]"] [class~="text-white"] {
+  color: #FFFFFF !important;
+}
+
+html:not(.dark) .site-footer [class*="text-slate-"] {
+  color: #1F2937 !important;
+}
+
+html:not(.dark) .site-footer [class*="text-amber-"],
+html:not(.dark) .site-footer [class*="text-[#C5A059]"] {
+  color: #765719 !important;
+}
+
+html:not(.dark) .site-footer [class~="bg-slate-800"] {
+  background-color: #F8F6F1 !important;
+  border-color: #E8DFCB !important;
+}
+
+html:not(.dark) .site-footer [class~="border-white/10"] {
+  border-color: #E8DFCB !important;
+}
+
+html:not(.dark) .site-footer [class~="text-white/20"] {
+  color: #CBD5E1 !important;
+}
+
+html:not(.dark) .site-footer [class~="hover:text-white"]:hover {
   color: #8C6D2D !important;
 }
 
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is(h1, h2, h3, h4, h5, h6):is([class*="text-white"], [class*="text-slate-"], [class*="text-gray-"], [class*="text-zinc-"], [class*="text-neutral-"]) {
-  color: #8C6D2D !important;
-}
-
-html:not(.dark) #site-shell :not([data-light-theme-exempt]):not([data-light-theme-exempt] *):is(.gold-btn, a[class*="bg-gradient-to-"]) {
-  background: linear-gradient(135deg, #D4AF37 0%, #C5A059 100%) !important;
-  border-color: #C5A059 !important;
-  color: #111827 !important;
-}
-
-html:not(.dark) #site-shell .site-nav-header {
-  background: #FFF2C6 !important;
-  border-color: #E7D39A !important;
-}
-
-html:not(.dark) #site-shell .site-nav-header nav button {
-  background: transparent !important;
-  border-color: transparent !important;
-  color: #111827 !important;
-  font-weight: 700;
-}
-
-html:not(.dark) #site-shell .site-nav-header nav button span {
-  color: #111827 !important;
-  font-weight: 700;
-}
-
-html:not(.dark) #site-shell .site-nav-header nav button:hover {
-  background: #F2E2B3 !important;
+html:not(.dark) .site-footer [class~="hover:bg-slate-700"]:hover {
+  background-color: #E2E8F0 !important;
 }

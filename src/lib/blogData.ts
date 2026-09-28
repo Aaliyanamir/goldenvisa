@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Executive Relations',
-    image: 'https://images.unsplash.com/photo-152207182399e-b89e7df91b62?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: '4',

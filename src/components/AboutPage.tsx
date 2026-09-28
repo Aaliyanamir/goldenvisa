@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { contactInfo } from '../lib/contactInfo';
 import {
   ShieldCheck, Award, Users, Star, TrendingUp,
   CheckCircle2, MapPin, Phone, Mail, ArrowRight,
@@ -14,17 +15,17 @@ interface AboutPageProps {
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
   const stats = [
-    { value: '15+', label: 'Years of Experience', icon: Award },
+    { value: '13+', label: 'Years in UAE Market', icon: Award },
     { value: '4.9★', label: 'Client Rating', icon: Star },
-    { value: '2,400+', label: 'Visas Approved', icon: BadgeCheck },
-    { value: '98%', label: 'Approval Success Rate', icon: TrendingUp },
+    { value: '5,500+', label: 'Visas Issued', icon: BadgeCheck },
+    { value: '100%', label: 'Customer Satisfaction', icon: TrendingUp },
   ];
 
   const strengths = [
     {
       icon: ShieldCheck,
       title: 'Officially Licensed',
-      desc: 'Authorised by the Dubai Department of Economy & Tourism (DET). License No: 1097307.',
+      desc: 'Licensed by the Dubai Department of Economy & Tourism (DET). License No: 1053387.',
     },
     {
       icon: Globe2,
@@ -102,7 +103,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
                 <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                <span>About Golden Visa Dubai</span>
+                <span>About Brightlink</span>
               </div>
               <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white font-serif">
                 About <span className="gold-gradient-text italic font-serif">Brightlink</span> —<br />
@@ -110,7 +111,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                 <span className="text-[#C5A059]">Consultancy</span>
               </h1>
               <p className="mt-6 text-slate-700 dark:text-slate-300 text-base leading-relaxed max-w-xl font-normal">
-                Golden Visa Dubai is the UAE's premier residency facilitation partner. We have successfully guided over 2,400 investors, entrepreneurs, executives, and families to secure their 10-Year UAE Golden Visa — with a 98% approval success rate.
+                Brightlink Consulting is a UAE residency and professional services consultancy supporting investors, entrepreneurs, executives, and families through their applications.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <button
@@ -121,7 +122,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   <span>Calculate My Visa Fees</span>
                 </button>
                 <a
-                  href="https://wa.me/971503853305"
+                  href={contactInfo.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-md"
@@ -138,7 +139,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                 <div className="rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#1A1E2C] dark:to-[#0D1117] border border-slate-200 dark:border-amber-500/20 p-8 shadow-2xl">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center p-2 shrink-0">
-                      <Image src="/assets/images/Golden Visa-icon.png" alt="Golden Visa Dubai" width={64} height={64} className="object-contain" />
+                      <Image src="/assets/images/Golden Visa-icon.png" alt="Brightlink Consultancy" width={64} height={64} className="object-contain" />
                     </div>
                     <div>
                       <div className="text-xl font-black text-slate-900 dark:text-white font-serif">GOLDEN VISA</div>
@@ -262,7 +263,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
               Our Strength in Numbers
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
-              Why Clients Choose <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span>
+              Why Clients Choose <span className="gold-gradient-text italic font-serif">Brightlink</span>
             </h2>
             <p className="mt-4 text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-medium">
               Trusted by investors, executives, medical professionals, and families across 90+ nationalities.
@@ -329,7 +330,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   <span>Start My Application</span>
                 </button>
                 <a
-                  href="https://wa.me/971503853305"
+                  href={contactInfo.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors flex items-center gap-2 shadow-md"
@@ -390,13 +391,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   <span>Calculate My Fees — Free</span>
                 </button>
                 <a
-                  href="https://wa.me/971503853305"
+                  href={contactInfo.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-md"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
-                  <span>+971 50 385 3305</span>
+                  <span>{contactInfo.phone}</span>
                 </a>
               </div>
               <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-700 dark:text-slate-400 font-semibold">
@@ -406,15 +407,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>98% Approval Rate</span>
+                  <span>100% Customer Satisfaction</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>2,400+ Visas Approved</span>
+                  <span>5,500+ Visas Issued</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>VIP 48–72h Processing</span>
+                  <span>Dedicated Client Support</span>
                 </div>
               </div>
             </div>
