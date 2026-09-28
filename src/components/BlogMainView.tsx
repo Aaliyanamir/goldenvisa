@@ -1,24 +1,36 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useLanguage } from '@/lib/LanguageContext';
 import { blogPosts, BlogPost } from '@/lib/blogData';
-import { 
-  Calendar, Clock, User, ArrowRight, Sparkles, 
-  Search, Filter, ChevronRight, Award, ShieldCheck,
-  Building, BookOpen
-} from 'lucide-react';
+import { contactInfo } from '@/lib/contactInfo';
+import { ArrowRight, BookOpen, Clock, MessageSquare, Search, ShieldCheck, Sparkles, User, X } from 'lucide-react';
 
 interface BlogMainViewProps {
   onOpenCalculator: () => void;
 }
 
 export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) => {
-  const { t, isRTL } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+
+  useEffect(() => {
+    if (!selectedPost) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedPost(null);
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedPost]);
 
   const categories = ['All', 'Golden Visa', 'Real Estate', 'Corporate', 'Regulations'];
 
@@ -172,7 +184,9 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               {/* Card Footer / Action */}
               <div className="px-6 pb-6 pt-2 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
                 <button
-                  onClick={() => alert(`Opening article: "${post.title}"\nFull legal analysis is available for client review.`)}
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={() => setSelectedPost(post)}
                   className="text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 flex items-center gap-1.5 transition-all cursor-pointer group/btn"
                 >
                   <span>Read More</span>
@@ -200,6 +214,94 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
             <div>
               <h4 className="text-lg font-bold text-slate-900 dark:text-white">Have Questions About Your Golden Visa Eligibility?</h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Connect with our senior case manager for immediate pre-clearance assistance.</p>
+
+          {selectedPost && (
+            <div className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6">
+              <button
+                type="button"
+                aria-label="Close article details"
+                onClick={() => setSelectedPost(null)}
+                className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
+              />
+
+              <article
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="article-dialog-title"
+                className="relative z-10 flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-[#E8D5B5] bg-white text-slate-900 shadow-2xl dark:border-white/10 dark:bg-[#111827] dark:text-white"
+              >
+                <header className="flex shrink-0 items-center justify-between border-b border-slate-200 px-5 py-3.5 dark:border-white/10 sm:px-6">
+                  <div>
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[#8C6D2D] dark:text-amber-400">Article details</p>
+                    <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{selectedPost.category}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedPost(null)}
+                    aria-label="Close article details"
+                    className="rounded-full p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </header>
+
+                <div className="min-h-0 flex-1 overflow-y-auto">
+                  <div className="relative aspect-[16/9] w-full bg-slate-100 dark:bg-slate-900">
+                    <Image
+                      src={selectedPost.image}
+                      alt={selectedPost.title}
+                      fill
+                      sizes="(min-width: 672px) 640px, 100vw"
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+
+                  <div className="px-5 py-5 sm:px-7 sm:py-6">
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium text-slate-600 dark:text-slate-400">
+                      <span className="inline-flex items-center gap-1.5"><User className="h-3.5 w-3.5 text-[#C5A059]" />{selectedPost.author}</span>
+                      <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-[#C5A059]" />{selectedPost.readTime}</span>
+                      <span>{selectedPost.day} {selectedPost.month} {selectedPost.year}</span>
+                    </div>
+
+                    <h2 id="article-dialog-title" className="mt-4 text-2xl font-extrabold leading-tight text-slate-900 dark:text-white sm:text-3xl">
+                      {selectedPost.title}
+                    </h2>
+
+                    <section className="mt-5 rounded-xl border border-[#E8D5B5] bg-[#FDFBF7] p-4 dark:border-white/10 dark:bg-white/5 sm:p-5">
+                      <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#8C6D2D] dark:text-amber-400">Article summary</h3>
+                      <p className="mt-2 text-sm leading-7 text-slate-700 dark:text-slate-300">{selectedPost.excerpt}</p>
+                    </section>
+
+                    <p className="mt-4 text-xs leading-6 text-slate-500 dark:text-slate-400">
+                      Requirements can vary by applicant and may change with UAE authority guidance. Confirm current criteria and documents before applying.
+                    </p>
+                  </div>
+                </div>
+
+                <footer className="flex shrink-0 flex-col gap-2 border-t border-slate-200 bg-white/95 p-4 dark:border-white/10 dark:bg-[#111827]/95 sm:flex-row sm:justify-end sm:px-6">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPost(null);
+                      onOpenCalculator();
+                    }}
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg gold-btn px-4 text-sm font-bold text-slate-950"
+                  >
+                    Calculate fees <ArrowRight className="h-4 w-4" />
+                  </button>
+                  <a
+                    href={`${contactInfo.whatsappHref}?text=${encodeURIComponent(`Hello Golden Visa Dubai, I have a question about: ${selectedPost.title}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 text-sm font-bold text-white transition-colors hover:bg-emerald-500"
+                  >
+                    <MessageSquare className="h-4 w-4" /> Ask about this article
+                  </a>
+                </footer>
+              </article>
+            </div>
+          )}
             </div>
           </div>
           <button
