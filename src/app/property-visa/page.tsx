@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
 
 export const metadata: Metadata = {
-  title: 'Property Visa | Brightlink Consulting',
+  title: 'Property Visa | Golden Visa Dubai',
   description: 'Property visa guidance for eligible investors seeking a clear application journey and document support.',
 };
 

@@ -103,15 +103,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
             <div>
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
                 <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                <span>About Brightlink</span>
+                <span>About Golden Visa Dubai</span>
               </div>
               <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white font-serif">
-                About <span className="gold-gradient-text italic font-serif">Brightlink</span> —<br />
+                About <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span> —<br />
                 Your Trusted UAE<br />
                 <span className="text-[#C5A059]">Consultancy</span>
               </h1>
               <p className="mt-6 text-slate-700 dark:text-slate-300 text-base leading-relaxed max-w-xl font-normal">
-                Brightlink Consulting is a UAE residency and professional services consultancy supporting investors, entrepreneurs, executives, and families through their applications.
+                Golden Visa Dubai is a UAE residency and professional services consultancy supporting investors, entrepreneurs, executives, and families through their applications.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <button
@@ -137,13 +137,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
             <div className="flex justify-center lg:justify-end">
               <div className="relative w-[320px] sm:w-[380px]">
                 <div className="rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#1A1E2C] dark:to-[#0D1117] border border-slate-200 dark:border-amber-500/20 p-8 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center p-2 shrink-0">
-                      <Image src="/assets/images/Golden Visa-icon.png" alt="Brightlink Consultancy" width={64} height={64} className="object-contain" />
-                    </div>
+                  <div className="mb-6">
+                    <Image src="/assets/images/Golden Visa Dubai.png" alt="Golden Visa Dubai" width={1812} height={477} sizes="220px" className="h-auto w-[220px] max-w-full object-contain" />
                     <div>
-                      <div className="text-xl font-black text-slate-900 dark:text-white font-serif">GOLDEN VISA</div>
-                      <div className="text-[#C5A059] font-black text-xl font-serif italic">DUBAI</div>
                       <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-0.5">UAE Residency &amp; Legal Consultancy</div>
                     </div>
                   </div>
@@ -263,7 +259,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
               Our Strength in Numbers
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
-              Why Clients Choose <span className="gold-gradient-text italic font-serif">Brightlink</span>
+              Why Clients Choose <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span>
             </h2>
             <p className="mt-4 text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-medium">
               Trusted by investors, executives, medical professionals, and families across 90+ nationalities.

@@ -66,7 +66,7 @@ export function ServicePageTemplate({
   documents,
   faq,
   secondaryCtaLabel = 'Speak to an advisor',
-  secondaryCtaHref = 'https://brightlinkconsulting.ae',
+  secondaryCtaHref = '/contact-us',
 }: ServicePageTemplateProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -104,14 +104,12 @@ export function ServicePageTemplate({
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href="https://brightlinkconsulting.ae"
-                    target="_blank"
-                    rel="noreferrer"
+                  <Link
+                    href="/contact-us"
                     className="inline-flex items-center gap-2 rounded-full bg-[#C5A059] px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_12px_30px_-12px_rgba(197,160,89,0.9)] transition-transform hover:-translate-y-0.5"
                   >
-                    Book a consultation <ArrowRight className="h-4 w-4" />
-                  </a>
+                    Contact our team <ArrowRight className="h-4 w-4" />
+                  </Link>
                   <a
                     href={secondaryCtaHref}
                     target={secondaryCtaHref.startsWith('http') ? '_blank' : undefined}
@@ -270,14 +268,12 @@ export function ServicePageTemplate({
                 <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-900">Speak with our team about your case.</h2>
               </div>
               <div className="flex flex-wrap gap-3">
-                <a
-                  href="https://brightlinkconsulting.ae"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href="/contact-us"
                   className="inline-flex items-center gap-2 rounded-full bg-[#C5A059] px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_12px_30px_-12px_rgba(197,160,89,0.9)]"
                 >
-                  Visit brightlinkconsulting.ae <ArrowRight className="h-4 w-4" />
-                </a>
+                  Contact our team <ArrowRight className="h-4 w-4" />
+                </Link>
                 <a
                   href="https://wa.me/971566556645"
                   target="_blank"

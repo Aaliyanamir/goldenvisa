@@ -93,9 +93,9 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({ onOpenCal
           <div className="flex items-center gap-2 max-w-md mx-auto">
             <button
               onClick={onOpenCalculator}
-              className="flex-1 py-3 px-2 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+              className="flex-1 py-3 px-2 rounded-xl gold-btn text-slate-950 font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all cursor-pointer whitespace-nowrap"
             >
-              <Calculator className="w-4 h-4 text-white shrink-0" />
+              <Calculator className="w-4 h-4 text-slate-950 shrink-0" />
               <span>{t.mobileSticky.calcBtn}</span>
             </button>
             <a

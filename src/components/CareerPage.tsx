@@ -14,7 +14,7 @@ export const CareerPage: React.FC = () => (
     <section className="relative overflow-hidden border-b border-[var(--border-subtle)] bg-[var(--bg-alt)] px-5 pb-16 pt-10 sm:px-8 sm:pb-20 lg:px-12">
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div className="max-w-3xl">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Careers at Brightlink</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Careers at Golden Visa Dubai</p>
           <h1 className="mt-4 text-4xl font-extrabold leading-tight sm:text-5xl">Build meaningful work in the <span className="text-[var(--gold-dark)]">UAE</span></h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--text-muted)]">Join a team helping people and businesses navigate residency, company setup, and professional services with care and clarity.</p>
           <a href={`mailto:${contactInfo.generalEmail}?subject=${encodeURIComponent('Career inquiry')}`} className="gold-btn mt-8 inline-flex min-h-12 items-center gap-2 rounded-md px-5 text-sm font-bold">Introduce yourself <ArrowRight className="h-4 w-4" /></a>
@@ -24,7 +24,7 @@ export const CareerPage: React.FC = () => (
             <BriefcaseBusiness className="h-7 w-7 text-[var(--gold-dark)]" />
             <p className="mt-6 text-sm font-bold uppercase tracking-wider text-[var(--text-muted)]">Work with purpose</p>
             <p className="mt-2 text-2xl font-extrabold">People first. Details matter.</p>
-            <p className="mt-3 max-w-lg text-sm leading-6 text-[var(--text-muted)]">Brightlink supports customers through important personal and business decisions. We value thoughtful service, accuracy, and responsible follow-through.</p>
+            <p className="mt-3 max-w-lg text-sm leading-6 text-[var(--text-muted)]">Golden Visa Dubai supports customers through important personal and business decisions. We value thoughtful service, accuracy, and responsible follow-through.</p>
           </div>
           <div className="bg-[var(--bg-surface)] p-5"><span className="text-xs font-bold uppercase tracking-wider text-[var(--gold-dark)]">Location</span><p className="mt-2 font-semibold">Business Bay, Dubai</p></div>
           <div className="bg-[var(--bg-surface)] p-5"><span className="text-xs font-bold uppercase tracking-wider text-[var(--gold-dark)]">Applications</span><p className="mt-2 font-semibold">Year-round</p></div>
@@ -64,7 +64,7 @@ export const CareerPage: React.FC = () => (
 
     <section className="px-5 py-10 sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 border-b border-[var(--border-subtle)] pb-8">
-        <p className="text-sm text-[var(--text-muted)]">Questions about working with Brightlink?</p>
+        <p className="text-sm text-[var(--text-muted)]">Questions about working with Golden Visa Dubai?</p>
         <div className="flex flex-wrap gap-4 text-sm font-semibold">
           <a className="text-[var(--gold-dark)] hover:underline" href={`mailto:${contactInfo.generalEmail}`}>{contactInfo.generalEmail}</a>
           <Link className="inline-flex items-center gap-1 text-[var(--gold-dark)] hover:underline" href="/contact-us">Contact us <ArrowRight className="h-4 w-4" /></Link>

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
 
 export const metadata: Metadata = {
-  title: 'PRO Services | Brightlink Consulting',
+  title: 'PRO Services | Golden Visa Dubai',
   description: 'PRO services support for document processing, renewals, and administrative coordination in the UAE.',
 };
 

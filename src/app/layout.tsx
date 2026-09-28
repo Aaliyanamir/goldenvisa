@@ -10,17 +10,17 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Brightlink Consulting | UAE Business Setup, Visas & Residency",
-  description: "Brightlink Consulting supports UAE business setup, Golden Visa, family visa, and professional services from Dubai.",
+  title: "Golden Visa Dubai | UAE Residency & Professional Services",
+  description: "Golden Visa Dubai supports UAE residency applications, family visas, property visas, and professional services.",
   keywords: "UAE Golden Visa, Dubai Golden Visa 2026, 10 year residency UAE, GDRFA, DLD, real estate investor visa, UAE long term residency",
   icons: {
-    icon: "/assets/images/Golden Visa-icon.png",
+    icon: "/assets/images/Golden Visa Dubai.png",
   },
   openGraph: {
-    title: "Brightlink Consulting | UAE Business Setup, Visas & Residency",
+    title: "Golden Visa Dubai | UAE Residency & Professional Services",
     description: "Business setup, Golden Visa, family visa, and professional services in the UAE.",
     url: "https://brightlinkconsulting.ae",
-    siteName: "Brightlink Consulting",
+    siteName: "Golden Visa Dubai",
     locale: "en_US",
     type: "website",
   },

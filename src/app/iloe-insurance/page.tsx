@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
 
 export const metadata: Metadata = {
-  title: 'ILOE Insurance | Brightlink Consulting',
+  title: 'ILOE Insurance | Golden Visa Dubai',
   description: 'ILOE insurance guidance with structured planning and clear support for applicants and residents in the UAE.',
 };
 

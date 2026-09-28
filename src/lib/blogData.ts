@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Legal Counsel Desk',
-    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-1.jpg',
     featured: true,
   },
   {
@@ -39,7 +39,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'GDRFA Liaison Officer',
-    image: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-2.jpg',
   },
   {
     id: '3',
@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Executive Relations',
-    image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-3.jpg',
   },
   {
     id: '4',
@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Corporate Formation Team',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-4.jpg',
   },
   {
     id: '5',
@@ -78,7 +78,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Property Legal Liaison',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-5.jpg',
   },
   {
     id: '6',
@@ -91,7 +91,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Immigration Specialist',
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-6.jpg',
   },
   {
     id: '7',
@@ -104,7 +104,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Innovation Board Officer',
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-7.jpg',
   },
   {
     id: '8',
@@ -117,7 +117,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Tax & Compliance Lead',
-    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-8.jpg',
   },
   {
     id: '9',
@@ -130,6 +130,6 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Attestation Desk',
-    image: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+    image: '/assets/blog/article-9.jpg',
   },
 ];

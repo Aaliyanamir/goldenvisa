@@ -102,14 +102,6 @@ export const Footer: React.FC<FooterProps> = ({
     },
   ];
 
-  const paymentPartners = [
-    { label: 'Apple Pay', bg: '#000000', text: 'Apple\nPay' },
-    { label: 'Visa', bg: '#1A1F71', text: 'VISA' },
-    { label: 'Mastercard', bg: '#EB001B', text: '●●' },
-    { label: 'PayPal', bg: '#003087', text: 'PayPal' },
-    { label: 'Stripe', bg: '#635BFF', text: 'stripe' },
-  ];
-
   return (
     <>
       {/* ─── Persistent B2B Referral / Executive Partnership Banner ─── */}
@@ -129,11 +121,11 @@ export const Footer: React.FC<FooterProps> = ({
           </h2>
 
           <p className="max-w-2xl text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-medium">
-            Partner with Brightlink through our structured B2B and Corporate Referral Program. Refer clients who need Golden Visa, Family Visa, Attestation, or PRO services and receive dedicated partner support.
+            Partner with Golden Visa Dubai through our structured B2B and Corporate Referral Program. Refer clients who need Golden Visa, Family Visa, Attestation, or PRO services and receive dedicated partner support.
           </p>
 
           <a
-            href={`${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Brightlink Team, I would like to apply for the B2B Referral Partner Program.")}`}
+            href={`${contactInfo.whatsappHref}?text=${encodeURIComponent("Hello Golden Visa Dubai Team, I would like to apply for the B2B Referral Partner Program.")}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl gold-btn font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:scale-[1.02] transition-transform"
@@ -156,27 +148,19 @@ export const Footer: React.FC<FooterProps> = ({
             {/* ── Column 1: Logo + Description + Social ── */}
             <div className="space-y-6">
               {/* Logo */}
-              <div className="flex items-center gap-3">
-                <div className="relative w-14 h-14 rounded-2xl overflow-hidden bg-gradient-to-tr from-amber-400/20 to-amber-200/5 border border-amber-400/30 flex items-center justify-center p-1.5 shrink-0">
-                  <Image
-                    src="/assets/images/Golden Visa-icon.png"
-                    alt="Brightlink Management Consultancy logo"
-                    width={56}
-                    height={56}
-                    className="object-contain w-full h-full"
-                  />
-                </div>
-                <div>
-                  <span className="text-xl font-black text-white tracking-tight block font-serif leading-tight">
-                    BRIGHTLINK
-                  </span>
-                  <span className="text-[10px] text-amber-300/80 font-semibold uppercase tracking-wider block mt-0.5">
-                    UAE Residency &amp; Legal Consultancy
-                  </span>
-                  <span className="text-[10px] text-slate-500 font-medium block">
-                    In Trustee For
-                  </span>
-                </div>
+              <div className="flex flex-col items-start gap-2">
+                <Image
+                  src="/assets/images/Golden Visa Dubai.png"
+                  alt="Golden Visa Dubai"
+                  width={1812}
+                  height={477}
+                  sizes="190px"
+                  loading="eager"
+                  className="h-auto w-[190px]"
+                />
+                <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold uppercase tracking-wider">
+                  UAE Residency &amp; Legal Consultancy
+                </span>
               </div>
 
               {/* Contact Info */}
@@ -266,7 +250,7 @@ export const Footer: React.FC<FooterProps> = ({
 
               {/* Tagline */}
               <p className="text-slate-400 leading-relaxed text-xs max-w-sm">
-                Brightlink is your UAE partner for residency, business setup, and professional services, with clear guidance throughout.
+                Golden Visa Dubai is your UAE partner for residency, business setup, and professional services, with clear guidance throughout.
               </p>
 
               {/* Compliance badge */}
@@ -389,33 +373,28 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="text-slate-500 font-semibold text-xs uppercase tracking-wider shrink-0">
               Our Payment Partners &amp; Networks
             </span>
-            <div className="flex items-center gap-2 flex-wrap justify-center">
-              {/* Apple Pay */}
-              <div className="h-8 px-3 bg-black rounded-md flex items-center justify-center border border-white/20">
-                <span className="text-white text-[10px] font-black tracking-tight leading-none">
-                  <span className="font-light">⌘</span> Pay
-                </span>
+            <div className="flex items-center gap-2.5 flex-wrap justify-center">
+              <div aria-label="Apple Pay" className="h-9 min-w-[76px] px-3 bg-black rounded-md flex items-center justify-center border border-slate-700 shadow-sm">
+                <span className="text-white text-xs font-bold tracking-tight">Apple Pay</span>
               </div>
-              {/* Visa */}
-              <div className="h-8 px-3 bg-[#1A1F71] rounded-md flex items-center justify-center border border-white/20">
+              <div aria-label="Visa" className="h-9 min-w-[62px] px-3 bg-[#1A1F71] rounded-md flex items-center justify-center border border-[#1A1F71] shadow-sm">
                 <span className="text-white text-sm font-black italic tracking-tight">VISA</span>
               </div>
-              {/* Mastercard */}
-              <div className="h-8 px-3 bg-white rounded-md flex items-center justify-center gap-0.5 border border-white/20">
-                <div className="w-5 h-5 rounded-full bg-[#EB001B] opacity-90" />
-                <div className="w-5 h-5 rounded-full bg-[#F79E1B] opacity-90 -ml-2" />
+              <div aria-label="Mastercard" className="h-9 min-w-[100px] px-2.5 bg-white rounded-md flex items-center justify-center gap-1.5 border border-slate-300 shadow-sm">
+                <span className="flex items-center -space-x-2">
+                  <span className="h-5 w-5 rounded-full bg-[#EB001B]" />
+                  <span className="h-5 w-5 rounded-full bg-[#F79E1B]/95" />
+                </span>
+                <span className="text-[10px] font-bold text-slate-800">mastercard</span>
               </div>
-              {/* PayPal */}
-              <div className="h-8 px-3 bg-white rounded-md flex items-center justify-center border border-white/20">
-                <span className="text-[#003087] text-[10px] font-black tracking-tight">Pay<span className="text-[#009cde]">Pal</span></span>
+              <div aria-label="PayPal" className="h-9 min-w-[72px] px-3 bg-white rounded-md flex items-center justify-center border border-slate-300 shadow-sm">
+                <span className="text-[#003087] text-xs font-black tracking-tight">Pay<span className="text-[#009cde]">Pal</span></span>
               </div>
-              {/* American Express */}
-              <div className="h-8 px-3 bg-[#007BC1] rounded-md flex items-center justify-center border border-white/20">
-                <span className="text-white text-[10px] font-black tracking-tighter">AMEX</span>
+              <div aria-label="American Express" className="h-9 min-w-[68px] px-3 bg-[#007BC1] rounded-md flex items-center justify-center border border-[#007BC1] shadow-sm">
+                <span className="text-white text-[11px] font-black tracking-tight">AMEX</span>
               </div>
-              {/* Stripe */}
-              <div className="h-8 px-3 bg-[#635BFF] rounded-md flex items-center justify-center border border-white/20">
-                <span className="text-white text-[10px] font-black tracking-wider">stripe</span>
+              <div aria-label="Stripe" className="h-9 min-w-[68px] px-3 bg-[#635BFF] rounded-md flex items-center justify-center border border-[#635BFF] shadow-sm">
+                <span className="text-white text-xs font-bold tracking-tight">stripe</span>
               </div>
             </div>
           </div>
@@ -433,7 +412,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* ─── Copyright ─── */}
           <div className="pt-5 text-center text-slate-500 text-[11px]">
-            © {new Date().getFullYear()} Brightlink Management Consultancy. All Rights Reserved
+            © {new Date().getFullYear()} Golden Visa Dubai. All Rights Reserved
           </div>
 
           {/* ─── Legal Disclaimers ─── */}

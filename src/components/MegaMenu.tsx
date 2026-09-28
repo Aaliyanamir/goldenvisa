@@ -133,21 +133,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         {/* Header */}
         <div className="px-6 py-4 sm:py-5 border-b border-slate-100 dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#111827] shrink-0">
           <div className="flex items-center gap-3">
-            <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-amber-200/80 to-amber-50 border border-amber-300/60 shadow-xs flex items-center justify-center shrink-0">
-              <Image 
-                src="/assets/images/Golden Visa-icon.png" 
-                alt="Golden Visa Emblem" 
-                width={32} 
-                height={32}
-                className="object-contain w-full h-full"
-              />
-            </div>
+            <Image src="/assets/images/Golden Visa Dubai.png" alt="Golden Visa Dubai" width={1812} height={477} sizes="(min-width: 640px) 175px, 155px" className="h-auto w-[155px] sm:w-[175px] object-contain" />
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="text-base sm:text-lg font-black tracking-tight text-slate-900 dark:text-white font-serif">
-                  Golden Visa <span className="text-[#C5A059] italic font-serif">Dubai</span>
-                </span>
-              </div>
               <p className="text-[11px] sm:text-xs text-slate-400 font-medium tracking-wide">
                 All services in one place
               </p>
@@ -255,13 +242,13 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         <div className="p-3 sm:p-4 border-t border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#111827]/95 backdrop-blur-md shrink-0">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto">
             
-            {/* Left Button: Red / Rose Visa Calculator */}
+            {/* Visa Calculator */}
             <button
               onClick={() => {
                 onClose();
                 onOpenCalculator();
               }}
-              className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-rose-600 via-rose-500 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all active:scale-[0.98]"
+              className="w-full py-3.5 px-5 rounded-xl gold-btn text-slate-950 font-extrabold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all active:scale-[0.98]"
             >
               <Calculator className="w-4 h-4 shrink-0 text-white" />
               <span>Visa Calculator</span>
@@ -269,7 +256,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
 
             {/* Right Button: Green WhatsApp Direct Contact */}
             <a
-              href={`${contactInfo.whatsappHref}?text=Hello%20Brightlink%20Team%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.`}
+              href={`${contactInfo.whatsappHref}?text=Hello%20Golden%20Visa%20Dubai%20Team%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-center"

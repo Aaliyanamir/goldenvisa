@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
 import { contactInfo } from '../lib/contactInfo';
 import { 
@@ -40,7 +40,6 @@ const CURRENCIES: Record<Currency, { symbol: string; rate: number }> = {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOpenMegaMenu }) => {
   const { t } = useLanguage();
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Live Visa Calculator Widget State
   const [selectedPathway, setSelectedPathway] = useState<string>(PATHWAYS[0].id);
@@ -48,21 +47,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
   const [isFastTrack, setIsFastTrack] = useState<boolean>(true);
   const [currency, setCurrency] = useState<Currency>('AED');
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.defaultMuted = true;
-      video.muted = true;
-      video.playbackRate = 1.25;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((e) => {
-          console.warn("Autoplay muted video:", e);
-        });
-      }
-    }
-  }, []);
 
   // Compute live estimated cost breakdown
   const currentPathway = PATHWAYS.find(p => p.id === selectedPathway) || PATHWAYS[0];
@@ -103,17 +87,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
       {/* ─── Skyline Background Video (User Selected) ─── */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
-          ref={videoRef}
+          src="https://cdn.pixabay.com/video/2025/08/27/300130_small.mp4"
           autoPlay
           loop
           muted
           playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
-        >
-          <source src="/videos/skyline.mp4" type="video/mp4" />
-          <source src="/assets/videos/skyline.mp4" type="video/mp4" />
-        </video>
+          preload="metadata"
+          poster="/assets/blog/article-1.jpg"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-[center_45%] pointer-events-none"
+        />
 
         {/* Balanced Dark Overlay */}
         <div

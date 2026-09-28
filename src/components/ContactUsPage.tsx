@@ -86,7 +86,7 @@ export const ContactUsPage: React.FC = () => {
       <section className="bg-[var(--bg-alt)] border-b border-[var(--border-subtle)] px-5 pb-12 pt-8 sm:px-8 sm:pb-16 lg:px-12">
         <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
           <div className="max-w-2xl">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Visit Brightlink</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Visit Golden Visa Dubai</p>
             <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
               Visit us at our <span className="text-[var(--gold-dark)]">Dubai Office</span>
             </h1>
@@ -101,7 +101,7 @@ export const ContactUsPage: React.FC = () => {
 
           <div className="overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] shadow-sm">
             <iframe
-              title="Brightlink Management Consultancy on Google Maps"
+              title="Golden Visa Dubai office on Google Maps"
               src={contactInfo.mapEmbedUrl}
               className="h-64 w-full border-0 sm:h-72"
               loading="lazy"
@@ -129,7 +129,7 @@ export const ContactUsPage: React.FC = () => {
 
       <section className="px-5 py-14 sm:px-8 lg:px-12 lg:py-16">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Reach Brightlink</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Reach Golden Visa Dubai</p>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">More ways to <span className="text-[var(--gold-dark)]">contact us</span></h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">Choose the contact option that suits you best. Every message reaches our dedicated team directly.</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -151,7 +151,7 @@ export const ContactUsPage: React.FC = () => {
 
       <section className="border-y border-[var(--border-subtle)] bg-[var(--bg-alt)] px-5 py-14 sm:px-8 lg:px-12">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">How Brightlink Works</p>
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">How Golden Visa Dubai Works</p>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Complete your visa process <span className="text-[var(--gold-dark)]">from home</span></h2>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-muted)]">Most customers complete the process remotely. Visiting our office is optional.</p>
           <div className="mt-8 grid gap-px border border-[var(--border-subtle)] bg-[var(--border-subtle)] md:grid-cols-3">

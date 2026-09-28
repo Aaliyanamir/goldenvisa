@@ -81,10 +81,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   // Real-time live alerts for the smooth ticker
   const tickerAlerts = [
     "Golden Visa eligibility depends on your category and supporting documents",
-    "Brightlink office: Crystal Tower, Business Bay, Dubai",
+    "Dubai office: Crystal Tower, Business Bay",
     "Visa inquiries: visa@brightlinkconsulting.ae",
     "Office hours: Monday to Friday, 9 AM to 6 PM; Saturday, 10 AM to 5 PM",
-    "WhatsApp Brightlink at +971 56 655 6645",
+    "WhatsApp our team at +971 56 655 6645",
   ];
 
   // Header Navigation: Includes Articles, About Us, Career, Contact Us as requested
@@ -114,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span className="hidden sm:inline font-bold text-[#8C6D2D] dark:text-amber-400 uppercase tracking-widest text-[11px]">
-                Brightlink Updates
+                Golden Visa Dubai Updates
               </span>
             </div>
 
@@ -161,24 +161,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                 title={navCollapsed ? 'Expand navigation' : 'Collapse navigation'}
                 className="site-nav-brand flex items-center gap-3 group text-left cursor-pointer shrink-0"
               >
-                <div className="site-nav-brand-mark relative w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden p-1.5 bg-gradient-to-tr from-amber-200/80 via-amber-100 to-amber-50 dark:from-amber-900/60 dark:to-amber-950/60 border border-amber-300/60 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                {navCollapsed ? (
+                  <div className="site-nav-brand-mark relative w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden p-1.5 bg-gradient-to-tr from-amber-200/80 via-amber-100 to-amber-50 dark:from-amber-900/60 dark:to-amber-950/60 border border-amber-300/60 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                    <Image src="/assets/images/Golden Visa-icon.png" alt="Golden Visa Dubai" width={42} height={42} sizes="42px" className="object-contain w-full h-full drop-shadow-sm" priority />
+                  </div>
+                ) : (
                   <Image
-                    src="/assets/images/Golden Visa-icon.png"
-                    alt="Golden Visa Emblem"
-                    width={42}
-                    height={42}
-                    className="object-contain w-full h-full drop-shadow-sm"
+                    src="/assets/images/Golden Visa Dubai.png"
+                    alt="Golden Visa Dubai"
+                    width={1812}
+                    height={477}
+                    sizes="(min-width: 1280px) 175px, 165px"
+                    className="site-nav-brand-copy h-auto w-[145px] sm:w-[165px] xl:w-[175px] object-contain"
                     priority
                   />
-                </div>
-                <div className="site-nav-brand-copy flex flex-col">
-                  <span className="text-base sm:text-lg xl:text-xl font-black tracking-tight text-slate-900 dark:text-white leading-tight font-serif whitespace-nowrap">
-                    BRIGHTLINK
-                  </span>
-                  <span className="hidden md:inline text-[10px] xl:text-[11px] text-slate-500 dark:text-slate-400 font-semibold tracking-wide">
-                    Management Consultancy
-                  </span>
-                </div>
+                )}
               </button>
 
               {/* 2. Desktop Navigation Links (Includes Articles, About Us, Career, Contact Us) */}
@@ -218,7 +215,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 {/* WhatsApp Icon-Only Button */}
                 <a
-                  href={`${contactInfo.whatsappHref}?text=Hello%20Brightlink%20Team%2C%20I%20would%20like%20to%20request%20a%20consultation.`}
+                  href={`${contactInfo.whatsappHref}?text=Hello%20Golden%20Visa%20Dubai%20Team%2C%20I%20would%20like%20to%20request%20a%20consultation.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hidden xl:flex items-center justify-center w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition-colors shadow-sm"
@@ -336,21 +333,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Drawer Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-amber-200/80 to-amber-50 dark:from-amber-900/60 dark:to-amber-950 border border-amber-300/60 flex items-center justify-center">
-                <Image
-                  src="/assets/images/Golden Visa-icon.png"
-                  alt="Logo"
-                  width={28}
-                  height={28}
-                  className="object-contain w-full h-full"
-                />
-              </div>
-              <div>
-                <div className="text-sm font-black text-slate-900 dark:text-white font-serif">
-                  BRIGHTLINK
-                </div>
-                <div className="text-[10px] text-slate-400">Management Consultancy</div>
-              </div>
+              <Image src="/assets/images/Golden Visa Dubai.png" alt="Golden Visa Dubai" width={1812} height={477} sizes="155px" className="h-auto w-[155px] object-contain" />
             </div>
             <button
               onClick={() => setMobileMenuOpen(false)}
