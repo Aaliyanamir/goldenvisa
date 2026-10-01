@@ -8,10 +8,10 @@ import { useTheme } from '../lib/ThemeContext';
 import { Language } from '../lib/translations';
 import { contactInfo } from '../lib/contactInfo';
 import {
-  Home, Briefcase, Map, BookOpen,
+  Home, Briefcase, BookOpen,
   Calculator, Globe, ChevronDown,
   X, Menu as MenuIcon, PhoneCall, Sun, Moon,
-  MessageSquare, Info, Users, Headphones
+  Info, Users, Headphones
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -87,11 +87,10 @@ export const Navbar: React.FC<NavbarProps> = ({
     "WhatsApp our team at +971 56 655 6645",
   ];
 
-  // Header Navigation: Includes Articles, About Us, Career, Contact Us as requested
+  // Header Navigation: Includes Articles, About Us, Career, Contact Us.
   const navLinks = [
     { label: 'Home', icon: Home, action: () => navigateView('home'), isActive: currentView === 'home' },
     { label: 'Services', icon: Briefcase, action: () => { onOpenMegaMenu(); setMobileMenuOpen(false); }, isActive: false, hasBadge: true },
-    { label: 'Roadmap', icon: Map, action: () => { navigateView('home'); setTimeout(() => document.getElementById('roadmap')?.scrollIntoView({ behavior: 'smooth' }), 100); }, isActive: false },
     { label: 'Articles', icon: BookOpen, action: () => navigateView('blog'), isActive: currentView === 'blog' },
     { label: 'About Us', icon: Info, action: () => navigateView('about'), isActive: currentView === 'about' },
     { label: 'Career', icon: Users, action: () => { router.push('/career'); setMobileMenuOpen(false); }, isActive: currentView === 'career' },
@@ -104,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className={`site-header-shell fixed top-0 left-0 right-0 z-40 w-full pointer-events-none ${navCollapsed ? 'is-collapsed' : ''}`}>
         
         {/* ─── Top Bar with Animated Horizontal Live Ticker / News Bar ─── */}
-        <div className="site-nav-topbar pointer-events-auto bg-[#fffaf0] text-slate-700 dark:bg-[#090D16] dark:text-white text-xs py-1.5 px-3 sm:px-6 lg:px-10 border-b border-[#eadcc0] dark:border-white/10 shadow-sm overflow-hidden">
+        <div className="site-nav-topbar pointer-events-auto bg-[#E8D5AE] text-[#201A0D] dark:bg-[#17140D] dark:text-[#F7E9C2] text-xs py-1.5 px-3 sm:px-6 lg:px-10 border-b border-[#C9AE70] dark:border-[#C5A059]/35 shadow-sm overflow-hidden">
           <div className="max-w-[1720px] mx-auto flex items-center justify-between gap-4">
             
             {/* Left: Authority Badge */}
@@ -113,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="hidden sm:inline font-bold text-[#8C6D2D] dark:text-amber-400 uppercase tracking-widest text-[11px]">
+              <span className="hidden sm:inline font-bold text-[#765719] dark:text-[#F0D784] uppercase tracking-widest text-[11px]">
                 Golden Visa Dubai Updates
               </span>
             </div>
@@ -122,9 +121,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex-1 overflow-hidden relative mx-2 sm:mx-6 py-0.5">
               <div className="animate-ticker flex items-center gap-8 whitespace-nowrap">
                 {tickerAlerts.concat(tickerAlerts).map((alert, i) => (
-                  <div key={i} className="inline-flex items-center gap-2 text-[11px] sm:text-xs text-slate-700 dark:text-slate-200 font-medium">
+                  <div key={i} className="inline-flex items-center gap-2 text-[11px] sm:text-xs text-[#302A1A] dark:text-[#F5F0E5] font-medium">
                     <span>{alert}</span>
-                    <span className="text-[#C5A059] dark:text-amber-500/60 font-bold">•</span>
+                    <span className="text-[#8C6D2D] dark:text-amber-400 font-bold">•</span>
                   </div>
                 ))}
               </div>
@@ -133,9 +132,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Right: Direct Phone Hotline */}
             <a 
               href={contactInfo.phoneHref}
-              className="flex items-center gap-1.5 text-[#8C6D2D] hover:text-amber-800 dark:text-amber-300 dark:hover:text-amber-200 font-bold text-xs tracking-wide transition-colors shrink-0"
+              className="flex items-center gap-1.5 text-[#765719] hover:text-black dark:text-amber-200 dark:hover:text-white font-bold text-xs tracking-wide transition-colors shrink-0"
             >
-              <PhoneCall className="w-3.5 h-3.5 shrink-0 text-[#C5A059] dark:text-amber-400" />
+              <PhoneCall className="w-3.5 h-3.5 shrink-0 text-[#8C6D2D] dark:text-amber-300" />
               <span className="hidden md:inline">{contactInfo.phone}</span>
               <span className="md:hidden">Call</span>
             </a>
@@ -230,12 +229,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="relative">
                   <button
                     onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                    className="p-2 sm:px-3 sm:py-2 rounded-full bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="p-2.5 sm:px-3.5 sm:py-2.5 rounded-full bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-100 transition-all flex items-center gap-2 cursor-pointer"
                     title="Switch Language"
                   >
-                    <Globe className="w-3.5 h-3.5 text-[#C5A059]" />
-                    <span className="hidden sm:inline text-xs font-semibold">{language}</span>
-                    <ChevronDown className="w-3 h-3 text-slate-400" />
+                    <Globe className="w-4 h-4 text-[#C5A059]" />
+                    <span className="hidden sm:inline text-sm font-bold">{language}</span>
+                    <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
                   </button>
 
                   {langDropdownOpen && (
@@ -416,7 +415,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
               onClick={() => setMobileMenuOpen(false)}
             >
-              <MessageSquare className="w-4 h-4 shrink-0" />
+                <svg aria-hidden="true" className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.52 3.48A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.9 11.9 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.42-8.43ZM12.05 21.8a9.86 9.86 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.89 9.89-9.89 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.89-9.89 9.89Zm5.42-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.89-.79-1.48-1.76-1.65-2.06-.18-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.17.2-.3.3-.5.1-.19.05-.37-.03-.52-.07-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.28.3-1.04 1.02-1.04 2.48 0 1.47 1.06 2.88 1.21 3.08.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.34Z" />
+                </svg>
               <span>WhatsApp Consultation</span>
             </a>
             <div className="text-center text-[11px] text-slate-400 pt-1">

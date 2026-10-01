@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { contactInfo } from '../lib/contactInfo';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { 
   X, ChevronRight, ChevronLeft, CheckCircle2, 
-  Building2, Briefcase, Star, Users, MessageSquare,
+  Building2, Briefcase, Star, Users,
   Calculator, Award
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
@@ -149,7 +150,6 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
 
   const totalSteps = QUESTIONS.length;
   const currentQ = QUESTIONS[step];
-  const progress = ((step) / totalSteps) * 100;
   const result = getResult(answers);
 
   const handleAnswer = (value: string) => {
@@ -302,7 +302,7 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
                 className="w-full py-3.5 rounded-xl gold-btn font-extrabold text-sm uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer"
                 onClick={onClose}
               >
-                <MessageSquare className="w-4 h-4 text-slate-950 shrink-0" />
+                <WhatsAppIcon className="w-4 h-4 text-slate-950 shrink-0" />
                 <span>Claim Free Consultation via WhatsApp</span>
               </a>
 

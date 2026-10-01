@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { contactInfo } from '../lib/contactInfo';
-import { useLanguage } from '../lib/LanguageContext';
 import {
   Phone, Mail, MapPin, Clock,
   ChevronRight, ShieldCheck, Handshake
@@ -20,8 +19,6 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenMegaMenu,
   onNavigateToBlog,
 }) => {
-  const { t } = useLanguage();
-
   const socialLinks = [
     {
       label: 'Facebook',
@@ -139,8 +136,8 @@ export const Footer: React.FC<FooterProps> = ({
       </aside>
 
       {/* ─── Main Footer ─── */}
-      <footer className="site-footer bg-white text-slate-700 dark:bg-[#1A1A1A] dark:text-slate-300 text-xs pt-14 pb-6 px-4 sm:px-6 lg:px-10 border-t border-[#E8D5B5] dark:border-white/10">
-        <div className="max-w-[1720px] mx-auto">
+      <footer className="site-footer relative isolate overflow-hidden bg-white text-slate-700 dark:bg-[#1A1A1A] dark:text-slate-300 text-xs pt-14 pb-6 px-4 sm:px-6 lg:px-10 border-t border-[#E8D5B5] dark:border-white/10">
+        <div className="relative z-10 max-w-[1720px] mx-auto">
 
           {/* ─── Main Grid: Brand Left | Contact Right ─── */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pb-12 border-b border-white/10">
@@ -375,10 +372,10 @@ export const Footer: React.FC<FooterProps> = ({
             </span>
             <div className="flex items-center gap-2.5 flex-wrap justify-center">
               <div aria-label="Apple Pay" className="h-9 min-w-[76px] px-3 bg-black rounded-md flex items-center justify-center border border-slate-700 shadow-sm">
-                <span className="text-white text-xs font-bold tracking-tight">Apple Pay</span>
+                <span className="payment-wordmark text-xs font-bold tracking-tight">Apple Pay</span>
               </div>
               <div aria-label="Visa" className="h-9 min-w-[62px] px-3 bg-[#1A1F71] rounded-md flex items-center justify-center border border-[#1A1F71] shadow-sm">
-                <span className="text-white text-sm font-black italic tracking-tight">VISA</span>
+                <span className="payment-wordmark text-sm font-black italic tracking-tight">VISA</span>
               </div>
               <div aria-label="Mastercard" className="h-9 min-w-[100px] px-2.5 bg-white rounded-md flex items-center justify-center gap-1.5 border border-slate-300 shadow-sm">
                 <span className="flex items-center -space-x-2">

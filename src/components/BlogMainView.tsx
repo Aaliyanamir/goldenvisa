@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { blogPosts, BlogPost } from '@/lib/blogData';
 import { contactInfo } from '@/lib/contactInfo';
-import { ArrowRight, BookOpen, Clock, MessageSquare, Search, ShieldCheck, Sparkles, User, X } from 'lucide-react';
+import { ArrowRight, BookOpen, Clock, Search, ShieldCheck, Sparkles, User, X } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface BlogMainViewProps {
   onOpenCalculator: () => void;
@@ -46,7 +47,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
     <div className="min-h-screen bg-gradient-to-b from-[#FDFBF7] via-white to-[#FAF9F6] dark:from-[#07090F] dark:via-[#0E1320] dark:to-[#07090F]">
       
       {/* Editorial Blog Header Banner */}
-      <section className="relative pt-10 pb-12 px-4 sm:px-6 lg:px-8 bg-[#F8F5EE] text-slate-900 overflow-hidden border-b border-[#E8D5B5] dark:bg-[#0F172A] dark:text-white dark:border-amber-500/20">
+      <section className="relative pt-[calc(var(--site-header-offset)+2rem)] pb-12 px-4 sm:px-6 lg:px-8 bg-[#F8F5EE] text-slate-900 overflow-hidden border-b border-[#E8D5B5] dark:bg-[#0F172A] dark:text-white dark:border-amber-500/20">
         <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:24px_24px]"></div>
         
         <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center">
@@ -120,9 +121,16 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
           {filteredPosts.map((post) => (
             <article
               key={post.id}
-              className="group relative bg-white dark:bg-[#111827] rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-[#C5A059] shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group relative bg-white dark:bg-[#111827] rounded-lg overflow-hidden border border-slate-200 dark:border-white/10 hover:border-[#C5A059] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
-              <div>
+              <button
+                type="button"
+                aria-label={`Read article: ${post.title}`}
+                aria-haspopup="dialog"
+                onClick={() => setSelectedPost(post)}
+                className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#C5A059]"
+              />
+              <div className="pointer-events-none">
                 
                 {/* Image Frame with Date Badge and Official Brand Watermark */}
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
@@ -187,7 +195,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                   type="button"
                   aria-haspopup="dialog"
                   onClick={() => setSelectedPost(post)}
-                  className="text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 flex items-center gap-1.5 transition-all cursor-pointer group/btn"
+                  className="relative z-20 text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 flex items-center gap-1.5 transition-all cursor-pointer group/btn"
                 >
                   <span>Read More</span>
                   <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover/btn:translate-x-1 transition-transform" />
@@ -195,7 +203,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
 
                 <button
                   onClick={onOpenCalculator}
-                  className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                  className="relative z-20 text-[11px] font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                 >
                   Calculate Fees
                 </button>
@@ -296,7 +304,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                     rel="noopener noreferrer"
                     className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 text-sm font-bold text-white transition-colors hover:bg-emerald-500"
                   >
-                    <MessageSquare className="h-4 w-4" /> Ask about this article
+                    <WhatsAppIcon className="h-4 w-4" /> Ask about this article
                   </a>
                 </footer>
               </article>

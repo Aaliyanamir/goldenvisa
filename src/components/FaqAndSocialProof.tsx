@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
+import { contactInfo } from '../lib/contactInfo';
 import { 
-  Star, ChevronDown, MessageSquareQuote, 
-  HelpCircle, ArrowRight, ShieldCheck, CheckCircle2 
+  ChevronDown, MessageSquareQuote,
+  HelpCircle, ArrowRight, ExternalLink
 } from 'lucide-react';
 
 interface FaqAndSocialProofProps {
@@ -14,69 +15,6 @@ interface FaqAndSocialProofProps {
 export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalculator }) => {
   const { t } = useLanguage();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const testimonials = [
-    {
-      name: "Marcus Vance",
-      role: "Managing Director, Global FinTech Group",
-      location: "London & Dubai",
-      visaType: "Executive Leadership 10-Yr Visa",
-      verified: true,
-      text: "Flawless concierge execution. From title deed verification at Dubai Land Department to holding our physical 10-year Emirates IDs took exactly 4 business days.",
-      rating: 5,
-      date: "February 2026",
-    },
-    {
-      name: "Elena Rostova",
-      role: "Angel Investor & Technology Founder",
-      location: "Dubai Marina",
-      visaType: "Real Estate Investor 10-Yr Visa",
-      verified: true,
-      text: "Secured 10-Year Golden Visas for myself and my entire family including elderly parents. The VIP medical screening was completed in a private lounge with zero waiting.",
-      rating: 5,
-      date: "January 2026",
-    },
-    {
-      name: "Dr. Tariq Al-Mansoor",
-      role: "Chief Medical Specialist & Surgeon",
-      location: "Abu Dhabi / Dubai",
-      visaType: "Specialized Talent & Health 10-Yr Visa",
-      verified: true,
-      text: "As a specialized consultant, ministerial council endorsement was obtained seamlessly through their verified sovereign portal. True professionalism.",
-      rating: 5,
-      date: "March 2026",
-    },
-    {
-      name: "Jean-Philippe Moreau",
-      role: "Founder, Capital Advisory Europe",
-      location: "Zurich & Dubai DIFC",
-      visaType: "Real Estate Investor (AED 5M+)",
-      verified: true,
-      text: "The speed and discretion were unmatched. They coordinated with the developer and Dubai Land Department without me having to stand in a single queue.",
-      rating: 5,
-      date: "March 2026",
-    },
-    {
-      name: "Amina Al-Husseini",
-      role: "Group Strategy Director",
-      location: "Downtown Dubai",
-      visaType: "Executive C-Suite Pathway",
-      verified: true,
-      text: "Their team managed my MOHRE contract approval, priority VIP biometrics, and home delivery of our Emirates IDs within 72 hours. Outstanding service.",
-      rating: 5,
-      date: "January 2026",
-    },
-    {
-      name: "Kenji Sato",
-      role: "AI Research Scientist & Fellow",
-      location: "Dubai Silicon Oasis",
-      visaType: "AI & Innovation Scientist Visa",
-      verified: true,
-      text: "Secured council recommendation and full 10-year residency in record time. Highly competent team with deep knowledge of UAE government protocols.",
-      rating: 5,
-      date: "February 2026",
-    },
-  ];
 
   const faqs = [
     {
@@ -105,65 +43,45 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
     <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#07090F] border-b border-slate-200/80 dark:border-white/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto">
         
-        {/* Verified Reviews Section */}
+        {/* Google Reviews */}
         <div className="mb-24">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-[#8C6D2D] dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
               <MessageSquareQuote className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span>Verified Client Testimonials & Endorsements</span>
+              <span>Google Reviews</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              What Our Elite <span className="gold-gradient-text font-serif italic">Clients Say</span>
+              Reviews from <span className="gold-gradient-text font-serif italic">Google</span>
             </h2>
             
             <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-              Read authentic feedback from high-net-worth investors, multinational executives, and families who completed their UAE sovereign transition with our VIP desk.
+              View current customer feedback on our Google Business profile.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.map((item, idx) => (
-              <div 
-                key={idx}
-                className="p-8 rounded-2xl bg-[#FAF9F6] dark:bg-[#0E1320] border border-slate-200 dark:border-white/10 hover:border-[#C5A059] dark:hover:border-[#C5A059] transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex gap-1 text-[#C5A059]">
-                      {[...Array(item.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-[#C5A059]" />
-                      ))}
-                    </div>
-                    <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">{item.date}</span>
-                  </div>
-
-                  <p className="text-sm text-[#1E293B] dark:text-slate-300 leading-relaxed italic mb-6">
-                    "{item.text}"
-                  </p>
+          <div className="mx-auto max-w-4xl overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm dark:border-white/15 dark:bg-[#0E1320]">
+            {process.env.NEXT_PUBLIC_GOOGLE_REVIEWS_EMBED_URL ? (
+              <iframe
+                title="Google customer reviews"
+                src={process.env.NEXT_PUBLIC_GOOGLE_REVIEWS_EMBED_URL}
+                className="h-[420px] w-full border-0"
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            ) : (
+              <div className="flex flex-col items-center gap-4 px-6 py-10 text-center sm:px-10">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-[#1A73E8] dark:bg-blue-500/10">
+                  <MessageSquareQuote className="h-6 w-6" />
                 </div>
-
-                <div className="pt-5 border-t border-slate-200/80 dark:border-white/10">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <span>{item.name}</span>
-                        {item.verified && (
-                          <span title="Verified Client">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                          </span>
-                        )}
-                      </h4>
-                      <div className="text-xs text-amber-900 dark:text-amber-400 font-extrabold">{item.role}</div>
-                      <div className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">{item.location}</div>
-                    </div>
-                    <span className="px-2 py-1 rounded bg-amber-100 dark:bg-amber-950/60 text-amber-950 dark:text-amber-300 border border-amber-200 dark:border-amber-700/30 text-[10px] font-extrabold text-right max-w-[110px] leading-tight">
-                      {item.visaType}
-                    </span>
-                  </div>
-                </div>
+                <p className="max-w-xl text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  Google reviews are shown on the business profile. Add a Google Reviews provider embed URL to display its live widget here.
+                </p>
+                <a href={contactInfo.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#1A73E8] px-5 text-sm font-bold text-white transition-colors hover:bg-[#155FC0]">
+                  Open Google Reviews <ExternalLink className="h-4 w-4" />
+                </a>
               </div>
-            ))}
+            )}
           </div>
         </div>
 
@@ -188,7 +106,7 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
               return (
                 <div 
                   key={index}
-                  className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0E1320] overflow-hidden transition-all shadow-xs"
+                  className="rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-[#111827] overflow-hidden transition-all shadow-sm hover:border-[#C5A059]"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : index)}

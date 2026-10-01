@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import Link from 'next/link';
-import { ArrowRight, BadgeCheck, BriefcaseBusiness, CheckCircle2, ChevronDown, ChevronRight, Clock3, FileText, Home, MessageSquare, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Award, Baby, BadgeCheck, BriefcaseBusiness, Building2, CheckCircle2, ChevronDown, ChevronRight, CreditCard, FileCheck2, FileText, HeartHandshake, HeartPulse, Home, Landmark, Languages, Phone, Scale, ShieldCheck, Stamp, TrendingUp, Umbrella, Users, type LucideIcon } from 'lucide-react';
 import { StandalonePageFrame } from '@/components/StandalonePageFrame';
 import { contactInfo } from '@/lib/contactInfo';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 
 export interface ServiceHighlight {
   title: string;
@@ -21,6 +22,45 @@ export interface ServiceFaq {
   answer: string;
 }
 
+export interface ServiceCta {
+  label: string;
+  href: string;
+  type: 'contact' | 'whatsapp' | 'phone';
+}
+
+interface ServiceVisualPreset {
+  id: string;
+  icon: LucideIcon;
+  accent: string;
+  metric: string;
+  caption: string;
+  composition: 'editorial' | 'architecture' | 'orbit' | 'document' | 'dashboard';
+}
+
+const serviceVisuals: Record<string, ServiceVisualPreset> = {
+  'Golden Visa': { id: 'golden-residency', icon: Award, accent: '#C5A059', metric: '10 YEARS', caption: 'Long-term residency', composition: 'editorial' },
+  'Property Visa': { id: 'property-residency', icon: Building2, accent: '#A88643', metric: 'AED 2M+', caption: 'Property investor route', composition: 'architecture' },
+  'Family Visa': { id: 'family-residency', icon: HeartHandshake, accent: '#B79552', metric: 'FAMILY', caption: 'One coordinated plan', composition: 'orbit' },
+  'Newborn Visa': { id: 'newborn-registration', icon: Baby, accent: '#BE9C68', metric: 'NEW ARRIVAL', caption: 'A clear first step', composition: 'orbit' },
+  'Maid Visa': { id: 'household-residency', icon: Users, accent: '#927447', metric: 'HOUSEHOLD', caption: 'Sponsor support', composition: 'document' },
+  'Emirates ID': { id: 'identity-card', icon: CreditCard, accent: '#B79857', metric: 'EMIRATES ID', caption: 'Identity services', composition: 'dashboard' },
+  'Medical & EID': { id: 'medical-identity', icon: HeartPulse, accent: '#8F9270', metric: 'MEDICAL + EID', caption: 'Health and identity steps', composition: 'dashboard' },
+  'Visa Validity Checker': { id: 'visa-status', icon: BadgeCheck, accent: '#A58D54', metric: 'STATUS CHECK', caption: 'Review your visa details', composition: 'editorial' },
+  'ILOE Insurance': { id: 'iloe-protection', icon: Umbrella, accent: '#927B50', metric: 'ILOE', caption: 'Coverage guidance', composition: 'orbit' },
+  'DLD Trustee Services': { id: 'dld-trustee', icon: Landmark, accent: '#B18B4F', metric: 'DLD', caption: 'Property documentation', composition: 'architecture' },
+  'Property Revaluation': { id: 'property-valuation', icon: TrendingUp, accent: '#9D8249', metric: 'VALUATION', caption: 'Property value review', composition: 'dashboard' },
+  'PRO Services': { id: 'pro-coordination', icon: BriefcaseBusiness, accent: '#C5A059', metric: 'CASE SUPPORT', caption: 'Government coordination', composition: 'document' },
+  'Amer Center': { id: 'amer-center', icon: FileCheck2, accent: '#A28148', metric: 'AMER', caption: 'Application assistance', composition: 'dashboard' },
+  'Attestation': { id: 'document-attestation', icon: Stamp, accent: '#B18A4C', metric: 'CERTIFIED', caption: 'Document authentication', composition: 'document' },
+  'Legal Translation': { id: 'legal-translation', icon: Languages, accent: '#927B50', metric: 'EN  /  AR', caption: 'Certified legal translation', composition: 'editorial' },
+  'Power of Attorney (POA)': { id: 'power-of-attorney', icon: FileText, accent: '#A48B57', metric: 'AUTHORITY', caption: 'Formal representation', composition: 'document' },
+  'Wills & Last Testament': { id: 'estate-planning', icon: Scale, accent: '#91794C', metric: 'LEGACY', caption: 'Plan with clarity', composition: 'architecture' },
+};
+
+const defaultVisual: ServiceVisualPreset = {
+  id: 'service-guidance', icon: ShieldCheck, accent: '#C5A059', metric: 'UAE SERVICES', caption: 'Guidance for your case', composition: 'editorial',
+};
+
 interface ServicePageTemplateProps {
   eyebrow: string;
   title: string;
@@ -34,6 +74,7 @@ interface ServicePageTemplateProps {
   faq: ServiceFaq[];
   secondaryCtaLabel?: string;
   secondaryCtaHref?: string;
+  actionCtas?: ServiceCta[];
 }
 
 const SectionHeader = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
@@ -54,6 +95,42 @@ const Card = ({ icon, title, description }: { icon: React.ReactNode; title: stri
   </div>
 );
 
+function ServiceArtwork({
+  visual,
+  title,
+  badge,
+  eyebrow,
+}: {
+  visual: ServiceVisualPreset;
+  title: string;
+  badge: string;
+  eyebrow: string;
+}) {
+  const Icon = visual.icon;
+
+  return (
+    <div className={`service-artwork service-artwork--${visual.id}`} role="img" aria-label={`${title}: ${visual.caption}`}>
+      <div className="service-artwork-grid" />
+      <div className="service-artwork-topline">
+        <span>{eyebrow}</span>
+        <span>UAE / DXB</span>
+      </div>
+      <div className="service-artwork-center">
+        <div className="service-artwork-emblem"><Icon className="h-8 w-8" /></div>
+        <div>
+          <p className="service-artwork-metric">{visual.metric}</p>
+          <p className="service-artwork-caption">{visual.caption}</p>
+        </div>
+      </div>
+      <div className="service-artwork-details">
+        <span><span className="service-artwork-status" /> {badge}</span>
+        <span>{title}</span>
+      </div>
+      <span className="service-artwork-index" aria-hidden="true">GV / {visual.id.slice(0, 2).toUpperCase()}</span>
+    </div>
+  );
+}
+
 export function ServicePageTemplate({
   eyebrow,
   title,
@@ -67,12 +144,15 @@ export function ServicePageTemplate({
   faq,
   secondaryCtaLabel = 'Speak to an advisor',
   secondaryCtaHref = '/contact-us',
+  actionCtas,
 }: ServicePageTemplateProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const visual = serviceVisuals[title] ?? defaultVisual;
+  const visualStyle = { '--service-accent': visual.accent } as CSSProperties;
 
   return (
     <StandalonePageFrame currentView="career" showMobileStickyBar={false}>
-      <div className="service-page-theme bg-[#f9f6f0] text-slate-900 dark:bg-[#07090F] dark:text-slate-100">
+      <div className={`service-page-theme service-theme-${visual.id} bg-[#f9f6f0] text-slate-900 dark:bg-[#07090F] dark:text-slate-100`} style={visualStyle}>
         <div className="mx-auto max-w-7xl px-4 pt-6 md:px-6 lg:px-8 lg:pt-8">
           <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-2 text-sm text-slate-600">
             <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-[#E7DFC7] bg-white px-2.5 py-1.5 font-medium text-slate-700 transition-colors hover:text-[#8C6D2D]">
@@ -87,15 +167,15 @@ export function ServicePageTemplate({
         </div>
 
         <section className="mx-auto max-w-7xl px-4 pb-16 pt-8 md:px-6 lg:px-8 lg:pt-12">
-          <div className="overflow-hidden rounded-[32px] border border-[#EADCC0] bg-gradient-to-br from-[#fffdf9] via-[#fffaf0] to-[#f5efe5] shadow-[0_30px_80px_-40px_rgba(139,109,45,0.45)]">
-            <div className="grid items-center gap-10 px-5 py-8 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-12 lg:py-12">
+          <div className={`service-hero-frame service-hero-frame--${visual.composition}`}>
+            <div className="service-hero-grid grid items-center gap-10 px-5 py-8 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:px-12 lg:py-12">
               <div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-[#E3D3A7] bg-[#F8F1DF] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#8C6D2D]">
                   <span className="h-2 w-2 rounded-full bg-[#C5A059]" />
                   {eyebrow}
                 </div>
 
-                <h1 className="mt-6 max-w-xl text-4xl font-black tracking-tight text-slate-900 md:text-5xl lg:text-[3.25rem]">
+                <h1 className="mt-6 inline-block max-w-xl rounded-r-lg border border-[#EADCC0] border-l-4 border-l-[#C5A059] bg-white/80 px-5 py-4 text-4xl font-black tracking-tight text-slate-900 shadow-sm dark:border-white/10 dark:border-l-[#C5A059] dark:bg-white/5 md:text-5xl lg:text-[3.25rem]">
                   {title}
                 </h1>
 
@@ -104,62 +184,28 @@ export function ServicePageTemplate({
                 </p>
 
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <Link
-                    href="/contact-us"
-                    className="inline-flex items-center gap-2 rounded-full bg-[#C5A059] px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_12px_30px_-12px_rgba(197,160,89,0.9)] transition-transform hover:-translate-y-0.5"
-                  >
-                    Contact our team <ArrowRight className="h-4 w-4" />
-                  </Link>
-                  <a
-                    href={secondaryCtaHref}
-                    target={secondaryCtaHref.startsWith('http') ? '_blank' : undefined}
-                    rel={secondaryCtaHref.startsWith('http') ? 'noreferrer' : undefined}
-                    className="inline-flex items-center gap-2 rounded-full border border-[#D7C28C] bg-white px-5 py-3 text-sm font-bold text-slate-800 transition-colors hover:bg-[#fffaf0]"
-                  >
-                    {secondaryCtaLabel}
-                  </a>
+                  {actionCtas ? actionCtas.map((cta) => {
+                    const Icon = cta.type === 'phone' ? Phone : ArrowRight;
+                    const className = cta.type === 'contact'
+                      ? 'inline-flex items-center gap-2 rounded-lg bg-[#C5A059] px-4 py-3 text-sm font-bold text-slate-950 shadow-sm transition-colors hover:bg-[#d4b36f]'
+                      : cta.type === 'whatsapp'
+                        ? 'inline-flex items-center gap-2 rounded-lg bg-emerald-700 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-emerald-600'
+                        : 'inline-flex items-center gap-2 rounded-lg border border-[#D7C28C] bg-white px-4 py-3 text-sm font-bold text-slate-800 transition-colors hover:bg-[#fffaf0]';
+                    return cta.type === 'contact' ? (
+                      <Link key={cta.label} href={cta.href} className={className}>{cta.label}<Icon className="h-4 w-4" /></Link>
+                    ) : (
+                      <a key={cta.label} href={cta.href} target={cta.href.startsWith('http') ? '_blank' : undefined} rel={cta.href.startsWith('http') ? 'noopener noreferrer' : undefined} className={className}>{cta.type === 'whatsapp' ? <WhatsAppIcon className="h-4 w-4" /> : <Icon className="h-4 w-4" />}{cta.label}</a>
+                    );
+                  }) : (
+                    <>
+                      <Link href="/contact-us" className="inline-flex items-center gap-2 rounded-full bg-[#C5A059] px-5 py-3 text-sm font-bold text-slate-950 shadow-[0_12px_30px_-12px_rgba(197,160,89,0.9)] transition-transform hover:-translate-y-0.5">Contact our team <ArrowRight className="h-4 w-4" /></Link>
+                      <a href={secondaryCtaHref} target={secondaryCtaHref.startsWith('http') ? '_blank' : undefined} rel={secondaryCtaHref.startsWith('http') ? 'noreferrer' : undefined} className="inline-flex items-center gap-2 rounded-full border border-[#D7C28C] bg-white px-5 py-3 text-sm font-bold text-slate-800 transition-colors hover:bg-[#fffaf0]">{secondaryCtaLabel}</a>
+                    </>
+                  )}
                 </div>
               </div>
 
-              <div className="rounded-[28px] border border-[#E9DDC0] bg-white p-6 shadow-[0_20px_45px_-30px_rgba(15,23,42,0.3)]">
-                <div className="rounded-2xl bg-[#F8F1DF] p-4 text-[#7d611f]">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8C6D2D]">Priority service</p>
-                      <p className="mt-2 text-xl font-black text-slate-900">{badge}</p>
-                    </div>
-                    <div className="rounded-full bg-white p-2 text-[#C5A059] shadow-sm">
-                      <ShieldCheck className="h-5 w-5" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-5 space-y-4">
-                  <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                    <BadgeCheck className="mt-0.5 h-5 w-5 text-[#C5A059]" />
-                    <div>
-                      <p className="font-bold text-slate-900">Fast-track guidance</p>
-                      <p className="text-sm text-slate-600">Step-by-step support from application review to final submission.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                    <Clock3 className="mt-0.5 h-5 w-5 text-[#C5A059]" />
-                    <div>
-                      <p className="font-bold text-slate-900">Clear timelines</p>
-                      <p className="text-sm text-slate-600">Straightforward progress updates to keep every requirement on track.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
-                    <FileText className="mt-0.5 h-5 w-5 text-[#C5A059]" />
-                    <div>
-                      <p className="font-bold text-slate-900">Checklist-driven process</p>
-                      <p className="text-sm text-slate-600">Document review and form coordination designed to minimize delays.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ServiceArtwork visual={visual} title={title} badge={badge} eyebrow={eyebrow} />
             </div>
           </div>
         </section>
@@ -302,7 +348,7 @@ export function ServicePageTemplate({
               rel="noopener noreferrer"
               className="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-3 text-sm font-bold text-white transition-colors hover:bg-emerald-500"
             >
-              <MessageSquare className="h-4 w-4" />
+              <WhatsAppIcon className="h-4 w-4" />
               WhatsApp
             </a>
           </div>

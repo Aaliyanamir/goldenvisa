@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
 import { contactInfo } from '../lib/contactInfo';
-import { Calculator, MessageSquare, ArrowUp } from 'lucide-react';
+import { Calculator, ArrowUp } from 'lucide-react';
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface FloatingActionProps {
   onOpenCalculator: () => void;
@@ -104,7 +105,7 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({ onOpenCal
               rel="noopener noreferrer"
               className="flex-1 py-3 px-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all whitespace-nowrap text-center"
             >
-              <MessageSquare className="w-4 h-4 text-white shrink-0" />
+              <WhatsAppIcon className="w-4 h-4 text-white shrink-0" />
               <span>{t.mobileSticky.whatsappBtn}</span>
             </a>
           </div>

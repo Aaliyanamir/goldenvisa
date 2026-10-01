@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '../lib/LanguageContext';
 import { contactInfo } from '../lib/contactInfo';
+import { WhatsAppIcon } from './WhatsAppIcon';
 import { 
-  X, ChevronRight, Calculator, MessageSquare,
+  X, ChevronRight, Calculator,
   Users, Award, Building2, Heart, UserCheck, CreditCard,
   Briefcase, Landmark, FileCheck2, Globe2, FileText, Scale,
   HeartPulse, ShieldCheck, Umbrella, BookOpen, Info, Headphones
@@ -181,8 +182,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
               aria-labelledby={`service-category-${selectedCategory.id}`}
               className="mt-4"
             >
-              <h3 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">{selectedCategory.title}</h3>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <h3 className="mb-3 border-b border-slate-200 pb-3 text-xs font-extrabold uppercase tracking-[0.14em] text-[#765719] dark:border-white/10 dark:text-amber-300">{selectedCategory.title}</h3>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {selectedCategory.services.map((service) => {
                   const Icon = service.icon;
                   return (
@@ -261,7 +262,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
               rel="noopener noreferrer"
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-center"
             >
-              <MessageSquare className="w-4 h-4 shrink-0 text-white" />
+              <WhatsAppIcon className="w-4 h-4 shrink-0" />
               <span>WhatsApp</span>
             </a>
 

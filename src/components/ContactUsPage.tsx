@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import {
   ArrowRight, ArrowUpRight, Building2, Clock3, Mail, MapPin,
-  MessageCircle, Navigation, Phone, ShieldCheck, Star, Truck,
+  MessageCircle, Navigation, Phone, ShieldCheck, Truck,
 } from 'lucide-react';
 import { contactInfo } from '@/lib/contactInfo';
 
@@ -83,46 +83,52 @@ export const ContactUsPage: React.FC = () => {
 
   return (
     <div className="bg-[var(--bg-page)] text-[var(--text-main)]">
-      <section className="bg-[var(--bg-alt)] border-b border-[var(--border-subtle)] px-5 pb-12 pt-8 sm:px-8 sm:pb-16 lg:px-12">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
-          <div className="max-w-2xl">
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Visit Golden Visa Dubai</p>
-            <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
-              Visit us at our <span className="text-[var(--gold-dark)]">Dubai Office</span>
+      <section className="contact-hero relative isolate flex min-h-[520px] items-center overflow-hidden border-b border-[var(--border-subtle)] bg-[#111] px-5 py-16 text-white sm:px-8 lg:min-h-[590px] lg:px-12">
+        <div role="img" aria-label="Business district office towers in Dubai" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/assets/blog/article-4.jpg')" }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/35" />
+        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="contact-copy-enter max-w-2xl">
+            <p className="mb-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#F1D98A]"><MapPin className="h-4 w-4" /> Visit Golden Visa Dubai</p>
+            <h1 className="max-w-xl text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl">
+              A direct line to your <span className="text-[#E7C764]">Dubai team.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-[var(--text-muted)]">
-              Centrally located in Business Bay, Dubai&apos;s leading financial and business hub, with convenient access by metro, car, or taxi.
+            <p className="mt-5 max-w-xl text-base leading-7 text-white/80">
+              Meet us in Business Bay, or get in touch by phone, WhatsApp, or email. We&apos;ll help you find the right next step.
             </p>
-            <a href={contactInfo.directionsUrl} target="_blank" rel="noopener noreferrer" className="gold-btn mt-7 inline-flex min-h-12 items-center gap-2 rounded-md px-5 text-sm font-bold">
-              <Navigation className="h-4 w-4" /> Get Directions <ArrowUpRight className="h-4 w-4" />
-            </a>
-            <p className="mt-3 text-xs text-[var(--text-muted)]">Open directions in Google Maps</p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={contactInfo.directionsUrl} target="_blank" rel="noopener noreferrer" className="gold-btn inline-flex min-h-12 items-center gap-2 rounded-md px-5 text-sm font-bold">
+                <Navigation className="h-4 w-4" /> Get directions <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <a href={contactInfo.phoneHref} className="inline-flex min-h-12 items-center gap-2 rounded-md border border-white/35 bg-black/20 px-5 text-sm font-bold text-white transition-colors hover:border-[#E7C764] hover:text-[#F1D98A]">
+                <Phone className="h-4 w-4" /> Call {contactInfo.phone}
+              </a>
+            </div>
           </div>
 
-          <div className="overflow-hidden rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] shadow-sm">
-            <iframe
-              title="Golden Visa Dubai office on Google Maps"
-              src={contactInfo.mapEmbedUrl}
-              className="h-64 w-full border-0 sm:h-72"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-            <div className="grid gap-4 p-5 sm:grid-cols-[1fr_auto] sm:items-center">
-              <div>
-                <h2 className="flex items-center gap-2 font-bold"><MapPin className="h-4 w-4 text-[var(--gold-dark)]" /> Office Address</h2>
-                <p className="mt-2 max-w-lg text-sm leading-6 text-[var(--text-muted)]">{contactInfo.address}</p>
-              </div>
-              <div className="flex items-center justify-between gap-4 border-t border-[var(--border-subtle)] pt-4 sm:min-w-56 sm:flex-col sm:items-start sm:border-t-0 sm:border-l sm:pl-5 sm:pt-0">
+          <div className="contact-route-panel ml-auto w-full max-w-md border-l border-white/20 pl-6 sm:pl-8">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#F1D98A]">Find the office</p>
+            <div className="contact-route-list mt-5 space-y-7">
+              <div className="contact-route-stop flex items-start gap-4">
+                <span className="contact-route-pin"><MapPin className="h-4 w-4" /></span>
                 <div>
-                  <p className="text-xs font-semibold text-[var(--text-muted)]">Google rating</p>
-                  <p className="mt-1 flex items-center gap-2 text-lg font-extrabold"><span>4.9</span><span className="flex text-amber-500" aria-label="5 stars">{Array.from({ length: 5 }, (_, index) => <Star key={index} className="h-3.5 w-3.5 fill-current" />)}</span></p>
+                  <p className="text-sm font-bold text-white">Crystal Tower</p>
+                  <p className="mt-1 text-xs leading-5 text-white/70">{contactInfo.address}</p>
                 </div>
-                <a href={contactInfo.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm font-bold text-[var(--gold-dark)] hover:underline">
-                  Read reviews <ArrowUpRight className="h-4 w-4" />
-                </a>
+              </div>
+              <div className="contact-route-stop flex items-start gap-4">
+                <span className="contact-route-pin"><Navigation className="h-4 w-4" /></span>
+                <div>
+                  <p className="text-sm font-bold text-white">Business Bay, Dubai</p>
+                  <a href={contactInfo.directionsUrl} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-[#F1D98A] hover:text-white">
+                    Open Google Maps <ArrowUpRight className="h-3.5 w-3.5" />
+                  </a>
+                </div>
               </div>
             </div>
+            <a href={contactInfo.googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex items-center gap-2 border-t border-white/20 pt-4 text-xs font-semibold text-white/80 transition-colors hover:text-[#F1D98A]">
+              Google Business Profile <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
           </div>
         </div>
       </section>
@@ -132,17 +138,16 @@ export const ContactUsPage: React.FC = () => {
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[var(--gold-dark)]">Reach Golden Visa Dubai</p>
           <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">More ways to <span className="text-[var(--gold-dark)]">contact us</span></h2>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-[var(--text-muted)]">Choose the contact option that suits you best. Every message reaches our dedicated team directly.</p>
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            {contactMethods.map(({ title, detail, note, href, icon: Icon, tone }) => (
-              <a key={title} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="group flex min-h-40 flex-col border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 transition-colors hover:border-[var(--gold-primary)]">
-                <span className={`mb-4 flex h-10 w-10 items-center justify-center rounded-md ${tone === 'green' ? 'bg-emerald-50 text-emerald-700' : tone === 'red' ? 'bg-rose-50 text-rose-700' : tone === 'blue' ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-800'}`}><Icon className="h-5 w-5" /></span>
-                <span className="font-bold">{title}</span>
-                <span className="mt-1 break-all text-sm text-[var(--gold-dark)]">{detail}</span>
-                <span className="mt-2 text-xs text-[var(--text-muted)]">{note}</span>
+          <div className="contact-channel-list mt-8 grid gap-x-10 sm:grid-cols-2">
+            {contactMethods.map(({ title, detail, note, href, icon: Icon }) => (
+              <a key={title} href={href} target={href.startsWith('http') ? '_blank' : undefined} rel={href.startsWith('http') ? 'noopener noreferrer' : undefined} className="group flex items-start gap-4 border-t border-[var(--border-subtle)] py-5 transition-colors hover:border-[var(--gold-primary)]">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center border border-[var(--gold-border)] bg-[var(--gold-subtle)] text-[var(--gold-dark)] transition-transform group-hover:-translate-y-0.5"><Icon className="h-5 w-5" /></span>
+                <span className="min-w-0"><span className="block font-bold">{title}</span><span className="mt-1 block break-all text-sm text-[var(--gold-dark)]">{detail}</span><span className="mt-2 block text-xs text-[var(--text-muted)]">{note}</span></span>
+                <ArrowUpRight className="ml-auto h-4 w-4 shrink-0 text-[var(--text-muted)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[var(--gold-dark)]" />
               </a>
             ))}
           </div>
-          <div className="mt-5 flex flex-col gap-2 rounded-md bg-[var(--gold-subtle)] px-5 py-4 text-sm sm:flex-row sm:items-center">
+          <div className="mt-5 flex flex-col gap-2 border-l-2 border-[var(--gold-primary)] bg-[var(--gold-subtle)] px-5 py-4 text-sm sm:flex-row sm:items-center">
             <Truck className="h-5 w-5 shrink-0 text-[var(--gold-dark)]" />
             <p className="text-[var(--text-muted)]">Prefer to handle everything online? Share documents on WhatsApp. We can arrange a rider when an original document is required.</p>
           </div>
@@ -156,7 +161,7 @@ export const ContactUsPage: React.FC = () => {
           <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--text-muted)]">Most customers complete the process remotely. Visiting our office is optional.</p>
           <div className="mt-8 grid gap-px border border-[var(--border-subtle)] bg-[var(--border-subtle)] md:grid-cols-3">
             {workSteps.map((step, index) => (
-              <article key={step.title} className="bg-[var(--bg-surface)] p-6 sm:p-7">
+              <article key={step.title} style={{ animationDelay: `${index * 120}ms` }} className="contact-step-enter bg-[var(--bg-surface)] p-6 sm:p-7">
                 <span className="text-sm font-extrabold text-[var(--gold-dark)]">0{index + 1}</span>
                 <h3 className="mt-4 text-lg font-bold">{step.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{step.text}</p>

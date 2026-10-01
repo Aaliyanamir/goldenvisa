@@ -16,6 +16,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Integrations
+
+To show a live Google Reviews provider widget on the homepage, set `NEXT_PUBLIC_GOOGLE_REVIEWS_EMBED_URL` to the provider's embed URL before building. Without it, the section links to the Google Business review profile.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

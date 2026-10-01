@@ -67,14 +67,14 @@ export const RoadmapSection: React.FC = () => {
             return (
               <div 
                 key={index}
-                className="bg-white dark:bg-[#131A2A] rounded-3xl p-7 border border-slate-200 dark:border-white/10 shadow-xs hover:border-[#C5A059] hover:shadow-xl transition-all flex flex-col justify-between group"
+                className="bg-white dark:bg-[#131A2A] rounded-2xl p-7 border border-slate-300 dark:border-white/15 shadow-sm hover:border-[#C5A059] hover:shadow-xl transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-3xl font-black text-[#C5A059]/40 font-mono">
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1B5B50] text-sm font-black text-white shadow-sm dark:bg-emerald-300 dark:text-[#102A25]">
                       {step.num}
                     </span>
-                    <div className="p-2.5 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-[#C5A059] border border-amber-100 dark:border-amber-800/60 group-hover:scale-105 transition-transform">
+                    <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-700/60 group-hover:scale-105 transition-transform">
                       <IconComp className="w-5 h-5" />
                     </div>
                   </div>
@@ -84,7 +84,7 @@ export const RoadmapSection: React.FC = () => {
                   </span>
 
                   <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-snug font-serif">
-                    {step.title}
+                    {step.title.replace(/^\d+[.)]\s*/, '')}
                   </h3>
 
                   <p className="mt-2.5 text-xs sm:text-sm text-[#1E293B] dark:text-slate-300 leading-relaxed font-normal">

@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
 import { contactInfo } from '../lib/contactInfo';
 import { 
-  Award, Shield, FileCheck2, Landmark, 
-  ArrowUpRight, CheckCircle2, ChevronRight,
-  Stamp, BookOpen, Scale, Sparkles
+  Award, ArrowUpRight, CheckCircle2, ChevronRight, Sparkles
 } from 'lucide-react';
 
 interface ServicesSectionProps {
@@ -106,7 +104,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
   };
 
   return (
-    <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#F8F9FA] dark:bg-[#07090F] border-t border-b border-slate-200 dark:border-white/10 transition-colors">
+    <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#EEF2F5] dark:bg-[#07090F] border-t border-b border-slate-300 dark:border-white/10 transition-colors">
       <div className="max-w-[1560px] 2xl:max-w-[1720px] mx-auto">
         
         {/* Section Header */}
@@ -123,18 +121,20 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
           </p>
 
           {/* Clean Re-Aligned Segmented Control Tabs (Category 1 & Category 3 Only) */}
-          <div className="mt-8 inline-flex p-1.5 rounded-2xl bg-white dark:bg-[#0E1320] border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="mt-8 inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl bg-slate-200 p-1.5 dark:bg-[#0E1320] border border-slate-300 dark:border-slate-700 shadow-sm" role="tablist" aria-label="Service categories">
             {([
               { id: 'residency', label: '1. Residency & Long-Term Visas' },
               { id: 'legal', label: '2. Government & Legal PRO' },
             ] as const).map((tab) => (
               <button
                 key={tab.id}
+                role="tab"
+                aria-selected={activeCategory === tab.id}
                 onClick={() => setActiveCategory(tab.id)}
                 className={`px-6 sm:px-10 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeCategory === tab.id
-                    ? 'bg-gradient-to-r from-amber-50 to-amber-100/60 dark:from-amber-950/80 dark:to-amber-900/60 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-700 shadow-xs font-extrabold'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                    ? 'bg-white dark:bg-amber-950/80 text-[#765719] dark:text-amber-200 border border-amber-300 dark:border-amber-700 shadow-sm font-extrabold'
+                    : 'text-slate-700 dark:text-slate-400 hover:bg-white/70 dark:hover:bg-white/10 hover:text-slate-950 dark:hover:text-white'
                 }`}
               >
                 {tab.label}

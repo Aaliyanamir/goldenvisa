@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
+import { contactInfo } from '@/lib/contactInfo';
 
 export const metadata: Metadata = {
   title: 'Golden Visa | Golden Visa Dubai',
@@ -13,6 +14,11 @@ export default function GoldenVisaPage() {
       title="Golden Visa"
       description="A tailored residency pathway designed to support long-term planning, qualification review, and efficient documentation for eligible applicants."
       badge="Long-term residency"
+      actionCtas={[
+        { label: 'Contact form', href: '/contact-us', type: 'contact' },
+        { label: 'WhatsApp', href: contactInfo.whatsappHref, type: 'whatsapp' },
+        { label: 'Direct call', href: contactInfo.phoneHref, type: 'phone' },
+      ]}
       overviewTitle="A clear approach to long-term UAE residency"
       overviewText="The Golden Visa route can open access to long-term residency opportunities for eligible entrepreneurs, investors, professionals, and skilled applicants. A successful outcome depends on careful eligibility planning, document preparation, and a complete understanding of the category-specific requirements."
       highlights={[

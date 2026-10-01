@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { contactInfo } from '../lib/contactInfo';
 import {
   ShieldCheck, Award, Users, Star, TrendingUp,
-  CheckCircle2, MapPin, Phone, Mail, ArrowRight,
+  CheckCircle2, MapPin, Phone, ArrowRight,
   Building2, Clock, Globe2, HeartHandshake, Sparkles, BadgeCheck
 } from 'lucide-react';
 
@@ -91,13 +91,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
     <div className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-white transition-colors duration-300">
 
       {/* ── Hero Banner ── */}
-      <section className="relative pt-36 pb-20 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0D1117] text-slate-900 dark:text-white overflow-hidden transition-colors duration-300 border-b border-slate-200 dark:border-white/10">
-        {/* Dot grid background */}
-        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none" />
-        {/* Amber glow */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[400px] bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
+      <section className="relative isolate min-h-[680px] overflow-hidden border-b border-slate-200 bg-[#090909] px-4 pb-20 pt-36 text-white transition-colors duration-300 sm:px-6 lg:px-10">
+        <div role="img" aria-label="Consultants collaborating in a Dubai office" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/assets/blog/article-3.jpg')", backgroundPosition: 'center 46%' }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/50" />
+        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
 
-        <div className="max-w-[1720px] mx-auto relative z-10">
+        <div className="relative z-10 mx-auto max-w-[1720px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left: Text */}
             <div>
@@ -105,12 +104,12 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                 <Sparkles className="w-3 h-3 text-[#C5A059]" />
                 <span>About Golden Visa Dubai</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white font-serif">
+              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white font-serif">
                 About <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span> —<br />
                 Your Trusted UAE<br />
                 <span className="text-[#C5A059]">Consultancy</span>
               </h1>
-              <p className="mt-6 text-slate-700 dark:text-slate-300 text-base leading-relaxed max-w-xl font-normal">
+              <p className="mt-6 text-white/80 text-base leading-relaxed max-w-xl font-normal">
                 Golden Visa Dubai is a UAE residency and professional services consultancy supporting investors, entrepreneurs, executives, and families through their applications.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -125,7 +124,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
                   href={contactInfo.whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-md"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/35 bg-black/20 hover:border-amber-300 hover:text-amber-200 text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-md"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
                   <span>Speak to a Consultant</span>
@@ -133,33 +132,32 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
               </div>
             </div>
 
-            {/* Right: Logo card */}
+            {/* Right: Photo overlay with credentials */}
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-[320px] sm:w-[380px]">
-                <div className="rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#1A1E2C] dark:to-[#0D1117] border border-slate-200 dark:border-amber-500/20 p-8 shadow-2xl">
-                  <div className="mb-6">
-                    <Image src="/assets/images/Golden Visa Dubai.png" alt="Golden Visa Dubai" width={1812} height={477} sizes="220px" className="h-auto w-[220px] max-w-full object-contain" />
+              <div className="relative w-full max-w-[460px]">
+                <div className="rounded-lg border border-white/25 bg-black/55 p-6 shadow-2xl backdrop-blur-md sm:p-8">
+                  <div className="flex items-start justify-between gap-4 border-b border-white/20 pb-5">
                     <div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider mt-0.5">UAE Residency &amp; Legal Consultancy</div>
+                      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-amber-200">UAE Residency &amp; Legal Consultancy</p>
+                      <h2 className="mt-2 text-2xl font-extrabold text-white">Guidance built around your case</h2>
                     </div>
+                    <ShieldCheck className="h-7 w-7 shrink-0 text-amber-300" />
                   </div>
-                  <div className="space-y-2.5">
+                  <div className="mt-5 space-y-3">
                     {certifications.slice(0, 4).map((cert, i) => (
-                      <div key={i} className="flex items-center gap-2.5 text-xs text-slate-800 dark:text-slate-300 font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                      <div key={i} className="flex items-center gap-2.5 text-sm text-white/85 font-medium">
+                        <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0" />
                         <span>{cert}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/10 flex items-center gap-2 text-[11px] text-slate-600 dark:text-slate-400 font-medium">
-                    <MapPin className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
-                    <span>Al Garhoud, Dubai, United Arab Emirates</span>
+                  <div className="mt-6 grid grid-cols-2 gap-3 border-t border-white/20 pt-5">
+                    <div><p className="text-2xl font-black text-white">13+</p><p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-white/65">Years in the UAE</p></div>
+                    <div><p className="text-2xl font-black text-amber-200">90+</p><p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-white/65">Nationalities served</p></div>
                   </div>
+                  <p className="mt-5 flex items-center gap-2 text-xs text-white/75"><MapPin className="h-4 w-4 shrink-0 text-amber-300" /> Dubai, United Arab Emirates</p>
                 </div>
-                {/* Floating badge */}
-                <div className="absolute -top-4 -right-4 px-3 py-2 rounded-xl bg-[#C5A059] text-slate-950 text-xs font-black shadow-lg">
-                  DET Licensed
-                </div>
+                <div className="absolute -top-4 right-4 rounded-md border border-amber-200/60 bg-[#C5A059] px-3 py-2 text-xs font-black text-slate-950 shadow-lg sm:-right-4">DET Licensed</div>
               </div>
             </div>
           </div>
@@ -174,8 +172,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
               const IconComp = s.icon;
               return (
                 <div key={i} className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 mb-4">
-                    <IconComp className="w-5 h-5 text-[#C5A059]" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#1B5B50] dark:bg-emerald-300 border border-[#1B5B50] dark:border-emerald-200 mb-4 shadow-md">
+                    <IconComp className="w-5 h-5 text-white dark:text-[#102A25]" />
                   </div>
                   <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">{s.value}</div>
                   <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">{s.label}</div>
@@ -287,7 +285,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Partner Trusted Section ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0D1117] text-slate-900 dark:text-white transition-colors duration-300 border-b border-slate-200 dark:border-white/10">
+      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#E8F0EC] dark:bg-[#11231F] text-slate-900 dark:text-white transition-colors duration-300 border-b border-emerald-900/15 dark:border-emerald-100/10">
         <div className="max-w-[1720px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div>
@@ -361,7 +359,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
       </section>
 
       {/* ── Contact / CTA Banner ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#07090F] transition-colors duration-300">
+      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#143C35] dark:bg-[#07090F] transition-colors duration-300">
         <div className="max-w-[1720px] mx-auto">
           <div className="rounded-3xl bg-gradient-to-r from-amber-50 via-amber-100/60 to-amber-50 dark:from-[#0D1117] dark:to-[#1A1E2C] p-10 sm:p-14 border border-amber-300 dark:border-amber-500/20 shadow-2xl text-center relative overflow-hidden text-slate-900 dark:text-white">
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none" />
