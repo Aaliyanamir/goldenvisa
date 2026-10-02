@@ -2,7 +2,8 @@
 
 import { useState, type CSSProperties } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Award, Baby, BadgeCheck, BriefcaseBusiness, Building2, CheckCircle2, ChevronDown, ChevronRight, CreditCard, FileCheck2, FileText, HeartHandshake, HeartPulse, Home, Landmark, Languages, Phone, Scale, ShieldCheck, Stamp, TrendingUp, Umbrella, Users, type LucideIcon } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, BriefcaseBusiness, CheckCircle2, ChevronDown, ChevronRight, Home, Phone, ShieldCheck, type LucideIcon } from 'lucide-react';
 import { StandalonePageFrame } from '@/components/StandalonePageFrame';
 import { contactInfo } from '@/lib/contactInfo';
 import { WhatsAppIcon } from '@/components/WhatsAppIcon';
@@ -55,30 +56,35 @@ interface ServiceVisualPreset {
   accent: string;
   metric: string;
   caption: string;
+  image: string;
+  imageAlt: string;
+  layout: 'split' | 'immersive';
 }
 
+const unsplashPhoto = (id: string) => `https://images.unsplash.com/${id}`;
+
 const serviceVisuals: Record<string, ServiceVisualPreset> = {
-  'Golden Visa': { id: 'golden-residency', icon: Award, accent: '#D0A94F', metric: '10 YEARS', caption: 'Long-term residency' },
-  'Property Visa': { id: 'property-residency', icon: Building2, accent: '#C28B45', metric: 'AED 2M+', caption: 'Property investor route' },
-  'Family Visa': { id: 'family-residency', icon: HeartHandshake, accent: '#B59A55', metric: 'FAMILY', caption: 'One coordinated plan' },
-  'Newborn Visa': { id: 'newborn-registration', icon: Baby, accent: '#D1A65F', metric: 'NEW ARRIVAL', caption: 'A clear first step' },
-  'Maid Visa': { id: 'household-residency', icon: Users, accent: '#A98B4C', metric: 'HOUSEHOLD', caption: 'Sponsor support' },
-  'Emirates ID': { id: 'identity-card', icon: CreditCard, accent: '#C5A059', metric: 'EMIRATES ID', caption: 'Identity services' },
-  'Medical & EID': { id: 'medical-identity', icon: HeartPulse, accent: '#A78F5A', metric: 'MEDICAL + EID', caption: 'Health and identity steps' },
-  'Visa Validity Checker': { id: 'visa-status', icon: BadgeCheck, accent: '#C0A45C', metric: 'STATUS CHECK', caption: 'Review your visa details' },
-  'ILOE Insurance': { id: 'iloe-protection', icon: Umbrella, accent: '#B49550', metric: 'ILOE', caption: 'Coverage guidance' },
-  'DLD Trustee Services': { id: 'dld-trustee', icon: Landmark, accent: '#C19A55', metric: 'DLD', caption: 'Property documentation' },
-  'Property Revaluation': { id: 'property-valuation', icon: TrendingUp, accent: '#B88F42', metric: 'VALUATION', caption: 'Property value review' },
-  'PRO Services': { id: 'pro-coordination', icon: BriefcaseBusiness, accent: '#C4A858', metric: 'CASE SUPPORT', caption: 'Government coordination' },
-  'Amer Center': { id: 'amer-center', icon: FileCheck2, accent: '#B79248', metric: 'AMER', caption: 'Application assistance' },
-  'Attestation': { id: 'document-attestation', icon: Stamp, accent: '#C29B52', metric: 'CERTIFIED', caption: 'Document authentication' },
-  'Legal Translation': { id: 'legal-translation', icon: Languages, accent: '#B79A5D', metric: 'EN  /  AR', caption: 'Certified legal translation' },
-  'Power of Attorney (POA)': { id: 'power-of-attorney', icon: FileText, accent: '#C3A15A', metric: 'AUTHORITY', caption: 'Formal representation' },
-  'Wills & Last Testament': { id: 'estate-planning', icon: Scale, accent: '#A88F57', metric: 'LEGACY', caption: 'Plan with clarity' },
+  'Golden Visa': { id: 'golden-residency', icon: ShieldCheck, accent: '#D0A94F', metric: '10 YEARS', caption: 'Long-term residency', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline at sunset', layout: 'immersive' },
+  'Property Visa': { id: 'property-residency', icon: ShieldCheck, accent: '#C28B45', metric: 'AED 2M+', caption: 'Property investor route', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing property investment', layout: 'immersive' },
+  'Family Visa': { id: 'family-residency', icon: ShieldCheck, accent: '#B59A55', metric: 'FAMILY', caption: 'One coordinated plan', image: unsplashPhoto('photo-1511895426328-dc8714191300'), imageAlt: 'Family spending time together outdoors', layout: 'split' },
+  'Newborn Visa': { id: 'newborn-registration', icon: ShieldCheck, accent: '#D1A65F', metric: 'NEW ARRIVAL', caption: 'A clear first step', image: unsplashPhoto('photo-1511895426328-dc8714191300'), imageAlt: 'Family spending time together outdoors', layout: 'split' },
+  'Maid Visa': { id: 'household-residency', icon: ShieldCheck, accent: '#A98B4C', metric: 'HOUSEHOLD', caption: 'Sponsor support', image: unsplashPhoto('photo-1581578731548-c64695cc6952'), imageAlt: 'Household support at home', layout: 'split' },
+  'Emirates ID': { id: 'identity-card', icon: ShieldCheck, accent: '#C5A059', metric: 'EMIRATES ID', caption: 'Identity services', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline and modern city buildings', layout: 'split' },
+  'Medical & EID': { id: 'medical-identity', icon: ShieldCheck, accent: '#A78F5A', metric: 'MEDICAL + EID', caption: 'Health and identity steps', image: unsplashPhoto('photo-1612349317150-e413f6a5b16d'), imageAlt: 'Healthcare professional in a clinical setting', layout: 'split' },
+  'Visa Validity Checker': { id: 'visa-status', icon: ShieldCheck, accent: '#C0A45C', metric: 'STATUS CHECK', caption: 'Review your visa details', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
+  'ILOE Insurance': { id: 'iloe-protection', icon: ShieldCheck, accent: '#B49550', metric: 'ILOE', caption: 'Coverage guidance', image: unsplashPhoto('photo-1521791136064-7986c2920216'), imageAlt: 'Professionals discussing support options', layout: 'split' },
+  'DLD Trustee Services': { id: 'dld-trustee', icon: ShieldCheck, accent: '#C19A55', metric: 'DLD', caption: 'Property documentation', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing property documentation', layout: 'split' },
+  'Property Revaluation': { id: 'property-valuation', icon: ShieldCheck, accent: '#B88F42', metric: 'VALUATION', caption: 'Property value review', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing property valuation', layout: 'split' },
+  'PRO Services': { id: 'pro-coordination', icon: ShieldCheck, accent: '#C4A858', metric: 'CASE SUPPORT', caption: 'Government coordination', image: unsplashPhoto('photo-1521737711867-e3b97375f902'), imageAlt: 'Professionals coordinating work together', layout: 'split' },
+  'Amer Center': { id: 'amer-center', icon: ShieldCheck, accent: '#B79248', metric: 'AMER', caption: 'Application assistance', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline at sunset', layout: 'split' },
+  'Attestation': { id: 'document-attestation', icon: ShieldCheck, accent: '#C29B52', metric: 'CERTIFIED', caption: 'Document authentication', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
+  'Legal Translation': { id: 'legal-translation', icon: ShieldCheck, accent: '#B79A5D', metric: 'EN  /  AR', caption: 'Certified legal translation', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
+  'Power of Attorney (POA)': { id: 'power-of-attorney', icon: ShieldCheck, accent: '#C3A15A', metric: 'AUTHORITY', caption: 'Formal representation', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
+  'Wills & Last Testament': { id: 'estate-planning', icon: ShieldCheck, accent: '#A88F57', metric: 'LEGACY', caption: 'Plan with clarity', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing long-term planning', layout: 'split' },
 };
 
 const defaultVisual: ServiceVisualPreset = {
-  id: 'service-guidance', icon: ShieldCheck, accent: '#C5A059', metric: 'UAE SERVICES', caption: 'Guidance for your case',
+  id: 'service-guidance', icon: ShieldCheck, accent: '#C5A059', metric: 'UAE SERVICES', caption: 'Guidance for your case', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline', layout: 'split',
 };
 
 const serviceFlows: Record<ServiceDesign, ServiceSection[]> = {
@@ -134,42 +140,6 @@ const Card = ({ icon, title, description }: { icon: React.ReactNode; title: stri
     <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
   </div>
 );
-
-function ServiceArtwork({
-  visual,
-  title,
-  badge,
-  eyebrow,
-}: {
-  visual: ServiceVisualPreset;
-  title: string;
-  badge: string;
-  eyebrow: string;
-}) {
-  const Icon = visual.icon;
-
-  return (
-    <div className={`service-artwork service-artwork--${visual.id}`} role="img" aria-label={`${title}: ${visual.caption}`}>
-      <div className="service-artwork-grid" />
-      <div className="service-artwork-topline">
-        <span>{eyebrow}</span>
-        <span>UAE / DXB</span>
-      </div>
-      <div className="service-artwork-center">
-        <div className="service-artwork-emblem"><Icon className="h-8 w-8" /></div>
-        <div>
-          <p className="service-artwork-metric">{visual.metric}</p>
-          <p className="service-artwork-caption">{visual.caption}</p>
-        </div>
-      </div>
-      <div className="service-artwork-details">
-        <span><span className="service-artwork-status" /> {badge}</span>
-        <span>{title}</span>
-      </div>
-      <span className="service-artwork-index" aria-hidden="true">GV / {visual.id.slice(0, 2).toUpperCase()}</span>
-    </div>
-  );
-}
 
 function ServiceActions({
   actionCtas,
@@ -250,47 +220,24 @@ function ServiceHero({
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
 }) {
-  const intro = <ServiceIntro eyebrow={eyebrow} title={title} description={description} actionCtas={actionCtas} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaHref={secondaryCtaHref} />;
-  const artwork = <ServiceArtwork visual={visual} title={title} badge={badge} eyebrow={eyebrow} />;
+  const Icon = visual.icon;
 
-  switch (visual.id) {
-    case 'golden-residency':
-      return <section className="service-hero service-hero--golden"><div className="service-hero-golden-copy"><span className="service-hero-edition">RESIDENCY / 01</span>{intro}<div className="service-hero-golden-note"><Award /> <span>{visual.metric}<small>{visual.caption}</small></span></div></div><aside className="service-hero-golden-art">{artwork}<span className="service-hero-side-label">UNITED ARAB EMIRATES</span></aside></section>;
-    case 'property-residency':
-      return <section className="service-hero service-hero--property"><aside className="service-hero-property-art">{artwork}<span className="service-hero-property-stamp">INVESTOR ROUTE</span></aside><div className="service-hero-property-copy">{intro}<div className="service-hero-property-bar"><Building2 /><span>{visual.metric}</span><small>{visual.caption}</small></div></div></section>;
-    case 'family-residency':
-      return <section className="service-hero service-hero--family"><div className="service-hero-family-orbit" aria-hidden="true"><span /><span /><span /></div><div className="service-hero-family-copy">{intro}</div><div className="service-hero-family-art">{artwork}<span>ONE FAMILY. ONE PLAN.</span></div></section>;
-    case 'newborn-registration':
-      return <section className="service-hero service-hero--newborn"><header className="service-hero-newborn-heading"><span>WELCOME TO THE UAE</span><Baby /></header><div className="service-hero-newborn-card"><div className="service-hero-newborn-copy">{intro}</div><div className="service-hero-newborn-art">{artwork}<span>FIRST DOCUMENTS<br />A NEW CHAPTER</span></div></div></section>;
-    case 'household-residency':
-      return <section className="service-hero service-hero--household"><div className="service-hero-household-copy"><span className="service-hero-file-tab">SPONSOR FILE / 01</span>{intro}<div className="service-hero-household-tags"><span>SPONSOR</span><span>EMPLOYEE</span><span>DOCUMENTS</span></div></div><aside className="service-hero-household-art">{artwork}</aside></section>;
-    case 'identity-card':
-      return <section className="service-hero service-hero--identity"><div className="service-hero-identity-copy">{intro}<span className="service-hero-identity-index">IDENTITY / UAE</span></div><aside className="service-hero-identity-card"><span className="service-hero-chip" /><div>{artwork}</div><span className="service-hero-card-number">784 •••• ••••••• •</span></aside></section>;
-    case 'medical-identity':
-      return <section className="service-hero service-hero--medical"><div className="service-hero-medical-heading">{intro}</div><div className="service-hero-medical-track"><article><span>01 / HEALTH</span><HeartPulse /><h2>Medical fitness</h2><p>Assessment and required health records</p></article><div className="service-hero-medical-connector" /><article><span>02 / IDENTITY</span><CreditCard /><h2>Emirates ID</h2><p>Biometrics and identity documentation</p></article></div></section>;
-    case 'visa-status':
-      return <section className="service-hero service-hero--status"><div className="service-hero-status-copy"><span className="service-hero-status-label"><BadgeCheck /> STATUS REVIEW</span>{intro}</div><aside className="service-hero-status-panel"><div className="service-hero-status-top"><span>CASE REVIEW</span><span>UAE / DXB</span></div>{artwork}<div className="service-hero-status-footer"><span>DOCUMENT CHECK</span><span>DETAILS REQUIRED</span></div></aside></section>;
-    case 'iloe-protection':
-      return <section className="service-hero service-hero--iloe"><div className="service-hero-iloe-shield"><span /><Umbrella /></div><div className="service-hero-iloe-copy">{intro}<span className="service-hero-iloe-caption">PROTECTION / GUIDANCE / CLARITY</span></div><aside className="service-hero-iloe-art">{artwork}</aside></section>;
-    case 'dld-trustee':
-      return <section className="service-hero service-hero--trustee"><div className="service-hero-trustee-copy"><span className="service-hero-trustee-kicker">PROPERTY TRANSFER SERVICES</span>{intro}<div className="service-hero-trustee-seal"><Landmark /> DLD TRUSTEE SUPPORT</div></div><aside className="service-hero-trustee-art">{artwork}<span>TRANSFER<br />RECORDS<br />COMPLIANCE</span></aside></section>;
-    case 'property-valuation':
-      return <section className="service-hero service-hero--valuation"><div className="service-hero-valuation-chart" aria-hidden="true"><span /><span /><span /><span /><span /><span /></div><div className="service-hero-valuation-copy">{intro}</div><aside className="service-hero-valuation-result"><TrendingUp /><span>{visual.metric}</span><small>{visual.caption}</small>{artwork}</aside></section>;
-    case 'pro-coordination':
-      return <section className="service-hero service-hero--pro"><header className="service-hero-pro-heading"><span>ONE POINT OF COORDINATION</span>{intro}</header><div className="service-hero-pro-board"><div><span>01</span><FileText /><strong>DOCUMENTS</strong></div><div><span>02</span><BriefcaseBusiness /><strong>GOVERNMENT</strong></div><div><span>03</span><CheckCircle2 /><strong>FOLLOW-UP</strong></div>{artwork}</div></section>;
-    case 'amer-center':
-      return <section className="service-hero service-hero--amer"><aside className="service-hero-amer-counter"><span className="service-hero-amer-number">A</span>{artwork}<span className="service-hero-amer-hours">APPLICATION SUPPORT / UAE</span></aside><div className="service-hero-amer-copy">{intro}<div className="service-hero-amer-line"><span />VISA FACILITATION</div></div></section>;
-    case 'document-attestation':
-      return <section className="service-hero service-hero--attestation"><div className="service-hero-attestation-stack"><span /><span /><div>{artwork}<Stamp /></div></div><div className="service-hero-attestation-copy"><span className="service-hero-attestation-overline">DOCUMENT AUTHENTICATION</span>{intro}</div></section>;
-    case 'legal-translation':
-      return <section className="service-hero service-hero--translation"><div className="service-hero-translation-language"><span>EN</span><Languages /><span>AR</span></div><div className="service-hero-translation-copy">{intro}</div><aside className="service-hero-translation-sheet"><span>ENGLISH</span><span>العربية</span>{artwork}<div className="service-hero-translation-rule" /></aside></section>;
-    case 'power-of-attorney':
-      return <section className="service-hero service-hero--poa"><div className="service-hero-poa-copy"><span className="service-hero-poa-ref">LEGAL INSTRUMENT / UAE</span>{intro}</div><aside className="service-hero-poa-document"><div className="service-hero-poa-document-top"><span>POWER OF ATTORNEY</span><span>01</span></div>{artwork}<div className="service-hero-signature"><span>AUTHORIZED SIGNATURE</span><span /></div></aside></section>;
-    case 'estate-planning':
-      return <section className="service-hero service-hero--estate"><div className="service-hero-estate-copy"><span className="service-hero-estate-mark">A PLAN FOR WHAT MATTERS</span>{intro}<div className="service-hero-estate-rule"><span /> <Scale /> <span /></div></div><aside className="service-hero-estate-art">{artwork}<span>FAMILY<br />FUTURE<br />LEGACY</span></aside></section>;
-    default:
-      return <section className="service-hero service-hero--default">{intro}{artwork}</section>;
-  }
+  return (
+    <section className={`service-hero service-hero--photo service-hero--${visual.layout} service-hero--${visual.id}`}>
+      <div className="service-hero-photo-copy">
+        <ServiceIntro eyebrow={eyebrow} title={title} description={description} actionCtas={actionCtas} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaHref={secondaryCtaHref} />
+      </div>
+      <aside className="service-hero-photo-panel">
+        <Image className="service-hero-photo-image" src={visual.image} alt={visual.imageAlt} fill sizes="(max-width: 900px) calc(100vw - 48px), 560px" quality={75} preload />
+        <div className="service-hero-photo-shade" aria-hidden="true" />
+        <div className="service-hero-photo-topline"><span>{badge}</span><span>UAE / DXB</span></div>
+        <div className="service-hero-photo-caption">
+          <span className="service-hero-photo-icon"><Icon className="h-5 w-5" /></span>
+          <span><strong>{visual.metric}</strong><small>{visual.caption}</small></span>
+        </div>
+      </aside>
+    </section>
+  );
 }
 
 export function ServicePageTemplate({

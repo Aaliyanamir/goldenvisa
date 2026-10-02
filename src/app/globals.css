@@ -1508,3 +1508,291 @@ html.dark #site-shell:has(.service-page-theme) aside[aria-label="Executive Partn
   border-color: rgba(197, 160, 89, 0.2);
   background: #15130e;
 }
+
+.service-page-theme .service-hero.service-hero--photo {
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+  min-height: 500px;
+  padding: 42px;
+  gap: 42px;
+  border: 1px solid #e4d5b7;
+  border-radius: 4px 54px 4px 4px;
+  background: #fffefa;
+  color: #211f1a;
+  box-shadow: 0 24px 60px -48px rgba(47, 37, 17, 0.5);
+}
+
+.service-page-theme .service-hero--photo .service-hero-intro {
+  max-width: 620px;
+}
+
+.service-page-theme .service-hero--photo .service-page-title {
+  margin-top: 16px;
+  color: #211f1a !important;
+  font-size: 60px;
+  line-height: 1.04;
+}
+
+.service-page-theme .service-hero--photo .service-hero-description {
+  max-width: 560px;
+  margin-top: 18px;
+  color: #59554c !important;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.service-page-theme .service-hero--photo .service-hero-eyebrow {
+  color: #94702d;
+}
+
+.service-page-theme .service-hero--photo .service-action {
+  min-height: 48px;
+  border-color: #b6924e;
+  color: #302a1e;
+}
+
+.service-page-theme .service-hero--photo .service-action--contact {
+  border-color: #c5a059;
+  background: #c5a059;
+  color: #17130b;
+}
+
+.service-page-theme .service-hero--photo .service-action--secondary {
+  background: transparent;
+}
+
+.service-hero-photo-panel {
+  position: relative;
+  min-height: 380px;
+  overflow: hidden;
+  border: 1px solid rgba(197, 160, 89, 0.45);
+  border-radius: 3px 34px 3px 3px;
+  background: #24211b;
+  isolation: isolate;
+}
+
+.service-hero-photo-image,
+.service-hero-photo-shade {
+  position: absolute;
+  inset: 0;
+}
+
+.service-hero-photo-image {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.service-hero-photo-panel:hover .service-hero-photo-image {
+  transform: scale(1.035);
+}
+
+.service-hero-photo-shade {
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(12, 14, 15, 0.46), transparent 34%, rgba(12, 14, 15, 0.72));
+}
+
+.service-hero-photo-topline,
+.service-hero-photo-caption {
+  position: absolute;
+  z-index: 2;
+  right: 22px;
+  left: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #fff;
+}
+
+.service-hero-photo-topline {
+  top: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.38);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.service-hero-photo-caption {
+  bottom: 22px;
+  justify-content: flex-start;
+}
+
+.service-hero-photo-icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  place-items: center;
+  border: 1px solid rgba(240, 213, 153, 0.72);
+  background: rgba(28, 25, 19, 0.52);
+  color: #f0d599;
+  backdrop-filter: blur(8px);
+}
+
+.service-hero-photo-caption strong,
+.service-hero-photo-caption small {
+  display: block;
+}
+
+.service-hero-photo-caption strong {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+.service-hero-photo-caption small {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+}
+
+.service-page-theme .service-hero.service-hero--photo.service-hero--immersive {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 570px;
+  padding: 58px;
+  border: 0;
+  border-radius: 4px 56px 4px 4px;
+  background: #17150f;
+  color: #fff;
+}
+
+.service-hero--immersive .service-hero-photo-panel {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  min-height: 0;
+  border: 0;
+  border-radius: inherit;
+}
+
+.service-hero--immersive .service-hero-photo-shade {
+  background: linear-gradient(90deg, rgba(10, 11, 10, 0.91) 0%, rgba(10, 11, 10, 0.78) 42%, rgba(10, 11, 10, 0.24) 100%), linear-gradient(0deg, rgba(10, 11, 10, 0.38), transparent 62%);
+}
+
+.service-hero--immersive .service-hero-photo-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+html:not(.dark) .service-page-theme .service-hero--immersive .service-page-title,
+html.dark .service-page-theme .service-hero--immersive .service-page-title,
+html:not(.dark) .service-page-theme .service-hero--immersive .service-hero-description,
+html.dark .service-page-theme .service-hero--immersive .service-hero-description {
+  color: #fff !important;
+}
+
+html:not(.dark) .service-page-theme .service-hero--immersive .service-hero-description,
+html.dark .service-page-theme .service-hero--immersive .service-hero-description {
+  color: rgba(255, 255, 255, 0.84) !important;
+}
+
+.service-page-theme .service-hero--immersive .service-action--secondary {
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+html:not(.dark) .service-page-theme .service-hero.service-hero--photo {
+  border-color: #e4d5b7;
+  background: #fffefa;
+  color: #211f1a;
+}
+
+html.dark .service-page-theme .service-hero.service-hero--photo {
+  border-color: rgba(197, 160, 89, 0.38);
+  background: #11110f;
+  color: #f6f2e9;
+}
+
+html.dark .service-page-theme .service-hero--photo .service-page-title {
+  color: #f6f2e9 !important;
+}
+
+html.dark .service-page-theme .service-hero--photo .service-hero-description {
+  color: #cbc7bd !important;
+}
+
+html.dark .service-page-theme .service-hero--photo .service-action--secondary {
+  color: #f6f2e9;
+}
+
+@media (max-width: 900px) {
+  .service-page-theme .service-hero.service-hero--photo {
+    width: calc(100% - 32px);
+    grid-template-columns: 1fr;
+    min-height: 0;
+    margin: 24px auto 52px;
+    padding: 34px;
+    gap: 28px;
+  }
+
+  .service-hero-photo-panel {
+    min-height: 360px;
+  }
+
+  .service-page-theme .service-hero.service-hero--photo.service-hero--immersive {
+    min-height: 570px;
+  }
+}
+
+@media (max-width: 600px) {
+  .service-page-theme .service-hero.service-hero--photo {
+    width: calc(100% - 24px);
+    margin: 18px auto 42px;
+    padding: 24px;
+    gap: 22px;
+    border-radius: 3px 32px 3px 3px;
+  }
+
+  .service-page-theme .service-hero--photo .service-page-title {
+    font-size: 42px;
+  }
+
+  .service-page-theme .service-hero--photo .service-hero-description {
+    font-size: 14px;
+  }
+
+  .service-page-theme .service-hero--photo .service-hero-actions {
+    gap: 8px;
+  }
+
+  .service-page-theme .service-hero--photo .service-action {
+    padding-inline: 12px;
+    font-size: 11px;
+  }
+
+  .service-hero-photo-panel {
+    min-height: 280px;
+    border-top-right-radius: 24px;
+  }
+
+  .service-hero-photo-topline,
+  .service-hero-photo-caption {
+    right: 16px;
+    left: 16px;
+  }
+
+  .service-hero-photo-topline {
+    top: 15px;
+    font-size: 9px;
+  }
+
+  .service-hero-photo-caption {
+    bottom: 16px;
+  }
+
+  .service-page-theme .service-hero.service-hero--photo.service-hero--immersive {
+    min-height: 0;
+    padding: 28px 22px 310px;
+  }
+
+  .service-hero--immersive .service-hero-photo-panel {
+    top: auto;
+    height: 280px;
+  }
+
+  .service-hero--immersive .service-hero-photo-shade {
+    background: linear-gradient(0deg, rgba(10, 11, 10, 0.74), rgba(10, 11, 10, 0.08));
+  }
+}
