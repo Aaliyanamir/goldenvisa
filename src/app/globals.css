@@ -905,3 +905,606 @@ html.dark .eligibility-quiz-dialog {
 html.dark .service-page-theme {
   background-color: var(--bg-page) !important;
 }
+
+.service-page-theme {
+  --service-panel: #11110f;
+  --service-panel-raised: #181712;
+  --service-copy: #cbc7bd;
+  --service-line: rgba(255, 255, 255, 0.12);
+  min-height: 100vh;
+  background: #070707 !important;
+  color: #f6f2e9 !important;
+}
+
+.service-page-theme .service-hero {
+  position: relative;
+  display: grid;
+  width: min(1180px, calc(100% - 48px));
+  min-height: 440px;
+  margin: 34px auto 76px;
+  padding: 44px;
+  overflow: hidden;
+  align-items: center;
+  gap: 40px;
+  border: 1px solid color-mix(in srgb, var(--service-accent) 42%, #27251e);
+  background: #0d0d0b;
+  color: #f6f2e9;
+  isolation: isolate;
+}
+
+.service-page-theme .service-hero-intro {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+
+.service-page-theme .service-hero-eyebrow,
+.service-page-theme .service-hero-edition,
+.service-page-theme .service-hero-status-label,
+.service-page-theme .service-hero-file-tab,
+.service-page-theme .service-hero-trustee-kicker,
+.service-page-theme .service-hero-attestation-overline,
+.service-page-theme .service-hero-poa-ref,
+.service-page-theme .service-hero-estate-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--service-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.service-page-theme .service-hero-eyebrow > span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--service-accent);
+}
+
+.service-page-theme .service-page-title {
+  display: block;
+  margin: 18px 0 0;
+  color: #fbf8f1 !important;
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.03;
+}
+
+.service-page-theme .service-hero-description {
+  max-width: 570px;
+  margin: 20px 0 0;
+  color: var(--service-copy) !important;
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.service-page-theme .service-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.service-page-theme .service-action {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 17px;
+  border: 1px solid color-mix(in srgb, var(--service-accent) 50%, #4c4431);
+  border-radius: 3px;
+  color: #f6f2e9;
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.service-page-theme .service-action--contact {
+  border-color: var(--service-accent);
+  background: var(--service-accent);
+  color: #15120a;
+}
+
+.service-page-theme .service-artwork {
+  min-height: 290px;
+  border-color: color-mix(in srgb, var(--service-accent) 52%, #28251d);
+  border-radius: 5px;
+  background: #15140f;
+}
+
+.service-page-theme .service-artwork-emblem {
+  border-color: color-mix(in srgb, var(--service-accent) 65%, #393327);
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--service-accent) 13%, #16140f);
+  color: var(--service-accent);
+}
+
+.service-page-theme .service-artwork-metric {
+  color: var(--service-accent);
+}
+
+.service-page-theme .service-content {
+  gap: 46px;
+}
+
+.service-page-theme .service-content > section {
+  width: 100%;
+}
+
+.service-page-theme .service-section-header > div {
+  border-color: color-mix(in srgb, var(--service-accent) 42%, #2a271f);
+  background: color-mix(in srgb, var(--service-accent) 9%, #11110f);
+  color: var(--service-accent);
+}
+
+.service-page-theme .service-section-header > div span {
+  background: var(--service-accent);
+}
+
+.service-page-theme .service-section-header h2,
+.service-page-theme .service-highlight-card h3,
+.service-page-theme .service-process-step h3,
+.service-page-theme .service-final-cta h2 {
+  color: #f6f2e9 !important;
+}
+
+.service-page-theme .service-highlight-card,
+.service-page-theme .service-process-step,
+.service-page-theme .service-overview-copy,
+.service-page-theme .service-overview-assurances,
+.service-page-theme .service-documents-panel,
+.service-page-theme .service-faq-panel,
+.service-page-theme .service-final-cta {
+  border-color: color-mix(in srgb, var(--service-accent) 24%, #2c2a24) !important;
+  background-color: var(--service-panel) !important;
+  color: var(--service-copy);
+  box-shadow: none;
+}
+
+.service-page-theme .service-overview-copy p,
+.service-page-theme .service-highlight-card p,
+.service-page-theme .service-process-step p,
+.service-page-theme .service-documents-panel li,
+.service-page-theme .service-faq-panel p,
+.service-page-theme .service-overview-assurances li {
+  color: var(--service-copy) !important;
+}
+
+.service-page-theme .service-overview-assurances > div > div:first-child,
+.service-page-theme .service-highlight-card > div:first-child {
+  color: var(--service-accent);
+}
+
+.service-page-theme .service-faq-panel > div > div {
+  border-color: var(--service-line);
+  background: #151511;
+}
+
+.service-page-theme .service-faq-panel button span,
+.service-page-theme .service-final-cta > div > div > p {
+  color: var(--service-accent) !important;
+}
+
+.service-page-theme .service-final-cta {
+  border-left: 4px solid var(--service-accent) !important;
+}
+
+.service-layout--golden-residency .service-hero {
+  grid-template-columns: 1fr 0.9fr;
+  min-height: 520px;
+  border-width: 1px 0;
+  border-radius: 0;
+  background: radial-gradient(ellipse at 78% 50%, #292213, #0b0b09 55%);
+}
+
+.service-hero-golden-copy {
+  position: relative;
+  padding-left: 28px;
+  border-left: 1px solid var(--service-accent);
+}
+
+.service-hero-edition { position: absolute; top: -32px; left: 28px; }
+.service-hero-golden-art { position: relative; }
+.service-hero-golden-art .service-artwork { min-height: 370px; border-radius: 48% 48% 3px 3px; }
+.service-hero-side-label { display: block; margin-top: 12px; color: #877d66; font-size: 9px; letter-spacing: 0.24em; text-align: right; }
+.service-hero-golden-note { display: flex; align-items: center; gap: 12px; margin-top: 27px; color: var(--service-accent); font-size: 14px; font-weight: 800; }
+.service-hero-golden-note small { display: block; margin-top: 3px; color: var(--service-copy); font-size: 11px; font-weight: 500; }
+.service-layout--golden-residency .service-highlights-section > div:last-child { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--service-line); }
+.service-layout--golden-residency .service-highlight-card { border: 0 !important; border-bottom: 1px solid var(--service-line) !important; padding: 26px 20px; }
+
+.service-layout--property-residency .service-hero {
+  grid-template-columns: 1.05fr 0.95fr;
+  padding: 30px;
+  border-radius: 4px 80px 4px 4px;
+  background: linear-gradient(120deg, #11100d 0 54%, #211a10 54%);
+}
+.service-hero-property-art { position: relative; }
+.service-hero-property-art .service-artwork { min-height: 350px; border-radius: 3px; transform: perspective(900px) rotateY(4deg); }
+.service-hero-property-stamp { position: absolute; right: -10px; bottom: 24px; padding: 10px 14px; background: var(--service-accent); color: #17130b; font-size: 9px; font-weight: 900; letter-spacing: 0.12em; }
+.service-hero-property-copy { padding: 20px; }
+.service-hero-property-bar { display: grid; grid-template-columns: auto auto 1fr; align-items: center; gap: 12px; margin-top: 30px; padding: 15px 0; border-top: 1px solid var(--service-line); color: var(--service-accent); }
+.service-hero-property-bar span { font-size: 22px; font-weight: 900; }
+.service-hero-property-bar small { color: var(--service-copy); font-size: 10px; }
+.service-layout--property-residency .service-process-section > div:last-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.service-layout--property-residency .service-process-step { border-top: 2px solid var(--service-accent) !important; border-radius: 2px !important; }
+
+.service-layout--family-residency .service-hero {
+  grid-template-columns: 1fr 0.7fr;
+  min-height: 530px;
+  border-radius: 180px 14px 180px 14px;
+  background: radial-gradient(ellipse at 52% 42%, #262013 0, #0c0c0a 62%);
+}
+.service-hero-family-copy { grid-column: 1 / -1; max-width: 720px; margin: 0 auto; text-align: center; }
+.service-hero-family-copy .service-hero-intro { margin: auto; }
+.service-hero-family-copy .service-hero-description { margin-inline: auto; }
+.service-hero-family-copy .service-hero-actions { justify-content: center; }
+.service-hero-family-art { grid-column: 1 / -1; width: min(570px, 100%); margin: -14px auto 0; }
+.service-hero-family-art .service-artwork { min-height: 160px; border-radius: 100px; }
+.service-hero-family-art > span { display: block; margin-top: 14px; color: var(--service-accent); font-size: 9px; letter-spacing: 0.2em; text-align: center; }
+.service-hero-family-orbit { position: absolute; top: 50%; left: 50%; width: 450px; height: 450px; border: 1px solid color-mix(in srgb, var(--service-accent) 20%, transparent); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.service-hero-family-orbit span { position: absolute; top: 0; left: 50%; width: 7px; height: 7px; border-radius: 50%; background: var(--service-accent); }
+.service-hero-family-orbit span:nth-child(2) { top: auto; bottom: 40px; left: 14%; }
+.service-hero-family-orbit span:nth-child(3) { top: 55%; left: auto; right: 4px; }
+.service-layout--family-residency .service-highlights-section > div:last-child { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.service-layout--family-residency .service-highlight-card { border-radius: 48px 8px 48px 8px !important; text-align: center; }
+
+.service-layout--newborn-registration .service-hero { display: block; max-width: 1000px; min-height: 0; padding: 0; border-radius: 8px; background: #11100d; }
+.service-hero-newborn-heading { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; border-bottom: 1px solid var(--service-line); color: var(--service-accent); font-size: 10px; font-weight: 800; letter-spacing: 0.2em; }
+.service-hero-newborn-card { display: grid; grid-template-columns: 1fr 0.75fr; align-items: center; gap: 30px; padding: 36px; }
+.service-hero-newborn-copy { padding: 16px 0; }
+.service-hero-newborn-art .service-artwork { min-height: 280px; border-radius: 120px 120px 4px 4px; }
+.service-hero-newborn-art > span { display: block; margin-top: 10px; color: #8f866e; font-size: 9px; line-height: 1.8; letter-spacing: 0.2em; text-align: center; }
+.service-layout--newborn-registration .service-documents-panel { columns: 2; column-gap: 40px; }
+.service-layout--newborn-registration .service-documents-panel .service-section-header { column-span: all; }
+
+.service-layout--household-residency .service-hero { grid-template-columns: 1fr 0.8fr; border-radius: 2px; background: repeating-linear-gradient(0deg, transparent 0 51px, rgba(255,255,255,.025) 52px), #10100e; }
+.service-hero-household-copy { position: relative; padding: 18px 0 0 20px; border-left: 1px solid var(--service-accent); }
+.service-hero-file-tab { position: absolute; top: -22px; left: 20px; padding: 4px 9px; background: var(--service-accent); color: #17130b !important; }
+.service-hero-household-art .service-artwork { min-height: 310px; border-radius: 2px; }
+.service-hero-household-tags { display: flex; gap: 8px; margin-top: 28px; }
+.service-hero-household-tags span { padding: 7px 9px; border: 1px solid var(--service-line); color: #b8ad94; font-size: 8px; letter-spacing: 0.12em; }
+.service-layout--household-residency .service-documents-panel ul { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 26px; }
+.service-layout--household-residency .service-highlight-card { border-radius: 2px !important; box-shadow: inset 3px 0 var(--service-accent) !important; }
+
+.service-layout--identity-card .service-hero { grid-template-columns: 0.95fr 1.05fr; border-radius: 6px; background: linear-gradient(115deg, #111 0 50%, #1b1913 50%); }
+.service-hero-identity-copy { position: relative; }
+.service-hero-identity-index { display: block; margin-top: 30px; color: #8f866e; font-size: 9px; letter-spacing: 0.2em; }
+.service-hero-identity-card { position: relative; padding: 24px; border: 1px solid color-mix(in srgb, var(--service-accent) 58%, #353025); border-radius: 16px; background: linear-gradient(140deg, #28251c, #0e0e0c 75%); transform: rotate(2deg); }
+.service-hero-identity-card .service-artwork { min-height: 250px; border: 0; background: transparent; box-shadow: none; }
+.service-hero-chip { position: absolute; top: 24px; right: 25px; width: 32px; height: 24px; border: 1px solid var(--service-accent); border-radius: 5px; }
+.service-hero-card-number { display: block; color: #d0c4a4; font-size: 10px; letter-spacing: 0.2em; }
+.service-layout--identity-card .service-highlights-section > div:last-child { grid-template-columns: 1fr; gap: 0; }
+.service-layout--identity-card .service-highlight-card { display: grid; grid-template-columns: 62px 1fr; align-items: center; border-width: 0 0 1px !important; border-radius: 0 !important; padding: 18px 0; }
+.service-layout--identity-card .service-highlight-card > p { grid-column: 2; margin-top: 3px; }
+
+.service-layout--medical-identity .service-hero { display: block; padding: 42px; border-radius: 4px 4px 48px 4px; background: linear-gradient(140deg, #18160f, #0d0d0b 55%); }
+.service-hero-medical-heading { max-width: 720px; margin-bottom: 30px; }
+.service-hero-medical-track { display: grid; grid-template-columns: 1fr 42px 1fr; align-items: center; }
+.service-hero-medical-track article { min-height: 160px; padding: 20px; border: 1px solid var(--service-line); background: rgba(255,255,255,.025); }
+.service-hero-medical-track article > span { display: block; color: var(--service-accent); font-size: 9px; letter-spacing: .16em; }
+.service-hero-medical-track article > svg { margin-top: 18px; color: var(--service-accent); }
+.service-hero-medical-track article h2 { display: inline-block; margin-left: 10px; font-size: 18px; }
+.service-hero-medical-track article p { color: var(--service-copy); font-size: 11px; }
+.service-hero-medical-connector { height: 1px; background: var(--service-accent); }
+.service-layout--medical-identity .service-process-section > div:last-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.service-layout--medical-identity .service-process-step { border-radius: 4px !important; }
+
+.service-layout--visa-status .service-hero { grid-template-columns: 1fr 0.9fr; border-radius: 3px; background: #0c0e0e; }
+.service-hero-status-copy { padding-right: 16px; }
+.service-hero-status-label { margin-bottom: 18px; }
+.service-hero-status-panel { padding: 16px; border: 1px solid var(--service-line); background: #131513; }
+.service-hero-status-top,.service-hero-status-footer { display: flex; justify-content: space-between; gap: 10px; color: #a69f8c; font-size: 8px; letter-spacing: .14em; }
+.service-hero-status-panel .service-artwork { min-height: 230px; margin: 14px 0; }
+.service-hero-status-footer { padding-top: 12px; border-top: 1px solid var(--service-line); }
+.service-layout--visa-status .service-faq-panel > div:last-child { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.service-layout--visa-status .service-faq-panel > div > div { border-radius: 3px; }
+
+.service-layout--iloe-protection .service-hero { grid-template-columns: .35fr 1fr .8fr; min-height: 490px; border-radius: 180px 5px 180px 5px; background: radial-gradient(ellipse at 30% 50%, #211d12, #0b0b09 66%); }
+.service-hero-iloe-shield { position: relative; display: grid; width: 120px; height: 140px; place-items: center; color: var(--service-accent); }
+.service-hero-iloe-shield > span { position: absolute; inset: 0; border: 1px solid var(--service-accent); clip-path: polygon(50% 0, 94% 17%, 86% 72%, 50% 100%, 14% 72%, 6% 17%); }
+.service-hero-iloe-shield > svg { width: 38px; height: 38px; }
+.service-hero-iloe-caption { display: block; margin-top: 24px; color: #8c836e; font-size: 8px; letter-spacing: .17em; }
+.service-hero-iloe-art .service-artwork { min-height: 220px; border-radius: 50%; }
+.service-layout--iloe-protection .service-highlights-section > div:last-child { grid-template-columns: 1fr; }
+.service-layout--iloe-protection .service-highlight-card { display: grid; grid-template-columns: 48px 1fr; border-width: 0 0 1px !important; border-radius: 0 !important; }
+.service-layout--iloe-protection .service-highlight-card > p { grid-column: 2; }
+
+.service-layout--dld-trustee .service-hero { grid-template-columns: 1fr .78fr; border-radius: 4px; background: linear-gradient(90deg, #111 0 67%, #19160e 67%); }
+.service-hero-trustee-copy { padding-left: 24px; border-left: 3px solid var(--service-accent); }
+.service-hero-trustee-kicker { margin-bottom: 15px; }
+.service-hero-trustee-seal { display: flex; align-items: center; gap: 10px; margin-top: 28px; color: var(--service-accent); font-size: 9px; letter-spacing: .14em; }
+.service-hero-trustee-art { position: relative; }
+.service-hero-trustee-art .service-artwork { min-height: 370px; border-radius: 2px 50% 2px 2px; }
+.service-hero-trustee-art > span { position: absolute; right: 24px; bottom: 44px; color: rgba(241,222,172,.35); font-size: 10px; line-height: 2; letter-spacing: .18em; text-align: right; }
+.service-layout--dld-trustee .service-process-section > div:last-child { display: block; border-left: 1px solid var(--service-accent); margin-left: 10px; padding-left: 28px; }
+.service-layout--dld-trustee .service-process-step { position: relative; margin: 0 0 14px; border-radius: 2px !important; }
+.service-layout--dld-trustee .service-process-step::before { position: absolute; top: 25px; left: -34px; width: 9px; height: 9px; border-radius: 50%; background: var(--service-accent); content: ""; }
+
+.service-layout--property-valuation .service-hero { grid-template-columns: .7fr 1fr .7fr; min-height: 490px; padding: 34px; border-radius: 2px; background: #10100e; }
+.service-hero-valuation-chart { display: flex; height: 250px; align-items: end; gap: 10px; border-bottom: 1px solid var(--service-accent); }
+.service-hero-valuation-chart span { flex: 1; height: 28%; background: color-mix(in srgb, var(--service-accent) 28%, #1c1a14); }
+.service-hero-valuation-chart span:nth-child(2) { height: 42%; }
+.service-hero-valuation-chart span:nth-child(3) { height: 38%; }
+.service-hero-valuation-chart span:nth-child(4) { height: 64%; }
+.service-hero-valuation-chart span:nth-child(5) { height: 58%; }
+.service-hero-valuation-chart span:nth-child(6) { height: 86%; background: var(--service-accent); }
+.service-hero-valuation-result { display: grid; justify-items: center; padding: 20px; border: 1px solid var(--service-line); text-align: center; }
+.service-hero-valuation-result > svg { color: var(--service-accent); }
+.service-hero-valuation-result > span { margin-top: 10px; color: var(--service-accent); font-size: 19px; font-weight: 900; }
+.service-hero-valuation-result > small { color: var(--service-copy); font-size: 9px; }
+.service-hero-valuation-result .service-artwork { min-height: 115px; width: 100%; margin-top: 16px; padding: 10px; }
+.service-hero-valuation-result .service-artwork-center { min-height: 52px; }
+.service-hero-valuation-result .service-artwork-emblem { width: 36px; height: 36px; flex-basis: 36px; }
+.service-hero-valuation-result .service-artwork-caption,.service-hero-valuation-result .service-artwork-topline,.service-hero-valuation-result .service-artwork-details { display: none; }
+.service-layout--property-valuation .service-highlights-section > div:last-child { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--service-line); }
+.service-layout--property-valuation .service-highlight-card { display: grid; grid-template-columns: 55px 1fr; border-width: 0 0 1px !important; border-radius: 0 !important; }
+.service-layout--property-valuation .service-highlight-card > p { grid-column: 2; }
+
+.service-layout--pro-coordination .service-hero { display: block; padding: 36px; border-radius: 3px 3px 40px 3px; }
+.service-hero-pro-heading { max-width: 750px; margin: 0 auto 32px; text-align: center; }
+.service-hero-pro-heading > span { color: var(--service-accent); font-size: 9px; font-weight: 800; letter-spacing: .2em; }
+.service-hero-pro-heading .service-hero-intro { margin: 10px auto 0; }
+.service-hero-pro-heading .service-hero-description { margin-inline: auto; }
+.service-hero-pro-heading .service-hero-actions { justify-content: center; }
+.service-hero-pro-board { display: grid; grid-template-columns: repeat(3, 1fr); position: relative; gap: 10px; }
+.service-hero-pro-board > div { display: grid; min-height: 115px; align-content: center; justify-items: center; gap: 8px; border: 1px solid var(--service-line); background: #13130f; }
+.service-hero-pro-board > div span { color: var(--service-accent); font-size: 9px; }
+.service-hero-pro-board > div svg { color: var(--service-accent); }
+.service-hero-pro-board > div strong { font-size: 9px; letter-spacing: .12em; }
+.service-hero-pro-board > .service-artwork { position: absolute; right: 10px; bottom: 10px; width: 155px; min-height: 84px; padding: 8px; opacity: .88; }
+.service-hero-pro-board > .service-artwork .service-artwork-center { min-height: 35px; }
+.service-hero-pro-board > .service-artwork .service-artwork-emblem { width: 32px; height: 32px; flex-basis: 32px; }
+.service-hero-pro-board > .service-artwork .service-artwork-topline,.service-hero-pro-board > .service-artwork .service-artwork-details,.service-hero-pro-board > .service-artwork .service-artwork-caption { display: none; }
+.service-layout--pro-coordination .service-process-section > div:last-child { grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--service-line); }
+.service-layout--pro-coordination .service-process-step { display: grid; grid-template-columns: 95px 1fr; align-items: baseline; border: 0 !important; border-bottom: 1px solid var(--service-line) !important; border-radius: 0 !important; box-shadow: none !important; }
+.service-layout--pro-coordination .service-process-step > div { grid-row: span 2; }
+
+.service-layout--amer-center .service-hero { grid-template-columns: .85fr 1fr; border-radius: 4px 4px 4px 70px; background: linear-gradient(115deg, #211b10, #0c0c0a 58%); }
+.service-hero-amer-counter { position: relative; padding: 22px; border: 1px solid var(--service-line); background: #13130f; }
+.service-hero-amer-counter .service-artwork { min-height: 280px; border: 0; background: transparent; box-shadow: none; }
+.service-hero-amer-number { position: absolute; top: 15px; right: 16px; color: var(--service-accent); font-family: var(--font-display); font-size: 30px; }
+.service-hero-amer-hours { color: #8c836e; font-size: 8px; letter-spacing: .14em; }
+.service-hero-amer-copy { padding: 20px; }
+.service-hero-amer-line { display: flex; align-items: center; gap: 10px; margin-top: 26px; color: var(--service-accent); font-size: 9px; letter-spacing: .16em; }
+.service-hero-amer-line span { width: 36px; height: 1px; background: var(--service-accent); }
+.service-layout--amer-center .service-overview-section .grid { grid-template-columns: 1fr; }
+.service-layout--amer-center .service-overview-assurances { display: flex; align-items: center; justify-content: space-between; border-radius: 3px !important; }
+
+.service-layout--document-attestation .service-hero { grid-template-columns: .8fr 1fr; border: 0; background: #0b0b09; }
+.service-hero-attestation-stack { position: relative; min-height: 350px; }
+.service-hero-attestation-stack > span { position: absolute; inset: 22px 42px 12px 12px; border: 1px solid #373329; background: #13120e; transform: rotate(-7deg); }
+.service-hero-attestation-stack > span:nth-child(2) { inset: 12px 22px 22px 30px; transform: rotate(4deg); }
+.service-hero-attestation-stack > div { position: absolute; inset: 24px 24px 20px 20px; padding: 16px; border: 1px solid var(--service-accent); background: #17150f; }
+.service-hero-attestation-stack .service-artwork { min-height: 100%; border: 0; background: transparent; box-shadow: none; }
+.service-hero-attestation-stack > div > svg { position: absolute; right: 24px; bottom: 24px; width: 48px; height: 48px; color: var(--service-accent); opacity: .8; }
+.service-hero-attestation-copy { padding: 14px; }
+.service-layout--document-attestation .service-documents-panel li { padding-bottom: 10px; border-bottom: 1px dashed var(--service-line); }
+
+.service-layout--legal-translation .service-hero { grid-template-columns: .24fr 1fr .8fr; min-height: 500px; border: 0; border-left: 1px solid var(--service-accent); background: #0a0a09; }
+.service-hero-translation-language { display: grid; justify-items: center; gap: 14px; color: var(--service-accent); font-family: var(--font-display); font-size: 16px; }
+.service-hero-translation-language svg { width: 22px; }
+.service-hero-translation-copy { padding: 20px; }
+.service-hero-translation-sheet { display: grid; gap: 12px; padding: 20px; border: 1px solid var(--service-line); background: #151511; color: #c5b995; font-size: 10px; letter-spacing: .1em; }
+.service-hero-translation-sheet .service-artwork { min-height: 160px; border: 0; padding: 10px; background: transparent; box-shadow: none; }
+.service-hero-translation-sheet .service-artwork-topline,.service-hero-translation-sheet .service-artwork-details { display: none; }
+.service-hero-translation-sheet .service-artwork-center { min-height: 130px; }
+.service-hero-translation-rule { height: 1px; background: var(--service-accent); opacity: .5; }
+.service-layout--legal-translation .service-highlights-section > div:last-child { grid-template-columns: 1fr 1fr; gap: 0 28px; }
+.service-layout--legal-translation .service-highlight-card { border-width: 0 0 1px !important; border-radius: 0 !important; }
+
+.service-layout--power-of-attorney .service-hero { grid-template-columns: 1fr .88fr; background: linear-gradient(100deg, #12100c, #090909 68%); }
+.service-hero-poa-copy { padding-left: 25px; border-left: 2px solid var(--service-accent); }
+.service-hero-poa-ref { margin-bottom: 12px; }
+.service-hero-poa-document { min-height: 340px; padding: 22px; border: 1px solid #453d2d; background: #f0eadc; color: #17140e; transform: rotate(1deg); }
+.service-hero-poa-document-top { display: flex; justify-content: space-between; color: #776640; font-family: var(--font-display); font-size: 10px; letter-spacing: .12em; }
+.service-hero-poa-document .service-artwork { min-height: 190px; margin-top: 20px; border: 0; background: transparent; color: #1d1a13; box-shadow: none; }
+.service-hero-poa-document .service-artwork-topline,.service-hero-poa-document .service-artwork-details { border-color: rgba(0,0,0,.15); color: #625b4b; }
+.service-hero-poa-document .service-artwork-metric { color: #806932; }
+.service-hero-poa-document .service-artwork-caption { color: #625b4b; }
+.service-hero-poa-document .service-artwork-emblem { background: #e4dac4; }
+.service-hero-signature { display: grid; gap: 12px; color: #776640; font-size: 8px; letter-spacing: .12em; }
+.service-hero-signature span:last-child { width: 70%; height: 1px; background: #96876b; }
+.service-layout--power-of-attorney .service-process-section > div:last-child { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.service-layout--power-of-attorney .service-process-step { border-radius: 0 !important; }
+
+.service-layout--estate-planning .service-hero { grid-template-columns: 1fr .7fr; min-height: 520px; border-width: 1px 0; border-radius: 0; background: radial-gradient(ellipse at 72% 50%, #211d12, #090909 60%); }
+.service-hero-estate-copy { max-width: 620px; }
+.service-hero-estate-mark { margin-bottom: 14px; }
+.service-hero-estate-rule { display: flex; align-items: center; gap: 14px; margin-top: 34px; color: var(--service-accent); }
+.service-hero-estate-rule span { width: 55px; height: 1px; background: var(--service-accent); }
+.service-hero-estate-art { position: relative; }
+.service-hero-estate-art .service-artwork { min-height: 350px; border-radius: 180px 180px 4px 4px; }
+.service-hero-estate-art > span { position: absolute; right: 22px; bottom: 35px; color: rgba(241,222,172,.3); font-family: var(--font-display); font-size: 14px; line-height: 1.8; letter-spacing: .2em; text-align: right; }
+.service-layout--estate-planning .service-faq-panel { max-width: 850px; margin-inline: auto; }
+.service-layout--estate-planning .service-documents-panel ul { columns: 2; column-gap: 32px; }
+
+@media (max-width: 900px) {
+  .service-page-theme .service-hero { width: calc(100% - 32px); margin: 24px auto 52px; padding: 28px; }
+  .service-layout--golden-residency .service-hero,
+  .service-layout--property-residency .service-hero,
+  .service-layout--identity-card .service-hero,
+  .service-layout--visa-status .service-hero,
+  .service-layout--dld-trustee .service-hero,
+  .service-layout--amer-center .service-hero,
+  .service-layout--document-attestation .service-hero,
+  .service-layout--power-of-attorney .service-hero,
+  .service-layout--estate-planning .service-hero { grid-template-columns: 1fr; }
+  .service-layout--family-residency .service-hero { grid-template-columns: 1fr; border-radius: 80px 10px; }
+  .service-layout--iloe-protection .service-hero { grid-template-columns: 1fr 2fr; border-radius: 90px 5px; }
+  .service-layout--property-valuation .service-hero { grid-template-columns: .8fr 1fr; }
+  .service-layout--property-valuation .service-hero-valuation-result { grid-column: 1 / -1; grid-template-columns: auto auto 1fr; justify-items: start; }
+  .service-layout--property-valuation .service-hero-valuation-result .service-artwork { display: none; }
+  .service-layout--legal-translation .service-hero { grid-template-columns: 50px 1fr; }
+  .service-layout--legal-translation .service-hero-translation-sheet { grid-column: 2; }
+}
+
+@media (max-width: 600px) {
+  .service-page-theme .service-hero { width: calc(100% - 24px); min-height: 0; margin: 18px auto 42px; padding: 22px; gap: 24px; }
+  .service-page-theme .service-page-title { font-size: 38px; }
+  .service-page-theme .service-hero-description { font-size: 13px; }
+  .service-page-theme .service-content { gap: 34px; }
+  .service-page-theme .service-content > section { padding: 20px !important; }
+  .service-layout--newborn-registration .service-hero { padding: 0; }
+  .service-hero-newborn-heading { padding: 14px 18px; }
+  .service-hero-newborn-card { grid-template-columns: 1fr; padding: 22px; }
+  .service-layout--medical-identity .service-hero-medical-track { grid-template-columns: 1fr; gap: 10px; }
+  .service-hero-medical-connector { width: 1px; height: 20px; margin-inline: auto; }
+  .service-layout--iloe-protection .service-hero { grid-template-columns: 1fr; border-radius: 50px 4px; }
+  .service-hero-iloe-shield { width: 72px; height: 86px; }
+  .service-layout--property-valuation .service-hero { grid-template-columns: 1fr; }
+  .service-hero-valuation-chart { height: 130px; }
+  .service-layout--pro-coordination .service-hero { padding: 22px; }
+  .service-hero-pro-board { grid-template-columns: 1fr; }
+  .service-hero-pro-board > div { min-height: 76px; grid-template-columns: 24px 24px 1fr; justify-items: start; padding: 0 16px; }
+  .service-hero-pro-board > .service-artwork { display: none; }
+  .service-layout--legal-translation .service-hero { grid-template-columns: 1fr; }
+  .service-hero-translation-language { grid-template-columns: auto auto auto; justify-content: start; }
+  .service-hero-translation-sheet { grid-column: auto; }
+  .service-layout--golden-residency .service-highlights-section > div:last-child,
+  .service-layout--property-residency .service-process-section > div:last-child,
+  .service-layout--family-residency .service-highlights-section > div:last-child,
+  .service-layout--identity-card .service-highlights-section > div:last-child,
+  .service-layout--medical-identity .service-process-section > div:last-child,
+  .service-layout--legal-translation .service-highlights-section > div:last-child,
+  .service-layout--power-of-attorney .service-process-section > div:last-child { grid-template-columns: 1fr; }
+  .service-layout--newborn-registration .service-documents-panel,
+  .service-layout--estate-planning .service-documents-panel { columns: 1; }
+  .service-layout--household-residency .service-documents-panel ul { grid-template-columns: 1fr; }
+  .service-layout--pro-coordination .service-process-step { grid-template-columns: 1fr; }
+  .service-layout--estate-planning .service-hero { border-radius: 0; }
+}
+
+html:not(.dark) .service-page-theme {
+  --service-panel: #ffffff;
+  --service-panel-raised: #f4f1e8;
+  --service-copy: #514e47;
+  --service-line: rgba(45, 40, 30, 0.14);
+  background: #f8f7f3 !important;
+  color: #211f1a !important;
+}
+
+html.dark .service-page-theme {
+  --service-panel: #11110f;
+  --service-panel-raised: #181712;
+  --service-copy: #cbc7bd;
+  --service-line: rgba(255, 255, 255, 0.12);
+  background: #070707 !important;
+  color: #f6f2e9 !important;
+}
+
+html:not(.dark) .service-page-theme .service-hero {
+  border-color: color-mix(in srgb, var(--service-accent) 48%, #d7d0c0);
+  background: #ffffff !important;
+  color: #211f1a !important;
+  box-shadow: 0 18px 48px -38px rgba(54, 42, 12, 0.35);
+}
+
+html:not(.dark) .service-page-theme .service-page-title,
+html:not(.dark) .service-page-theme .service-section-header h2,
+html:not(.dark) .service-page-theme .service-highlight-card h3,
+html:not(.dark) .service-page-theme .service-process-step h3,
+html:not(.dark) .service-page-theme .service-final-cta h2,
+html:not(.dark) .service-page-theme .service-overview-assurances p {
+  color: #211f1a !important;
+}
+
+html:not(.dark) .service-page-theme .service-hero-description,
+html:not(.dark) .service-page-theme .service-overview-copy p,
+html:not(.dark) .service-page-theme .service-highlight-card p,
+html:not(.dark) .service-page-theme .service-process-step p,
+html:not(.dark) .service-page-theme .service-documents-panel li,
+html:not(.dark) .service-page-theme .service-faq-panel p,
+html:not(.dark) .service-page-theme .service-overview-assurances li {
+  color: #514e47 !important;
+}
+
+html:not(.dark) .service-page-theme .service-overview-copy,
+html:not(.dark) .service-page-theme .service-overview-assurances,
+html:not(.dark) .service-page-theme .service-highlight-card,
+html:not(.dark) .service-page-theme .service-process-step,
+html:not(.dark) .service-page-theme .service-documents-panel,
+html:not(.dark) .service-page-theme .service-faq-panel,
+html:not(.dark) .service-page-theme .service-final-cta {
+  border-color: color-mix(in srgb, var(--service-accent) 25%, #dedbd2) !important;
+  background-color: var(--service-panel) !important;
+  color: #211f1a;
+}
+
+html:not(.dark) .service-page-theme .service-faq-panel > div > div {
+  border-color: #e2ded4;
+  background: #faf9f6;
+}
+
+html:not(.dark) .service-page-theme .service-hero-status-panel,
+html:not(.dark) .service-page-theme .service-hero-identity-card,
+html:not(.dark) .service-page-theme .service-hero-medical-track article,
+html:not(.dark) .service-page-theme .service-hero-pro-board > div,
+html:not(.dark) .service-page-theme .service-hero-amer-counter,
+html:not(.dark) .service-page-theme .service-hero-translation-sheet {
+  border-color: color-mix(in srgb, var(--service-accent) 24%, #d7d2c6);
+  background-color: #f6f4ee;
+  color: #29271f;
+}
+
+html:not(.dark) .service-page-theme .service-hero-status-top,
+html:not(.dark) .service-page-theme .service-hero-status-footer,
+html:not(.dark) .service-page-theme .service-hero-household-tags span,
+html:not(.dark) .service-page-theme .service-hero-identity-index,
+html:not(.dark) .service-page-theme .service-hero-amer-hours {
+  color: #625d50;
+}
+
+html:not(.dark) .service-page-theme .service-hero-poa-copy .service-page-title,
+html:not(.dark) .service-page-theme .service-hero-poa-copy .service-hero-description {
+  color: #211f1a !important;
+}
+
+html:not(.dark) .service-page-theme .service-hero-estate-art > span,
+html:not(.dark) .service-page-theme .service-hero-trustee-art > span {
+  color: color-mix(in srgb, var(--service-accent) 68%, #62583f);
+}
+
+html.dark .service-page-theme .service-section-header h2,
+html.dark .service-page-theme .service-highlight-card h3,
+html.dark .service-page-theme .service-process-step h3,
+html.dark .service-page-theme .service-final-cta h2,
+html.dark .service-page-theme .service-overview-assurances p {
+  color: #f6f2e9 !important;
+}
+
+#site-shell:has(.service-page-theme) .site-nav-header {
+  border-color: rgba(169, 141, 74, 0.28);
+  background: color-mix(in srgb, #f5f2e8 94%, #c5a059 6%);
+  box-shadow: 0 12px 40px -5px rgba(49, 40, 21, 0.16);
+}
+
+html.dark #site-shell:has(.service-page-theme) .site-nav-header {
+  border-color: rgba(197, 160, 89, 0.24);
+  background: rgba(21, 20, 16, 0.96) !important;
+  box-shadow: 0 12px 40px -5px rgba(0, 0, 0, 0.72);
+}
+
+html:not(.dark) #site-shell:has(.service-page-theme) .site-footer {
+  border-color: #d9d2c3;
+  background: #f0eee8 !important;
+}
+
+html.dark #site-shell:has(.service-page-theme) .site-footer {
+  border-color: rgba(197, 160, 89, 0.2);
+  background: #10100d !important;
+}
+
+html:not(.dark) #site-shell:has(.service-page-theme) aside[aria-label="Executive Partnership Program"] {
+  border-color: #d9d2c3;
+  background: #e9e5db;
+}
+
+html.dark #site-shell:has(.service-page-theme) aside[aria-label="Executive Partnership Program"] {
+  border-color: rgba(197, 160, 89, 0.2);
+  background: #15130e;
+}
