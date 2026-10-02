@@ -62,21 +62,23 @@ interface ServiceVisualPreset {
 }
 
 const unsplashPhoto = (id: string) => `https://images.unsplash.com/${id}`;
+const serviceImageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) =>
+  `${src}?auto=format&fit=crop&w=${width}&q=${quality ?? 75}`;
 
 const serviceVisuals: Record<string, ServiceVisualPreset> = {
-  'Golden Visa': { id: 'golden-residency', icon: ShieldCheck, accent: '#D0A94F', metric: '10 YEARS', caption: 'Long-term residency', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline at sunset', layout: 'immersive' },
+  'Golden Visa': { id: 'golden-residency', icon: ShieldCheck, accent: '#D0A94F', metric: '10 YEARS', caption: 'Long-term residency', image: unsplashPhoto('photo-1651467606797-e1c660cf3fda'), imageAlt: 'Dubai skyline at sunset', layout: 'immersive' },
   'Property Visa': { id: 'property-residency', icon: ShieldCheck, accent: '#C28B45', metric: 'AED 2M+', caption: 'Property investor route', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing property investment', layout: 'immersive' },
   'Family Visa': { id: 'family-residency', icon: ShieldCheck, accent: '#B59A55', metric: 'FAMILY', caption: 'One coordinated plan', image: unsplashPhoto('photo-1511895426328-dc8714191300'), imageAlt: 'Family spending time together outdoors', layout: 'split' },
   'Newborn Visa': { id: 'newborn-registration', icon: ShieldCheck, accent: '#D1A65F', metric: 'NEW ARRIVAL', caption: 'A clear first step', image: unsplashPhoto('photo-1511895426328-dc8714191300'), imageAlt: 'Family spending time together outdoors', layout: 'split' },
   'Maid Visa': { id: 'household-residency', icon: ShieldCheck, accent: '#A98B4C', metric: 'HOUSEHOLD', caption: 'Sponsor support', image: unsplashPhoto('photo-1581578731548-c64695cc6952'), imageAlt: 'Household support at home', layout: 'split' },
-  'Emirates ID': { id: 'identity-card', icon: ShieldCheck, accent: '#C5A059', metric: 'EMIRATES ID', caption: 'Identity services', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline and modern city buildings', layout: 'split' },
+  'Emirates ID': { id: 'identity-card', icon: ShieldCheck, accent: '#C5A059', metric: 'EMIRATES ID', caption: 'Identity services', image: unsplashPhoto('photo-1651467606797-e1c660cf3fda'), imageAlt: 'Dubai skyline and modern city buildings', layout: 'split' },
   'Medical & EID': { id: 'medical-identity', icon: ShieldCheck, accent: '#A78F5A', metric: 'MEDICAL + EID', caption: 'Health and identity steps', image: unsplashPhoto('photo-1612349317150-e413f6a5b16d'), imageAlt: 'Healthcare professional in a clinical setting', layout: 'split' },
   'Visa Validity Checker': { id: 'visa-status', icon: ShieldCheck, accent: '#C0A45C', metric: 'STATUS CHECK', caption: 'Review your visa details', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
   'ILOE Insurance': { id: 'iloe-protection', icon: ShieldCheck, accent: '#B49550', metric: 'ILOE', caption: 'Coverage guidance', image: unsplashPhoto('photo-1521791136064-7986c2920216'), imageAlt: 'Professionals discussing support options', layout: 'split' },
   'DLD Trustee Services': { id: 'dld-trustee', icon: ShieldCheck, accent: '#C19A55', metric: 'DLD', caption: 'Property documentation', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing property documentation', layout: 'split' },
   'Property Revaluation': { id: 'property-valuation', icon: ShieldCheck, accent: '#B88F42', metric: 'VALUATION', caption: 'Property value review', image: unsplashPhoto('photo-1600596542815-ffad4c1539a9'), imageAlt: 'Contemporary home representing property valuation', layout: 'split' },
   'PRO Services': { id: 'pro-coordination', icon: ShieldCheck, accent: '#C4A858', metric: 'CASE SUPPORT', caption: 'Government coordination', image: unsplashPhoto('photo-1521737711867-e3b97375f902'), imageAlt: 'Professionals coordinating work together', layout: 'split' },
-  'Amer Center': { id: 'amer-center', icon: ShieldCheck, accent: '#B79248', metric: 'AMER', caption: 'Application assistance', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline at sunset', layout: 'split' },
+  'Amer Center': { id: 'amer-center', icon: ShieldCheck, accent: '#B79248', metric: 'AMER', caption: 'Application assistance', image: unsplashPhoto('photo-1651467606797-e1c660cf3fda'), imageAlt: 'Dubai skyline at sunset', layout: 'split' },
   'Attestation': { id: 'document-attestation', icon: ShieldCheck, accent: '#C29B52', metric: 'CERTIFIED', caption: 'Document authentication', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
   'Legal Translation': { id: 'legal-translation', icon: ShieldCheck, accent: '#B79A5D', metric: 'EN  /  AR', caption: 'Certified legal translation', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
   'Power of Attorney (POA)': { id: 'power-of-attorney', icon: ShieldCheck, accent: '#C3A15A', metric: 'AUTHORITY', caption: 'Formal representation', image: unsplashPhoto('photo-1450101499163-c8848c66ca85'), imageAlt: 'Reviewing official documents at a desk', layout: 'split' },
@@ -84,7 +86,7 @@ const serviceVisuals: Record<string, ServiceVisualPreset> = {
 };
 
 const defaultVisual: ServiceVisualPreset = {
-  id: 'service-guidance', icon: ShieldCheck, accent: '#C5A059', metric: 'UAE SERVICES', caption: 'Guidance for your case', image: unsplashPhoto('photo-1512453979798-5ea266f8880c'), imageAlt: 'Dubai skyline', layout: 'split',
+  id: 'service-guidance', icon: ShieldCheck, accent: '#C5A059', metric: 'UAE SERVICES', caption: 'Guidance for your case', image: unsplashPhoto('photo-1651467606797-e1c660cf3fda'), imageAlt: 'Dubai skyline', layout: 'split',
 };
 
 const serviceFlows: Record<ServiceDesign, ServiceSection[]> = {
@@ -228,7 +230,7 @@ function ServiceHero({
         <ServiceIntro eyebrow={eyebrow} title={title} description={description} actionCtas={actionCtas} secondaryCtaLabel={secondaryCtaLabel} secondaryCtaHref={secondaryCtaHref} />
       </div>
       <aside className="service-hero-photo-panel">
-        <Image className="service-hero-photo-image" src={visual.image} alt={visual.imageAlt} fill sizes="(max-width: 900px) calc(100vw - 48px), 560px" quality={75} preload />
+        <Image className="service-hero-photo-image" loader={serviceImageLoader} src={visual.image} alt={visual.imageAlt} fill sizes="(max-width: 900px) calc(100vw - 48px), 560px" quality={75} preload />
         <div className="service-hero-photo-shade" aria-hidden="true" />
         <div className="service-hero-photo-topline"><span>{badge}</span><span>UAE / DXB</span></div>
         <div className="service-hero-photo-caption">
