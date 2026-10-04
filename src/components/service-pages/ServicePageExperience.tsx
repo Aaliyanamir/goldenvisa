@@ -42,6 +42,11 @@ const serviceHeroImages: Partial<Record<string, { src: string; alt: string }>> =
   'Document Attestation': { src: '/assets/service-pages/document-attestation.jpg', alt: 'Official paperwork prepared for document verification' },
   'Legal Translation': { src: '/assets/service-pages/legal-translation.jpg', alt: 'A document being prepared for professional translation' },
   'Power of Attorney (POA)': { src: '/assets/service-pages/power-of-attorney.jpg', alt: 'Legal professional preparing a power of attorney document' },
+  'Wills & Last Testament': { src: '/assets/service-pages/wills-estate-planning.jpg', alt: 'A person carefully preparing estate planning documents in writing' },
+  'DLD Trustee Services': { src: '/assets/service-pages/dubai-property-trustee.jpg', alt: 'Contemporary residential property representing a Dubai property transaction' },
+  'Property Revaluation': { src: '/assets/service-pages/dld-property-valuation.jpg', alt: 'Modern property prepared for a professional real estate valuation' },
+  'Medical Fitness & EID Locations': { src: '/assets/service-pages/medical-fitness-center.jpg', alt: 'Healthcare professional reviewing medical information on a mobile device' },
+  'Visa Validity Checker': { src: '/assets/service-pages/visa-status-travel.jpg', alt: 'Passenger airplane in flight, representing visa and travel status checks' },
   'ILOE Insurance': { src: '/assets/service-pages/iloe-workplace.jpg', alt: 'Colleagues discussing work and career planning' },
 };
 
@@ -413,54 +418,33 @@ function ServiceSpecificInteractions({
 }
 
 function VisaChecker() {
-    const [passport, setPassport] = useState('');
     const [authority, setAuthority] = useState<'icp' | 'gdrfa'>('icp');
     const [days, setDays] = useState('');
-    const [whatsappLink, setWhatsappLink] = useState('');
-
-    const fine = Number.parseInt(days, 10);
-    const valid = Number.isFinite(fine) && fine >= 0;
-
-    const buildWhatsApp = () => {
-      const lines = [
-        `Hello, I would like help checking my visa status.`,
-        passport ? `Passport / ID: ${passport}` : 'Passport / ID: (not provided)',
-        `Authority to check: ${authority === 'icp' ? 'ICP (federal)' : 'GDRFA Dubai'}`,
-        'Please check validity, remaining days and any overstay fine. Please reply with the findings.'
-      ];
-      setWhatsappLink(`${contactInfo.whatsappHref}?text=${encodeURIComponent(lines.join('\n'))}`);
-    };
+    const fine = Number(days);
+    const valid = days.trim() !== '' && Number.isInteger(fine) && fine >= 0;
+    const portalHref = authority === 'icp' ? officialLinks.icp : officialLinks.gdrfa;
+    const authorityName = authority === 'icp' ? 'ICP federal' : 'GDRFA Dubai';
+    const supportHref = `${contactInfo.whatsappHref}?text=${encodeURIComponent(`Hello, I need guidance on which official portal to use for a UAE visa status check. The visa was issued through ${authorityName}. Please do not request passwords or one-time codes.`)}`;
 
     return (
       <section className="gv-section gv-tool-panel" aria-labelledby="visa-tool-title">
         <div>
           <Eyebrow>Official status check</Eyebrow>
           <h2 id="visa-tool-title">Check your UAE visa status</h2>
-          <p>For live, official status please use the issuing authority. This tool prepares a secure WhatsApp inquiry for our advisors to help you interpret any official wording. Never share passwords, OTPs or full passport images here.</p>
+          <p>This guide does not connect to immigration records. Select the authority that issued your visa and continue to its official portal to check the live status. Keep passport and file details on the government site; never send credentials or one-time codes to an advisor.</p>
         </div>
 
-        <label>Preferred government channel
+        <label>Visa issuing authority
           <select value={authority} onChange={(e) => setAuthority(e.target.value as 'icp' | 'gdrfa')}>
-            <option value="icp">ICP (federal) — all emirates</option>
-            <option value="gdrfa">GDRFA Dubai — Dubai-issued visas</option>
+            <option value="icp">ICP — Abu Dhabi and other emirates</option>
+            <option value="gdrfa">GDRFA Dubai — Dubai-issued visa</option>
           </select>
         </label>
 
-        <label>Passport number (or last 4 digits)
-          <input type="text" inputMode="text" value={passport} onChange={(e) => setPassport(e.target.value)} placeholder="e.g. A1234567 or last 4 digits" />
-        </label>
-
         <div className="gv-tool-panel-sep">
-          <button type="button" className="gv-button gv-button--gold" onClick={buildWhatsApp}>Check My Visa Status</button>
-          <button type="button" className="gv-button gv-button--outline" onClick={() => window.open(authority === 'icp' ? officialLinks.icp : officialLinks.gdrfa, '_blank')}>Open official portal <ArrowUpRight size={14} /></button>
+          <a className="gv-button gv-button--gold" href={portalHref} target="_blank" rel="noreferrer">Open {authorityName} portal <ArrowUpRight size={14} /></a>
+          <a className="gv-button gv-button--outline" href={supportHref} target="_blank" rel="noreferrer">Ask which service to use <ArrowUpRight size={14} /></a>
         </div>
-
-        {whatsappLink && (
-          <div className="gv-submit-followup" role="status">
-            <p>Your prepared inquiry is ready. Nothing has been sent yet.</p>
-            <a className="gv-button gv-button--dark" href={whatsappLink} target="_blank" rel="noreferrer">Send via WhatsApp <ArrowUpRight size={16} /></a>
-          </div>
-        )}
 
         <hr />
 
@@ -468,10 +452,10 @@ function VisaChecker() {
           <Eyebrow>Informative tool</Eyebrow>
           <h3>Estimate overstay fines</h3>
           <label>Overstay days after grace period
-            <input type="number" inputMode="numeric" min="0" value={days} onChange={(event) => setDays(event.target.value)} placeholder="Enter number of days" />
+            <input type="number" inputMode="numeric" min="0" max="3650" step="1" value={days} onChange={(event) => setDays(event.target.value)} placeholder="Enter whole days" />
           </label>
-          <output aria-live="polite">{valid ? `Indicative estimate: AED ${(fine * 50).toLocaleString('en-AE')}` : 'Estimated amount appears here'}</output>
-          <p className="gv-tool-note">Uses the commonly cited AED 50/day rate only. Grace periods and actual fines depend on visa category and current authority records.</p>
+          <output aria-live="polite">{valid ? `Illustrative estimate: AED ${(fine * 50).toLocaleString('en-AE')}` : 'Enter a whole number of days to see an estimate.'}</output>
+          <p className="gv-tool-note">For general illustration only, using AED 50 per day after the applicable grace period. The official authority determines the applicable period and amount; this estimate is not a payment figure.</p>
           <div className="gv-official-links">
             <a href={officialLinks.icp} target="_blank" rel="noreferrer">Open ICP Smart Services <ArrowUpRight size={15} /></a>
             <a href={officialLinks.gdrfa} target="_blank" rel="noreferrer">Open GDRFA Dubai <ArrowUpRight size={15} /></a>
@@ -652,22 +636,88 @@ function IloeCoverageGuide() {
 }
 
 function LocationCards() {
+  const [area, setArea] = useState('');
+  const [searchType, setSearchType] = useState('All appointment types');
+  const [coordinates, setCoordinates] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [locationStatus, setLocationStatus] = useState('');
+  const [locating, setLocating] = useState(false);
   const locations = [
-    { title: 'DHA medical fitness', detail: 'Choose an approved medical fitness centre and confirm the service speed before booking.', search: 'DHA medical fitness center Dubai', badge: 'Blood test & X-ray' },
-    { title: 'ICP Emirates ID biometrics', detail: 'Use the centre shown on your ICP appointment notice; bring the original passport.', search: 'ICP Emirates ID biometric center Dubai', badge: 'Fingerprint & photo' },
-    { title: 'Express / VIP options', detail: 'Selected facilities offer paid priority services. Ask the provider to confirm live availability and fees.', search: 'VIP medical fitness center Dubai', badge: 'Check availability' },
+    { title: 'DHA medical fitness', detail: 'Search for a DHA-approved medical fitness provider and confirm it supports your application and selected service speed.', search: 'DHA approved medical fitness center', badge: 'Blood test & X-ray', type: 'Medical fitness' },
+    { title: 'ICP Emirates ID biometrics', detail: 'Check your ICP appointment notice first; attend the biometric centre assigned to your application.', search: 'ICP Emirates ID biometrics center', badge: 'Fingerprint & photo', type: 'Emirates ID biometrics' },
+    { title: 'Express / VIP medical', detail: 'Priority options are offered only at selected providers. Confirm the current fee, availability and reporting estimate before booking.', search: 'VIP express medical fitness center', badge: 'Check availability', type: 'VIP / express' },
   ];
+  const visibleLocations = locations.filter((location) => searchType === 'All appointment types' || location.type === searchType);
+
+  const findNearMe = () => {
+    if (!navigator.geolocation) {
+      setLocationStatus('Location access is not available in this browser. Enter an area below to search instead.');
+      return;
+    }
+    setLocating(true);
+    setLocationStatus('Requesting permission to use your current location…');
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: current }) => {
+        setCoordinates({ latitude: current.latitude, longitude: current.longitude });
+        setArea('');
+        setLocationStatus('Location ready. Your coordinates are used only when you choose to open a map search.');
+        setLocating(false);
+      },
+      (error) => {
+        const messages: Record<number, string> = {
+          1: 'Location permission was not granted. Enter an area below or update your browser permission.',
+          2: 'Your current location could not be determined. Enter an area below and try again.',
+          3: 'The location request timed out. Enter an area below or try again.',
+        };
+        setLocationStatus(messages[error.code] ?? 'Could not access your location. Enter an area below to search instead.');
+        setLocating(false);
+      },
+      { enableHighAccuracy: false, maximumAge: 300_000, timeout: 10_000 },
+    );
+  };
+
+  const mapHref = (query: string) => {
+    const near = area.trim()
+      || (coordinates ? `${coordinates.latitude},${coordinates.longitude}` : 'Dubai');
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${query} near ${near}`)}`;
+  };
+
   return (
     <section className="gv-section" aria-labelledby="location-title">
-      <SectionHeading label="Find a centre" title="Medical and Emirates ID locations" text="These map searches help locate nearby providers. Check that the selected facility is approved for your exact application before travelling." />
+      <SectionHeading label="Find a centre" title="Search medical and Emirates ID locations" text="Choose the appointment type and search by area, or allow your browser to provide an approximate location for a map search. Verify the assigned or approved centre before travelling." />
+      <div className="gv-location-finder">
+        <label>
+          Appointment type
+          <select value={searchType} onChange={(event) => setSearchType(event.target.value)}>
+            <option>All appointment types</option>
+            {locations.map((location) => <option key={location.type}>{location.type}</option>)}
+          </select>
+        </label>
+        <label>
+          Dubai area
+          <input
+            type="text"
+            value={area}
+            onChange={(event) => {
+              setArea(event.target.value);
+              if (event.target.value) setCoordinates(null);
+            }}
+            placeholder="e.g. Deira, Al Barsha"
+          />
+        </label>
+        <button className="gv-button gv-button--dark" type="button" onClick={findNearMe} disabled={locating}>
+          <MapPin size={16} />{locating ? 'Finding location…' : 'Find centres near me'}
+        </button>
+        {locationStatus && <p className="gv-location-status" role="status" aria-live="polite">{locationStatus}</p>}
+        <p className="gv-location-privacy">Your location is not saved by this page. A map provider receives the search area or coordinates only if you open one of the map links.</p>
+      </div>
       <div className="gv-location-grid">
-        {locations.map((location) => (
+        {visibleLocations.map((location) => (
           <article className="gv-location-card" key={location.title}>
             <span className="gv-location-badge">{location.badge}</span>
             <MapPin size={19} aria-hidden="true" />
             <h3>{location.title}</h3>
             <p>{location.detail}</p>
-            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.search)}`} target="_blank" rel="noreferrer">Search on Maps <ArrowUpRight size={15} /></a>
+            <a href={mapHref(location.search)} target="_blank" rel="noreferrer">Search on Maps <ArrowUpRight size={15} /></a>
           </article>
         ))}
       </div>
@@ -939,7 +989,13 @@ export function ServicePageExperience({ title }: { title: string }) {
 
           {content.benefits && (
             <section className="gv-section gv-benefits">
-              <SectionHeading label="Long-term benefits" title="One residence, more room to plan" text="Benefits are subject to continued eligibility and current immigration rules." />
+              <SectionHeading
+                label={content.title === 'Wills & Last Testament' ? 'Why prepare a will' : 'Long-term benefits'}
+                title={content.title === 'Wills & Last Testament' ? 'Plan ahead for the people and assets that matter' : 'One residence, more room to plan'}
+                text={content.title === 'Wills & Last Testament'
+                  ? 'A well-prepared will can record important estate instructions, subject to legal advice, registry rules and the applicable law.'
+                  : 'Benefits are subject to continued eligibility and current immigration rules.'}
+              />
               <div className="gv-benefit-grid">{content.benefits.map((benefit) => <article key={benefit.title}><CheckCircle2 size={18} /><h3>{benefit.title}</h3><p>{benefit.description}</p></article>)}</div>
             </section>
           )}

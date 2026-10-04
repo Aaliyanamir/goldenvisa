@@ -3,7 +3,7 @@ import { ServicePageTemplate } from '@/components/service-pages/ServicePageTempl
 
 export const metadata: Metadata = {
   title: 'DLD Trustee Services | Golden Visa Dubai',
-  description: 'DLD trustee support for property documentation, title coordination, and structured compliance guidance in Dubai.',
+  description: 'Prepare for Dubai property sales, gift transfers, title deed services and mortgage registration or release with a transaction-specific DLD trustee checklist.',
 };
 
 export default function DldTrusteeServicesPage() {

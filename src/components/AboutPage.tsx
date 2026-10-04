@@ -154,17 +154,17 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-founder">
         <div className="about-shell about-founder-card">
           <div className="about-founder-profile">
-            <div className="about-founder-avatar">
-              <Image
-                src="/assets/images/Bilal_photo.jpeg"
-                alt="Bilal, Golden Visa Dubai"
-                fill
-                sizes="104px"
-                className="about-founder-photo"
-              />
+            <Image
+              src="/assets/images/Bilal_photo.jpeg"
+              alt="M. Bilal Saleem, leadership and client care"
+              fill
+              sizes="(max-width: 850px) 100vw, 360px"
+              className="about-founder-photo"
+            />
+            <div className="about-founder-overlay">
+              <strong>M. Bilal Saleem</strong>
+              <span>Leadership &amp; client care</span>
             </div>
-            <strong>Bilal</strong>
-            <span>Leadership &amp; client care</span>
           </div>
           <div className="about-founder-copy">
             <span className="about-eyebrow"><span />A considered beginning</span>
@@ -400,20 +400,6 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         </div>
       </section>
 
-      <section className="about-referral">
-        <div className="about-shell about-referral-inner">
-          <div>
-            <span className="about-eyebrow"><span />Professional connections</span>
-            <h2>Grow together through <em>trusted referrals.</em></h2>
-            <p>
-              If you advise clients or businesses with UAE residency and
-              documentation needs, contact us to discuss whether a professional
-              referral arrangement is a fit.
-            </p>
-          </div>
-          <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Discuss a partnership <ArrowRight size={15} /></a>
-        </div>
-      </section>
       <p className="about-disclaimer"><Check size={14} />Golden Visa Dubai provides private consultancy and documentation support. Government eligibility, fees and processing decisions are determined by the relevant UAE authorities.</p>
     </div>
   );

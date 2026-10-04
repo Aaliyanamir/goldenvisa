@@ -1506,16 +1506,6 @@ html.dark #site-shell:has(.service-page-theme) .site-footer {
   background: #10100d !important;
 }
 
-html:not(.dark) #site-shell:has(.service-page-theme) aside[aria-label="Executive Partnership Program"] {
-  border-color: #d9d2c3;
-  background: #e9e5db;
-}
-
-html.dark #site-shell:has(.service-page-theme) aside[aria-label="Executive Partnership Program"] {
-  border-color: rgba(197, 160, 89, 0.2);
-  background: #15130e;
-}
-
 .service-page-theme .service-hero.service-hero--photo {
   grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
   min-height: 500px;

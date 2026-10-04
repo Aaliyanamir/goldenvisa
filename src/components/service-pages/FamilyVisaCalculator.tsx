@@ -38,7 +38,7 @@ type SponsorVisa = 'employee' | 'investor' | 'golden' | 'retirement';
 type ApplicationKind = 'new' | 'renewal';
 type DependentLocation = 'inside' | 'outside';
 type MedicalSpeed = 'normal' | 'vip';
-type CalculatorStep = 'service' | 'serviceDetails' | 'sponsor' | 'application' | 'location' | 'familyFile' | 'dependents' | 'medical';
+type CalculatorStep = 'service' | 'serviceRequest' | 'serviceDetails' | 'sponsor' | 'application' | 'location' | 'familyFile' | 'dependents' | 'medical';
 
 const serviceOptions: Array<{ id: ServiceId; label: string; detail: string }> = [
   { id: 'family', label: 'Family Visa', detail: 'Spouse, child, parent or dependent' },
@@ -68,7 +68,7 @@ const serviceQuestions: Record<QuoteServiceId, {
   note: string;
 }> = {
   golden: {
-    options: ['Real estate investor', 'Skilled professional', 'Entrepreneur', 'Outstanding student'],
+    options: ['Property investor', 'Company owner', 'Manager or executive', 'Fixed deposit', 'Creative talent', 'Family dependents'],
     detailLabel: 'Relevant amount, application stage or evidence',
     placeholder: 'e.g. property value or monthly basic salary',
     note: 'The screener can compare published route guides; nominations and final eligibility are authority-led.',
@@ -202,8 +202,9 @@ function getEstimateLines({
   const plan = sponsorVisas.find((visa) => visa.id === sponsorVisa);
   if (!plan) throw new Error(`Missing family visa sponsor option "${sponsorVisa}"`);
 
-  const lines: Array<{ label: string; amount: number; count: number; amerExtra: number }> = [];
-  if (!hasFamilyFile) lines.push({ label: 'Family File Opening', amount: 203, count: 1, amerExtra: 50 });
+  type FeeLine = { label: string; amount: number; count: number; amerExtra: number; applicant: 'adult' | 'child' | 'shared' };
+  const lines: FeeLine[] = [];
+  if (!hasFamilyFile) lines.push({ label: 'Family file opening', amount: 203, count: 1, amerExtra: 50, applicant: 'shared' });
 
   const entryPermit = location === 'inside' ? 989 : 339;
   const changeStatus = location === 'inside' ? 630 : 0;
@@ -212,15 +213,15 @@ function getEstimateLines({
 
   const addDependentLines = (label: string, count: number, isAdult: boolean) => {
     if (count === 0) return;
-    if (isNewApplication) {
-      lines.push({ label: `${label} · ${location === 'inside' ? 'Entry Permit Inside' : 'Entry Permit Outside'}`, amount: entryPermit, count, amerExtra: 100 });
-      if (changeStatus > 0) lines.push({ label: `${label} · Change Status`, amount: changeStatus, count, amerExtra: 9 });
+    if (isNewApplication && category !== 'newborn') {
+      lines.push({ label: `${label} · Entry permit (${location === 'inside' ? 'inside UAE' : 'outside UAE'})`, amount: entryPermit, count, amerExtra: 100, applicant: isAdult ? 'adult' : 'child' });
+      if (changeStatus > 0) lines.push({ label: `${label} · Change of status`, amount: changeStatus, count, amerExtra: 9, applicant: isAdult ? 'adult' : 'child' });
     }
     if (isAdult && category === 'family') {
-      lines.push({ label: `${label} · Medical ${medicalSpeed === 'vip' ? 'VIP' : 'Normal'}`, amount: medicalFees[medicalSpeed], count, amerExtra: 47 });
+      lines.push({ label: `${label} · Medical ${medicalSpeed === 'vip' ? 'VIP' : 'Normal'}`, amount: medicalFees[medicalSpeed], count, amerExtra: 47, applicant: 'adult' });
     }
-    lines.push({ label: `${label} · Emirates ID (${plan.years} Years)`, amount: idFee, count, amerExtra: 31 });
-    lines.push({ label: `${label} · Visa Stamping`, amount: 410, count, amerExtra: 100 });
+    lines.push({ label: `${label} · Emirates ID (${plan.years} years)`, amount: idFee, count, amerExtra: 31, applicant: isAdult ? 'adult' : 'child' });
+    lines.push({ label: `${label} · Residence issuance`, amount: 410, count, amerExtra: 100, applicant: isAdult ? 'adult' : 'child' });
   };
 
   addDependentLines('Adult', adults, true);
@@ -228,7 +229,25 @@ function getEstimateLines({
 
   const total = lines.reduce((sum, line) => sum + line.amount * line.count, 0);
   const amerTotal = lines.reduce((sum, line) => sum + (line.amount + line.amerExtra) * line.count, 0);
-  return { lines, total, amerTotal, plan };
+  const applicantTotal = (applicant: FeeLine['applicant']) => lines
+    .filter((line) => line.applicant === applicant)
+    .reduce((sum, line) => sum + line.amount * line.count, 0);
+  const adultTotal = applicantTotal('adult');
+  const childTotal = applicantTotal('child');
+  const sharedTotal = applicantTotal('shared');
+  const amerApplicantTotal = (applicant: FeeLine['applicant']) => lines
+    .filter((line) => line.applicant === applicant)
+    .reduce((sum, line) => sum + (line.amount + line.amerExtra) * line.count, 0);
+  const amerAdultTotal = amerApplicantTotal('adult');
+  const amerChildTotal = amerApplicantTotal('child');
+  const amerSharedTotal = amerApplicantTotal('shared');
+  if (adultTotal + childTotal + sharedTotal !== total) {
+    throw new Error('Family visa estimate line items do not sum to the total.');
+  }
+  const securityDepositNote = sponsorVisa === 'retirement'
+    ? 'A refundable security deposit may be required for dependents of a retirement-visa sponsor. The amount is case- and authority-specific, so it is not included in this estimate.'
+    : 'A refundable guarantee or security deposit may be requested for some cases. Confirm whether one applies and its amount with the issuing authority; it is not included in this estimate.';
+  return { lines, total, amerTotal, adultTotal, childTotal, sharedTotal, amerAdultTotal, amerChildTotal, amerSharedTotal, securityDepositNote, plan };
 }
 
 export function FamilyVisaCalculator({
@@ -249,7 +268,7 @@ export function FamilyVisaCalculator({
   );
   const [sponsorVisa, setSponsorVisa] = useState<SponsorVisa | null>(null);
   const [application, setApplication] = useState<ApplicationKind>('new');
-  const [location, setLocation] = useState<DependentLocation | null>(null);
+  const [location, setLocation] = useState<DependentLocation | null>(initialService === 'newborn' ? 'inside' : null);
   const [hasFamilyFile, setHasFamilyFile] = useState<boolean | null>(null);
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -264,9 +283,9 @@ export function FamilyVisaCalculator({
   const steps = useMemo<CalculatorStep[]>(() => {
     if (!selectedService) return ['service'];
     if (category === 'newborn') {
-      return ['sponsor', 'location', 'familyFile'];
+      return ['sponsor', 'familyFile'];
     }
-    if (category !== 'family') return ['serviceDetails'];
+    if (category !== 'family') return ['serviceRequest', 'serviceDetails'];
     return [
       'sponsor',
       'application',
@@ -305,7 +324,7 @@ export function FamilyVisaCalculator({
     setCategory(service === 'family' ? 'family' : service === 'newborn' ? 'newborn' : null);
     setSponsorVisa(null);
     setApplication('new');
-    setLocation(null);
+    setLocation(service === 'newborn' ? 'inside' : null);
     setHasFamilyFile(null);
     setAdults(0);
     setChildren(service === 'newborn' ? 1 : 0);
@@ -368,7 +387,7 @@ export function FamilyVisaCalculator({
     setShowServiceResult(false);
     setSponsorVisa(null);
     setApplication('new');
-    setLocation(null);
+    setLocation(service === 'newborn' ? 'inside' : null);
     setHasFamilyFile(null);
     setAdults(0);
     setChildren(service === 'newborn' ? 1 : 0);
@@ -386,6 +405,7 @@ export function FamilyVisaCalculator({
   const canContinue = (() => {
     switch (activeStep) {
       case 'service': return selectedService !== null;
+      case 'serviceRequest': return serviceRequest !== '';
       case 'serviceDetails': return serviceRequest !== '';
       case 'sponsor': return sponsorVisa !== null;
       case 'application': return application !== null;
@@ -411,9 +431,19 @@ export function FamilyVisaCalculator({
     setStepIndex(activeStepIndex + 1);
   };
 
+  const advanceAfterChoice = () => {
+    if (isLastStep) {
+      setShowResult(true);
+      setShowAmerComparison(false);
+      setActionNotice('');
+      return;
+    }
+    setStepIndex(activeStepIndex + 1);
+  };
+
   const copyEstimate = async () => {
     if (!currentEstimate) return;
-    const summary = `${category === 'newborn' ? 'Newborn visa' : 'Family visa'} estimate: ${formatAed(currentEstimate.total)} government fee guide. Sponsor: ${currentEstimate.plan.label}. ${application === 'renewal' ? 'Renewal' : 'New visa'}, ${adults} adult(s), ${category === 'newborn' ? '1 newborn' : `${children} child(ren)`}. Fees are illustrative and must be verified before payment.`;
+    const summary = `${category === 'newborn' ? 'Newborn visa' : 'Family visa'} estimate: ${formatAed(currentEstimate.total)} total government fee guide. Adults: ${formatAed(currentEstimate.adultTotal)}; children: ${formatAed(currentEstimate.childTotal)}; shared file charges: ${formatAed(currentEstimate.sharedTotal)}. Sponsor: ${currentEstimate.plan.label}. ${application === 'renewal' ? 'Renewal' : 'New visa'}, ${adults} adult(s), ${category === 'newborn' ? '1 newborn' : `${children} child(ren)`}. Any applicable refundable deposit is excluded pending authority confirmation. Fees are illustrative and must be verified before payment.`;
     try {
       await navigator.clipboard.writeText(summary);
       setActionNotice('Estimate copied to clipboard.');
@@ -424,7 +454,7 @@ export function FamilyVisaCalculator({
 
   const shareEstimate = async () => {
     if (!currentEstimate) return;
-    const summary = `${category === 'newborn' ? 'Newborn visa' : 'Family visa'} estimate: ${formatAed(currentEstimate.total)} government fee guide. Sponsor: ${currentEstimate.plan.label}. Verify current charges with the relevant authority.`;
+    const summary = `${category === 'newborn' ? 'Newborn visa' : 'Family visa'} estimate: ${formatAed(currentEstimate.total)} total government fee guide. Adults: ${formatAed(currentEstimate.adultTotal)}; children: ${formatAed(currentEstimate.childTotal)}; shared fees: ${formatAed(currentEstimate.sharedTotal)}. Sponsor: ${currentEstimate.plan.label}. Any applicable refundable deposit is excluded until confirmed. Verify current charges with the relevant authority.`;
     if (!navigator.share) {
       await copyEstimate();
       return;
@@ -445,10 +475,33 @@ export function FamilyVisaCalculator({
     ? `${contactInfo.whatsappHref}?text=${encodeURIComponent(`Hello, please quote your service fee for my ${category === 'newborn' ? 'newborn visa' : 'family visa'} application. My estimated government charges are ${formatAed(currentEstimate.total)}. Sponsor: ${currentEstimate.plan.label}; ${application}; ${location} UAE; ${adults} adult(s), ${category === 'newborn' ? '1 newborn' : `${children} child(ren)`}. Please confirm current fees and documents.`)}`
     : contactInfo.whatsappHref;
 
+  const getFeeGroup = (applicant: 'adult' | 'child' | 'shared') =>
+    currentEstimate?.lines.filter((line) => line.applicant === applicant) ?? [];
+  const renderFeeGroup = (title: string, applicant: 'adult' | 'child' | 'shared', total: number) => {
+    const lines = getFeeGroup(applicant);
+    return (
+      <section className="gv-family-calculator-fee-group" key={applicant}>
+        <div className="gv-family-calculator-fee-group-heading">
+          <h4>{title}</h4>
+          <strong>{formatAed(total)}</strong>
+        </div>
+        {lines.length > 0
+          ? lines.map((line) => (
+            <div className="gv-family-calculator-line" key={line.label}>
+              <span>{line.label}{line.count > 1 && <em> × {line.count}</em>}</span>
+              <strong>{formatAed(line.amount * line.count)}</strong>
+            </div>
+          ))
+          : <p className="gv-family-calculator-fee-empty">No fees in this category for the selected applicants.</p>}
+      </section>
+    );
+  };
+
   if (!open) return null;
 
   const stepTitles: Record<CalculatorStep, string> = {
     service: 'Choose a service to check',
+    serviceRequest: selectedServiceOption ? `Choose a ${selectedServiceOption.label} route` : 'Choose a service route',
     serviceDetails: selectedServiceOption ? `${selectedServiceOption.label} route check` : 'Service route check',
     sponsor: 'Your visa (the sponsor)',
     application: 'New visa or renewal?',
@@ -459,6 +512,7 @@ export function FamilyVisaCalculator({
   };
   const stepDescriptions: Record<CalculatorStep, string> = {
     service: 'Select one of the 17 services. Family and newborn visas have a fee guide; other routes use service-specific checks and a tailored quote where fees vary.',
+    serviceRequest: 'Choose a route to continue. Your selection opens the matching details step automatically.',
     serviceDetails: serviceQuestion?.note ?? 'Share the broad application details needed for a route check.',
     sponsor: 'Your family’s fees depend on the visa you hold.',
     application: 'On a renewal, the entry permit is not needed.',
@@ -472,14 +526,22 @@ export function FamilyVisaCalculator({
     if (!selectedService || !selectedServiceOption || !serviceQuestion) return null;
     const amount = parseNumericValue(serviceDetails);
     if (selectedService === 'golden') {
-      const reachesGuide = serviceRequest === 'Real estate investor' ? amount >= 2_000_000
-        : serviceRequest === 'Skilled professional' ? amount >= 30_000
-          : false;
+      const threshold = serviceRequest === 'Property investor' || serviceRequest === 'Company owner' || serviceRequest === 'Fixed deposit'
+        ? 2_000_000
+        : serviceRequest === 'Manager or executive' ? 30_000 : null;
+      if (serviceRequest === 'Family dependents') {
+        return 'Eligible dependents may apply through an active Golden Visa holder. Relationship evidence and the current sponsorship conditions must be checked.';
+      }
+      if (serviceRequest === 'Creative talent') {
+        return 'This route is nomination-led through the relevant cultural authority. Portfolio evidence and the correct nominating body need review.';
+      }
+      if (threshold === null) {
+        return 'This route is assessed using category-specific evidence. Confirm the current criteria and required nomination with the relevant authority.';
+      }
+      const reachesGuide = amount >= threshold;
       return reachesGuide
-        ? `The details entered reach a commonly cited ${serviceRequest === 'Real estate investor' ? 'AED 2 million property' : 'AED 30,000 monthly salary'} route guide. Category evidence and current authority rules still need review.`
-        : serviceRequest === 'Entrepreneur' || serviceRequest === 'Outstanding student'
-          ? 'This is a nomination- and evidence-led route. A document review is required; there is no single calculator threshold.'
-          : 'The entered figure is below the common route guide. Another category may fit better; request a profile review.';
+        ? `The details entered reach the commonly cited ${serviceRequest === 'Manager or executive' ? 'AED 30,000 monthly salary' : 'AED 2 million investment'} guide. Category evidence and current authority rules still need review.`
+        : `The entered figure is below the commonly cited ${serviceRequest === 'Manager or executive' ? 'AED 30,000 monthly salary' : 'AED 2 million investment'} guide. Another category may fit better; request a profile review.`;
     }
     if (selectedService === 'property') {
       if (serviceRequest === '10-year Golden Visa') {
@@ -565,14 +627,29 @@ export function FamilyVisaCalculator({
                 </div>
               )}
 
+              {activeStep === 'serviceRequest' && serviceQuestion && (
+                <div className="gv-family-calculator-options">
+                  {serviceQuestion.options.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      className={serviceRequest === option ? 'is-selected' : ''}
+                      aria-pressed={serviceRequest === option}
+                      onClick={() => {
+                        setServiceRequest(option);
+                        setServiceDetails('');
+                        setServiceExtra('');
+                        setStepIndex(activeStepIndex + 1);
+                      }}
+                    >
+                      <span><strong>{option}</strong></span><ArrowRight size={15} />
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {activeStep === 'serviceDetails' && serviceQuestion && (
                 <div className="gv-family-calculator-service-fields">
-                  <label htmlFor="gv-service-request">What do you need?
-                    <select id="gv-service-request" value={serviceRequest} onChange={(event) => setServiceRequest(event.target.value)}>
-                      <option value="">Select a service type</option>
-                      {serviceQuestion.options.map((option) => <option key={option} value={option}>{option}</option>)}
-                    </select>
-                  </label>
                   <label htmlFor="gv-service-details">{serviceQuestion.detailLabel}
                     <input id="gv-service-details" type="text" inputMode={selectedService === 'property' || selectedService === 'golden' ? 'decimal' : 'text'} value={serviceDetails} onChange={(event) => setServiceDetails(event.target.value)} placeholder={serviceQuestion.placeholder} />
                   </label>
@@ -588,7 +665,7 @@ export function FamilyVisaCalculator({
               {activeStep === 'sponsor' && (
                 <div className="gv-family-calculator-options">
                   {sponsorVisas.map((visa) => (
-                    <button key={visa.id} type="button" className={sponsorVisa === visa.id ? 'is-selected' : ''} aria-pressed={sponsorVisa === visa.id} onClick={() => setSponsorVisa(visa.id)}>
+                    <button key={visa.id} type="button" className={sponsorVisa === visa.id ? 'is-selected' : ''} aria-pressed={sponsorVisa === visa.id} onClick={() => { setSponsorVisa(visa.id); advanceAfterChoice(); }}>
                       <span className="gv-family-calculator-option-copy"><strong>{visa.label}</strong><small>{visa.detail}</small></span>
                       {visa.id === 'employee' && <em>Most common</em>}
                       {sponsorVisa === visa.id && <Check size={17} />}
@@ -599,10 +676,10 @@ export function FamilyVisaCalculator({
 
               {activeStep === 'application' && (
                 <div className="gv-family-calculator-options">
-                  <button type="button" className={application === 'new' ? 'is-selected' : ''} aria-pressed={application === 'new'} onClick={() => setApplication('new')}>
+                  <button type="button" className={application === 'new' ? 'is-selected' : ''} aria-pressed={application === 'new'} onClick={() => { setApplication('new'); advanceAfterChoice(); }}>
                     <span><strong>New visa</strong><small>First residence visa for the dependent</small></span>{application === 'new' && <Check size={17} />}
                   </button>
-                  <button type="button" className={application === 'renewal' ? 'is-selected' : ''} aria-pressed={application === 'renewal'} onClick={() => setApplication('renewal')}>
+                  <button type="button" className={application === 'renewal' ? 'is-selected' : ''} aria-pressed={application === 'renewal'} onClick={() => { setApplication('renewal'); advanceAfterChoice(); }}>
                     <span><strong>Renewal</strong><small>Renewing an existing residence visa</small></span>{application === 'renewal' && <Check size={17} />}
                   </button>
                 </div>
@@ -610,10 +687,10 @@ export function FamilyVisaCalculator({
 
               {activeStep === 'location' && (
                 <div className="gv-family-calculator-options">
-                  <button type="button" className={location === 'inside' ? 'is-selected' : ''} aria-pressed={location === 'inside'} onClick={() => setLocation('inside')}>
+                  <button type="button" className={location === 'inside' ? 'is-selected' : ''} aria-pressed={location === 'inside'} onClick={() => { setLocation('inside'); advanceAfterChoice(); }}>
                     <span><strong>Inside the UAE</strong><small>Dependent is currently in the country</small></span>{location === 'inside' && <Check size={17} />}
                   </button>
-                  <button type="button" className={location === 'outside' ? 'is-selected' : ''} aria-pressed={location === 'outside'} onClick={() => setLocation('outside')}>
+                  <button type="button" className={location === 'outside' ? 'is-selected' : ''} aria-pressed={location === 'outside'} onClick={() => { setLocation('outside'); advanceAfterChoice(); }}>
                     <span><strong>Outside the UAE</strong><small>Dependent is currently abroad</small></span>{location === 'outside' && <Check size={17} />}
                   </button>
                 </div>
@@ -621,10 +698,10 @@ export function FamilyVisaCalculator({
 
               {activeStep === 'familyFile' && (
                 <div className="gv-family-calculator-options">
-                  <button type="button" className={hasFamilyFile === false ? 'is-selected' : ''} aria-pressed={hasFamilyFile === false} onClick={() => setHasFamilyFile(false)}>
+                  <button type="button" className={hasFamilyFile === false ? 'is-selected' : ''} aria-pressed={hasFamilyFile === false} onClick={() => { setHasFamilyFile(false); advanceAfterChoice(); }}>
                     <span><strong>No — open one</strong><small>One-time family file opening fee applies</small></span>{hasFamilyFile === false && <Check size={17} />}
                   </button>
-                  <button type="button" className={hasFamilyFile === true ? 'is-selected' : ''} aria-pressed={hasFamilyFile === true} onClick={() => setHasFamilyFile(true)}>
+                  <button type="button" className={hasFamilyFile === true ? 'is-selected' : ''} aria-pressed={hasFamilyFile === true} onClick={() => { setHasFamilyFile(true); advanceAfterChoice(); }}>
                     <span><strong>Yes — I have one</strong><small>No file-opening fee</small></span>{hasFamilyFile === true && <Check size={17} />}
                   </button>
                 </div>
@@ -651,7 +728,7 @@ export function FamilyVisaCalculator({
               {activeStep === 'medical' && (
                 <div className="gv-family-calculator-medical">
                   {(['normal', 'vip'] as const).map((speed) => (
-                    <button key={speed} type="button" className={medicalSpeed === speed ? 'is-selected' : ''} aria-pressed={medicalSpeed === speed} onClick={() => setMedicalSpeed(speed)}>
+                    <button key={speed} type="button" className={medicalSpeed === speed ? 'is-selected' : ''} aria-pressed={medicalSpeed === speed} onClick={() => { setMedicalSpeed(speed); advanceAfterChoice(); }}>
                       <strong>{speed === 'normal' ? 'Normal' : 'VIP'}</strong>
                       <b>{formatAed(medicalFees[speed])}</b>
                       <small>{speed === 'normal' ? 'Report in 24 hours' : 'Report in 30 minutes'}</small>
@@ -697,16 +774,21 @@ export function FamilyVisaCalculator({
             </div>
 
             <div className="gv-family-calculator-breakdown">
-              {currentEstimate.lines.map((line) => (
-                <div className="gv-family-calculator-line" key={line.label}>
-                  <span>{line.label}{line.count > 1 && <em> × {line.count}</em>}</span>
-                  <strong>{formatAed(line.amount * line.count)}</strong>
-                </div>
-              ))}
+              {renderFeeGroup('Adult applicant fees', 'adult', currentEstimate.adultTotal)}
+              {renderFeeGroup(category === 'newborn' ? 'Child / newborn applicant fees' : 'Child applicant fees', 'child', currentEstimate.childTotal)}
+              {renderFeeGroup('Shared / one-time fees', 'shared', currentEstimate.sharedTotal)}
+            </div>
+
+            <div className="gv-family-calculator-security-note">
+              <ShieldCheck size={18} />
+              <div>
+                <h4>Additional deposit / security requirements</h4>
+                <p>{currentEstimate.securityDepositNote}</p>
+              </div>
             </div>
 
             <div className="gv-family-calculator-total">
-              <span>Total government fee estimate</span>
+              <span>Final total · calculated fees only</span>
               <strong>{formatAed(currentEstimate.total)}</strong>
             </div>
 
@@ -724,6 +806,9 @@ export function FamilyVisaCalculator({
                     <span>{formatAed((line.amount + line.amerExtra) * line.count)}</span>
                   </div>
                 ))}
+                <div className="gv-family-calculator-comparison-row"><strong>Adult applicant fees</strong><strong>{formatAed(currentEstimate.adultTotal)}</strong><strong>{formatAed(currentEstimate.amerAdultTotal)}</strong></div>
+                <div className="gv-family-calculator-comparison-row"><strong>Child applicant fees</strong><strong>{formatAed(currentEstimate.childTotal)}</strong><strong>{formatAed(currentEstimate.amerChildTotal)}</strong></div>
+                <div className="gv-family-calculator-comparison-row"><strong>Shared / one-time fees</strong><strong>{formatAed(currentEstimate.sharedTotal)}</strong><strong>{formatAed(currentEstimate.amerSharedTotal)}</strong></div>
                 <div className="gv-family-calculator-comparison-row is-total"><strong>Total</strong><strong>{formatAed(currentEstimate.total)}</strong><strong>{formatAed(currentEstimate.amerTotal)}</strong></div>
                 <p>Amer centre figures are indicative comparisons only. Fees and service-channel charges change; confirm the live amount with your selected centre before payment.</p>
               </div>

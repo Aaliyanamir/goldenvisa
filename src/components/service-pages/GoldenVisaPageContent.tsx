@@ -7,12 +7,13 @@ import {
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
+  BriefcaseBusiness,
+  Brush,
   Building2,
   Check,
   FileCheck2,
-  GraduationCap,
+  Landmark,
   ShieldCheck,
-  Sparkles,
   Users,
 } from 'lucide-react';
 import { StandalonePageFrame } from '@/components/StandalonePageFrame';
@@ -22,41 +23,91 @@ import { FamilyVisaCalculator, type ServiceId } from './FamilyVisaCalculator';
 const categories = [
   {
     id: 'property',
-    label: 'Real estate investors',
+    label: 'Property investor',
+    badge: 'AED 2M+',
+    summary: 'Own one or more qualifying UAE properties with a combined value of AED 2 million or more.',
     icon: Building2,
     title: 'A property route built around the registered value',
     detail: 'A qualifying UAE real-estate investment valued at AED 2 million or more may support a 10-year Golden Visa application. Title, valuation, mortgage and ownership-share evidence are checked by the relevant authority.',
+    conditions: ['Qualifying UAE property must be registered to the applicant or qualifying co-owners.', 'Current property valuation, title status, mortgage and any minimum paid amount must meet the authority route.', 'The AED 2 million figure is a route guide; it does not guarantee approval.'],
+    eligibility: ['Combined qualifying property value is commonly assessed at AED 2 million or more.', 'DLD title deed or an eligible off-plan record may be required.', 'For mortgaged properties, the authority may require a bank liability letter and proof of paid amount.'],
+    steps: ['Check title deed / Oqood and each applicant’s registered share.', 'Obtain DLD valuation and bank evidence if required.', 'Submit the investor nomination or application through the relevant authority.', 'After approval, complete medical fitness, Emirates ID and residence issuance.'],
     documents: ['DLD title deed or eligible Oqood', 'Current valuation where requested', 'Mortgage / paid-amount evidence', 'Co-owner details and ownership shares'],
     prompt: 'Approximate property value (AED)',
     threshold: 2_000_000,
   },
   {
+    id: 'company',
+    label: 'Company owner',
+    badge: 'AED 2M+',
+    summary: 'Own or hold a qualifying share in a UAE company that meets the investment criteria.',
+    icon: BriefcaseBusiness,
+    title: 'A company investment route supported by ownership evidence',
+    detail: 'A qualifying company investment or ownership share may support an investor route. Company valuation, ownership, licensing and any required authority recommendation need to be reviewed against current criteria.',
+    conditions: ['The company must be UAE-licensed and the applicant’s ownership / investment must be verifiable.', 'The authority may require a valuation, audited financial statements or a recommendation.', 'The share value alone is not an approval; company activity and current category rules are reviewed.'],
+    eligibility: ['The commonly cited investment guide is AED 2 million or more.', 'Applicant identity, shareholding and source of funds must be evidenced.', 'Trade licence and company records must be valid for the application.'],
+    steps: ['Confirm licence status, ownership share and qualifying valuation.', 'Prepare company, applicant and source-of-funds evidence.', 'Obtain any required recommendation and submit through the correct authority.', 'Complete medical, Emirates ID and residence issuance after approval.'],
+    documents: ['Valid UAE trade licence', 'Share certificate and ownership records', 'Company valuation or audited financial evidence', 'Investor / authority recommendation if required'],
+    prompt: 'Company share value (AED)',
+    threshold: 2_000_000,
+  },
+  {
     id: 'professional',
-    label: 'Professionals',
+    label: 'Manager or executive',
+    badge: 'AED 30K salary',
+    summary: 'Managers, executives and skilled professionals earning AED 30,000 or more per month.',
     icon: BadgeCheck,
     title: 'For qualified professionals with a strong UAE employment file',
     detail: 'The skilled-professional route can consider occupation, salary, degree, employment contract and any required professional licence. A commonly cited salary figure is AED 30,000 per month; the authority assesses the full category criteria.',
+    conditions: ['Applicant must have a qualifying skilled / managerial role and valid UAE employment records.', 'Salary, occupation classification, degree attestation and professional licence may all be reviewed.', 'The salary guide is not sufficient by itself; the authority confirms current criteria.'],
+    eligibility: ['Commonly cited monthly salary is AED 30,000 or above.', 'A valid employment contract and attested university degree may be required.', 'Regulated professions may need a valid professional licence or approval.'],
+    steps: ['Check occupation classification, contract and salary evidence.', 'Attest the qualification and prepare any professional licence.', 'Submit the category application / nomination to the responsible authority.', 'Complete medical fitness, Emirates ID and residence issuance after approval.'],
     documents: ['Valid UAE employment contract', 'Salary certificate and payslips if requested', 'Attested university degree', 'Professional licence for regulated roles'],
     prompt: 'Monthly basic salary (AED)',
     threshold: 30_000,
   },
   {
-    id: 'entrepreneur',
-    label: 'Entrepreneurs',
-    icon: Sparkles,
-    title: 'A nomination-led route for founders and business owners',
-    detail: 'Entrepreneur applications rely on evidence that fits the applicable approved project, investment, business or incubator pathway. There is no single amount that confirms eligibility for every entrepreneur.',
-    documents: ['Trade licence and ownership records', 'Business plan and project evidence', 'Investment / valuation evidence where relevant', 'Approved incubator or authority recommendation if required'],
-    prompt: 'Business or nomination stage',
+    id: 'deposit',
+    label: 'Fixed deposit',
+    badge: 'AED 2M deposit',
+    summary: 'Hold a qualifying fixed-term deposit with an approved UAE bank.',
+    icon: Landmark,
+    title: 'An investment route using a qualifying bank deposit',
+    detail: 'A qualifying deposit route may require a fixed-term investment with an approved UAE bank and official confirmation of the amount, source and holding terms. Confirm that the deposit type is accepted before applying.',
+    conditions: ['Deposit must be placed with a UAE bank accepted for the selected route.', 'The bank must confirm the amount, owner, source and required holding period.', 'Early release or a non-qualifying deposit type can affect eligibility; verify before committing funds.'],
+    eligibility: ['Common guide is a fixed deposit of AED 2 million or more.', 'Applicant should be named as account holder / investor in bank records.', 'Additional bank or authority recommendation may be required.'],
+    steps: ['Ask the bank to confirm the current visa route and deposit conditions in writing.', 'Prepare deposit certificate, account-holder ID and source-of-funds evidence.', 'Submit the bank-backed file to the relevant authority.', 'Complete UAE residence formalities after approval and maintain deposit conditions as required.'],
+    documents: ['Bank confirmation of the qualifying deposit', 'Deposit term and account-holder details', 'Evidence of source of funds if requested', 'Authority or bank recommendation where applicable'],
+    prompt: 'Fixed deposit amount (AED)',
+    threshold: 2_000_000,
   },
   {
-    id: 'student',
-    label: 'Outstanding students',
-    icon: GraduationCap,
-    title: 'Academic achievement supported by official records',
-    detail: 'Eligible high-achieving graduates may be nominated based on their institution, academic performance and current authority criteria. Confirm the correct route with the school, university or nominating body.',
-    documents: ['Official transcripts and graduation certificate', 'School or university recommendation', 'Institution accreditation details', 'Passport and current residence information'],
-    prompt: 'Education level',
+    id: 'talent',
+    label: 'Creative talent',
+    badge: 'Via Ministry of Culture',
+    summary: 'For talent across cultural and creative fields, subject to nomination by the relevant authority.',
+    icon: Brush,
+    title: 'A nomination-led route for creative and cultural talent',
+    detail: 'Creative professionals may be considered through the relevant cultural authority or nominating body. The required portfolio, professional record and nomination depend on the field and current criteria.',
+    conditions: ['Route is nomination-led and depends on the applicant’s field and record of achievement.', 'The responsible cultural or creative authority determines the evidence and endorsement required.', 'A portfolio by itself does not equal nomination or visa approval.'],
+    eligibility: ['Relevant creative, cultural or artistic professional profile.', 'Documented work, recognition, awards, publications or impact may support assessment.', 'Recommendation / nomination from the responsible authority may be required.'],
+    steps: ['Identify the nominating authority for the applicant’s creative discipline.', 'Prepare a portfolio and verifiable record of professional achievements.', 'Request the required recommendation or nomination.', 'Submit the residence file and complete medical / Emirates ID steps after approval.'],
+    documents: ['Portfolio and record of creative work', 'Awards, publications or professional evidence', 'Recommendation or nomination from the relevant body', 'Passport and current residence information'],
+    prompt: 'Creative talent nomination stage',
+  },
+  {
+    id: 'dependent',
+    label: 'Family dependents',
+    badge: 'Via Golden Visa holder',
+    summary: 'Eligible spouses, children and parents may obtain long-term residency through an approved sponsor.',
+    icon: Users,
+    title: 'A family route linked to an eligible Golden Visa sponsor',
+    detail: 'Eligible family members may apply as dependents of a Golden Visa holder. Sponsorship conditions, relationship evidence, insurance and each applicant’s requirements must be confirmed.',
+    conditions: ['A valid Golden Visa holder must sponsor the dependent under the applicable relationship rules.', 'Each dependent requires an individual application and valid identity documents.', 'Relationship certificates may need attestation / Arabic translation; insurance or other conditions may apply.'],
+    eligibility: ['Eligible spouse, children and parents may be considered subject to current dependent rules.', 'Sponsor’s visa and residence status must be valid.', 'The authority confirms relationship proof, age / dependency rules and any financial or insurance requirements.'],
+    steps: ['Confirm sponsor status and each dependent’s eligible relationship.', 'Prepare attested relationship documents, passports and required insurance.', 'Submit a dependent entry permit / residence application for each family member.', 'Complete status change, medical fitness and Emirates ID steps when required.'],
+    documents: ['Sponsor’s valid Golden Visa and Emirates ID', 'Attested marriage or birth certificate as applicable', 'Dependent passport and compliant photograph', 'Insurance and application records where required'],
+    prompt: 'Sponsor status',
   },
 ] as const;
 
@@ -68,7 +119,7 @@ const benefits = [
 ];
 
 const process = [
-  ['Choose a route', 'Match your profile to the property, professional, entrepreneur or outstanding-student category.'],
+  ['Choose a route', 'Match your profile to property, company investment, professional, fixed deposit, creative talent or family sponsorship.'],
   ['Verify the evidence', 'Review official records, ownership or salary figures, qualification documents and any required nomination.'],
   ['Submit for review', 'Prepare the application through the authority channel that handles the selected category.'],
   ['Complete UAE formalities', 'After the required approval, complete medical fitness, Emirates ID and residence issuance steps.'],
@@ -87,7 +138,6 @@ function GoldenVisaPageContent() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [metric, setMetric] = useState('');
   const [screenerStage, setScreenerStage] = useState('');
-  const [additionalRoute, setAdditionalRoute] = useState('category');
   const [goldenSponsor, setGoldenSponsor] = useState('');
   const [consultationStage, setConsultationStage] = useState('');
   const [calculatorOpen, setCalculatorOpen] = useState(false);
@@ -95,24 +145,16 @@ function GoldenVisaPageContent() {
   const active = categories[activeCategory];
   const isNumericRoute = 'threshold' in active;
   const metricValue = Number(metric);
-  const eligibilityMessage = additionalRoute === 'company'
-    ? metricValue >= 2_000_000
-      ? 'Your stated company share value reaches the commonly cited AED 2 million investment guide. Company eligibility and ownership evidence still need review.'
-      : 'The stated company share value is below the commonly cited AED 2 million guide. Confirm current criteria and evidence before ruling out this route.'
-    : additionalRoute === 'deposit'
-      ? metricValue >= 2_000_000
-        ? 'Your stated deposit reaches the commonly cited AED 2 million guide. The accepted deposit type, bank confirmation and holding terms need authority review.'
-        : 'The stated deposit is below the commonly cited AED 2 million guide. Confirm current criteria with the relevant authority.'
-      : additionalRoute === 'dependent'
-        ? goldenSponsor === 'yes'
-          ? 'A dependent route may be available through a current Golden Visa holder. The sponsor relationship and current dependent rules need confirmation.'
-          : 'A dependent application requires an eligible Golden Visa sponsor. Confirm the relationship and current rules.'
-        : isNumericRoute
-          ? metricValue >= active.threshold
-            ? `Your stated figure reaches the commonly cited ${active.id === 'property' ? 'AED 2 million property' : 'AED 30,000 monthly salary'} route guide. The complete evidence and current authority criteria still need to be reviewed.`
-            : `Your stated figure is below the commonly cited ${active.id === 'property' ? 'AED 2 million property' : 'AED 30,000 monthly salary'} route guide. Another category may fit better.`
-          : 'This category is nomination- and evidence-led. An advisor can check the records and the correct nominating authority.';
-  const hasScreenerResponse = Boolean(metric || screenerStage || (additionalRoute === 'dependent' && goldenSponsor));
+  const eligibilityMessage = active.id === 'dependent'
+    ? goldenSponsor === 'yes'
+      ? 'A dependent route may be available through your current Golden Visa sponsor. The relationship and current dependent requirements still need confirmation.'
+      : 'A dependent application requires an eligible Golden Visa sponsor. Confirm the relationship and current rules.'
+    : isNumericRoute
+      ? metricValue >= active.threshold
+        ? `Your stated figure reaches the commonly cited ${active.badge} route guide. The complete evidence and current authority criteria still need review.`
+        : `Your stated figure is below the commonly cited ${active.badge} route guide. Another category may fit better.`
+      : 'This route is nomination- and evidence-led. An advisor can help identify the correct nominating authority and records.';
+  const hasScreenerResponse = Boolean(metric || screenerStage || (active.id === 'dependent' && goldenSponsor));
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -126,9 +168,9 @@ function GoldenVisaPageContent() {
       `Phone: ${phone}`,
       email ? `Email: ${email}` : '',
       `Category: ${active.label}`,
-      additionalRoute !== 'category' ? `Additional route checked: ${additionalRoute}` : '',
       consultationStage ? `Current stage: ${consultationStage}` : '',
       metric ? `${active.prompt}: ${metric}` : '',
+      active.id === 'dependent' && goldenSponsor ? `Current Golden Visa sponsor: ${goldenSponsor}` : '',
       'Please confirm current eligibility, documents and itemized fees.',
     ].filter(Boolean).join('\n');
     setMessageLink(`${contactInfo.whatsappHref}?text=${encodeURIComponent(message)}`);
@@ -156,7 +198,7 @@ function GoldenVisaPageContent() {
             <div className="gv-golden-hero-image">
               <Image src="/assets/golden-visa/dubai-residency.jpg" alt="Burj Al Arab on the Dubai coastline" fill priority sizes="(max-width: 760px) 100vw, 48vw" />
               <div className="gv-golden-image-shade" />
-              <div className="gv-golden-image-caption"><span>GOLDEN VISA · UAE</span><strong>Four routes.<br />One considered plan.</strong></div>
+              <div className="gv-golden-image-caption"><span>GOLDEN VISA · UAE</span><strong>Six pathways.<br />One considered plan.</strong></div>
               <span className="gv-golden-image-stamp"><BadgeCheck size={15} />10 YEARS</span>
             </div>
           </header>
@@ -164,61 +206,68 @@ function GoldenVisaPageContent() {
           <div className="gv-golden-stats" aria-label="Golden Visa overview">
             <div><strong>10 years</strong><span>Residence validity, subject to category approval</span></div>
             <div><strong>AED 2M</strong><span>Common real-estate investor route guide</span></div>
-            <div><strong>4 routes</strong><span>Property · professionals · entrepreneurs · students</span></div>
+            <div><strong>6 pathways</strong><span>Property · company · professional · deposit · talent · family</span></div>
           </div>
 
           <section className="gv-golden-section" id="eligibility">
             <div className="gv-golden-section-heading">
-              <span className="gv-golden-eyebrow"><span aria-hidden="true" />Interactive eligibility screener</span>
-              <h2>Start with the category <em>that fits your evidence.</em></h2>
-              <p>Choose a route to see its common proof points. This first check is informative only and cannot guarantee nomination or approval.</p>
+              <span className="gv-golden-eyebrow"><span aria-hidden="true" />Six ways to qualify</span>
+              <h2>Choose the route <em>that fits your evidence.</em></h2>
+              <p>Tap a pathway to see typical requirements and a first-check guide. Criteria are route-specific and final decisions remain with the relevant UAE authority.</p>
             </div>
-            <div className="gv-golden-category-tabs" role="tablist" aria-label="Golden Visa applicant categories">
+            <div className="gv-golden-category-tabs" role="group" aria-label="Golden Visa applicant categories">
               {categories.map((category, index) => {
                 const Icon = category.icon;
                 return (
-                  <button key={category.id} type="button" role="tab" aria-selected={activeCategory === index} aria-controls="gv-golden-category-panel" id={`gv-golden-tab-${category.id}`} onClick={() => { setActiveCategory(index); setMetric(''); setScreenerStage(''); setAdditionalRoute('category'); setGoldenSponsor(''); }}>
-                    <Icon size={18} /><span>{category.label}</span>
+                  <button key={category.id} type="button" aria-pressed={activeCategory === index} aria-controls="gv-golden-category-panel" id={`gv-golden-tab-${category.id}`} onClick={() => { setActiveCategory(index); setMetric(''); setScreenerStage(''); setGoldenSponsor(''); }}>
+                    <span className="gv-golden-pathway-card-top"><span className="gv-golden-pathway-icon"><Icon size={19} /></span><span className="gv-golden-pathway-badge">{category.badge}</span></span>
+                    <strong>{category.label}</strong>
+                    <span className="gv-golden-pathway-summary">{category.summary}</span>
+                    <span className="gv-golden-pathway-link">Requirements <ArrowRight size={14} /></span>
                   </button>
                 );
               })}
             </div>
-            <div className="gv-golden-category-panel" id="gv-golden-category-panel" role="tabpanel" aria-labelledby={`gv-golden-tab-${active.id}`}>
+            <div className="gv-golden-category-panel" id="gv-golden-category-panel" role="region" aria-labelledby={`gv-golden-tab-${active.id}`}>
               <div className="gv-golden-route-copy">
                 <span className="gv-golden-route-number">0{activeCategory + 1}</span>
                 <h3>{active.title}</h3>
                 <p>{active.detail}</p>
-                <ul>{active.documents.map((document) => <li key={document}><Check size={15} />{document}</li>)}</ul>
+                <div className="gv-golden-route-detail">
+                  <h4>Conditions</h4>
+                  <ul>{active.conditions.map((condition) => <li key={condition}><Check size={15} />{condition}</li>)}</ul>
+                </div>
+                <div className="gv-golden-route-detail">
+                  <h4>Eligibility criteria</h4>
+                  <ul>{active.eligibility.map((criterion) => <li key={criterion}><Check size={15} />{criterion}</li>)}</ul>
+                </div>
+                <div className="gv-golden-route-detail">
+                  <h4>Step-by-step process</h4>
+                  <ol>{active.steps.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, '0')}</span>{step}</li>)}</ol>
+                </div>
+                <div className="gv-golden-route-detail">
+                  <h4>Document requirements</h4>
+                  <ul>{active.documents.map((document) => <li key={document}><Check size={15} />{document}</li>)}</ul>
+                </div>
               </div>
               <div className="gv-golden-screener">
                 <h3>Quick route check</h3>
                 <p>Enter a broad figure or stage. Nothing is submitted or stored.</p>
-                <label htmlFor="gv-golden-route">Route to check
-                  <select id="gv-golden-route" value={additionalRoute} onChange={(event) => { setAdditionalRoute(event.target.value); setMetric(''); setScreenerStage(''); setGoldenSponsor(''); }}>
-                    <option value="category">Selected category: {active.label}</option>
-                    <option value="company">Company share value</option>
-                    <option value="deposit">Bank deposit</option>
-                    <option value="dependent">Dependent of a Golden Visa holder</option>
-                  </select>
-                </label>
-                {additionalRoute === 'dependent' ? (
+                {active.id === 'dependent' ? (
                   <label htmlFor="gv-golden-sponsor">Is your sponsor a current Golden Visa holder?
                     <select id="gv-golden-sponsor" value={goldenSponsor} onChange={(event) => setGoldenSponsor(event.target.value)}>
                       <option value="">Choose one</option><option value="yes">Yes</option><option value="no">No</option>
                     </select>
                   </label>
-                ) : additionalRoute === 'company' || additionalRoute === 'deposit' || isNumericRoute ? (
+                ) : isNumericRoute ? (
                   <label htmlFor="gv-golden-metric">
-                    {additionalRoute === 'company' ? 'Company share value (AED)' : additionalRoute === 'deposit' ? 'Bank deposit (AED)' : active.prompt}
-                    <input id="gv-golden-metric" type="number" min="0" inputMode="numeric" placeholder={active.id === 'professional' && additionalRoute === 'category' ? 'e.g. 30,000' : 'e.g. 2,000,000'} value={metric} onChange={(event) => setMetric(event.target.value)} />
+                    {active.prompt}
+                    <input id="gv-golden-metric" type="number" min="0" inputMode="numeric" placeholder={active.id === 'professional' ? 'e.g. 30,000' : 'e.g. 2,000,000'} value={metric} onChange={(event) => setMetric(event.target.value)} />
                   </label>
-                ) : active.id === 'student' || active.id === 'entrepreneur' ? (
+                ) : active.id === 'talent' ? (
                   <label htmlFor="gv-golden-metric">{active.prompt}
                     <select id="gv-golden-metric" value={screenerStage} onChange={(event) => { setScreenerStage(event.target.value); setMetric(event.target.value); }}>
-                      <option value="">Select one</option>
-                      {active.id === 'student'
-                        ? <><option value="School graduate">School graduate</option><option value="University graduate">University graduate</option><option value="Seeking nomination">Seeking nomination</option></>
-                        : <><option value="Business established">Business established</option><option value="Incubator / nomination">Incubator / nomination</option><option value="Planning stage">Planning stage</option></>}
+                      <option value="">Select one</option><option value="Nomination secured">Nomination secured</option><option value="Preparing creative portfolio">Preparing creative portfolio</option><option value="Need to identify nominating body">Need to identify nominating body</option>
                     </select>
                   </label>
                 ) : null}
@@ -258,8 +307,11 @@ function GoldenVisaPageContent() {
               {[
                 ['Core identity', 'Passport, UAE visa and Emirates ID if resident, plus a compliant recent photograph.'],
                 ['Property investor', 'Title deed or eligible Oqood, DLD valuation, mortgage and co-owner evidence where relevant.'],
+                ['Company owner', 'Trade licence, ownership records and company valuation or financial evidence.'],
                 ['Professional', 'Employment contract, salary evidence, attested qualification and professional licence if applicable.'],
-                ['Founder or student', 'Business / incubator nomination, academic records, transcripts and institution recommendation as relevant.'],
+                ['Fixed deposit', 'Bank confirmation, deposit terms and source-of-funds evidence if requested.'],
+                ['Creative talent', 'Portfolio, professional record and nomination or recommendation from the relevant authority.'],
+                ['Family dependents', 'Sponsor’s Golden Visa and attested proof of relationship for each dependent.'],
               ].map(([title, detail]) => <article key={title}><FileCheck2 size={18} /><h3>{title}</h3><p>{detail}</p></article>)}
             </div>
           </section>
