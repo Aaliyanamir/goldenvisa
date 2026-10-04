@@ -41,6 +41,8 @@ const serviceHeroImages: Partial<Record<string, { src: string; alt: string }>> =
   'Amer Center Services': { src: '/assets/service-pages/amer-center.jpg', alt: 'Modern service-centre office interior' },
   'Document Attestation': { src: '/assets/service-pages/document-attestation.jpg', alt: 'Official paperwork prepared for document verification' },
   'Legal Translation': { src: '/assets/service-pages/legal-translation.jpg', alt: 'A document being prepared for professional translation' },
+  'Power of Attorney (POA)': { src: '/assets/service-pages/power-of-attorney.jpg', alt: 'Legal professional preparing a power of attorney document' },
+  'ILOE Insurance': { src: '/assets/service-pages/iloe-workplace.jpg', alt: 'Colleagues discussing work and career planning' },
 };
 
 const calculatorServices: Partial<Record<string, ServiceId>> = {
@@ -262,7 +264,25 @@ function DocumentServiceFlow({ translation }: { translation: boolean }) {
   );
 }
 
-function ServiceSpecificInteractions({ title, onOpenCalculator }: { title: string; onOpenCalculator: () => void }) {
+const poaTypes = [
+  { label: 'General', detail: 'For a wider set of specified personal or administrative actions. Define exclusions, duration and any limits carefully.' },
+  { label: 'Personal', detail: 'For defined personal, family or representation matters, such as handling records or attending to a stated task.' },
+  { label: 'Property', detail: 'For a named property and transaction, such as management, leasing, purchase or sale, subject to authority rules.' },
+  { label: 'Corporate', detail: 'For company representation and agreed business actions, with the entity, signing powers and restrictions clearly stated.' },
+  { label: 'Vehicle', detail: 'For a specified vehicle and permitted action, such as registration, transfer or sale, subject to the receiving authority.' },
+];
+
+function ServiceSpecificInteractions({
+  title,
+  onOpenCalculator,
+  poaType,
+  setPoaType,
+}: {
+  title: string;
+  onOpenCalculator: () => void;
+  poaType: string;
+  setPoaType: (type: string) => void;
+}) {
   const [maidChecks, setMaidChecks] = useState<string[]>([]);
   const [idType, setIdType] = useState('New application');
   const [proModel, setProModel] = useState('Corporate outsourcing');
@@ -271,15 +291,16 @@ function ServiceSpecificInteractions({ title, onOpenCalculator }: { title: strin
   const isEmiratesId = title === 'Emirates ID Services';
   const isPro = title === 'Corporate PRO Services';
   const isAmer = title === 'Amer Center Services';
+  const isPoa = title === 'Power of Attorney (POA)';
 
-  if (!isMaid && !isEmiratesId && !isPro && !isAmer) return null;
+  if (!isMaid && !isEmiratesId && !isPro && !isAmer && !isPoa) return null;
 
   return (
     <section className="gv-section gv-service-interaction" aria-labelledby="service-interaction-title">
       <div className="gv-service-interaction-copy">
         <Eyebrow>Choose your next step</Eyebrow>
         <h2 id="service-interaction-title">
-          {isMaid ? 'Check your sponsor file readiness' : isEmiratesId ? 'Select the Emirates ID service' : isPro ? 'Choose the right PRO support model' : 'Find the right immigration service channel'}
+          {isMaid ? 'Check your sponsor file readiness' : isEmiratesId ? 'Select the Emirates ID service' : isPro ? 'Choose the right PRO support model' : isPoa ? 'Choose the authority you need to delegate' : 'Find the right immigration service channel'}
         </h2>
         <p>
           {isMaid
@@ -288,9 +309,34 @@ function ServiceSpecificInteractions({ title, onOpenCalculator }: { title: strin
               ? 'Choose the transaction to see the most relevant next step. The live application and card status remain on ICP.'
               : isPro
                 ? 'Compare ongoing company coverage with a defined one-off task. Authority fees are itemized separately from professional service charges.'
-                : 'Amer centres submit Dubai immigration applications to GDRFA. For other emirates, check the federal ICP channel.'}
+                  : isPoa
+                    ? 'Choose the closest match to your transaction. The selected type is added to your consultation request so the draft and requirements can be scoped.'
+                    : 'Amer centres submit Dubai immigration applications to GDRFA. For other emirates, check the federal ICP channel.'}
         </p>
       </div>
+
+      {isPoa && (
+        <div className="gv-poa-tool">
+          <div className="gv-poa-type-grid" role="group" aria-label="Select a power of attorney type">
+              {poaTypes.map((type) => (
+                <button
+                  type="button"
+                  key={type.label}
+                  aria-pressed={poaType === type.label}
+                  onClick={() => setPoaType(type.label)}
+                >
+                  <span>{type.label}</span>
+                  <small>{type.detail}</small>
+                </button>
+              ))}
+          </div>
+          <div className="gv-interaction-result" aria-live="polite">
+              <strong>{poaType} Power of Attorney selected</strong>
+              <span>{poaTypes.find((type) => type.label === poaType)?.detail}</span>
+          </div>
+          <a className="gv-button gv-button--gold" href="#consultation">Start my POA request <ArrowRight size={16} /></a>
+        </div>
+      )}
 
       {isMaid && (
         <div className="gv-readiness-panel">
@@ -366,26 +412,241 @@ function ServiceSpecificInteractions({ title, onOpenCalculator }: { title: strin
   );
 }
 
-function VisaFineTool() {
-  const [days, setDays] = useState('');
-  const fine = Number.parseInt(days, 10);
-  const valid = Number.isFinite(fine) && fine >= 0;
+function VisaChecker() {
+    const [passport, setPassport] = useState('');
+    const [authority, setAuthority] = useState<'icp' | 'gdrfa'>('icp');
+    const [days, setDays] = useState('');
+    const [whatsappLink, setWhatsappLink] = useState('');
+
+    const fine = Number.parseInt(days, 10);
+    const valid = Number.isFinite(fine) && fine >= 0;
+
+    const buildWhatsApp = () => {
+      const lines = [
+        `Hello, I would like help checking my visa status.`,
+        passport ? `Passport / ID: ${passport}` : 'Passport / ID: (not provided)',
+        `Authority to check: ${authority === 'icp' ? 'ICP (federal)' : 'GDRFA Dubai'}`,
+        'Please check validity, remaining days and any overstay fine. Please reply with the findings.'
+      ];
+      setWhatsappLink(`${contactInfo.whatsappHref}?text=${encodeURIComponent(lines.join('\n'))}`);
+    };
+
+    return (
+      <section className="gv-section gv-tool-panel" aria-labelledby="visa-tool-title">
+        <div>
+          <Eyebrow>Official status check</Eyebrow>
+          <h2 id="visa-tool-title">Check your UAE visa status</h2>
+          <p>For live, official status please use the issuing authority. This tool prepares a secure WhatsApp inquiry for our advisors to help you interpret any official wording. Never share passwords, OTPs or full passport images here.</p>
+        </div>
+
+        <label>Preferred government channel
+          <select value={authority} onChange={(e) => setAuthority(e.target.value as 'icp' | 'gdrfa')}>
+            <option value="icp">ICP (federal) — all emirates</option>
+            <option value="gdrfa">GDRFA Dubai — Dubai-issued visas</option>
+          </select>
+        </label>
+
+        <label>Passport number (or last 4 digits)
+          <input type="text" inputMode="text" value={passport} onChange={(e) => setPassport(e.target.value)} placeholder="e.g. A1234567 or last 4 digits" />
+        </label>
+
+        <div className="gv-tool-panel-sep">
+          <button type="button" className="gv-button gv-button--gold" onClick={buildWhatsApp}>Check My Visa Status</button>
+          <button type="button" className="gv-button gv-button--outline" onClick={() => window.open(authority === 'icp' ? officialLinks.icp : officialLinks.gdrfa, '_blank')}>Open official portal <ArrowUpRight size={14} /></button>
+        </div>
+
+        {whatsappLink && (
+          <div className="gv-submit-followup" role="status">
+            <p>Your prepared inquiry is ready. Nothing has been sent yet.</p>
+            <a className="gv-button gv-button--dark" href={whatsappLink} target="_blank" rel="noreferrer">Send via WhatsApp <ArrowUpRight size={16} /></a>
+          </div>
+        )}
+
+        <hr />
+
+        <div>
+          <Eyebrow>Informative tool</Eyebrow>
+          <h3>Estimate overstay fines</h3>
+          <label>Overstay days after grace period
+            <input type="number" inputMode="numeric" min="0" value={days} onChange={(event) => setDays(event.target.value)} placeholder="Enter number of days" />
+          </label>
+          <output aria-live="polite">{valid ? `Indicative estimate: AED ${(fine * 50).toLocaleString('en-AE')}` : 'Estimated amount appears here'}</output>
+          <p className="gv-tool-note">Uses the commonly cited AED 50/day rate only. Grace periods and actual fines depend on visa category and current authority records.</p>
+          <div className="gv-official-links">
+            <a href={officialLinks.icp} target="_blank" rel="noreferrer">Open ICP Smart Services <ArrowUpRight size={15} /></a>
+            <a href={officialLinks.gdrfa} target="_blank" rel="noreferrer">Open GDRFA Dubai <ArrowUpRight size={15} /></a>
+          </div>
+        </div>
+      </section>
+    );
+}
+
+function IloeTools() {
+  const [salary, setSalary] = useState('');
+  const [subscriptionMonths, setSubscriptionMonths] = useState('');
+  const [jobLossType, setJobLossType] = useState('');
+  const [daysSinceLastDay, setDaysSinceLastDay] = useState('');
+  const [missedSubscription, setMissedSubscription] = useState(false);
+  const [latePremium, setLatePremium] = useState(false);
+  const monthlySalary = Number(salary);
+  const hasSalary = salary.trim() !== '' && Number.isFinite(monthlySalary) && monthlySalary > 0;
+  const categoryA = hasSalary && monthlySalary <= 16_000;
+  const monthlyCap = categoryA ? 10_000 : 20_000;
+  const monthlyBenefit = hasSalary ? Math.min(monthlySalary * 0.6, monthlyCap) : 0;
+  const maxBenefit = monthlyBenefit * 3;
+  const monthsPaid = Number(subscriptionMonths);
+  const elapsedDays = Number(daysSinceLastDay);
+  const eligibilityReady = subscriptionMonths !== '' && jobLossType !== '' && daysSinceLastDay !== '';
+  const appearsEligible = eligibilityReady
+    && Number.isFinite(monthsPaid) && monthsPaid >= 12
+    && jobLossType === 'involuntary'
+    && Number.isFinite(elapsedDays) && elapsedDays >= 0 && elapsedDays <= 30;
+  const fineEstimate = (missedSubscription ? 400 : 0) + (latePremium ? 200 : 0);
+  const money = (amount: number) => `AED ${Math.round(amount).toLocaleString('en-AE')}`;
+
   return (
-    <section className="gv-section gv-tool-panel" aria-labelledby="visa-tool-title">
-      <div>
-        <Eyebrow>Informative tool</Eyebrow>
-        <h2 id="visa-tool-title">Estimate daily overstay fines</h2>
-        <p>Enter the number of days after your applicable grace period. This estimate is not connected to a government file; confirm the actual amount with ICP or GDRFA.</p>
+    <div className="gv-iloe-tools">
+      <section className="gv-section gv-iloe-check" aria-labelledby="iloe-status-title">
+        <div>
+          <Eyebrow>Official policy status</Eyebrow>
+          <h2 id="iloe-status-title">Check subscription and fines securely</h2>
+          <p>Use the official ILOE portal to verify your own policy, payment history and any penalty. This page does not access live policy records or ask for your Emirates ID.</p>
+          <a className="gv-button gv-button--gold" href={officialLinks.iloe} target="_blank" rel="noreferrer">
+            Open official ILOE portal <ArrowUpRight size={16} />
+          </a>
+        </div>
+        <ol>
+          <li><span>01</span><div><strong>Open the official service</strong><small>Choose the policy or fine-check option available to you.</small></div></li>
+          <li><span>02</span><div><strong>Verify your identity privately</strong><small>Enter personal details only on the official ILOE channel.</small></div></li>
+          <li><span>03</span><div><strong>Review status and next action</strong><small>Keep the reference and payment confirmation for your records.</small></div></li>
+        </ol>
+      </section>
+
+      <section className="gv-section gv-iloe-calculator" aria-labelledby="iloe-claim-title">
+        <div className="gv-section-heading">
+          <Eyebrow>Illustrative estimate</Eyebrow>
+          <h2 id="iloe-claim-title">Estimate a possible ILOE claim benefit</h2>
+          <p>Enter your average monthly basic salary over the six months before unemployment. The estimate applies the commonly published 60% rate and category cap.</p>
+        </div>
+        <div className="gv-iloe-calculator-grid">
+          <div className="gv-iloe-calculator-controls">
+            <label htmlFor="iloe-basic-salary">Average monthly basic salary (AED)
+              <input
+                id="iloe-basic-salary"
+                type="number"
+                min="1"
+                max="1000000"
+                inputMode="decimal"
+                value={salary}
+                onChange={(event) => setSalary(event.target.value)}
+                placeholder="e.g. 12,000"
+              />
+            </label>
+            <div className="gv-iloe-presets" aria-label="Salary examples">
+              {[5000, 8000, 12000, 16000, 20000, 30000].map((amount) => (
+                <button key={amount} type="button" aria-pressed={salary === String(amount)} onClick={() => setSalary(String(amount))}>
+                  {amount.toLocaleString('en-AE')}
+                </button>
+              ))}
+            </div>
+            <p className="gv-iloe-caption">Use basic salary, not gross pay or allowances. Actual assessment is made by the insurer.</p>
+          </div>
+          <div className="gv-iloe-payout" aria-live="polite">
+            {hasSalary ? (
+              <>
+                <span className="gv-iloe-payout-label">Indicative monthly benefit</span>
+                <strong>{money(monthlyBenefit)}</strong>
+                <span>For up to three months · maximum estimate {money(maxBenefit)}</span>
+                <dl>
+                  <div><dt>Plan category</dt><dd>{categoryA ? 'Category A / 1' : 'Category B / 2'}</dd></div>
+                  <div><dt>Monthly benefit cap</dt><dd>{money(monthlyCap)}</dd></div>
+                  <div><dt>Published rate</dt><dd>60% of average basic salary</dd></div>
+                </dl>
+              </>
+            ) : <p>Enter a valid basic salary to see an illustrative estimate.</p>}
+          </div>
+        </div>
+        <p className="gv-iloe-disclaimer">Estimate only, not a claim decision or promise of payment. Eligibility, deductions, limits and terms are confirmed by the insurer and may change.</p>
+      </section>
+
+      <section className="gv-section gv-iloe-eligibility" aria-labelledby="iloe-eligibility-title">
+        <div className="gv-section-heading">
+          <Eyebrow>Before making a claim</Eyebrow>
+          <h2 id="iloe-eligibility-title">Check the common claim conditions</h2>
+          <p>Use this private preparation check to review three commonly cited conditions. It does not submit or store your answers.</p>
+        </div>
+        <div className="gv-iloe-eligibility-grid">
+          <label htmlFor="iloe-subscription-months">Consecutive months subscribed
+            <input id="iloe-subscription-months" type="number" min="0" max="600" value={subscriptionMonths} onChange={(event) => setSubscriptionMonths(event.target.value)} placeholder="e.g. 14" />
+          </label>
+          <label htmlFor="iloe-job-loss-type">How did employment end?
+            <select id="iloe-job-loss-type" value={jobLossType} onChange={(event) => setJobLossType(event.target.value)}>
+              <option value="">Select an option</option>
+              <option value="involuntary">Involuntary job loss</option>
+              <option value="resignation">Resignation</option>
+              <option value="cause">Dismissal for cause</option>
+              <option value="unsure">Not sure</option>
+            </select>
+          </label>
+          <label htmlFor="iloe-days-since-last-day">Days since last working day
+            <input id="iloe-days-since-last-day" type="number" min="0" max="9999" value={daysSinceLastDay} onChange={(event) => setDaysSinceLastDay(event.target.value)} placeholder="e.g. 10" />
+          </label>
+        </div>
+        <div className={`gv-iloe-eligibility-result${eligibilityReady ? ' is-ready' : ''}`} aria-live="polite">
+          <ShieldCheck size={20} />
+          <div>
+            <strong>{!eligibilityReady ? 'Enter all three details for a preliminary check' : appearsEligible ? 'Common conditions appear aligned' : 'One or more common conditions may not be met'}</strong>
+            <p>{!eligibilityReady
+              ? 'Common guidance usually refers to at least 12 consecutive months, qualifying involuntary job loss and applying within 30 days.'
+              : appearsEligible
+                ? 'You may meet these initial conditions. Confirm your policy, exclusions and claim evidence directly with the insurer.'
+                : 'Check your policy and the official claim rules before relying on an estimate. The insurer determines eligibility.'}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="gv-section gv-iloe-fines" aria-labelledby="iloe-fine-title">
+        <div className="gv-section-heading">
+          <Eyebrow>Penalty awareness</Eyebrow>
+          <h2 id="iloe-fine-title">Review common ILOE fine triggers</h2>
+          <p>Select the situations you want to check. The displayed figure is an informational total based on commonly published penalty amounts, not a live balance.</p>
+        </div>
+        <div className="gv-iloe-fine-grid">
+          <label><input type="checkbox" checked={missedSubscription} onChange={(event) => setMissedSubscription(event.target.checked)} /><span><strong>Subscription missed by the deadline</strong><small>Commonly cited penalty: AED 400</small></span></label>
+          <label><input type="checkbox" checked={latePremium} onChange={(event) => setLatePremium(event.target.checked)} /><span><strong>Premium unpaid for more than three months</strong><small>Commonly cited penalty: AED 200</small></span></label>
+          <output aria-live="polite"><span>Illustrative total</span><strong>{money(fineEstimate)}</strong><small>Check any actual amount and settlement option on the official portal.</small></output>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function IloeCoverageGuide() {
+  const generallyCovered = [
+    'Most private-sector employees covered by the scheme',
+    'Eligible federal-government employees',
+    'Workers who maintain an active subscription and meet claim conditions',
+  ];
+  const commonExemptions = [
+    'Investors or business owners',
+    'Domestic workers',
+    'Employees under 18 years old',
+    'Certain retirees who return to work and receive a pension',
+  ];
+
+  return (
+    <section className="gv-section gv-iloe-coverage" aria-labelledby="iloe-coverage-title">
+      <SectionHeading
+        id="iloe-coverage-title"
+        label="Coverage and exceptions"
+        title="Who should review ILOE requirements?"
+        text="The scheme applies broadly to eligible employees, but employment type and personal circumstances can create exemptions. Verify your exact category with the official scheme or your employer."
+      />
+      <div className="gv-iloe-coverage-grid">
+        <article><h3>Commonly required to subscribe</h3><ul>{generallyCovered.map((item) => <li key={item}><CheckCircle2 size={17} />{item}</li>)}</ul></article>
+        <article><h3>Commonly exempt categories</h3><ul>{commonExemptions.map((item) => <li key={item}><CheckCircle2 size={17} />{item}</li>)}</ul></article>
       </div>
-      <label>Overstay days after grace period
-        <input type="number" inputMode="numeric" min="0" value={days} onChange={(event) => setDays(event.target.value)} placeholder="Enter number of days" />
-      </label>
-      <output aria-live="polite">{valid ? `Indicative estimate: AED ${(fine * 50).toLocaleString('en-AE')}` : 'Estimated amount appears here'}</output>
-      <p className="gv-tool-note">Uses the commonly cited AED 50/day rate only. Grace periods and actual fines depend on visa category and current authority records.</p>
-      <div className="gv-official-links">
-        <a href={officialLinks.icp} target="_blank" rel="noreferrer">Open ICP Smart Services <ArrowUpRight size={15} /></a>
-        <a href={officialLinks.gdrfa} target="_blank" rel="noreferrer">Open GDRFA Dubai <ArrowUpRight size={15} /></a>
-      </div>
+      <p className="gv-iloe-disclaimer">This is a general guide, not a definitive exemption list. Confirm current rules for your employment sector and status.</p>
     </section>
   );
 }
@@ -420,12 +681,14 @@ function LeadForm({
   setCountry,
   attestationType,
   setAttestationType,
+  poaType,
 }: {
   content: ServicePageContent;
   country: string;
   setCountry: (country: string) => void;
   attestationType: string;
   setAttestationType: (type: string) => void;
+  poaType: string;
 }) {
   const [messageLink, setMessageLink] = useState('');
   const [fileName, setFileName] = useState('');
@@ -447,6 +710,7 @@ function LeadForm({
       email ? `Email: ${email}` : '',
       content.interaction === 'attestation' ? `Issuing country: ${country}` : '',
       content.interaction === 'attestation' ? `Document category: ${attestationType}` : '',
+      content.interaction === 'poa' ? `POA type: ${poaType}` : '',
       sourceLanguage && targetLanguage ? `Language pair: ${sourceLanguage} to ${targetLanguage}` : '',
       pageCount ? `Approximate page count: ${pageCount}` : '',
       receivingAuthority ? `Receiving authority / intended use: ${receivingAuthority}` : '',
@@ -530,6 +794,7 @@ export function ServicePageExperience({ title }: { title: string }) {
   const [calculatorOpen, setCalculatorOpen] = useState(false);
   const [attestationCountry, setAttestationCountry] = useState('United Kingdom');
   const [attestationType, setAttestationType] = useState('Educational');
+  const [poaType, setPoaType] = useState('General');
   const content = serviceCatalog[title];
   if (!content) throw new Error(`Missing service page content for "${title}"`);
   const heroImage = serviceHeroImages[content.title];
@@ -597,6 +862,7 @@ export function ServicePageExperience({ title }: { title: string }) {
             <SectionHeading label="Overview" title={content.introTitle} text={content.intro} />
           </section>
 
+          {content.interaction === 'iloe' && <IloeTools />}
           {content.interaction === 'golden' && (
             <>
               <GoldenScreener />
@@ -614,15 +880,50 @@ export function ServicePageExperience({ title }: { title: string }) {
               setType={setAttestationType}
             />
           )}
-          {content.interaction === 'visa-checker' && <VisaFineTool />}
+          {content.interaction === 'visa-checker' && <VisaChecker />}
           {content.interaction === 'locations' && <LocationCards />}
           {(content.interaction === 'attestation' || content.interaction === 'translation') && (
             <DocumentServiceFlow translation={content.interaction === 'translation'} />
           )}
-          <ServiceSpecificInteractions title={content.title} onOpenCalculator={() => setCalculatorOpen(true)} />
+          <ServiceSpecificInteractions
+            title={content.title}
+            onOpenCalculator={() => setCalculatorOpen(true)}
+            poaType={poaType}
+            setPoaType={setPoaType}
+          />
+          {content.interaction === 'poa' && (
+            <section className="gv-section gv-poa-support" aria-labelledby="poa-support-title">
+              <SectionHeading
+                id="poa-support-title"
+                label="A guided online service"
+                title="Clear support from first draft to signing"
+                text="The process is planned around your case and the authority that will receive the document. Online handling and remote notarization depend on current eligibility and notary approval."
+              />
+              <div className="gv-poa-benefit-grid">
+                <article><span>01</span><h3>Convenient coordination</h3><p>Share your requirements remotely and coordinate each step with an advisor; attend in person if the notary requires it.</p></article>
+                <article><span>02</span><h3>Scope-based quote</h3><p>Review drafting, translation, notarization and any additional charges as separate items before proceeding.</p></article>
+                <article><span>03</span><h3>Wording for your use</h3><p>Shape the draft around the intended task, agent, assets, limits and duration rather than relying on a generic form.</p></article>
+                <article><span>04</span><h3>Review before signing</h3><p>Check names, powers, restrictions and language before the final version is prepared for notarization.</p></article>
+              </div>
+              <div className="gv-poa-authorities">
+                <strong>Common receiving bodies may include</strong>
+                <ul>
+                  {['Notary Public', 'Dubai Courts', 'Dubai Land Department', 'RTA', 'Banks & businesses'].map((authority) => <li key={authority}>{authority}</li>)}
+                </ul>
+                <p>Each organization sets its own POA format and acceptance rules. Confirm those requirements before signing.</p>
+              </div>
+            </section>
+          )}
 
           <section className="gv-section">
-            <SectionHeading label="Service detail" title={content.title === 'Golden Visa' ? 'Why applicants choose a 10-year route' : `What ${content.title.toLowerCase()} support includes`} />
+            <SectionHeading
+              label="Service detail"
+              title={content.title === 'Golden Visa'
+                ? 'Why applicants choose a 10-year route'
+                : content.title === 'ILOE Insurance'
+                  ? 'Understand your category, payments and claim steps'
+                  : `What ${content.title.toLowerCase()} support includes`}
+            />
             <div className="gv-card-grid">
               {content.highlights.map((item, index) => (
                 <article className="gv-info-card" key={item.title}>
@@ -633,6 +934,8 @@ export function ServicePageExperience({ title }: { title: string }) {
               ))}
             </div>
           </section>
+
+          {content.interaction === 'iloe' && <IloeCoverageGuide />}
 
           {content.benefits && (
             <section className="gv-section gv-benefits">
@@ -713,6 +1016,7 @@ export function ServicePageExperience({ title }: { title: string }) {
             setCountry={setAttestationCountry}
             attestationType={attestationType}
             setAttestationType={setAttestationType}
+            poaType={poaType}
           />
           <p className="gv-disclaimer"><ShieldCheck size={14} />We are a private documentation and PRO-services provider, not a UAE government agency. Government fees, eligibility and processing times may change.</p>
         </div>

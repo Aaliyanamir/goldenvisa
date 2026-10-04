@@ -42,7 +42,7 @@ export interface ServicePageContent {
   benefits?: { title: string; description: string }[];
   tags?: { title: string; values: string[] }[];
   tabs?: ServiceTab[];
-  interaction?: 'golden' | 'attestation' | 'visa-checker' | 'locations' | 'translation';
+  interaction?: 'golden' | 'attestation' | 'visa-checker' | 'locations' | 'translation' | 'poa' | 'iloe';
   formTitle: string;
   formDescription: string;
 }
@@ -443,23 +443,23 @@ export const serviceCatalog: Record<string, ServicePageContent> = {
   'Power of Attorney (POA)': {
     title: 'Power of Attorney (POA)',
     eyebrow: 'UAE legal representation',
-    description: 'Define the right authority, review a lawyer-drafted document, complete certified translation and arrange the required notarization.',
+    description: 'Prepare a lawyer-reviewed power of attorney for the authority you intend to delegate, with drafting, translation and notarization support in one guided service.',
     heroMetric: 'DRAFT → NOTARY',
     heroLabel: 'a guided POA preparation journey',
     introTitle: 'Make the delegated authority precise and usable',
-    intro: 'A power of attorney authorizes an agent to act within a defined scope. General wording can carry broad powers; transaction-specific wording may be needed for property, vehicles or corporate work. The notary and receiving institution determine execution and acceptance requirements.',
-    metrics: [{ value: '5 POA types', label: 'personal, property, corporate, vehicle and general' }, { value: 'Online options', label: 'video notarization may be available for eligible cases' }, { value: 'Written quote', label: 'scope, translation and notarization priced separately' }],
+    intro: 'A power of attorney authorizes an appointed agent to act for you within stated limits. Start by describing the transaction and the receiving authority: broad general wording may be unsuitable for a specific property, vehicle or company matter. The notary and organization receiving the POA confirm the wording, identity checks and execution method they will accept.',
+    metrics: [{ value: '5 POA types', label: 'general, personal, property, corporate and vehicle' }, { value: 'Online support', label: 'remote notarization depends on applicant and document eligibility' }, { value: 'Itemized quote', label: 'drafting, translation and notary charges scoped separately' }],
     highlights: [
-      { title: 'General & personal', description: 'Set specific authority for personal administration, family matters or defined representation.' },
-      { title: 'Property & vehicle', description: 'Use transaction-specific powers that identify the asset, action and authority needed by the relevant department.' },
-      { title: 'Corporate', description: 'Define company representation, signing limits, licensing or banking authority and duration.' },
+      { title: 'General & personal', description: 'Set defined authority for personal administration, family matters or representation, with clear limits and duration.' },
+      { title: 'Property & vehicle', description: 'Identify the asset and transaction, such as a sale, purchase, management task or vehicle registration action.' },
+      { title: 'Corporate', description: 'Specify company representation and the permitted signing, licensing, banking or operational actions.' },
     ],
-    processTitle: 'Drafting, translation and notarization timeline',
+    processTitle: 'From first consultation to notarized POA',
     process: [
-      { title: 'Consultation and scope', detail: 'Confirm the principal, appointed agent, purpose, jurisdiction, powers, limits and duration.' },
-      { title: 'Lawyer-drafted POA', detail: 'Prepare the legal wording and review names, identity records, asset details and any restrictions.' },
-      { title: 'Arabic legal translation', detail: 'Translate the document into the language required by the notary and intended receiving authority.' },
-      { title: 'Notarization and delivery', detail: 'Complete the eligible in-person or remote notary appointment, then receive the executed document and next-use guidance.' },
+      { title: 'Personalized quote and scope', detail: 'Confirm the POA type, principal and agent, intended use, powers, exclusions, duration, language and signing preference.' },
+      { title: 'Drafting and client review', detail: 'Prepare the draft for review. Check every name, ID detail, asset reference and authority before approving the final wording.' },
+      { title: 'Translation and notarization', detail: 'Arrange the required legal translation and coordinate an eligible remote video or in-person notary appointment.' },
+      { title: 'Executed document and next steps', detail: 'Receive the completed document and confirm any further attestation or original-document requirements with the organization receiving it.' },
     ],
     documentsTitle: 'POA preparation checklist',
     documents: ['Passport and Emirates ID / UAE residence copy for the principal', 'Passport and contact details for the appointed agent', 'Exact powers, limits, duration and whether substitution is allowed', 'Title deed, vehicle registration or company licence for asset-specific POAs', 'Company authorization / board resolution if a corporate principal is involved', 'Intended use and country of use to confirm notarization and attestation steps'],
@@ -475,13 +475,17 @@ export const serviceCatalog: Record<string, ServicePageContent> = {
       ],
     },
     faqs: [
-      { question: 'Can I notarize a POA online?', answer: 'Remote video notarization may be available for eligible applicants and document types. The notary confirms identity, signing and jurisdiction requirements.' },
+      { question: 'Can I prepare a power of attorney without visiting a notary office?', answer: 'Some eligible applicants and POA types can use remote video notarization. The notary must confirm identity, jurisdiction and document requirements; an office appointment may still be necessary.' },
+      { question: 'Do I need to be a UAE resident to make a POA?', answer: 'Residency is not the only factor. The signing location, applicant identity, notary process and intended use determine the available route. Share the country where you will sign so the execution steps can be checked.' },
+      { question: 'Can a POA be drafted in English only?', answer: 'The language accepted depends on the notary and receiving organization. UAE use may require a certified Arabic translation or bilingual format; confirm before approving the final draft.' },
+      { question: 'Can a POA authorize someone to sell my Dubai property?', answer: 'A property POA can be prepared for a defined transaction, but the asset details and exact powers must meet the requirements of the notary and relevant property authority. Confirm acceptance before signing.' },
       { question: 'Should I choose a general or specific POA?', answer: 'Use only the authority needed. Property, company and vehicle transactions often need specific wording that the receiving institution accepts.' },
       { question: 'How long does a POA take?', answer: 'Timing depends on drafting approval, translation, identity checks and notary availability. A complete draft and ID set can reduce avoidable revisions.' },
       { question: 'Can I use a UAE POA abroad?', answer: 'The receiving country may require additional attestations or a different execution format. Confirm with the recipient before notarization.' },
     ],
+    interaction: 'poa',
     formTitle: 'Book an online POA consultation',
-    formDescription: 'Tell us the POA type, intended use and preferred language; do not send original identity documents in this form.',
+    formDescription: 'Select a POA type, then share its intended use and preferred language. Do not send original identity documents through this form.',
   },
   'Wills & Last Testament': {
     title: 'Wills & Last Testament',
@@ -669,24 +673,25 @@ export const serviceCatalog: Record<string, ServicePageContent> = {
   },
   'ILOE Insurance': {
     title: 'ILOE Insurance',
-    eyebrow: 'Mandatory unemployment cover',
-    description: 'Check your ILOE category and premium, understand subscription deadlines and avoid fines for missed payments.',
-    heroMetric: 'AED 5 / 10',
-    heroLabel: 'monthly premium by salary category, plus VAT',
-    introTitle: 'Most UAE private-sector employees must subscribe',
-    intro: 'Involuntary Loss of Employment (ILOE) insurance pays eligible compensation after qualifying involuntary job loss. Most private-sector and federal-government employees must subscribe; exemptions apply to certain groups. Check your own subscription and fine status on the official ILOE platform.',
+    eyebrow: 'UAE unemployment insurance',
+    description: 'Understand mandatory ILOE cover, compare salary-based premiums, estimate a possible claim benefit and learn how to check your policy and fines securely.',
+    heroMetric: '60%',
+    heroLabel: 'of average basic salary, subject to category caps and eligibility',
+    introTitle: 'Know your cover before you need to claim',
+    intro: 'Involuntary Loss of Employment (ILOE) insurance provides a temporary benefit after qualifying involuntary job loss. Most private-sector and federal-government employees are required to subscribe, while specified groups are exempt. Keep premiums current and verify your live status directly with the official ILOE service.',
     metrics: [{ value: 'AED 5/mo', label: 'Category A: basic salary up to AED 16,000' }, { value: 'AED 10/mo', label: 'Category B: basic salary above AED 16,000' }, { value: 'AED 400 + 200', label: 'subscription and late-premium fines, where applicable' }],
     highlights: [
       { title: 'Category 1 / A', description: 'Basic salary up to AED 16,000: premium is AED 5 per month plus VAT; annual, quarterly and monthly payment options may be offered.' },
       { title: 'Category 2 / B', description: 'Basic salary above AED 16,000: premium is AED 10 per month plus VAT; confirm the current plan and payment channel.' },
-      { title: 'Claim requirements', description: 'Generally requires 12 consecutive months of subscription, involuntary job loss and a claim within 30 days; exclusions apply.' },
+      { title: 'Claim requirements', description: 'Common guidance includes 12 consecutive months of subscription, qualifying involuntary job loss and submitting a claim within 30 days.' },
+      { title: 'Status and penalty checks', description: 'Review your own policy, receipts and any recorded fines on the official portal. Do not share Emirates ID details or login codes in an informal inquiry.' },
     ],
     processTitle: 'Subscribe and keep the policy active',
     process: [
       { title: 'Confirm your category', detail: 'Use your basic salary—not total package—to identify the applicable category and premium.' },
       { title: 'Subscribe through an approved channel', detail: 'Use the official ILOE website, app, exchange, kiosk or other approved channel.' },
-      { title: 'Pay premiums on time', detail: 'Choose monthly, quarterly or annual payment and retain confirmation; monitor card or payment-method expiry.' },
-      { title: 'Check status and fines', detail: 'Review policy and penalty status with the official checker; settle outstanding amounts promptly to avoid work-permit issues.' },
+      { title: 'Choose a payment frequency', detail: 'Monthly, quarterly or annual instalments may be available. Keep receipts and check that automatic payments do not expire or fail.' },
+      { title: 'Check status and fines', detail: 'Review policy and penalty status with the official checker; resolve any recorded amount using the official payment options.' },
     ],
     documentsTitle: 'Before checking or subscribing',
     documents: ['Emirates ID and contact details for the official ILOE check', 'Basic monthly salary to identify the correct category', 'Employer and sector details to confirm mandatory status', 'Valid email and UAE mobile number for policy notices', 'Payment card or approved-channel information', 'Policy number and subscription receipts for an existing plan'],
@@ -702,10 +707,14 @@ export const serviceCatalog: Record<string, ServicePageContent> = {
     faqs: [
       { question: 'Who is exempt from ILOE?', answer: 'Investors / business owners, domestic workers, employees under 18 and certain pensioners who take a new job are generally exempt. Verify your employment category.' },
       { question: 'What are the common fines?', answer: 'The current cited penalties are AED 400 for failing to subscribe and AED 200 for premiums unpaid for more than three months. Check the official ILOE portal for your account.' },
-      { question: 'How much compensation can I receive?', answer: 'Eligible claims generally pay 60% of the average basic salary over the preceding six months, up to the category cap, for a maximum of three months per claim.' },
-      { question: 'Does resignation qualify for a claim?', answer: 'The scheme is for qualifying involuntary job loss. Resignation and dismissal for cause are generally excluded; the insurer decides each claim.' },
+      { question: 'How much compensation can I receive?', answer: 'Eligible claims are generally calculated at 60% of average basic salary over the preceding six months, subject to a monthly category cap and a maximum of three months per claim.' },
+      { question: 'What conditions apply to an ILOE claim?', answer: 'Commonly published guidance refers to at least 12 consecutive months of subscription, qualifying involuntary job loss and filing within 30 days of the last working day. The insurer assesses the policy and evidence.' },
+      { question: 'Does resignation qualify for a claim?', answer: 'The scheme is for qualifying involuntary job loss. Resignation and dismissal for cause are generally not covered; the insurer reviews the circumstances and decides the claim.' },
+      { question: 'How can I check my subscription or fine?', answer: 'Use the official ILOE portal and its identity-verification process. This page does not retrieve government or insurer account data.' },
+      { question: 'Can I pay monthly or annually?', answer: 'Payment schedules can include monthly, quarterly or annual options depending on the approved channel. Check the current options and keep your payment confirmation.' },
     ],
-    formTitle: 'Check your ILOE category and status',
-    formDescription: 'Use the official ILOE channel for account status. You can request guidance here without sharing your Emirates ID number.',
+    interaction: 'iloe',
+    formTitle: 'Get help understanding ILOE requirements',
+    formDescription: 'Use the official ILOE channel for live account status. For general guidance, share your employment category only—never include your Emirates ID number, password or OTP.',
   },
 };
