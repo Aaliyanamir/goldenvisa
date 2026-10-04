@@ -252,7 +252,7 @@ export const Footer: React.FC<FooterProps> = ({
 
               {/* Compliance badge */}
               <div className="flex items-center gap-2 text-slate-400">
-                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <ShieldCheck className="w-4 h-4 text-[#C5A059] shrink-0" />
                 <span>100% Compliant with UAE GDRFA &amp; ICP Directives</span>
               </div>
             </div>

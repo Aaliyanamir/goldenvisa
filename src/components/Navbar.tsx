@@ -4,20 +4,19 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '../lib/LanguageContext';
-import { useTheme } from '../lib/ThemeContext';
 import { Language } from '../lib/translations';
 import { contactInfo } from '../lib/contactInfo';
 import {
   Home, Briefcase, BookOpen,
   Calculator, Globe, ChevronDown,
-  X, Menu as MenuIcon, PhoneCall, Sun, Moon,
+  X, Menu as MenuIcon, PhoneCall,
   Info, Users, Headphones
 } from 'lucide-react';
 
 interface NavbarProps {
   onOpenCalculator: () => void;
   onOpenMegaMenu: () => void;
-  currentView?: 'home' | 'blog' | 'about' | 'contact' | 'career';
+  currentView?: 'home' | 'blog' | 'about' | 'contact' | 'career' | 'service';
   onNavigate?: (view: 'home' | 'blog' | 'about') => void;
 }
 
@@ -29,7 +28,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const { language, setLanguage, isRTL } = useLanguage();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navCollapsed, setNavCollapsed] = useState(false);
@@ -61,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       if (onNavigate) {
         onNavigate(view);
       } else {
-        router.push('/');
+        router.push('/blog');
       }
     }
     setMobileMenuOpen(false);
@@ -109,8 +107,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Left: Authority Badge */}
             <div className="flex items-center gap-2 shrink-0">
               <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5A059] opacity-35"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C5A059]"></span>
               </span>
               <span className="hidden sm:inline font-bold text-[#765719] dark:text-[#F0D784] uppercase tracking-widest text-[11px]">
                 Golden Visa Dubai Updates
@@ -209,7 +207,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 })}
               </nav>
 
-              {/* 3. Right Toolbar: Language, Theme Toggle, WhatsApp & Visa Calculator CTA */}
+              {/* 3. Right Toolbar: Language, WhatsApp & Visa Calculator CTA */}
               <div className="site-nav-actions flex items-center gap-2 sm:gap-2.5 shrink-0">
 
                 {/* WhatsApp Icon-Only Button */}
@@ -217,7 +215,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   href={`${contactInfo.whatsappHref}?text=Hello%20Golden%20Visa%20Dubai%20Team%2C%20I%20would%20like%20to%20request%20a%20consultation.`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden xl:flex items-center justify-center w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white transition-colors shadow-sm"
+                  className="hidden xl:flex items-center justify-center w-9 h-9 rounded-full bg-[#8C6D2D] hover:bg-[#735820] text-white transition-colors shadow-sm"
                   title="Chat on WhatsApp"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -270,20 +268,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                   )}
                 </div>
-
-                {/* Theme Mode Switcher (Active Light / Dark Toggle) */}
-                <button
-                  onClick={toggleTheme}
-                  className="p-2 sm:p-2.5 rounded-full bg-slate-100 dark:bg-slate-800/80 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-400 transition-all flex items-center justify-center cursor-pointer group shadow-2xs"
-                  title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                  aria-label="Toggle theme mode"
-                >
-                  {theme === 'dark' ? (
-                    <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-90 transition-transform duration-300" />
-                  ) : (
-                    <Moon className="w-4 h-4 text-slate-700 group-hover:-rotate-12 transition-transform duration-300" />
-                  )}
-                </button>
 
                 {/* Header Visa Calculator CTA Button */}
                 <button
@@ -367,19 +351,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               })}
             </div>
 
-            {/* Theme & Language Switcher in Drawer */}
+            {/* Language selector */}
             <div className="mt-6 px-1 pt-4 border-t border-slate-100 dark:border-slate-800">
-              <div className="flex items-center justify-between mb-3 px-3">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Theme</span>
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-amber-300 border border-slate-200 dark:border-slate-700 cursor-pointer"
-                >
-                  {theme === 'dark' ? <Sun className="w-3.5 h-3.5 text-amber-500" /> : <Moon className="w-3.5 h-3.5 text-slate-700" />}
-                  <span>{theme === 'dark' ? 'Dark' : 'Light'}</span>
-                </button>
-              </div>
-
               <div className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2 px-3">Language</div>
               <div className="grid grid-cols-4 gap-2">
                 {languagesList.map((item) => (
@@ -412,7 +385,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               href={contactInfo.whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
+              className="w-full py-3.5 rounded-xl bg-[#8C6D2D] hover:bg-[#735820] text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors text-center"
               onClick={() => setMobileMenuOpen(false)}
             >
                 <svg aria-hidden="true" className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor">

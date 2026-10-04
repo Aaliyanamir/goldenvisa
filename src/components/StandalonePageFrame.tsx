@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ThemeProvider } from '@/lib/ThemeContext';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -12,7 +11,7 @@ import { FloatingActionButtons } from '@/components/FloatingActionButtons';
 
 interface StandalonePageFrameProps {
   children: React.ReactNode;
-  currentView: 'contact' | 'career' | 'about';
+  currentView: 'contact' | 'career' | 'about' | 'service' | 'blog';
   showMobileStickyBar?: boolean;
   calculatorOpen?: boolean;
   onCalculatorOpenChange?: (open: boolean) => void;
@@ -44,40 +43,43 @@ export const StandalonePageFrame: React.FC<StandalonePageFrameProps> = ({
       return;
     }
 
-    if (view === 'home' || view === 'blog') {
+    if (view === 'home') {
       router.push('/');
+      return;
+    }
+
+    if (view === 'blog') {
+      router.push('/blog');
     }
   };
 
   return (
-    <ThemeProvider>
-      <LanguageProvider>
-        <div id="site-shell" className={`site-shell min-h-screen selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300 ${showMobileStickyBar ? '' : 'pb-20 md:pb-0'}`}>
-          <Navbar
-            onOpenCalculator={() => setCalculatorOpen(true)}
-            onOpenMegaMenu={() => setMegaMenuOpen(true)}
-            currentView={currentView}
-            onNavigate={handleNavigate}
-          />
-          <main className="site-page-main">{children}</main>
-          <Footer
-            onOpenCalculator={() => setCalculatorOpen(true)}
-            onOpenMegaMenu={() => setMegaMenuOpen(true)}
-            onNavigateToBlog={() => router.push('/')}
-          />
-          <VisaCalculatorModal isOpen={calculatorOpen} onClose={() => setCalculatorOpen(false)} />
-          <MegaMenu
-            isOpen={megaMenuOpen}
-            onClose={() => setMegaMenuOpen(false)}
-            onOpenCalculator={() => setCalculatorOpen(true)}
-            onNavigateToBlog={() => router.push('/')}
-          />
-          <FloatingActionButtons
-            onOpenCalculator={() => setCalculatorOpen(true)}
-            showMobileStickyBar={showMobileStickyBar}
-          />
-        </div>
-      </LanguageProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      <div id="site-shell" className={`site-shell min-h-screen selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300 ${showMobileStickyBar ? '' : 'pb-20 md:pb-0'}`}>
+        <Navbar
+          onOpenCalculator={() => setCalculatorOpen(true)}
+          onOpenMegaMenu={() => setMegaMenuOpen(true)}
+          currentView={currentView}
+          onNavigate={handleNavigate}
+        />
+        <main className="site-page-main">{children}</main>
+        <Footer
+          onOpenCalculator={() => setCalculatorOpen(true)}
+          onOpenMegaMenu={() => setMegaMenuOpen(true)}
+          onNavigateToBlog={() => router.push('/blog')}
+        />
+        <VisaCalculatorModal isOpen={calculatorOpen} onClose={() => setCalculatorOpen(false)} />
+        <MegaMenu
+          isOpen={megaMenuOpen}
+          onClose={() => setMegaMenuOpen(false)}
+          onOpenCalculator={() => setCalculatorOpen(true)}
+          onNavigateToBlog={() => router.push('/blog')}
+        />
+        <FloatingActionButtons
+          onOpenCalculator={() => setCalculatorOpen(true)}
+          showMobileStickyBar={showMobileStickyBar}
+        />
+      </div>
+    </LanguageProvider>
   );
 };

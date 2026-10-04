@@ -156,7 +156,7 @@ export const VisaCalculatorModal: React.FC<VisaCalculatorModalProps> = ({ isOpen
                   <legend className="text-sm font-semibold">Processing preference</legend>
                   <div className="mt-2 flex gap-2">
                     <button type="button" aria-pressed={!isExpress} onClick={() => setIsExpress(false)} className={`flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg border px-3 text-sm font-semibold ${!isExpress ? 'border-slate-500 bg-slate-100 dark:bg-white/10' : 'border-slate-200 dark:border-white/10'}`}><Clock3 className="h-4 w-4" /> Standard</button>
-                    <button type="button" aria-pressed={isExpress} onClick={() => setIsExpress(true)} className={`flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg border px-3 text-sm font-semibold ${isExpress ? 'border-emerald-600 bg-emerald-50 text-emerald-900 dark:border-emerald-500 dark:bg-emerald-500/10 dark:text-emerald-200' : 'border-slate-200 dark:border-white/10'}`}><Zap className="h-4 w-4" /> Priority</button>
+                    <button type="button" aria-pressed={isExpress} onClick={() => setIsExpress(true)} className={`flex min-h-11 flex-1 items-center justify-center gap-2 rounded-lg border px-3 text-sm font-semibold ${isExpress ? 'border-[#C5A059] bg-[#F5F0E3] text-[#695324] dark:border-[#C5A059] dark:bg-[#C5A059]/10 dark:text-[#DFC47E]' : 'border-slate-200 dark:border-white/10'}`}><Zap className="h-4 w-4" /> Priority</button>
                   </div>
                 </fieldset>
               </div>
@@ -166,7 +166,7 @@ export const VisaCalculatorModal: React.FC<VisaCalculatorModalProps> = ({ isOpen
           {step === 2 && (
             <div className="mx-auto max-w-lg">
               <div className="text-center">
-                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300"><CheckCircle2 className="h-6 w-6" /></span>
+                <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#F5F0E3] text-[#8C6D2D] dark:bg-[#C5A059]/15 dark:text-[#DFC47E]"><CheckCircle2 className="h-6 w-6" /></span>
                 <h3 className="mt-4 text-xl font-extrabold">Your estimated total</h3>
                 <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Based on the answers you provided.</p>
               </div>
@@ -188,7 +188,7 @@ export const VisaCalculatorModal: React.FC<VisaCalculatorModalProps> = ({ isOpen
           ) : (
             <a href={contactInfo.phoneHref} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-slate-300 px-4 text-sm font-bold transition-colors hover:bg-white dark:border-white/15 dark:hover:bg-white/5">Call an advisor</a>
           )}
-          {step === 2 && <button type="button" onClick={requestQuote} className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-emerald-700 px-4 text-sm font-bold text-white transition-colors hover:bg-emerald-600">Get WhatsApp quote <ArrowRight className="h-4 w-4" /></button>}
+          {step === 2 && <button type="button" onClick={requestQuote} className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#8C6D2D] px-4 text-sm font-bold text-white transition-colors hover:bg-[#735820]">Get WhatsApp quote <ArrowRight className="h-4 w-4" /></button>}
         </footer>
       </section>
     </div>

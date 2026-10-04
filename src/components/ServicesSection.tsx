@@ -82,7 +82,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
       },
       {
         id: 'translation',
-        href: '/translation',
+        href: '/legal-translation',
         title: 'Ministry-Certified Legal Translation',
         validity: 'Ministry of Justice Certified',
         minVal: 'Official Court Sworn Translators',
@@ -104,7 +104,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
   };
 
   return (
-    <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#EEF2F5] dark:bg-[#07090F] border-t border-b border-slate-300 dark:border-white/10 transition-colors">
+    <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#F4F1E9] dark:bg-[#07090F] border-t border-b border-slate-300 dark:border-white/10 transition-colors">
       <div className="max-w-[1560px] 2xl:max-w-[1720px] mx-auto">
         
         {/* Section Header */}
@@ -177,7 +177,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                 <div className="mt-6 space-y-2.5 pt-4 border-t border-slate-200 dark:border-white/10">
                   {service.benefits.map((b, idx) => (
                     <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-[#0F172A] dark:text-slate-200 font-semibold">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-500 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#8C6D2D] dark:text-[#C5A059] shrink-0" />
                       <span>{b}</span>
                     </div>
                   ))}
@@ -206,7 +206,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                   href={`${contactInfo.whatsappHref}?text=${encodeURIComponent(`Hello, I would like to inquire about the ${service.title}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto text-xs text-slate-900 dark:text-slate-200 hover:text-emerald-700 dark:hover:text-emerald-400 font-extrabold flex items-center justify-center gap-1 transition-colors py-2"
+                  className="w-full sm:w-auto text-xs text-slate-900 dark:text-slate-200 hover:text-[#8C6D2D] dark:hover:text-[#C5A059] font-extrabold flex items-center justify-center gap-1 transition-colors py-2"
                 >
                   <span>Inquire via WhatsApp</span>
                   <ChevronRight className="w-3.5 h-3.5" />

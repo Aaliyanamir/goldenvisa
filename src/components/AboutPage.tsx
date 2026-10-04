@@ -1,422 +1,420 @@
-"use client";
+'use client';
 
-import React from 'react';
 import Image from 'next/image';
-import { contactInfo } from '../lib/contactInfo';
+import { useState } from 'react';
 import {
-  ShieldCheck, Award, Users, Star, TrendingUp,
-  CheckCircle2, MapPin, Phone, ArrowRight,
-  Building2, Clock, Globe2, HeartHandshake, Sparkles, BadgeCheck
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  Check,
+  CheckCircle2,
+  Clock3,
+  FileCheck2,
+  Globe2,
+  HeartHandshake,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  Users,
 } from 'lucide-react';
+import { contactInfo } from '../lib/contactInfo';
 
 interface AboutPageProps {
   onOpenCalculator: () => void;
 }
 
-export const AboutPage: React.FC<AboutPageProps> = ({ onOpenCalculator }) => {
-  const stats = [
-    { value: '13+', label: 'Years in UAE Market', icon: Award },
-    { value: '4.9★', label: 'Client Rating', icon: Star },
-    { value: '5,500+', label: 'Visas Issued', icon: BadgeCheck },
-    { value: '100%', label: 'Customer Satisfaction', icon: TrendingUp },
-  ];
+const serviceAreas = [
+  {
+    icon: BadgeCheck,
+    title: 'Residency & visa support',
+    text: 'Practical guidance for family, investor and long-term UAE residence applications.',
+  },
+  {
+    icon: Building2,
+    title: 'Business government services',
+    text: 'Help coordinate company paperwork, labour transactions and immigration submissions.',
+  },
+  {
+    icon: FileCheck2,
+    title: 'Documents & legal support',
+    text: 'Attestation, certified translation and document preparation for your intended use.',
+  },
+];
 
-  const strengths = [
-    {
-      icon: ShieldCheck,
-      title: 'Officially Licensed',
-      desc: 'Licensed by the Dubai Department of Economy & Tourism (DET). License No: 1053387.',
-    },
-    {
-      icon: Globe2,
-      title: 'Global Client Base',
-      desc: 'Clients from 90+ nationalities across Europe, Asia, Americas, and the Gulf trust us for UAE residency.',
-    },
-    {
-      icon: Clock,
-      title: 'VIP 48–72h Fast-Track',
-      desc: 'Dedicated priority processing pathway for high-net-worth individuals and corporate executives.',
-    },
-    {
-      icon: HeartHandshake,
-      title: 'Family-First Approach',
-      desc: 'We handle complete family unit applications — spouses, children, parents — in a single coordinated process.',
-    },
-    {
-      icon: Building2,
-      title: 'DLD & GDRFA Direct Access',
-      desc: 'Direct liaison with Dubai Land Department and GDRFA, bypassing public queues entirely.',
-    },
-    {
-      icon: Users,
-      title: 'Dedicated Case Officer',
-      desc: 'Every client gets a named senior case officer who manages the file from start to Emirates ID delivery.',
-    },
-  ];
+const principles = [
+  {
+    icon: ShieldCheck,
+    title: 'Clear expectations',
+    text: 'We explain the likely route, documents and third-party charges before a file proceeds.',
+  },
+  {
+    icon: Users,
+    title: 'Support shaped around you',
+    text: 'A dedicated point of contact helps keep each application and its next steps organized.',
+  },
+  {
+    icon: Globe2,
+    title: 'One coordinated journey',
+    text: 'We help connect the relevant typing, authority, medical and identity-card stages.',
+  },
+  {
+    icon: Clock3,
+    title: 'Timely updates',
+    text: 'You receive progress guidance and follow-up requests as your case moves forward.',
+  },
+];
 
-  const teamMembers = [
-    {
-      name: 'Ahmed Al-Mansouri',
-      role: 'Senior Immigration Consultant',
-      exp: '12 Years',
-      badge: 'GDRFA Accredited',
-      avatar: '/assets/images/Golden Visa-icon.png',
-    },
-    {
-      name: 'Sarah Wellington',
-      role: 'Executive Visa Specialist',
-      exp: '9 Years',
-      badge: 'MOHRE Fast-Lane Expert',
-      avatar: '/assets/images/Golden Visa-icon.png',
-    },
-    {
-      name: 'Dr. Khalid Ibrahim',
-      role: 'Legal PRO & Document Consultant',
-      exp: '15 Years',
-      badge: 'MOFA Certified',
-      avatar: '/assets/images/Golden Visa-icon.png',
-    },
-  ];
+const process = [
+  ['Understand the request', 'We clarify your goal, emirate, applicant details and current document stage.'],
+  ['Map the requirements', 'You receive a tailored checklist and a transparent outline of expected charges.'],
+  ['Prepare and follow up', 'With your instruction, we coordinate paperwork and monitor the submission milestones.'],
+  ['Close the file', 'We explain the outcome and share practical next steps for the completed service.'],
+];
 
-  const certifications = [
-    'Dubai DET Licensed Business',
-    'GDRFA Authorised Partner',
-    'ICP Registered Consultant',
-    'Dubai Land Department (DLD) Registered',
-    'MOHRE Certified Agency',
-    'Ministry of Justice Approved Translator',
-  ];
+const commitments = [
+  ['Careful document review', 'Check names, dates and supporting evidence before a submission is prepared.'],
+  ['Itemized cost guidance', 'Separate authority charges from service fees and optional third-party costs.'],
+  ['A clear point of contact', 'Know where to direct questions as your application moves between steps.'],
+  ['Responsible case updates', 'Understand what has happened and what is still waiting on an authority.'],
+];
+
+const supportOptions = [
+  ['Personal guidance', 'A clear document plan for an individual or family application.'],
+  ['Priority coordination', 'Ask which appointment or processing options are available for your case.'],
+  ['Business support', 'Coordinate recurring employee, licence and immigration file requirements.'],
+];
+
+const visionContent = {
+  mission: {
+    label: 'Our Mission',
+    title: 'Make the next step easier to understand.',
+    text: 'We bring clarity to UAE residency, business and document procedures with practical preparation, responsive communication and careful coordination.',
+  },
+  vision: {
+    label: 'Our Vision',
+    title: 'A more confident experience of doing things in the UAE.',
+    text: 'We want every client to know what to prepare, what to expect and which decisions remain with the relevant authority.',
+  },
+  values: {
+    label: 'Our Values',
+    title: 'Be clear, careful and accountable.',
+    text: 'We value respectful service, accurate paperwork, transparent costs and honest updates throughout every engagement.',
+  },
+} as const;
+
+export function AboutPage({ onOpenCalculator }: AboutPageProps) {
+  const [activeVision, setActiveVision] = useState<keyof typeof visionContent>('mission');
+  const vision = visionContent[activeVision];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#07090F] text-slate-900 dark:text-white transition-colors duration-300">
-
-      {/* ── Hero Banner ── */}
-      <section className="relative isolate min-h-[680px] overflow-hidden border-b border-slate-200 bg-[#090909] px-4 pb-20 pt-36 text-white transition-colors duration-300 sm:px-6 lg:px-10">
-        <div role="img" aria-label="Consultants collaborating in a Dubai office" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/assets/blog/article-3.jpg')", backgroundPosition: 'center 46%' }} />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/50" />
-        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent" />
-
-        <div className="relative z-10 mx-auto max-w-[1720px]">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left: Text */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
-                <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                <span>About Golden Visa Dubai</span>
-              </div>
-              <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold leading-tight tracking-tight text-white font-serif">
-                About <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span> —<br />
-                Your Trusted UAE<br />
-                <span className="text-[#C5A059]">Consultancy</span>
-              </h1>
-              <p className="mt-6 text-white/80 text-base leading-relaxed max-w-xl font-normal">
-                Golden Visa Dubai is a UAE residency and professional services consultancy supporting investors, entrepreneurs, executives, and families through their applications.
-              </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={onOpenCalculator}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg"
-                >
-                  <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-                  <span>Calculate My Visa Fees</span>
-                </button>
-                <a
-                  href={contactInfo.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/35 bg-black/20 hover:border-amber-300 hover:text-amber-200 text-white font-extrabold text-xs uppercase tracking-wider transition-colors shadow-md"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>Speak to a Consultant</span>
-                </a>
-              </div>
+    <div className="about-page">
+      <section className="about-hero">
+        <Image
+          src="/assets/blog/article-3.jpg"
+          alt="Consultants reviewing paperwork together"
+          fill
+          priority
+          sizes="100vw"
+          className="about-hero-image"
+        />
+        <div className="about-hero-shade" />
+        <div className="about-shell about-hero-layout">
+          <div className="about-hero-content">
+            <span className="about-eyebrow"><Sparkles size={14} />UAE residency and business support</span>
+            <h1>About Golden Visa Dubai<span> — your UAE consultancy.</span></h1>
+            <p>
+              Practical help for UAE residency, business paperwork and document
+              services—planned around your situation and the requirements of the
+              relevant authority.
+            </p>
+            <div className="about-actions">
+              <button type="button" onClick={onOpenCalculator}><Sparkles size={16} />Explore service options</button>
+              <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer"><Phone size={15} />Chat on WhatsApp</a>
             </div>
-
-            {/* Right: Photo overlay with credentials */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[460px]">
-                <div className="rounded-lg border border-white/25 bg-black/55 p-6 shadow-2xl backdrop-blur-md sm:p-8">
-                  <div className="flex items-start justify-between gap-4 border-b border-white/20 pb-5">
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-[0.18em] text-amber-200">UAE Residency &amp; Legal Consultancy</p>
-                      <h2 className="mt-2 text-2xl font-extrabold text-white">Guidance built around your case</h2>
-                    </div>
-                    <ShieldCheck className="h-7 w-7 shrink-0 text-amber-300" />
-                  </div>
-                  <div className="mt-5 space-y-3">
-                    {certifications.slice(0, 4).map((cert, i) => (
-                      <div key={i} className="flex items-center gap-2.5 text-sm text-white/85 font-medium">
-                        <CheckCircle2 className="w-4 h-4 text-amber-300 shrink-0" />
-                        <span>{cert}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 grid grid-cols-2 gap-3 border-t border-white/20 pt-5">
-                    <div><p className="text-2xl font-black text-white">13+</p><p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-white/65">Years in the UAE</p></div>
-                    <div><p className="text-2xl font-black text-amber-200">90+</p><p className="mt-1 text-[10px] font-bold uppercase tracking-wider text-white/65">Nationalities served</p></div>
-                  </div>
-                  <p className="mt-5 flex items-center gap-2 text-xs text-white/75"><MapPin className="h-4 w-4 shrink-0 text-amber-300" /> Dubai, United Arab Emirates</p>
-                </div>
-                <div className="absolute -top-4 right-4 rounded-md border border-amber-200/60 bg-[#C5A059] px-3 py-2 text-xs font-black text-slate-950 shadow-lg sm:-right-4">DET Licensed</div>
-              </div>
+            <div className="about-hero-proof"><ShieldCheck size={17} />Private consultancy · Government decisions remain with the authority</div>
+          </div>
+          <aside className="about-hero-card">
+            <div className="about-hero-card-head"><span>ABOUT US</span><BadgeCheck size={19} /></div>
+            <strong>Clear guidance.<br />Considered support.</strong>
+            <p>Residency · Government services · Documents</p>
+            <div className="about-hero-card-grid">
+              <span><CheckCircle2 size={15} />Case-led guidance</span>
+              <span><CheckCircle2 size={15} />Clear next steps</span>
+              <span><CheckCircle2 size={15} />Cost transparency</span>
+              <span><CheckCircle2 size={15} />Human support</span>
             </div>
+          </aside>
+        </div>
+      </section>
+
+      <div className="about-trust-strip" aria-label="Service principles">
+        <span>UAE Residency</span><i /><span>Business Support</span><i /><span>Document Services</span><i /><span>Client Guidance</span>
+      </div>
+
+      <section className="about-founder">
+        <div className="about-shell about-founder-card">
+          <div className="about-founder-profile">
+            <div className="about-founder-avatar">
+              <Image
+                src="/assets/images/Bilal_photo.jpeg"
+                alt="Bilal, Golden Visa Dubai"
+                fill
+                sizes="104px"
+                className="about-founder-photo"
+              />
+            </div>
+            <strong>Bilal</strong>
+            <span>Leadership &amp; client care</span>
+          </div>
+          <div className="about-founder-copy">
+            <span className="about-eyebrow"><span />A considered beginning</span>
+            <h2>A strong future starts with <em>a strong foundation.</em></h2>
+            <p>
+              A UAE application can involve more than one form or appointment.
+              Our role is to help make the moving parts easier to follow—from
+              understanding the request to preparing documents and tracking next
+              steps.
+            </p>
+            <p>
+              We work with individuals, families and businesses seeking practical
+              support with residency, government transactions and official
+              documents. Each case is reviewed on its own details.
+            </p>
+            <blockquote>
+              “Good guidance means being clear about the process, careful with
+              the paperwork and honest about what the authorities decide.”
+            </blockquote>
           </div>
         </div>
       </section>
 
-      {/* ── Stats Row ── */}
-      <section className="py-14 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#0B0F19] border-b border-slate-200 dark:border-white/10 transition-colors duration-300">
-        <div className="max-w-[1720px] mx-auto">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((s, i) => {
-              const IconComp = s.icon;
-              return (
-                <div key={i} className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-[#1B5B50] dark:bg-emerald-300 border border-[#1B5B50] dark:border-emerald-200 mb-4 shadow-md">
-                    <IconComp className="w-5 h-5 text-white dark:text-[#102A25]" />
-                  </div>
-                  <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">{s.value}</div>
-                  <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">{s.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Strong Foundation ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#07090F] transition-colors duration-300">
-        <div className="max-w-[1720px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            {/* Image / visual */}
-            <div className="relative">
-              <div className="rounded-3xl bg-white dark:bg-gradient-to-br dark:from-[#0D1117] dark:to-[#1A1E2C] p-8 border border-slate-200 dark:border-white/10 shadow-2xl">
-                <div className="grid grid-cols-2 gap-4">
-                  {certifications.map((cert, i) => (
-                    <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-slate-50 dark:bg-white/3 border border-slate-200 dark:border-white/8">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                      <span className="text-[11px] text-slate-800 dark:text-slate-300 leading-tight font-semibold">{cert}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              {/* Badge */}
-              <div className="absolute -bottom-4 -left-4 px-4 py-3 rounded-2xl bg-emerald-600 text-white shadow-xl">
-                <div className="text-xl font-black">1,520</div>
-                <div className="text-[10px] font-bold opacity-90">Applications This Year</div>
-              </div>
-            </div>
-
-            {/* Text */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800/50 text-amber-950 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-5">
-                <Award className="w-3.5 h-3.5 text-[#C5A059]" />
-                Officially Licensed for Government Applications
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight font-serif">
-                A Strong Foundation Builds a{' '}
-                <span className="gold-gradient-text italic font-serif">Strong Foundation</span>
-              </h2>
-              <p className="mt-5 text-[#1E293B] dark:text-slate-300 text-sm leading-relaxed font-normal">
-                Founded with a singular mission — to make UAE Golden Visa obtainment seamless and stress-free — our consultancy has built deep institutional relationships with GDRFA, ICP, Dubai Land Department, and MOHRE. Every file we handle is backed by our 98% approval track record.
-              </p>
-              <p className="mt-4 text-[#1E293B] dark:text-slate-300 text-sm leading-relaxed font-normal">
-                Whether you are a property investor from London, a senior executive relocating from Singapore, or a family seeking permanent UAE residency, our dedicated case officers handle everything — from first document audit to final Emirates ID delivery at your door.
-              </p>
-              <div className="mt-7 space-y-2.5">
-                {[
-                  'Direct government portal access — no middlemen, no delays',
-                  'VIP medical and biometric fast-track (48–72 hours)',
-                  'Complete family sponsorship in a single coordinated application',
-                  'Door-to-door Emirates ID collection and delivery service',
-                ].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 text-sm text-[#0F172A] dark:text-slate-200 font-semibold">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-500 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={onOpenCalculator}
-                className="mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-md"
-              >
-                <span>Calculate My Fees</span>
-                <ArrowRight className="w-4 h-4 text-slate-950" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Our Strength in Numbers ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-white dark:bg-[#0B0F19] border-y border-slate-200 dark:border-white/10 transition-colors duration-300">
-        <div className="max-w-[1720px] mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/50 text-[#8C6D2D] dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
-              Our Strength in Numbers
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight font-serif">
-              Why Clients Choose <span className="gold-gradient-text italic font-serif">Golden Visa Dubai</span>
-            </h2>
-            <p className="mt-4 text-slate-700 dark:text-slate-300 text-sm leading-relaxed font-medium">
-              Trusted by investors, executives, medical professionals, and families across 90+ nationalities.
+      <section className="about-licensed">
+        <div className="about-shell about-licensed-layout">
+          <div>
+            <span className="about-eyebrow"><span />Responsible government application support</span>
+            <h2>Official processes. <em>Careful preparation.</em></h2>
+            <p>
+              Golden Visa Dubai is a private consultancy and documentation
+              support provider. We help prepare and coordinate applications;
+              eligibility, approval and official processing are determined by
+              the relevant UAE authority.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {strengths.map((s, i) => {
-              const IconComp = s.icon;
-              return (
-                <div
-                  key={i}
-                  className="p-7 rounded-3xl bg-white dark:bg-[#0E1320] border border-slate-200 dark:border-white/10 hover:border-[#C5A059] hover:shadow-xl transition-all duration-300 group"
-                >
-                  <div className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100 dark:border-amber-800/40 text-[#C5A059] w-fit mb-4 group-hover:scale-105 transition-transform">
-                    <IconComp className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">{s.title}</h3>
-                  <p className="text-xs text-[#1E293B] dark:text-slate-400 leading-relaxed font-normal">{s.desc}</p>
-                </div>
-              );
-            })}
+          <div className="about-authority-card">
+            <div><span>Service provider</span><strong>Private consultancy</strong></div>
+            <div><span>Application review</span><strong>Authority requirements apply</strong></div>
+            <div><span>Government charges</span><strong>Confirmed for each case</strong></div>
+            <div><span>Approval decision</span><strong>Made by the relevant authority</strong></div>
           </div>
         </div>
       </section>
 
-      {/* ── Partner Trusted Section ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#E8F0EC] dark:bg-[#11231F] text-slate-900 dark:text-white transition-colors duration-300 border-b border-emerald-900/15 dark:border-emerald-100/10">
-        <div className="max-w-[1720px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/90 dark:bg-amber-500/10 border border-amber-300 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-xs font-bold uppercase tracking-wider mb-6">
-                <HeartHandshake className="w-3.5 h-3.5 text-[#C5A059]" />
-                Your Trusted Partner for Business, Residency &amp; Professional Services in the UAE
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight font-serif">
-                Your Goals Matter to Us —<br />
-                <span className="gold-gradient-text italic font-serif">Zero Compromise</span>
-              </h2>
-              <p className="mt-5 text-[#1E293B] dark:text-slate-300 text-sm leading-relaxed font-normal">
-                From the moment you contact us to the day you receive your physical Emirates ID, our team is your dedicated liaison — managing every interaction with GDRFA, ICP, DLD, and MOHRE on your behalf. No queues. No confusion. No delays.
-              </p>
+      <section className="about-services">
+        <div className="about-shell">
+          <div className="about-section-heading">
+            <span className="about-eyebrow"><span />Our areas of support</span>
+            <h2>Residency, business &amp; <em>document services.</em></h2>
+            <p>Start with the service that best matches what you need to do.</p>
+          </div>
+          <div className="about-service-grid">
+            {serviceAreas.map(({ icon: Icon, title, text }, index) => (
+              <article key={title}>
+                <span className="about-card-number">0{index + 1}</span>
+                <span className="about-card-icon"><Icon size={21} /></span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                {[
-                  { label: 'Nationalities Served', value: '90+' },
-                  { label: 'Avg. Approval Time', value: '4 Days' },
-                  { label: 'Family Files', value: '800+' },
-                  { label: 'Partner Agents', value: '120+' },
-                ].map((item, i) => (
-                  <div key={i} className="p-4 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 shadow-sm">
-                    <div className="text-2xl font-black text-[#C5A059]">{item.value}</div>
-                    <div className="text-xs text-slate-700 dark:text-slate-400 font-bold mt-0.5">{item.label}</div>
-                  </div>
-                ))}
-              </div>
+      <section className="about-strength">
+        <div className="about-shell">
+          <div className="about-section-heading about-section-heading--center">
+            <span className="about-eyebrow"><span />What shapes our work</span>
+            <h2>Our strength is in <em>the details.</em></h2>
+            <p>Four practical priorities guide how we support every enquiry and file.</p>
+          </div>
+          <div className="about-strength-grid">
+            {[
+              ['Clear preparation', 'Understand which records, approvals and details may be needed.'],
+              ['Thoughtful coordination', 'Keep related typing, medical and identity steps in sequence.'],
+              ['Useful communication', 'Receive understandable updates and know what happens next.'],
+              ['Transparent scope', 'See the service scope and cost components before you proceed.'],
+            ].map(([title, text], index) => (
+              <article key={title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="mt-8 flex gap-3">
-                <button
-                  onClick={onOpenCalculator}
-                  className="px-6 py-3.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-lg flex items-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-                  <span>Start My Application</span>
-                </button>
-                <a
-                  href={contactInfo.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs uppercase tracking-wider transition-colors flex items-center gap-2 shadow-md"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>Call Now</span>
-                </a>
-              </div>
+      <section className="about-partner">
+        <div className="about-shell about-partner-card">
+          <div>
+            <span className="about-eyebrow"><span />Your trusted partner</span>
+            <h2>Business, residency &amp; <em>professional services</em> in the UAE.</h2>
+            <p>
+              Whether you are planning a residence application, handling
+              employee paperwork or preparing an official document, our team can
+              help identify the right service and coordinate the next steps.
+            </p>
+            <div className="about-partner-details">
+              <span><Check size={15} />A tailored document checklist</span>
+              <span><Check size={15} />A clear view of costs and scope</span>
+              <span><Check size={15} />Support through the relevant stages</span>
             </div>
+          </div>
+          <div className="about-partner-cta">
+            <HeartHandshake size={42} />
+            <strong>Let’s map out<br />your next step.</strong>
+            <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Talk to our team <ArrowRight size={15} /></a>
+          </div>
+        </div>
+      </section>
 
-            {/* Team Cards */}
-            <div className="space-y-4">
-              {teamMembers.map((member, i) => (
-                <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-[#C5A059] dark:hover:border-amber-500/30 transition-all shadow-sm">
-                  <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 overflow-hidden">
-                    <Image src={member.avatar} alt={member.name} width={56} height={56} className="object-contain p-2" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-bold text-slate-900 dark:text-white text-sm">{member.name}</div>
-                    <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 font-medium">{member.role}</div>
-                    <div className="text-[10px] text-amber-900 dark:text-[#C5A059] font-extrabold mt-1">{member.badge}</div>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <div className="text-lg font-black text-[#C5A059]">{member.exp}</div>
-                    <div className="text-[10px] text-slate-500 font-semibold">Experience</div>
-                  </div>
-                </div>
+      <section className="about-vision">
+        <div className="about-shell about-vision-card">
+          <span className="about-eyebrow"><span />Our vision &amp; mission</span>
+          <h2>Your goals matter to us.</h2>
+          <div className="about-vision-tabs" role="tablist" aria-label="Our mission, vision and values">
+            {(Object.keys(visionContent) as Array<keyof typeof visionContent>).map((key) => (
+              <button
+                key={key}
+                type="button"
+                role="tab"
+                aria-selected={activeVision === key}
+                aria-controls="about-vision-panel"
+                onClick={() => setActiveVision(key)}
+              >
+                {visionContent[key].label}
+              </button>
+            ))}
+          </div>
+          <div id="about-vision-panel" className="about-vision-panel" role="tabpanel">
+            <h3>{vision.title}</h3>
+            <p>{vision.text}</p>
+          </div>
+          <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Contact us for guidance <ArrowRight size={15} /></a>
+        </div>
+      </section>
+
+      <section className="about-different">
+        <div className="about-shell about-different-layout">
+          <div>
+            <span className="about-eyebrow"><span />Why clients work with us</span>
+            <h2>What makes us <em>different.</em></h2>
+            <p>Our approach keeps your case understandable and the next action visible.</p>
+            <ul>
+              {principles.map(({ title, text }) => (
+                <li key={title}><CheckCircle2 size={17} /><span><strong>{title}</strong>{text}</span></li>
               ))}
-            </div>
+            </ul>
+          </div>
+          <div className="about-different-visual" aria-label="A coordinated service journey">
+            <div className="about-orbit about-orbit--outer" />
+            <div className="about-orbit about-orbit--inner" />
+            <span className="about-orbit-node about-orbit-node--one"><FileCheck2 size={20} /></span>
+            <span className="about-orbit-node about-orbit-node--two"><Building2 size={20} /></span>
+            <span className="about-orbit-node about-orbit-node--three"><Users size={20} /></span>
+            <span className="about-orbit-core"><HeartHandshake size={31} /></span>
+            <strong>One clear<br />service journey</strong>
           </div>
         </div>
       </section>
 
-      {/* ── Contact / CTA Banner ── */}
-      <section className="py-20 px-4 sm:px-6 lg:px-10 bg-[#143C35] dark:bg-[#07090F] transition-colors duration-300">
-        <div className="max-w-[1720px] mx-auto">
-          <div className="rounded-3xl bg-gradient-to-r from-amber-50 via-amber-100/60 to-amber-50 dark:from-[#0D1117] dark:to-[#1A1E2C] p-10 sm:p-14 border border-amber-300 dark:border-amber-500/20 shadow-2xl text-center relative overflow-hidden text-slate-900 dark:text-white">
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:22px_22px] pointer-events-none" />
-            <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-200/80 dark:bg-amber-500/10 border border-amber-400 dark:border-amber-500/25 text-amber-950 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest mb-6">
-                <Sparkles className="w-3 h-3 text-[#C5A059]" />
-                <span>Start Your Dubai Business With Confidence</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4 font-serif">
-                Top Consultancy with{' '}
-                <span className="gold-gradient-text italic font-serif">Full Services</span>{' '}
-                and Dedicated Support
-              </h2>
-              <p className="text-slate-700 dark:text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed mb-8 font-medium">
-                From Golden Visa to Emirates ID to PRO services — we handle everything, so you can focus on building your life and business in the UAE.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <button
-                  onClick={onOpenCalculator}
-                  className="px-8 py-4 rounded-xl gold-btn font-extrabold text-sm uppercase tracking-wider cursor-pointer shadow-lg flex items-center justify-center gap-2"
-                >
-                  <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-                  <span>Calculate My Fees — Free</span>
-                </button>
-                <a
-                  href={contactInfo.whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-md"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  <span>{contactInfo.phone}</span>
-                </a>
-              </div>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-slate-700 dark:text-slate-400 font-semibold">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>No Hidden Fees</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>100% Customer Satisfaction</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>5,500+ Visas Issued</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>Dedicated Client Support</span>
-                </div>
-              </div>
-            </div>
+      <section className="about-process">
+        <div className="about-shell">
+          <div className="about-section-heading">
+            <span className="about-eyebrow"><span />How we work with you</span>
+            <h2>A clear process, <em>one step at a time.</em></h2>
+          </div>
+          <ol className="about-process-grid">
+            {process.map(([title, text], index) => (
+              <li key={title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="about-results">
+        <div className="about-shell">
+          <div className="about-section-heading about-section-heading--center">
+            <span className="about-eyebrow"><span />A dependable service experience</span>
+            <h2>Clear process. <em>Confident next steps.</em></h2>
+            <p>Rather than promise outcomes, we focus on the parts of the process we can help you prepare and understand.</p>
+          </div>
+          <div className="about-commitment-grid">
+            {commitments.map(([title, text], index) => (
+              <article key={title}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="about-review-note">
+            <ShieldCheck size={19} />
+            <p>Every application is different. Final eligibility, processing times and decisions belong to the relevant government authority.</p>
           </div>
         </div>
       </section>
 
+      <section className="about-cta">
+        <div className="about-shell about-cta-inner">
+          <div>
+            <span className="about-eyebrow"><span />Start with a conversation</span>
+            <h2>Plan your UAE application with confidence.</h2>
+            <p>Tell us what you need to do, and we will help identify the service and information to confirm before you proceed.</p>
+          </div>
+          <div className="about-actions">
+            <button type="button" onClick={onOpenCalculator}>Explore service options <ArrowRight size={16} /></button>
+            <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Chat on WhatsApp <Phone size={15} /></a>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-support">
+        <div className="about-shell">
+          <div className="about-section-heading about-section-heading--center">
+            <span className="about-eyebrow"><span />Service options</span>
+            <h2>Professional support, <em>shaped around you.</em></h2>
+          </div>
+          <div className="about-support-grid">
+            {supportOptions.map(([title, text], index) => (
+              <article key={title}>
+                <span>{index === 0 ? <Users size={20} /> : index === 1 ? <Sparkles size={20} /> : <Building2 size={20} />}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="about-referral">
+        <div className="about-shell about-referral-inner">
+          <div>
+            <span className="about-eyebrow"><span />Professional connections</span>
+            <h2>Grow together through <em>trusted referrals.</em></h2>
+            <p>
+              If you advise clients or businesses with UAE residency and
+              documentation needs, contact us to discuss whether a professional
+              referral arrangement is a fit.
+            </p>
+          </div>
+          <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Discuss a partnership <ArrowRight size={15} /></a>
+        </div>
+      </section>
+      <p className="about-disclaimer"><Check size={14} />Golden Visa Dubai provides private consultancy and documentation support. Government eligibility, fees and processing decisions are determined by the relevant UAE authorities.</p>
     </div>
   );
-};
+}

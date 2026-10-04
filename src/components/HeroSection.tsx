@@ -100,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                 <div className="text-[11px] sm:text-xs text-slate-300 font-medium mt-0.5 leading-tight">Visas Approved</div>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl md:text-3xl font-black text-emerald-400 tabular-nums drop-shadow-md">48–72h</div>
+                <div className="text-xl sm:text-2xl md:text-3xl font-black text-[#E0BF77] tabular-nums drop-shadow-md">48–72h</div>
                 <div className="text-[11px] sm:text-xs text-slate-300 font-medium mt-0.5 leading-tight">Fast-Track Available</div>
               </div>
             </div>
@@ -138,7 +138,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOp
                   <Calculator className="h-4 w-4" /> Start cost estimate <ArrowRight className="h-4 w-4" />
                 </button>
                 <div className="mt-5 flex items-center gap-2 border-t border-white/10 pt-4 text-xs text-slate-300">
-                  <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-300" />
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-[#E0BF77]" />
                   <span>Planning estimate only. Final fees depend on your case.</span>
                   <UserCheck className="ml-auto h-4 w-4 shrink-0 text-amber-300" />
                 </div>

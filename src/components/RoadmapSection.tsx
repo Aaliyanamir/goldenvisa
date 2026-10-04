@@ -71,7 +71,7 @@ export const RoadmapSection: React.FC = () => {
               >
                 <div>
                   <div className="mb-5 flex items-center justify-between">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1B5B50] text-sm font-black text-white shadow-sm dark:bg-emerald-300 dark:text-[#102A25]">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#8C6D2D] text-sm font-black text-white shadow-sm dark:bg-[#DFC47E] dark:text-[#171611]">
                       {step.num}
                     </span>
                     <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-700/60 group-hover:scale-105 transition-transform">
@@ -94,7 +94,7 @@ export const RoadmapSection: React.FC = () => {
 
                 <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/10 text-[11px] font-semibold text-slate-400 dark:text-slate-400 flex items-center justify-between">
                   <span>Fast-Track Guaranteed</span>
-                  <span className="text-emerald-500 font-bold">100% Direct</span>
+                  <span className="text-[#8C6D2D] font-bold">100% Direct</span>
                 </div>
               </div>
             );

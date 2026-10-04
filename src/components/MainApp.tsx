@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ThemeProvider } from '@/lib/ThemeContext';
+import { useRouter } from 'next/navigation';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
@@ -18,19 +18,23 @@ import { FloatingActionButtons } from '@/components/FloatingActionButtons';
 import { EligibilityQuiz } from '@/components/EligibilityQuiz';
 
 export const MainApp: React.FC = () => {
+  const router = useRouter();
   const [currentView, setCurrentView] = useState<'home' | 'blog' | 'about'>('home');
   const [calculatorOpen, setCalculatorOpen] = useState(false);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
 
   const navigate = (view: 'home' | 'blog' | 'about') => {
+    if (view === 'blog') {
+      router.push('/blog');
+      return;
+    }
     setCurrentView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <ThemeProvider>
-      <LanguageProvider>
+    <LanguageProvider>
         <div id="site-shell" className="site-shell min-h-screen selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300">
           {/* Navigation */}
           <Navbar
@@ -111,10 +115,7 @@ export const MainApp: React.FC = () => {
           <Footer 
             onOpenCalculator={() => setCalculatorOpen(true)}
             onOpenMegaMenu={() => setMegaMenuOpen(true)}
-            onNavigateToBlog={() => {
-              setCurrentView('blog');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onNavigateToBlog={() => router.push('/blog')}
           />
 
           {/* Modals */}
@@ -127,10 +128,7 @@ export const MainApp: React.FC = () => {
             isOpen={megaMenuOpen}
             onClose={() => setMegaMenuOpen(false)}
             onOpenCalculator={() => setCalculatorOpen(true)}
-            onNavigateToBlog={() => {
-              setCurrentView('blog');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onNavigateToBlog={() => router.push('/blog')}
           />
 
           <EligibilityQuiz
@@ -144,7 +142,6 @@ export const MainApp: React.FC = () => {
             onOpenCalculator={() => setCalculatorOpen(true)}
           />
         </div>
-      </LanguageProvider>
-    </ThemeProvider>
+    </LanguageProvider>
   );
 };

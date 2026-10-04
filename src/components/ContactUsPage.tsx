@@ -182,7 +182,7 @@ export const ContactUsPage: React.FC = () => {
               <a className="flex items-start gap-3 hover:text-[var(--gold-dark)]" href={`mailto:${contactInfo.generalEmail}`}><Mail className="mt-0.5 h-4 w-4 shrink-0 text-[var(--gold-dark)]" />{contactInfo.generalEmail}</a>
               <div className="flex items-start gap-3 text-[var(--text-muted)]"><Clock3 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--gold-dark)]" /><span>Monday–Friday, 9 AM–6 PM<br />Saturday, 10 AM–5 PM · Sunday closed</span></div>
             </div>
-            <div className="mt-7 flex items-center gap-2 text-xs text-[var(--text-muted)]"><ShieldCheck className="h-4 w-4 text-emerald-700" />Your details are used to respond to your inquiry.</div>
+            <div className="mt-7 flex items-center gap-2 text-xs text-[var(--text-muted)]"><ShieldCheck className="h-4 w-4 text-[#8C6D2D]" />Your details are used to respond to your inquiry.</div>
           </div>
 
           <form onSubmit={handleSubmit} className="border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 sm:p-8">

@@ -41,7 +41,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
       services: [
         { title: 'Golden Visa', href: '/golden-visa', icon: Award },
         { title: 'Family Visa', href: '/family-visa', icon: Users },
-        { title: 'Newborn Visa', href: '/newborn-visa', icon: Heart },
+        { title: 'Newborn Visa', href: '/new-born', icon: Heart },
         { title: 'Maid Visa', href: '/maid-visa', icon: UserCheck },
         { title: 'Emirates ID', href: '/emirates-id', icon: CreditCard },
       ],
@@ -64,8 +64,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         { title: 'PRO Services', href: '/pro-services', icon: Briefcase },
         { title: 'Amer Center', href: '/amer-center', icon: Landmark },
         { title: 'Attestation', href: '/attestation', icon: FileCheck2 },
-        { title: 'Translation', href: '/translation', icon: Globe2 },
-        { title: 'Power of Attorney', href: '/power-of-attorney', icon: FileText },
+        { title: 'Legal Translation', href: '/legal-translation', icon: Globe2 },
+        { title: 'Power of Attorney', href: '/poa', icon: FileText },
         { title: 'Wills & Last Testament', href: '/wills-last-testament', icon: Scale },
       ],
     },
@@ -74,9 +74,9 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
       title: 'Checks & Protection',
       icon: ShieldCheck,
       services: [
-        { title: 'Medical & EID', href: '/medical-eid', icon: HeartPulse },
-        { title: 'Visa Validity Checker', href: '/visa-validity-checker', icon: ShieldCheck },
-        { title: 'ILOE Insurance', href: '/iloe-insurance', icon: Umbrella },
+        { title: 'Medical & EID Locations', href: '/near-me/visa-medical-emirates-id-location', icon: HeartPulse },
+        { title: 'Visa Validity Checker', href: '/check-visa-status-uae', icon: ShieldCheck },
+        { title: 'ILOE Insurance', href: '/iloe', icon: Umbrella },
       ],
     },
   ];
@@ -260,7 +260,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
               href={`${contactInfo.whatsappHref}?text=Hello%20Golden%20Visa%20Dubai%20Team%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 px-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-center"
+              className="w-full py-3.5 px-5 rounded-2xl bg-[#8C6D2D] hover:bg-[#735820] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-center"
             >
               <WhatsAppIcon className="w-4 h-4 shrink-0" />
               <span>WhatsApp</span>

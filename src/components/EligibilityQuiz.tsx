@@ -118,7 +118,7 @@ function getResult(answers: Record<string, Answer>) {
       title: 'You Qualify for the Specialized Talent 10-Year Visa',
       subtitle: 'Licensed doctors, scientists, AI innovators and cultural leaders recognized by UAE ministries.',
       tag: 'High Eligibility',
-      color: 'from-emerald-500 to-teal-500',
+      color: 'from-amber-500 to-yellow-400',
       points: [
         'Ministerial council fast-lane nomination',
         'Comprehensive family coverage',
@@ -287,7 +287,7 @@ export const EligibilityQuiz: React.FC<EligibilityQuizProps> = ({ isOpen, onClos
             <div className="mb-6 space-y-2">
               {result.points.map((point, i) => (
                 <div key={i} className="flex items-center gap-2.5 text-sm text-slate-700 dark:text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#8C6D2D] shrink-0" />
                   <span>{point}</span>
                 </div>
               ))}

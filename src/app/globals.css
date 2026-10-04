@@ -15,9 +15,11 @@ html {
 
 @layer base {
   :root {
-    --font-body: var(--font-plus-jakarta), system-ui, sans-serif;
-    --font-display: Georgia, 'Times New Roman', serif;
-    --font-arabic: 'Cairo', 'Tajawal', system-ui, sans-serif;
+    --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-body: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+    --font-display: var(--font-body);
+    --font-arabic: var(--font-body);
     --site-header-offset: 112px;
     --gold-primary: #C5A059;
     --gold-hover: #D4AF37;
@@ -27,7 +29,7 @@ html {
     
     --bg-page: #FAF9F6;
     --bg-surface: #FFFFFF;
-    --bg-alt: #F8F9FA;
+    --bg-alt: #F4F1E9;
     --bg-warm: #FAF9F6;
     --text-main: #0F172A;
     --text-muted: #64748B;
@@ -52,6 +54,7 @@ html {
 
   html {
     font-family: var(--font-body);
+    color-scheme: light;
   }
 
   html[dir="rtl"] {
@@ -60,6 +63,10 @@ html {
 
   .font-display {
     font-family: var(--font-display);
+  }
+
+  .font-serif {
+    font-family: var(--font-body) !important;
   }
 
   body {
@@ -1795,4 +1802,88 @@ html.dark .service-page-theme .service-hero--photo .service-action--secondary {
   .service-hero--immersive .service-hero-photo-shade {
     background: linear-gradient(0deg, rgba(10, 11, 10, 0.74), rgba(10, 11, 10, 0.08));
   }
+}
+
+/* Keep the global navigation and footer distinct from the cream page canvas. */
+#site-shell .site-nav-topbar {
+  border-bottom: 1px solid rgba(197, 160, 89, 0.55) !important;
+  background: linear-gradient(100deg, #191813 0%, #282318 52%, #191813 100%) !important;
+  color: #f3ead4 !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2), inset 0 -1px 0 rgba(197, 160, 89, 0.14);
+}
+
+#site-shell .site-nav-topbar [class*="text-[#765719]"],
+#site-shell .site-nav-topbar [class*="text-[#302A1A]"],
+#site-shell .site-nav-topbar [class*="text-[#201A0D]"] {
+  color: #e7ddc7 !important;
+}
+
+#site-shell .site-nav-topbar a {
+  color: #e4c878 !important;
+}
+
+#site-shell .site-nav-header {
+  border: 1px solid rgba(197, 160, 89, 0.55) !important;
+  background: rgba(28, 27, 22, 0.97) !important;
+  color: #f5f1e8 !important;
+  box-shadow: 0 13px 38px -12px rgba(0, 0, 0, 0.58), inset 0 1px rgba(255, 255, 255, 0.045) !important;
+}
+
+#site-shell .site-nav-header .site-nav-links > button,
+#site-shell .site-nav-header .site-nav-links > button span,
+#site-shell .site-nav-header .site-nav-links > button [class*="text-slate-"] {
+  color: #e5e0d4 !important;
+}
+
+#site-shell .site-nav-header .site-nav-links > button:hover,
+#site-shell .site-nav-header .site-nav-links > button:hover span {
+  color: #f1d27f !important;
+}
+
+#site-shell .site-nav-header .site-nav-actions > div > button,
+#site-shell .site-nav-header .site-nav-actions > button[aria-label="Open menu"] {
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  background: #302e27 !important;
+  color: #f5f1e8 !important;
+}
+
+#site-shell .site-footer {
+  border-top: 4px solid #b89243 !important;
+  background: linear-gradient(145deg, #191813 0%, #211f19 52%, #171611 100%) !important;
+  color: #d4d0c5 !important;
+  box-shadow: 0 -18px 46px -38px rgba(30, 25, 15, 0.6);
+}
+
+#site-shell .site-footer [class*="text-slate-"] {
+  color: #c5c0b4 !important;
+}
+
+#site-shell .site-footer [class*="text-amber-"],
+#site-shell .site-footer [class*="text-[#C5A059]"] {
+  color: #dfc477 !important;
+}
+
+#site-shell .site-footer [class~="text-white"]:not([class~="bg-black"]):not([class*="bg-[#1A1F71]"]):not([class*="bg-[#007BC1]"]) {
+  color: #f7f3e9 !important;
+}
+
+#site-shell .site-footer [class~="bg-slate-800"] {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  background-color: #302e27 !important;
+}
+
+#site-shell .site-footer [class~="border-white/10"] {
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+#site-shell .site-footer [class~="text-white/20"] {
+  color: rgba(255, 255, 255, 0.32) !important;
+}
+
+#site-shell .site-footer [class~="hover:text-white"]:hover {
+  color: #f1d27f !important;
+}
+
+#site-shell .site-footer [class~="hover:bg-slate-700"]:hover {
+  background-color: #454238 !important;
 }
