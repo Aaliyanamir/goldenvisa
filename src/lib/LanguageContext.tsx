@@ -1,7 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from 'react';
 import { Language, translations, TranslationData } from './translations';
+import { SiteTranslationBridge } from '@/components/SiteTranslationBridge';
 
 interface LanguageContextType {
   language: Language;
@@ -12,29 +13,38 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('EN');
+const languageChangeEvent = 'golden-visa-language-change';
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('golden_visa_lang', lang);
-      document.documentElement.dir = lang === 'AR' ? 'rtl' : 'ltr';
-      document.documentElement.lang = lang.toLowerCase();
-    }
+function subscribeToLanguage(callback: () => void) {
+  window.addEventListener('storage', callback);
+  window.addEventListener(languageChangeEvent, callback);
+  return () => {
+    window.removeEventListener('storage', callback);
+    window.removeEventListener(languageChangeEvent, callback);
   };
+}
+
+function getStoredLanguage(): Language {
+  const saved = window.localStorage.getItem('golden_visa_lang') as Language | null;
+  return saved && saved in translations ? saved : 'EN';
+}
+
+function getServerLanguage(): Language {
+  return 'EN';
+}
+
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const language = useSyncExternalStore(subscribeToLanguage, getStoredLanguage, getServerLanguage);
+
+  const setLanguage = useCallback((lang: Language) => {
+    window.localStorage.setItem('golden_visa_lang', lang);
+    window.dispatchEvent(new Event(languageChangeEvent));
+  }, []);
 
   useEffect(() => {
-    const saved = localStorage.getItem('golden_visa_lang') as Language;
-    if (saved && translations[saved]) {
-      setLanguageState(saved);
-      document.documentElement.dir = saved === 'AR' ? 'rtl' : 'ltr';
-      document.documentElement.lang = saved.toLowerCase();
-    } else {
-      document.documentElement.dir = 'ltr';
-      document.documentElement.lang = 'en';
-    }
-  }, []);
+    document.documentElement.dir = language === 'AR' ? 'rtl' : 'ltr';
+    document.documentElement.lang = language === 'ZH' ? 'zh-CN' : language.toLowerCase();
+  }, [language]);
 
   return (
     <LanguageContext.Provider
@@ -45,6 +55,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         isRTL: language === 'AR',
       }}
     >
+      <SiteTranslationBridge />
       {children}
     </LanguageContext.Provider>
   );

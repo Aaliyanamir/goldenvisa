@@ -279,6 +279,7 @@ export function FamilyVisaCalculator({
   const [serviceDetails, setServiceDetails] = useState('');
   const [serviceExtra, setServiceExtra] = useState('');
   const dialogRef = useRef<HTMLDivElement>(null);
+  const autoAdvanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const steps = useMemo<CalculatorStep[]>(() => {
     if (!selectedService) return ['service'];
@@ -402,35 +403,6 @@ export function FamilyVisaCalculator({
     resetCalculator();
   };
 
-  const canContinue = (() => {
-    switch (activeStep) {
-      case 'service': return selectedService !== null;
-      case 'serviceRequest': return serviceRequest !== '';
-      case 'serviceDetails': return serviceRequest !== '';
-      case 'sponsor': return sponsorVisa !== null;
-      case 'application': return application !== null;
-      case 'location': return location !== null;
-      case 'familyFile': return hasFamilyFile !== null;
-      case 'dependents': return adults + children > 0;
-      case 'medical': return true;
-    }
-  })();
-
-  const continueStep = () => {
-    if (!canContinue) return;
-    if (isLastStep) {
-      if (activeStep === 'serviceDetails') {
-        setShowServiceResult(true);
-      } else {
-        setShowResult(true);
-        setShowAmerComparison(false);
-        setActionNotice('');
-      }
-      return;
-    }
-    setStepIndex(activeStepIndex + 1);
-  };
-
   const advanceAfterChoice = () => {
     if (isLastStep) {
       setShowResult(true);
@@ -440,6 +412,53 @@ export function FamilyVisaCalculator({
     }
     setStepIndex(activeStepIndex + 1);
   };
+
+  useEffect(() => {
+    if (!open || showResult || showServiceResult) return;
+
+    const requiredPropertyDetail = selectedService === 'property'
+      && (serviceRequest.includes('retirement') || serviceRequest.includes('investor'));
+    const detailsReady = serviceDetails.trim().length > 0
+      && (!requiredPropertyDetail || serviceExtra.trim().length > 0);
+    const dependentsReady = activeStep === 'dependents' && adults + children > 0;
+    const serviceDetailsReady = activeStep === 'serviceDetails' && detailsReady;
+
+    if (!dependentsReady && !serviceDetailsReady) return;
+
+    autoAdvanceTimer.current = setTimeout(() => {
+      if (dependentsReady) {
+        if (isLastStep) {
+          setShowResult(true);
+          setShowAmerComparison(false);
+          setActionNotice('');
+        } else {
+          setStepIndex((index) => Math.min(index + 1, steps.length - 1));
+        }
+        return;
+      }
+      setShowServiceResult(true);
+    }, dependentsReady ? 1_600 : 700);
+
+    return () => {
+      if (autoAdvanceTimer.current) {
+        clearTimeout(autoAdvanceTimer.current);
+        autoAdvanceTimer.current = null;
+      }
+    };
+  }, [
+    activeStep,
+    adults,
+    children,
+    isLastStep,
+    open,
+    selectedService,
+    serviceDetails,
+    serviceExtra,
+    serviceRequest,
+    showResult,
+    showServiceResult,
+    steps.length,
+  ]);
 
   const copyEstimate = async () => {
     if (!currentEstimate) return;
@@ -740,8 +759,13 @@ export function FamilyVisaCalculator({
 
             <footer className="gv-family-calculator-nav">
               <button type="button" className="gv-family-calculator-back" disabled={activeStepIndex === 0} onClick={() => setStepIndex((index) => Math.max(0, index - 1))}><ArrowLeft size={16} />Back</button>
-              <span>{currentEstimate ? `Estimate ready · ${formatAed(currentEstimate.total)}` : serviceQuestion ? 'Current fees need case review' : 'Answer to see the fee'}</span>
-              <button type="button" className="gv-family-calculator-next" disabled={!canContinue} onClick={continueStep}>{isLastStep ? serviceQuestion ? 'Review route' : 'See estimate' : 'Next'}<ArrowRight size={16} /></button>
+              <span>
+                {activeStep === 'dependents'
+                  ? adults + children > 0 ? 'Your estimate will appear after you finish setting applicant counts.' : 'Add at least one applicant to continue.'
+                  : activeStep === 'serviceDetails'
+                    ? 'Complete the required details to review this route.'
+                    : 'Your selection advances automatically.'}
+              </span>
             </footer>
           </>
         )}
@@ -750,7 +774,7 @@ export function FamilyVisaCalculator({
           <div className="gv-family-calculator-service-result">
             <span className="gv-family-calculator-result-kicker">SERVICE-SPECIFIC ROUTE CHECK</span>
             <h3>{selectedServiceOption.label}</h3>
-            <p className="gv-family-calculator-service-summary"><strong>{serviceRequest}</strong>{serviceDetails ? ` · ${serviceDetails}` : ''}{serviceExtra ? ` · ${serviceExtra}` : ''}</p>
+            <p className="gv-family-calculator-service-summary" data-no-translate><strong>{serviceRequest}</strong>{serviceDetails ? ` · ${serviceDetails}` : ''}{serviceExtra ? ` · ${serviceExtra}` : ''}</p>
             <div className="gv-family-calculator-service-assessment"><ShieldCheck size={18} /><p>{serviceAssessment}</p></div>
             <div className="gv-family-calculator-service-quote">
               <span>Personalized fee review</span>
