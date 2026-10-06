@@ -3,9 +3,9 @@ import { ServicePageTemplate } from '@/components/service-pages/ServicePageTempl
 
 export const metadata: Metadata = {
   title: 'Legal Translation | Golden Visa Dubai',
-  description: 'Request a UAE Ministry of Justice certified legal translation quote for official documents.',
+  description: 'Professional legal translation support for UAE residents, families, and businesses needing accurate documentation.',
 };
 
-export default function LegalTranslationPage() {
+export default function TranslationPage() {
   return <ServicePageTemplate title="Legal Translation" />;
 }

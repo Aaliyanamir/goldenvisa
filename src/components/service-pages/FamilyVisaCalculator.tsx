@@ -507,7 +507,7 @@ export function FamilyVisaCalculator({
         {lines.length > 0
           ? lines.map((line) => (
             <div className="gv-family-calculator-line" key={line.label}>
-              <span>{line.label}{line.count > 1 && <em> × {line.count}</em>}</span>
+              <span>{line.label}{line.count > 1 && <strong> × {line.count}</strong>}</span>
               <strong>{formatAed(line.amount * line.count)}</strong>
             </div>
           ))
@@ -686,7 +686,7 @@ export function FamilyVisaCalculator({
                   {sponsorVisas.map((visa) => (
                     <button key={visa.id} type="button" className={sponsorVisa === visa.id ? 'is-selected' : ''} aria-pressed={sponsorVisa === visa.id} onClick={() => { setSponsorVisa(visa.id); advanceAfterChoice(); }}>
                       <span className="gv-family-calculator-option-copy"><strong>{visa.label}</strong><small>{visa.detail}</small></span>
-                      {visa.id === 'employee' && <em>Most common</em>}
+                      {visa.id === 'employee' && <strong>Most common</strong>}
                       {sponsorVisa === visa.id && <Check size={17} />}
                     </button>
                   ))}

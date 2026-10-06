@@ -183,7 +183,7 @@ function PropertyVisaPageContent() {
         <section className="gv-property-section gv-property-routes" id="routes">
           <div className="gv-property-section-heading">
             <PropertyEyebrow>Choose a starting point</PropertyEyebrow>
-            <h2>Three property routes.<br /><em>One is right for your case.</em></h2>
+            <h2>Three property routes.<br /><strong>One is right for your case.</strong></h2>
             <p>Compare the property-linked pathways described in the current reference guide. Eligibility depends on registered ownership and current authority criteria—not the purchase price alone.</p>
           </div>
 
@@ -248,7 +248,7 @@ function PropertyVisaPageContent() {
         <section className="gv-property-section gv-property-evidence">
           <div className="gv-property-section-heading">
             <PropertyEyebrow>Documents that matter</PropertyEyebrow>
-            <h2>Title deed, valuation <em>and clear ownership.</em></h2>
+            <h2>Title deed, valuation <strong>and clear ownership.</strong></h2>
             <p>Prepare the documents that let the authority match the property, its recorded value and each applicant to the correct route.</p>
           </div>
           <div className="gv-property-evidence-grid">
@@ -274,7 +274,7 @@ function PropertyVisaPageContent() {
           <div className="gv-property-shell">
             <div className="gv-property-section-heading">
               <PropertyEyebrow>From DLD review to residence</PropertyEyebrow>
-              <h2>A four-step journey, <em>without guesswork.</em></h2>
+              <h2>A four-step journey, <strong>without guesswork.</strong></h2>
               <p>We help organize the property evidence and application stages. Government decisions and appointments remain with the relevant authorities.</p>
             </div>
             <ol className="gv-property-process">
@@ -293,7 +293,7 @@ function PropertyVisaPageContent() {
         <section className="gv-property-section gv-property-documents">
           <div className="gv-property-section-heading">
             <PropertyEyebrow>Prepare your file</PropertyEyebrow>
-            <h2>Your property visa <em>checklist.</em></h2>
+            <h2>Your property visa <strong>checklist.</strong></h2>
             <p>Start with clear copies. The final list depends on your property type, visa route and emirate.</p>
           </div>
           <div className="gv-property-document-list">
@@ -304,7 +304,7 @@ function PropertyVisaPageContent() {
         <section className="gv-property-section gv-property-fees">
           <div className="gv-property-section-heading">
             <PropertyEyebrow>No surprises in your quote</PropertyEyebrow>
-            <h2>Know what can make up <em>the total.</em></h2>
+            <h2>Know what can make up <strong>the total.</strong></h2>
             <p>There is no one-size-fits-all price for a property visa. Your written quote should show government charges and optional support separately.</p>
           </div>
           <div className="gv-property-fee-grid">
@@ -322,7 +322,7 @@ function PropertyVisaPageContent() {
         <section className="gv-property-section gv-property-faqs" id="property-faqs">
           <div className="gv-property-section-heading">
             <PropertyEyebrow>Clear answers</PropertyEyebrow>
-            <h2>Property visa <em>questions.</em></h2>
+            <h2>Property visa <strong>questions.</strong></h2>
           </div>
           <div className="gv-property-faq-list">
             {faqs.map((faq, index) => (

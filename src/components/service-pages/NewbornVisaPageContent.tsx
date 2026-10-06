@@ -53,7 +53,7 @@ function NewbornVisaPageContent() {
           <header className="gv-newborn-hero">
             <div className="gv-newborn-hero-copy">
               <span className="gv-newborn-eyebrow"><span aria-hidden="true" />Newborn residence · UAE guide</span>
-              <h1>Welcome your baby to the UAE — <em>we’ll help with every step.</em></h1>
+              <h1>Welcome your baby to the UAE — <strong>we’ll help with every step.</strong></h1>
               <p>From the birth certificate and passport to the residence application, follow one clear checklist and keep the 120-day deadline in view.</p>
               <div className="gv-newborn-hero-actions">
                 <button type="button" className="gv-newborn-button" onClick={() => setCalculatorOpen(true)}>Calculate newborn visa costs <ArrowRight size={16} /></button>
@@ -78,7 +78,7 @@ function NewbornVisaPageContent() {
           <section className="gv-newborn-section" id="newborn-process">
             <div className="gv-newborn-section-heading">
               <span className="gv-newborn-eyebrow"><span aria-hidden="true" />The newborn visa process, in five phases</span>
-              <h2>From the birth record to <em>residence issuance.</em></h2>
+              <h2>From the birth record to <strong>residence issuance.</strong></h2>
               <p>Start document preparation before the hospital discharge where possible. Each phase depends on the records and appointment rules of the issuing authority.</p>
             </div>
             <ol className="gv-newborn-timeline">
@@ -89,7 +89,7 @@ function NewbornVisaPageContent() {
           <section className="gv-newborn-checklist-section">
             <div className="gv-newborn-section-heading">
               <span className="gv-newborn-eyebrow"><span aria-hidden="true" />Documents, grouped by stage</span>
-              <h2>A practical checklist for <em>each application.</em></h2>
+              <h2>A practical checklist for <strong>each application.</strong></h2>
               <p>Exact document requirements depend on the baby’s nationality, parents’ records and the authority handling the file.</p>
             </div>
             <div className="gv-newborn-checklist-grid">{checklists.map((group, index) => <article key={group.title}><span>0{index + 1} · CHECKLIST</span><h3>{group.title}</h3><ul>{group.items.map((item) => <li key={item}><Check size={15} />{item}</li>)}</ul></article>)}</div>
@@ -101,17 +101,17 @@ function NewbornVisaPageContent() {
           </section>
 
           <section className="gv-newborn-cost-section">
-            <div><span className="gv-newborn-eyebrow"><span aria-hidden="true" />Newborn visa cost calculator</span><h2>Get an itemized <em>starting estimate.</em></h2><p>Government charges depend on the sponsor’s visa type, whether the baby is inside the UAE and whether a family file is already open. The guide is indicative—not a live government quote.</p></div>
+            <div><span className="gv-newborn-eyebrow"><span aria-hidden="true" />Newborn visa cost calculator</span><h2>Get an itemized <strong>starting estimate.</strong></h2><p>Government charges depend on the sponsor’s visa type, whether the baby is inside the UAE and whether a family file is already open. The guide is indicative—not a live government quote.</p></div>
             <div className="gv-newborn-cost-card"><div><span>NEWBORN VISA</span><BadgeCheck size={24} /></div><strong>Built around your sponsor’s visa</strong><p>Review the application route, location, family file and authority fee components step by step.</p><button type="button" onClick={() => setCalculatorOpen(true)}>Calculate newborn cost <ArrowRight size={16} /></button><small>Figures are illustrative. Confirm current charges before payment.</small></div>
           </section>
 
           <section className="gv-newborn-faq-section">
-            <div className="gv-newborn-section-heading"><span className="gv-newborn-eyebrow"><span aria-hidden="true" />Questions parents ask</span><h2>Newborn visa <em>FAQ.</em></h2></div>
+            <div className="gv-newborn-section-heading"><span className="gv-newborn-eyebrow"><span aria-hidden="true" />Questions parents ask</span><h2>Newborn visa <strong>FAQ.</strong></h2></div>
             <div className="gv-newborn-faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>
           </section>
 
           <section className="gv-newborn-closing">
-            <div><span className="gv-newborn-eyebrow"><span aria-hidden="true" />You take care of the little one</span><h2>We’ll help you keep the paperwork <em>on track.</em></h2><p>Get a clear checklist, review your timeline and prepare the newborn residence file before the deadline approaches.</p></div>
+            <div><span className="gv-newborn-eyebrow"><span aria-hidden="true" />You take care of the little one</span><h2>We’ll help you keep the paperwork <strong>on track.</strong></h2><p>Get a clear checklist, review your timeline and prepare the newborn residence file before the deadline approaches.</p></div>
             <button type="button" onClick={() => setCalculatorOpen(true)}>Calculate newborn cost <ArrowRight size={16} /></button>
           </section>
           <p className="gv-newborn-disclaimer"><ShieldCheck size={14} />We are a private documentation support provider, not a UAE government agency. Deadlines, fines, document rules and fees can change; confirm your case directly with the relevant authority.</p>

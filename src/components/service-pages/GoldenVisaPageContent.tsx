@@ -187,7 +187,7 @@ function GoldenVisaPageContent() {
           <header className="gv-golden-hero">
             <div className="gv-golden-hero-copy">
               <span className="gv-golden-eyebrow"><span aria-hidden="true" />10-year UAE residence · category-led guide</span>
-              <h1>Your next chapter in the UAE, <em>planned for the long term.</em></h1>
+              <h1>Your next chapter in the UAE, <strong>planned for the long term.</strong></h1>
               <p>Compare Golden Visa routes, see which documents each one needs and get a careful first eligibility check before you start an application.</p>
               <div className="gv-golden-actions">
                 <a className="gv-golden-button" href="#eligibility">Check my route <ArrowRight size={17} /></a>
@@ -212,7 +212,7 @@ function GoldenVisaPageContent() {
           <section className="gv-golden-section" id="eligibility">
             <div className="gv-golden-section-heading">
               <span className="gv-golden-eyebrow"><span aria-hidden="true" />Six ways to qualify</span>
-              <h2>Choose the route <em>that fits your evidence.</em></h2>
+              <h2>Choose the route <strong>that fits your evidence.</strong></h2>
               <p>Tap a pathway to see typical requirements and a first-check guide. Criteria are route-specific and final decisions remain with the relevant UAE authority.</p>
             </div>
             <div className="gv-golden-category-tabs" role="group" aria-label="Golden Visa applicant categories">
@@ -280,7 +280,7 @@ function GoldenVisaPageContent() {
           <section className="gv-golden-benefits-section">
             <div className="gv-golden-section-heading">
               <span className="gv-golden-eyebrow"><span aria-hidden="true" />A long-term residence route</span>
-              <h2>More room to plan <em>what comes next.</em></h2>
+              <h2>More room to plan <strong>what comes next.</strong></h2>
             </div>
             <div className="gv-golden-benefit-grid">
               {benefits.map((benefit, index) => <article key={benefit.title}><span>0{index + 1}</span><BadgeCheck size={19} /><h3>{benefit.title}</h3><p>{benefit.detail}</p></article>)}
@@ -290,7 +290,7 @@ function GoldenVisaPageContent() {
           <section className="gv-golden-section">
             <div className="gv-golden-section-heading">
               <span className="gv-golden-eyebrow"><span aria-hidden="true" />From profile review to residence</span>
-              <h2>A clear process, <em>one approval at a time.</em></h2>
+              <h2>A clear process, <strong>one approval at a time.</strong></h2>
               <p>The exact authority sequence differs by category. Confirm where to file before changing an existing visa status.</p>
             </div>
             <ol className="gv-golden-process">{process.map(([title, detail], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><i aria-hidden="true" /><h3>{title}</h3><p>{detail}</p></li>)}</ol>
@@ -299,7 +299,7 @@ function GoldenVisaPageContent() {
           <section className="gv-golden-documents-section">
             <div>
               <span className="gv-golden-eyebrow"><span aria-hidden="true" />Prepare your file</span>
-              <h2>Documents change with the <em>route you choose.</em></h2>
+              <h2>Documents change with the <strong>route you choose.</strong></h2>
               <p>Start with clear, current copies. The authority may ask for additional originals, attestations or nominations.</p>
               <a href="#golden-consultation">Ask for a route-specific checklist <ArrowRight size={15} /></a>
             </div>
@@ -317,7 +317,7 @@ function GoldenVisaPageContent() {
           </section>
 
           <section className="gv-golden-faq-section">
-            <div className="gv-golden-section-heading"><span className="gv-golden-eyebrow"><span aria-hidden="true" />Questions & answers</span><h2>Golden Visa, <em>explained clearly.</em></h2></div>
+            <div className="gv-golden-section-heading"><span className="gv-golden-eyebrow"><span aria-hidden="true" />Questions & answers</span><h2>Golden Visa, <strong>explained clearly.</strong></h2></div>
             <div className="gv-golden-faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>
           </section>
 

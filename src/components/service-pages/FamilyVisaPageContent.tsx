@@ -160,7 +160,7 @@ function FamilyVisaPageContent() {
           <div className="gv-family-hero-copy">
             <FamilyEyebrow>Family visa · UAE residence</FamilyEyebrow>
             <h1>Bring your family to the UAE — <span>we run the whole file.</span></h1>
-            <p><strong>800 DOCS prepares</strong> the sponsorship, checks your file against GDRFA or ICP requirements, helps coordinate medical and Emirates ID appointments, and keeps you informed through residence issuance.</p>
+            <p><strong>Brightlink Consulting prepares</strong> the sponsorship, checks your file against GDRFA or ICP requirements, helps coordinate medical and Emirates ID appointments, and keeps you informed through residence issuance.</p>
             <a className="gv-family-button" href={`${contactInfo.whatsappHref}?text=${encodeURIComponent('Hello, I would like to start a UAE family visa application. Please send me the eligibility checklist.')}`} target="_blank" rel="noreferrer">
               Start on WhatsApp <ArrowRight size={16} />
             </a>
@@ -203,7 +203,7 @@ function FamilyVisaPageContent() {
         <section className="gv-family-section gv-family-eligibility" id="who-qualifies">
           <div className="gv-family-heading">
             <FamilyEyebrow>Who you can sponsor</FamilyEyebrow>
-            <h2>Who qualifies, and what each visa <em>needs.</em></h2>
+            <h2>Who qualifies, and what each visa <strong>needs.</strong></h2>
             <p>These are general UAE guidelines for family sponsorship. The authority checks your exact emirate, sponsor profile and documents before approval.</p>
           </div>
           <div className="gv-family-eligibility-list">
@@ -229,11 +229,11 @@ function FamilyVisaPageContent() {
         <section className="gv-family-section gv-family-service" id="how-it-works">
           <div className="gv-family-heading">
             <FamilyEyebrow>How it works</FamilyEyebrow>
-            <h2>Two things from you. <em>Everything else</em> from us.</h2>
+            <h2>Two things from you. <strong>Everything else</strong> from us.</h2>
           </div>
           <div className="gv-family-service-columns">
             <article className="gv-family-service-card">
-              <span className="gv-family-card-kicker">YOU <i>·</i> Send and show up</span>
+              <span className="gv-family-card-kicker">YOU <span>·</span> Send and show up</span>
               <h3>Share your documents and attend the required appointments.</h3>
               <ul>
                 <li><Check size={15} />Passport copies, relationship certificates and sponsor salary proof.</li>
@@ -243,7 +243,7 @@ function FamilyVisaPageContent() {
               </ul>
             </article>
             <article className="gv-family-service-card gv-family-service-card--dark">
-              <span className="gv-family-card-kicker"><b>800 DOCS</b> <i>·</i> The rest of the file</span>
+              <span className="gv-family-card-kicker"><b>Brightlink Consulting</b> <span>·</span> The rest of the file</span>
               <ul>
                 <li><Check size={15} />Review eligibility against GDRFA / ICP requirements.</li>
                 <li><Check size={15} />Coordinate certificate attestation and certified translation.</li>
@@ -269,7 +269,7 @@ function FamilyVisaPageContent() {
         <section className="gv-family-section gv-family-checklist-section" id="documents">
           <div className="gv-family-heading">
             <FamilyEyebrow>Documents</FamilyEyebrow>
-            <h2>Tick what you have. We’ll chase the <em>rest.</em></h2>
+            <h2>Tick what you have. We’ll chase the <strong>rest.</strong></h2>
             <p>Choose the applicant type. Your checklist stays in this browser and is never uploaded automatically.</p>
           </div>
           <div className="gv-family-checklist">
@@ -314,7 +314,7 @@ function FamilyVisaPageContent() {
         <section className="gv-family-section gv-family-fees-section" id="fees">
           <div className="gv-family-heading">
             <FamilyEyebrow>Government fees</FamilyEyebrow>
-            <h2>Every dirham, <em>before</em> you start.</h2>
+            <h2>Every dirham, <strong>before</strong> you start.</h2>
             <p>Example family visa estimates. Your final government fees depend on visa duration, emirate, applicant age, in-country status change and any required insurance.</p>
           </div>
           <div className="gv-family-fees">
@@ -333,7 +333,7 @@ function FamilyVisaPageContent() {
         <section className="gv-family-section gv-family-deadlines-section" id="deadlines">
           <div className="gv-family-heading">
             <FamilyEyebrow>Good to know</FamilyEyebrow>
-            <h2>The dates that <em>cost money</em> if you miss them.</h2>
+            <h2>The dates that <strong>cost money</strong> if you miss them.</h2>
           </div>
           <div className="gv-family-deadlines">
             {deadlines.map((deadline) => (
@@ -348,7 +348,7 @@ function FamilyVisaPageContent() {
         <section className="gv-family-review" aria-labelledby="family-review-title">
           <div className="gv-family-heading">
             <FamilyEyebrow>Our reviews</FamilyEyebrow>
-            <h2 id="family-review-title">Rated <em>4.9</em> by families we’ve filed for.</h2>
+            <h2 id="family-review-title">Rated <strong>4.9</strong> by families we’ve filed for.</h2>
           </div>
           <div className="gv-family-review-card">
             <strong className="gv-family-review-score">4.9</strong>
@@ -360,7 +360,7 @@ function FamilyVisaPageContent() {
         <section className="gv-family-section gv-family-faq-section" id="family-faq">
           <div className="gv-family-heading">
             <FamilyEyebrow>Questions</FamilyEyebrow>
-            <h2>Family visa questions we answer <em>every day.</em></h2>
+            <h2>Family visa questions we answer <strong>every day.</strong></h2>
           </div>
           <div className="gv-family-faqs">
             {faqs.map((faq, index) => (

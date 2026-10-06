@@ -2,10 +2,10 @@ import type { Metadata } from 'next';
 import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
 
 export const metadata: Metadata = {
-  title: 'Power of Attorney | Golden Visa Dubai',
-  description: 'Plan a UAE power of attorney with legal drafting, translation and notarization guidance.',
+  title: 'Power of Attorney (POA) | Golden Visa Dubai',
+  description: 'Power of attorney support for personal, family, and commercial decision-making with clear legal guidance in the UAE.',
 };
 
-export default function PoaPage() {
+export default function PowerOfAttorneyPage() {
   return <ServicePageTemplate title="Power of Attorney (POA)" />;
 }

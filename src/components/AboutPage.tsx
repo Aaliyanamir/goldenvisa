@@ -168,7 +168,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
           </div>
           <div className="about-founder-copy">
             <span className="about-eyebrow"><span />A considered beginning</span>
-            <h2>A strong future starts with <em>a strong foundation.</em></h2>
+            <h2>A strong future starts with <strong>a strong foundation.</strong></h2>
             <p>
               A UAE application can involve more than one form or appointment.
               Our role is to help make the moving parts easier to follow—from
@@ -192,7 +192,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell about-licensed-layout">
           <div>
             <span className="about-eyebrow"><span />Responsible government application support</span>
-            <h2>Official processes. <em>Careful preparation.</em></h2>
+            <h2>Official processes. <strong>Careful preparation.</strong></h2>
             <p>
               Golden Visa Dubai is a private consultancy and documentation
               support provider. We help prepare and coordinate applications;
@@ -213,7 +213,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell">
           <div className="about-section-heading">
             <span className="about-eyebrow"><span />Our areas of support</span>
-            <h2>Residency, business &amp; <em>document services.</em></h2>
+            <h2>Residency, business &amp; <strong>document services.</strong></h2>
             <p>Start with the service that best matches what you need to do.</p>
           </div>
           <div className="about-service-grid">
@@ -233,7 +233,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell">
           <div className="about-section-heading about-section-heading--center">
             <span className="about-eyebrow"><span />What shapes our work</span>
-            <h2>Our strength is in <em>the details.</em></h2>
+            <h2>Our strength is in <strong>the details.</strong></h2>
             <p>Four practical priorities guide how we support every enquiry and file.</p>
           </div>
           <div className="about-strength-grid">
@@ -257,7 +257,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell about-partner-card">
           <div>
             <span className="about-eyebrow"><span />Your trusted partner</span>
-            <h2>Business, residency &amp; <em>professional services</em> in the UAE.</h2>
+            <h2>Business, residency &amp; <strong>professional services</strong> in the UAE.</h2>
             <p>
               Whether you are planning a residence application, handling
               employee paperwork or preparing an official document, our team can
@@ -307,7 +307,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell about-different-layout">
           <div>
             <span className="about-eyebrow"><span />Why clients work with us</span>
-            <h2>What makes us <em>different.</em></h2>
+            <h2>What makes us <strong>different.</strong></h2>
             <p>Our approach keeps your case understandable and the next action visible.</p>
             <ul>
               {principles.map(({ title, text }) => (
@@ -331,7 +331,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell">
           <div className="about-section-heading">
             <span className="about-eyebrow"><span />How we work with you</span>
-            <h2>A clear process, <em>one step at a time.</em></h2>
+            <h2>A clear process, <strong>one step at a time.</strong></h2>
           </div>
           <ol className="about-process-grid">
             {process.map(([title, text], index) => (
@@ -349,7 +349,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell">
           <div className="about-section-heading about-section-heading--center">
             <span className="about-eyebrow"><span />A dependable service experience</span>
-            <h2>Clear process. <em>Confident next steps.</em></h2>
+            <h2>Clear process. <strong>Confident next steps.</strong></h2>
             <p>Rather than promise outcomes, we focus on the parts of the process we can help you prepare and understand.</p>
           </div>
           <div className="about-commitment-grid">
@@ -386,7 +386,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell">
           <div className="about-section-heading about-section-heading--center">
             <span className="about-eyebrow"><span />Service options</span>
-            <h2>Professional support, <em>shaped around you.</em></h2>
+            <h2>Professional support, <strong>shaped around you.</strong></h2>
           </div>
           <div className="about-support-grid">
             {supportOptions.map(([title, text], index) => (
