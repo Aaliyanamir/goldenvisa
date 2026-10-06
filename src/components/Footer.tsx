@@ -341,7 +341,7 @@ export const Footer: React.FC<FooterProps> = ({
                 <span className="payment-wordmark text-xs font-bold tracking-tight">Apple Pay</span>
               </div>
               <div aria-label="Visa" className="h-9 min-w-[62px] px-3 bg-[#1A1F71] rounded-md flex items-center justify-center border border-[#1A1F71] shadow-sm">
-                <span className="payment-wordmark text-sm font-black italic tracking-tight">VISA</span>
+                <span className="payment-wordmark text-sm font-black tracking-tight">VISA</span>
               </div>
               <div aria-label="Mastercard" className="h-9 min-w-[100px] px-2.5 bg-white rounded-md flex items-center justify-center gap-1.5 border border-slate-300 shadow-sm">
                 <span className="flex items-center -space-x-2">

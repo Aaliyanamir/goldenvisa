@@ -52,7 +52,7 @@ export const FaqAndSocialProof: React.FC<FaqAndSocialProofProps> = ({ onOpenCalc
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Reviews from <span className="gold-gradient-text font-serif italic">Google</span>
+              Reviews from <span className="gold-gradient-text font-serif">Google</span>
             </h2>
             
             <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">

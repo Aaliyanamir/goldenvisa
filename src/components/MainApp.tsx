@@ -16,6 +16,7 @@ import { VisaCalculatorModal } from '@/components/VisaCalculatorModal';
 import { MegaMenu } from '@/components/MegaMenu';
 import { FloatingActionButtons } from '@/components/FloatingActionButtons';
 import { EligibilityQuiz } from '@/components/EligibilityQuiz';
+import { ShieldCheck, Award, CheckCircle2, Sparkles } from 'lucide-react';
 
 export const MainApp: React.FC = () => {
   const router = useRouter();
@@ -50,7 +51,30 @@ export const MainApp: React.FC = () => {
               <HeroSection
                 onOpenCalculator={() => setCalculatorOpen(true)}
                 onOpenMegaMenu={() => setMegaMenuOpen(true)}
+                onOpenEligibility={() => setQuizOpen(true)}
               />
+
+              {/* Trust & Authority Bar */}
+              <div className="bg-[#FAF8F5] dark:bg-[#0B0F19] border-b border-slate-200 dark:border-white/10 py-4 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-4 sm:gap-6 text-xs text-slate-700 dark:text-slate-300 font-semibold">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
+                    <span>GDRFA & ICP System Integrated</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Award className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
+                    <span>Dubai Land Department (DLD) Compliant</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
+                    <span>Official Attestation & MOHRE Alignment</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
+                    <span>100% Upfront Transparent Fee Structure</span>
+                  </div>
+                </div>
+              </div>
 
               {/* Eligibility Quiz CTA Banner */}
               <div className="bg-amber-500/10 dark:bg-[#090D16] border-b border-amber-500/20 dark:border-amber-500/15 py-5 px-4 sm:px-6 lg:px-8 text-slate-900 dark:text-white transition-colors duration-300">
@@ -140,6 +164,7 @@ export const MainApp: React.FC = () => {
           {/* Floating Triggers */}
           <FloatingActionButtons 
             onOpenCalculator={() => setCalculatorOpen(true)}
+            onOpenEligibility={() => setQuizOpen(true)}
           />
         </div>
     </LanguageProvider>

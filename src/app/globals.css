@@ -4,6 +4,8 @@
 /* Global box-sizing & overflow safeguard */
 *, *::before, *::after {
   box-sizing: border-box;
+  font-family: var(--font-body) !important;
+  font-style: normal !important;
 }
 
 /* Prevent any element from causing horizontal scroll */
@@ -15,9 +17,9 @@ html {
 
 @layer base {
   :root {
-    --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+    --font-sans: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --font-body: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+    --font-body: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
     --font-display: var(--font-body);
     --font-arabic: var(--font-body);
     --site-header-offset: 112px;
@@ -226,6 +228,70 @@ html.dark .white-gold-card p {
   background: linear-gradient(135deg, #E5C365 0%, #D4AF37 100%);
   box-shadow: 0 6px 22px rgba(197, 160, 89, 0.5);
   transform: translateY(-1px);
+}
+
+.roadmap-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.roadmap-timeline::before {
+  position: absolute;
+  top: 21px;
+  right: 12.5%;
+  left: 12.5%;
+  height: 1px;
+  background: linear-gradient(90deg, #c5a059, #e8d5b5);
+  content: "";
+}
+
+.roadmap-step {
+  position: relative;
+  margin-top: 21px;
+  padding-top: 30px;
+}
+
+.roadmap-step-marker {
+  position: absolute;
+  top: -21px;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1023px) {
+  .roadmap-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .roadmap-timeline::before {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .roadmap-timeline {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .roadmap-timeline::before {
+    top: 1.25rem;
+    bottom: 1.25rem;
+    left: 20px;
+    display: block;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, #c5a059, #e8d5b5);
+  }
+
+  .roadmap-step-marker {
+    justify-content: flex-start;
+  }
 }
 
 .service-page-theme {

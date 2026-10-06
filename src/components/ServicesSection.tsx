@@ -104,11 +104,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
   };
 
   return (
-    <section id="services" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#F4F1E9] dark:bg-[#07090F] border-t border-b border-slate-300 dark:border-white/10 transition-colors">
+    <section id="services" className="border-y border-slate-300 bg-[#F4F1E9] px-4 py-16 transition-colors dark:border-white/10 dark:bg-[#07090F] sm:px-6 lg:px-10">
       <div className="max-w-[1560px] 2xl:max-w-[1720px] mx-auto">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="mx-auto mb-9 max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[#8C6D2D] dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
             <Award className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>Official Government Facilitation Portfolio</span>
@@ -121,7 +121,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
           </p>
 
           {/* Clean Re-Aligned Segmented Control Tabs (Category 1 & Category 3 Only) */}
-          <div className="mt-8 inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl bg-slate-200 p-1.5 dark:bg-[#0E1320] border border-slate-300 dark:border-slate-700 shadow-sm" role="tablist" aria-label="Service categories">
+          <div className="mt-6 inline-flex max-w-full flex-wrap justify-center gap-1 rounded-xl border border-slate-300 bg-slate-200 p-1.5 shadow-sm dark:border-slate-700 dark:bg-[#0E1320]" role="tablist" aria-label="Service categories">
             {([
               { id: 'residency', label: '1. Residency & Long-Term Visas' },
               { id: 'legal', label: '2. Government & Legal PRO' },
@@ -131,7 +131,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                 role="tab"
                 aria-selected={activeCategory === tab.id}
                 onClick={() => setActiveCategory(tab.id)}
-                className={`px-6 sm:px-10 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`rounded-lg px-4 py-2.5 text-xs font-bold transition-all cursor-pointer sm:px-7 sm:text-sm ${
                   activeCategory === tab.id
                     ? 'bg-white dark:bg-amber-950/80 text-[#765719] dark:text-amber-200 border border-amber-300 dark:border-amber-700 shadow-sm font-extrabold'
                     : 'text-slate-700 dark:text-slate-400 hover:bg-white/70 dark:hover:bg-white/10 hover:text-slate-950 dark:hover:text-white'
@@ -144,11 +144,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
         </div>
 
         {/* Clean Service Cards Grid: Seamlessly re-aligned across 2-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-5">
           {services[activeCategory].map((service) => (
             <div
               key={service.id}
-              className="p-8 sm:p-9 rounded-3xl white-gold-card flex flex-col justify-between group shadow-sm hover:shadow-xl transition-all duration-300"
+              className="group flex flex-col justify-between rounded-xl p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-6 white-gold-card"
             >
               <div>
                 <div className="flex items-start justify-between gap-4 mb-3">
@@ -160,7 +160,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                   </span>
                 </div>
 
-                <h3 className="text-2xl sm:text-[1.65rem] font-bold text-slate-900 dark:text-white leading-tight mt-1 font-serif group-hover:text-[#8C6D2D] dark:group-hover:text-amber-400 transition-colors">
+                <h3 className="mt-1 font-serif text-xl font-bold leading-tight text-slate-900 transition-colors group-hover:text-[#8C6D2D] dark:text-white dark:group-hover:text-amber-400 sm:text-2xl">
                   {service.title}
                 </h3>
                 
@@ -169,12 +169,12 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
                   <span>{service.minVal}</span>
                 </div>
 
-                <p className="mt-4 text-[#1E293B] dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
+                <p className="mt-3 text-xs leading-relaxed text-[#1E293B] dark:text-slate-300 sm:text-sm">
                   {service.desc}
                 </p>
 
                 {/* Key Benefits */}
-                <div className="mt-6 space-y-2.5 pt-4 border-t border-slate-200 dark:border-white/10">
+                <div className="mt-4 space-y-2 border-t border-slate-200 pt-3 dark:border-white/10">
                   {service.benefits.map((b, idx) => (
                     <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-[13px] text-[#0F172A] dark:text-slate-200 font-semibold">
                       <CheckCircle2 className="w-4 h-4 text-[#8C6D2D] dark:text-[#C5A059] shrink-0" />
@@ -185,7 +185,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenCalculat
               </div>
 
               {/* Action Triggers */}
-              <div className="mt-8 pt-5 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="mt-5 flex flex-col items-center justify-between gap-2 border-t border-slate-200 pt-4 dark:border-white/10 sm:flex-row sm:flex-wrap">
                 <button
                   onClick={onOpenCalculator}
                   className="w-full sm:w-auto px-5 py-2.5 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-xs"

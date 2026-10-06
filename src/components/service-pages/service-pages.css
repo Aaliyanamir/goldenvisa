@@ -10,7 +10,7 @@
   padding: 22px 0 84px;
   background: var(--gv-paper);
   color: var(--gv-ink);
-  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
 }
 
 .gv-service-page *,
@@ -1730,7 +1730,7 @@
   padding: 18px 0 66px;
   background: var(--family-paper);
   color: var(--family-ink);
-  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
 }
 
 .gv-family-page *,
@@ -3119,7 +3119,7 @@
   --about-paper: #f8f7f3;
   color: var(--about-ink);
   background: var(--about-paper);
-  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
 }
 
 .about-page *,
@@ -3879,7 +3879,6 @@
  padding: 4px 0 4px 14px;
  color: #454139;
  font-size: 14px;
- font-style: italic;
  line-height: 1.75;
 }
 
@@ -4422,7 +4421,7 @@
   padding: 18px 0 66px;
   background: var(--property-paper);
   color: var(--property-ink);
-  font-family: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
 }
 
 .gv-property-page *,

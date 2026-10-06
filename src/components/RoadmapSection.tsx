@@ -43,11 +43,11 @@ export const RoadmapSection: React.FC = () => {
   ];
 
   return (
-    <section id="roadmap" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#FAF9F6] dark:bg-[#0E1320] border-y border-slate-200/80 dark:border-white/10 transition-colors">
+    <section id="roadmap" className="border-y border-slate-200/80 bg-[#FAF9F6] px-4 py-16 transition-colors dark:border-white/10 dark:bg-[#0E1320] sm:px-6 lg:px-10">
       <div className="max-w-[1560px] 2xl:max-w-[1720px] mx-auto">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="mx-auto mb-10 max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-[#8C6D2D] dark:text-amber-300 text-xs font-bold uppercase tracking-wider mb-4 shadow-2xs">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
             <span>Frictionless 4-Stage Protocol</span>
@@ -61,54 +61,55 @@ export const RoadmapSection: React.FC = () => {
         </div>
 
         {/* Steps Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="roadmap-timeline">
           {steps.map((step, index) => {
             const IconComp = step.icon;
             return (
-              <div 
+              <article
                 key={index}
-                className="bg-white dark:bg-[#131A2A] rounded-2xl p-7 border border-slate-300 dark:border-white/15 shadow-sm hover:border-[#C5A059] hover:shadow-xl transition-all flex flex-col justify-between group"
+                className="roadmap-step group flex flex-col justify-between rounded-xl border border-slate-300 bg-white p-5 shadow-sm transition-all hover:border-[#C5A059] hover:shadow-lg dark:border-white/15 dark:bg-[#131A2A]"
               >
                 <div>
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#8C6D2D] text-sm font-black text-white shadow-sm dark:bg-[#DFC47E] dark:text-[#171611]">
+                  <div className="roadmap-step-marker">
+                    <span className="flex h-[42px] w-[42px] items-center justify-center rounded-full border-4 border-[#FAF9F6] bg-[#8C6D2D] text-sm font-black text-white shadow-sm dark:border-[#0E1320] dark:bg-[#DFC47E] dark:text-[#171611]">
                       {step.num}
                     </span>
-                    <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-[#8C6D2D] dark:text-amber-300 border border-amber-200 dark:border-amber-700/60 group-hover:scale-105 transition-transform">
-                      <IconComp className="w-5 h-5" />
-                    </div>
+                  </div>
+
+                  <div className="mb-3 inline-flex rounded-lg border border-amber-200 bg-amber-50 p-2 text-[#8C6D2D] transition-transform group-hover:scale-105 dark:border-amber-700/60 dark:bg-amber-950/70 dark:text-amber-300">
+                    <IconComp className="h-4 w-4" />
                   </div>
 
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#8C6D2D] dark:text-amber-400 block mb-2">
                     {step.turnaround}
                   </span>
 
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-snug font-serif">
+                  <h3 className="font-serif text-base font-bold leading-snug text-slate-900 dark:text-white">
                     {step.title.replace(/^\d+[.)]\s*/, '')}
                   </h3>
 
-                  <p className="mt-2.5 text-xs sm:text-sm text-[#1E293B] dark:text-slate-300 leading-relaxed font-normal">
+                  <p className="mt-2 text-xs font-normal leading-relaxed text-[#1E293B] dark:text-slate-300 sm:text-sm">
                     {step.desc}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/10 text-[11px] font-semibold text-slate-400 dark:text-slate-400 flex items-center justify-between">
-                  <span>Fast-Track Guaranteed</span>
-                  <span className="text-[#8C6D2D] font-bold">100% Direct</span>
+                <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-[10px] font-semibold text-slate-500 dark:border-white/10 dark:text-slate-400">
+                  <span>Guidance at every step</span>
+                  <span className="text-[#8C6D2D] font-bold">Clear next steps</span>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
 
         {/* Fast Track Callout */}
-        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-white text-slate-900 dark:bg-[#0F172A] dark:text-white flex flex-col md:flex-row items-center justify-between gap-6 border border-[#E8D5B5] dark:border-amber-500/20 shadow-lg">
+        <div className="mt-8 flex flex-col items-center justify-between gap-5 rounded-xl border border-[#E8D5B5] bg-white p-5 text-slate-900 shadow-md dark:border-amber-500/20 dark:bg-[#0F172A] dark:text-white sm:p-6 md:flex-row">
           <div className="flex items-center gap-5">
-            <div className="p-3.5 rounded-xl bg-amber-50 text-[#8C6D2D] dark:bg-amber-500/20 dark:text-[#D4AF37] border border-amber-200 dark:border-amber-500/30">
-              <ShieldCheck className="w-8 h-8" />
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-[#8C6D2D] dark:border-amber-500/30 dark:bg-amber-500/20 dark:text-[#D4AF37]">
+              <ShieldCheck className="h-6 w-6" />
             </div>
             <div>
-              <h4 className="text-xl font-bold text-slate-900 dark:text-white">Need an expedited case evaluation within 24 hours?</h4>
+              <h4 className="text-lg font-bold text-slate-900 dark:text-white">Need an expedited case evaluation within 24 hours?</h4>
               <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">Our accredited government liaison files nominations with zero wait time.</p>
             </div>
           </div>

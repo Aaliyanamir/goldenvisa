@@ -39,7 +39,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            Latest News & <span className="gold-gradient-text font-serif italic font-bold">Insights</span>
+            Latest News & <span className="gold-gradient-text font-serif font-bold">Insights</span>
           </h1>
 
           <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-2xl font-light leading-relaxed">
