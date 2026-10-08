@@ -1,10 +1,33 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { blogPosts } from '@/lib/blogData';
-import { ArrowRight, BookOpen, Clock, Search, ShieldCheck, Sparkles, User } from 'lucide-react';
+import { blogPosts, BlogPost } from '@/lib/blogData';
+import {
+  ArrowRight,
+  Award,
+  BadgeCheck,
+  BookOpen,
+  CheckCircle2,
+  Clock,
+  Compass,
+  FileText,
+  Filter,
+  Globe,
+  Landmark,
+  Mail,
+  Search,
+  Share2,
+  ShieldAlert,
+  ShieldCheck,
+  Sparkles,
+  Tag,
+  TrendingUp,
+  User,
+  X,
+} from 'lucide-react';
+import { contactInfo } from '@/lib/contactInfo';
 
 interface BlogMainViewProps {
   onOpenCalculator: () => void;
@@ -13,63 +36,183 @@ interface BlogMainViewProps {
 export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [emailSubscribed, setEmailSubscribed] = useState<boolean>(false);
+  const [emailInput, setEmailInput] = useState<string>('');
 
   const categories = ['All', 'Golden Visa', 'Real Estate', 'Corporate', 'Regulations'];
+  const trendingTags = ['10-Year Golden Visa', 'DLD Property Rules', 'Mortgaged Property NOC', 'MOJ Legal Translation', 'Family Visa Sponsoring'];
+
+  const featuredPost = blogPosts.find((p) => p.featured) || blogPosts[0];
 
   const filteredPosts = blogPosts.filter((post) => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-    const matchesSearch = 
+    const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (emailInput.trim()) {
+      setEmailSubscribed(true);
+      setEmailInput('');
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FDFBF7] via-white to-[#FAF9F6] dark:from-[#07090F] dark:via-[#0E1320] dark:to-[#07090F]">
-      
-      {/* Editorial Blog Header Banner */}
-      <section className="relative pt-[calc(var(--site-header-offset)+2rem)] pb-12 px-4 sm:px-6 lg:px-8 bg-[#F8F5EE] text-slate-900 overflow-hidden border-b border-[#E8D5B5] dark:bg-[#0F172A] dark:text-white dark:border-amber-500/20">
-        <div className="absolute inset-0 pointer-events-none opacity-30 bg-[radial-gradient(#C5A05933_1px,transparent_1px)] [background-size:24px_24px]"></div>
-        
-        <div className="relative max-w-5xl mx-auto text-center flex flex-col items-center">
-          
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-[#765719] dark:bg-amber-500/10 dark:border-amber-500/30 dark:text-[#D4AF37] text-xs font-bold uppercase tracking-wider mb-5 shadow-lg shadow-amber-500/10">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>UAE Sovereign Insights & Intelligence</span>
-          </div>
+    <div className="min-h-screen bg-[#FAF9F6] text-[#15140F] dark:bg-[#07090F] dark:text-[#FAF9F6]">
+      {/* ── LUXURY HERO SECTION — White & Warm Brown Mix ──────── */}
+      <section className="relative overflow-hidden border-b border-[#E8D5B5] bg-gradient-to-br from-[#FFFEF9] via-[#FDF8EE] to-[#F9F1DC] px-4 pb-16 pt-[calc(var(--site-header-offset)+2rem)] text-[#15140F] shadow-sm sm:px-6 lg:px-8">
+        {/* Warm gold glow orbs */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[#C5A059]/12 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-80 w-80 rounded-full bg-[#D4AF37]/10 blur-3xl" />
+        {/* Subtle warm dot grid */}
+        <div className="pointer-events-none absolute inset-0 opacity-[0.06] bg-[radial-gradient(#8C6D2D_1px,transparent_1px)] [background-size:28px_28px]" />
+        {/* Bottom gold shimmer border */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C5A059]/50 to-transparent" />
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-            Latest News & <span className="gold-gradient-text font-serif font-bold">Insights</span>
-          </h1>
+        <div className="relative mx-auto max-w-7xl">
+          {/* Top Badges */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-8">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#C5A059]/50 bg-white/80 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#8C6D2D] shadow-sm backdrop-blur-md">
+              <Award className="h-3.5 w-3.5 text-[#C5A059]" />
+              <span>UAE Sovereign Insights & Legal Journal</span>
+            </div>
 
-          <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-2xl font-light leading-relaxed">
-            Authoritative regulatory updates, executive immigration legal analyses, and sovereign wealth residency strategies in Dubai and the UAE.
-          </p>
-
-          {/* Search Bar & Quick Categories */}
-          <div className="mt-8 w-full max-w-xl relative">
-            <div className="relative flex items-center">
-              <Search className="w-5 h-5 text-slate-500 dark:text-slate-400 absolute left-4 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search articles on Golden Visas, DLD rules, corporate tax..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3.5 rounded-xl bg-white hover:bg-white focus:bg-white border border-slate-300 text-slate-900 placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-[#C5A059] focus:ring-2 focus:ring-amber-500/20 transition-all dark:bg-white/10 dark:hover:bg-white/15 dark:focus:bg-white/20 dark:border-white/20 dark:text-white dark:placeholder-slate-400 dark:focus:ring-0"
-              />
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-50/80 px-3.5 py-1 text-xs font-bold text-emerald-700 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span>Official 2026 GDRFA, DLD & MOHRE Regulations Verified</span>
             </div>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="mt-6 flex flex-wrap gap-2 justify-center">
+          {/* Main Hero Title */}
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="text-4xl font-black tracking-tight text-[#15140F] sm:text-6xl lg:text-7xl leading-[1.08]">
+              Authoritative Guidance on <br className="hidden sm:inline" />
+              <span className="bg-gradient-to-r from-[#8C6D2D] via-[#C5A059] to-[#D4AF37] bg-clip-text text-transparent">
+                Golden Visas & UAE Laws
+              </span>
+            </h1>
+
+            <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-[#5A4A2A] sm:text-base font-medium">
+              Executive legal briefings, property investment guidelines, corporate residency structures, and official document attestation procedures in Dubai and the UAE.
+            </p>
+
+            {/* Search Bar — warm white glass */}
+            <div className="mx-auto mt-8 max-w-2xl">
+              <div className="relative flex items-center rounded-2xl border border-[#C5A059]/50 bg-white/90 p-2 shadow-[0_4px_24px_rgba(197,160,89,0.18)] backdrop-blur-xl transition-all focus-within:border-[#C5A059] focus-within:ring-2 focus-within:ring-[#C5A059]/25">
+                <Search className="pointer-events-none absolute left-5 h-5 w-5 text-[#C5A059]" />
+                <input
+                  type="text"
+                  placeholder="Search 50+ guides on Golden Visas, DLD property NOCs, Wills, Attestation..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-transparent py-3 pl-12 pr-10 text-sm font-medium text-[#15140F] placeholder-[#9B8B6E] focus:outline-none"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery('')}
+                    className="mr-2 cursor-pointer text-[#9B8B6E] hover:text-[#15140F]"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={onOpenCalculator}
+                  className="hidden flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md transition-all hover:from-[#d4af37] sm:flex"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Fee Calculator</span>
+                </button>
+              </div>
+
+              {/* Trending Tags */}
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-[#8C6D2D]">
+                <span className="inline-flex items-center gap-1 font-extrabold uppercase tracking-wider text-[#8C6D2D]">
+                  <TrendingUp className="h-3.5 w-3.5" /> Trending:
+                </span>
+                {trendingTags.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => setSearchQuery(tag)}
+                    className="cursor-pointer rounded-lg border border-[#C5A059]/40 bg-white/70 px-2.5 py-1 text-[11px] font-semibold text-[#765719] transition-colors hover:border-[#C5A059] hover:bg-amber-50"
+                  >
+                    #{tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Bar — warm cream cards */}
+          <div className="mt-12 grid grid-cols-2 gap-4 rounded-2xl border border-[#E8D5B5] bg-white/70 p-5 shadow-sm backdrop-blur-md sm:grid-cols-4 lg:gap-6">
+            <div className="flex items-center gap-3.5 border-r border-[#E8D5B5] pr-4 last:border-r-0">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50 border border-[#C5A059]/40 text-[#8C6D2D]">
+                <FileText className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-lg font-black text-[#15140F] sm:text-xl">50+</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">Official Legal Guides</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3.5 border-r border-[#E8D5B5] pr-4 last:border-r-0">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50 border border-[#C5A059]/40 text-[#8C6D2D]">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-lg font-black text-[#15140F] sm:text-xl">100%</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">UAE Law Compliant</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3.5 border-r border-[#E8D5B5] pr-4 last:border-r-0">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50 border border-[#C5A059]/40 text-[#8C6D2D]">
+                <Landmark className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-lg font-black text-[#15140F] sm:text-xl">AED 2M+</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">Property Visa Criteria</div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50 border border-[#C5A059]/40 text-[#8C6D2D]">
+                <Globe className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-lg font-black text-[#15140F] sm:text-xl">24/7</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">WhatsApp Assistance</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Selection Filter Bar */}
+      <section className="sticky top-[var(--site-header-offset)] z-30 border-b border-[#E8D5B5] bg-[#F8F5EE]/95 px-4 py-3.5 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-[#07090F]/95">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="hidden items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-[#8C6D2D] dark:text-[#D4AF37] sm:inline-flex">
+              <Filter className="h-3.5 w-3.5" /> Category:
+            </span>
             {categories.map((cat) => (
               <button
                 key={cat}
+                type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`cursor-pointer rounded-xl px-4 py-2 text-xs font-extrabold transition-all ${
                   selectedCategory === cat
-                    ? 'gold-btn shadow-md text-slate-950 font-extrabold'
-                    : 'bg-white hover:bg-amber-50 text-slate-700 border border-slate-200 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-300 dark:border-white/10'
+                    ? 'bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] text-white shadow-md'
+                    : 'border border-[#E8D5B5] bg-white text-slate-700 hover:bg-amber-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
                 }`}
               >
                 {cat}
@@ -77,142 +220,242 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
             ))}
           </div>
 
+          <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+            Showing <span className="font-extrabold text-slate-900 dark:text-white">{filteredPosts.length}</span> Articles
+          </div>
         </div>
       </section>
 
-      {/* Main Blog Cards Grid (Screenshot Reference Precision with Modern Agency Polish) */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        
-        {/* Results Counter */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200 dark:border-white/10">
-          <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-            Showing <span className="text-slate-900 dark:text-white font-extrabold">{filteredPosts.length}</span> Published Articles
+      {/* Featured Spotlight Story (Top Feature) */}
+      {selectedCategory === 'All' && !searchQuery && featuredPost && (
+        <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
+          <div className="mb-4 inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#8C6D2D] dark:text-[#D4AF37]">
+            <Sparkles className="h-4 w-4" /> Feature Spotlight
           </div>
-          <button
-            onClick={onOpenCalculator}
-            className="text-xs font-bold text-[#8C6D2D] hover:text-amber-800 flex items-center gap-1.5 cursor-pointer"
-          >
-            <span>Need Custom Fee Guidance?</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
-
-        {/* 3-Column Luxury Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPosts.map((post) => (
-            <article
-              key={post.id}
-              className="group relative bg-white dark:bg-[#111827] rounded-lg overflow-hidden border border-slate-200 dark:border-white/10 hover:border-[#C5A059] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
-            >
-              <Link
-                href={`/blog/${post.slug}`}
-                aria-label={`Read article: ${post.title}`}
-                className="absolute inset-0 z-10 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#C5A059]"
-              />
-              <div className="pointer-events-none">
-                
-                {/* Image Frame with Date Badge and Official Brand Watermark */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  
-                  {/* Subtle Dark Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-black/20"></div>
-
-                  {/* Golden Visa UAE Corner Badge (Matching user reference layout) */}
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-amber-500/40 text-[10px] font-bold text-amber-300">
-                    <Sparkles className="w-3 h-3 text-[#D4AF37]" />
-                    <span>GV UAE</span>
-                  </div>
-
-                  {/* Golden Date Stamp Badge (Matching Reference Screenshot: Day on Top, Month on Bottom) */}
-                  <div className="absolute bottom-3 right-3 z-10 w-12 h-14 rounded-xl bg-gradient-to-b from-[#DFBE74] to-[#C5A059] text-slate-950 flex flex-col items-center justify-center font-black shadow-lg shadow-black/30 border border-amber-200">
-                    <span className="text-lg leading-none font-black">{post.day}</span>
-                    <span className="text-[10px] uppercase font-bold tracking-wider leading-none mt-1">{post.month}</span>
-                  </div>
-
-                  {/* Category Pill Tag */}
-                  <div className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-slate-900 text-[10px] font-extrabold uppercase tracking-wider shadow-xs">
-                    {post.category}
-                  </div>
+          <div className="group relative overflow-hidden rounded-3xl border border-[#E8D5B5] bg-white shadow-xl transition-all hover:border-[#C5A059] dark:border-white/10 dark:bg-[#111827]">
+            <div className="grid grid-cols-1 lg:grid-cols-12">
+              <div className="relative aspect-[16/10] bg-slate-900 lg:aspect-auto lg:col-span-7 overflow-hidden">
+                <Image
+                  src={featuredPost.image}
+                  alt={featuredPost.title}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 60vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                <span className="absolute top-4 left-4 rounded-full border border-amber-300/40 bg-black/60 px-3 py-1 text-xs font-bold text-amber-200 backdrop-blur-md">
+                  {featuredPost.category}
+                </span>
+                <div className="absolute bottom-4 right-4 flex flex-col items-center justify-center rounded-xl border border-amber-200 bg-gradient-to-b from-[#DFBE74] to-[#C5A059] px-3 py-1.5 font-black text-slate-950 shadow-lg">
+                  <span className="text-xl font-black leading-none">{featuredPost.day}</span>
+                  <span className="mt-0.5 text-[10px] font-bold uppercase tracking-wider leading-none">{featuredPost.month}</span>
                 </div>
+              </div>
 
-                {/* Article Card Content */}
-                <div className="p-6">
-                  
-                  {/* Author Line */}
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400 mb-3">
-                    <User className="w-3.5 h-3.5 text-[#C5A059]" />
-                    <span>{post.author}</span>
-                    <span className="text-slate-300">•</span>
-                    <Clock className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{post.readTime}</span>
+              <div className="flex flex-col justify-between p-6 sm:p-8 lg:col-span-5">
+                <div>
+                  <div className="flex items-center gap-3 text-xs font-bold text-slate-500 dark:text-slate-400">
+                    <span className="inline-flex items-center gap-1">
+                      <User className="h-3.5 w-3.5 text-[#C5A059]" />
+                      {featuredPost.author}
+                    </span>
+                    <span>•</span>
+                    <span className="inline-flex items-center gap-1">
+                      <Clock className="h-3.5 w-3.5 text-[#C5A059]" />
+                      {featuredPost.readTime}
+                    </span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-snug group-hover:text-[#8C6D2D] transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
+                  <h2 className="mt-4 text-2xl font-extrabold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-[#8C6D2D] dark:text-white sm:text-3xl">
+                    <Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
+                  </h2>
 
-                  {/* Excerpt */}
-                  <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed line-clamp-3">
-                    {post.excerpt}
+                  <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 font-light">
+                    {featuredPost.excerpt}
                   </p>
-
                 </div>
 
+                <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-6 dark:border-white/10">
+                  <Link
+                    href={`/blog/${featuredPost.slug}`}
+                    className="inline-flex items-center gap-2 text-sm font-extrabold text-[#8C6D2D] transition-all hover:gap-3 hover:text-amber-800 dark:text-[#D4AF37]"
+                  >
+                    <span>Read Featured Story</span>
+                    <ArrowRight className="h-4 w-4 text-[#C5A059]" />
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={onOpenCalculator}
+                    className="cursor-pointer text-xs font-bold text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  >
+                    Check Eligibility
+                  </button>
+                </div>
               </div>
+            </div>
+          </div>
+        </section>
+      )}
 
-              {/* Card Footer / Action */}
-              <div className="px-6 pb-6 pt-2 border-t border-slate-100 dark:border-white/10 flex items-center justify-between">
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="relative z-20 text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 flex items-center gap-1.5 transition-all cursor-pointer group/btn"
-                >
-                  <span>Read More</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A059] group-hover/btn:translate-x-1 transition-transform" />
-                </Link>
+      {/* Main Articles Grid */}
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        {/* 3-Column Luxury Card Grid */}
+        {filteredPosts.length > 0 ? (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {filteredPosts.map((post) => (
+              <article
+                key={post.id}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-[#C5A059] hover:shadow-xl dark:border-white/10 dark:bg-[#111827]"
+              >
+                <div>
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-900">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-black/20" />
 
-                <button
-                  onClick={onOpenCalculator}
-                  className="relative z-20 text-[11px] font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                >
-                  Calculate Fees
-                </button>
+                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-black/60 px-2.5 py-1 text-[10px] font-bold text-amber-300 backdrop-blur-md">
+                      <Sparkles className="h-3 w-3 text-[#D4AF37]" />
+                      <span>GV UAE</span>
+                    </div>
+
+                    <div className="absolute bottom-3 right-3 z-10 flex h-14 w-12 flex-col items-center justify-center rounded-xl border border-amber-200 bg-gradient-to-b from-[#DFBE74] to-[#C5A059] font-black text-slate-950 shadow-lg">
+                      <span className="text-lg font-black leading-none">{post.day}</span>
+                      <span className="mt-1 text-[10px] font-bold uppercase tracking-wider leading-none">{post.month}</span>
+                    </div>
+
+                    <div className="absolute top-3 left-3 z-10 rounded-full bg-white/90 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider text-slate-900 shadow-xs backdrop-blur-md">
+                      {post.category}
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="mb-3 flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+                      <User className="h-3.5 w-3.5 text-[#C5A059]" />
+                      <span>{post.author}</span>
+                      <span className="text-slate-300">•</span>
+                      <Clock className="h-3.5 w-3.5 text-slate-400" />
+                      <span>{post.readTime}</span>
+                    </div>
+
+                    <h3 className="line-clamp-2 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-[#8C6D2D] dark:text-white">
+                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                    </h3>
+
+                    <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 font-light">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between border-t border-slate-100 px-6 py-4 dark:border-white/10">
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#8C6D2D] transition-all hover:gap-2 hover:text-amber-800 dark:text-[#D4AF37]"
+                  >
+                    <span>Read Full Article</span>
+                    <ArrowRight className="h-3.5 w-3.5 text-[#C5A059]" />
+                  </Link>
+
+                  <button
+                    type="button"
+                    onClick={onOpenCalculator}
+                    className="cursor-pointer text-[11px] font-semibold text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                  >
+                    Calculate Fees
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-[#E8D5B5] bg-white p-12 text-center dark:border-white/10 dark:bg-[#111827]">
+            <Search className="mx-auto h-10 w-10 text-slate-400" />
+            <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">No articles found</h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Try adjusting your search query or filter settings.</p>
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedCategory('All');
+                setSearchQuery('');
+              }}
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#8C6D2D] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[#735820]"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
+
+        {/* Newsletter Subscription Box */}
+        <div className="mt-16 rounded-3xl border border-[#E8D5B5] bg-gradient-to-br from-[#15140F] to-[#211F1A] p-8 text-white shadow-xl dark:border-amber-500/20 sm:p-10">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-[#D4AF37]">
+                <Mail className="h-3.5 w-3.5" /> UAE Legal Briefing
               </div>
-
-            </article>
-          ))}
+              <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+                Stay updated on <span className="text-[#D4AF37]">UAE Golden Visa & Legal Laws</span>
+              </h3>
+              <p className="mt-2 text-sm text-slate-300">
+                Get weekly sovereign intelligence, DLD property updates, and GDRFA immigration policy alerts delivered straight to your inbox.
+              </p>
+            </div>
+            <div className="lg:col-span-5">
+              {emailSubscribed ? (
+                <div className="flex items-center gap-3 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-emerald-300">
+                  <CheckCircle2 className="h-6 w-6 flex-shrink-0" />
+                  <span className="text-sm font-bold">Thank you! You are now subscribed to UAE Legal Briefings.</span>
+                </div>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex flex-col gap-3 sm:flex-row">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Enter your corporate email..."
+                    value={emailInput}
+                    onChange={(e) => setEmailInput(e.target.value)}
+                    className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-xs text-white placeholder-slate-400 focus:border-[#C5A059] focus:outline-none sm:text-sm"
+                  />
+                  <button
+                    type="submit"
+                    className="inline-flex flex-shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md transition-all hover:from-[#d4af37] hover:to-[#9f7d36]"
+                  >
+                    <span>Subscribe</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Bottom Fast-Track Consultation Banner */}
-        <div className="mt-16 p-8 rounded-3xl bg-white dark:bg-[#111827] border border-[#E8D5B5] dark:border-white/10 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-12 flex flex-col items-center justify-between gap-6 rounded-3xl border border-[#E8D5B5] bg-white p-8 shadow-lg dark:border-white/10 dark:bg-[#111827] md:flex-row">
           <div className="flex items-center gap-4">
-            <div className="p-3.5 rounded-2xl bg-amber-50 text-[#C5A059] border border-amber-200">
-              <ShieldCheck className="w-8 h-8" />
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-3.5 text-[#C5A059] dark:border-amber-500/30 dark:bg-amber-500/10">
+              <ShieldCheck className="h-8 w-8" />
             </div>
             <div>
               <h4 className="text-lg font-bold text-slate-900 dark:text-white">Have Questions About Your Golden Visa Eligibility?</h4>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Connect with our senior case manager for immediate pre-clearance assistance.</p>
-
+              <p className="mt-0.5 text-xs text-slate-600 dark:text-slate-400">Connect with our senior case manager for immediate pre-clearance assistance.</p>
             </div>
           </div>
           <button
+            type="button"
             onClick={onOpenCalculator}
-            className="w-full md:w-auto px-6 py-3.5 rounded-xl gold-btn text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-2 cursor-pointer shadow-md"
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md transition-all hover:from-[#d4af37] hover:to-[#9f7d36] md:w-auto"
           >
             <span>Launch Fee Estimator</span>
-            <ArrowRight className="w-4 h-4 text-slate-950" />
+            <ArrowRight className="h-4 w-4" />
           </button>
         </div>
-
       </section>
-
     </div>
   );
 };

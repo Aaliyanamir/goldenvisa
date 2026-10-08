@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
+import { AttestationPageContent } from '@/components/service-pages/AttestationPageContent';
 
 export const metadata: Metadata = {
   title: 'Attestation | Golden Visa Dubai',
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function AttestationPage() {
-  return <ServicePageTemplate title="Attestation" />;
+  return <AttestationPageContent />;
 }

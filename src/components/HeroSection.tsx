@@ -1,157 +1,149 @@
-"use client";
+'use client';
 
-import React from 'react';
-import { Calculator, ArrowRight, ClipboardCheck, ShieldCheck, Sparkles, UserCheck } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowRight,
+  faCheck,
+  faChevronRight,
+  faShieldHalved,
+  faWandMagicSparkles,
+} from '@fortawesome/free-solid-svg-icons';
+import type { ServiceId } from '@/components/service-pages/FamilyVisaCalculator';
 
 interface HeroSectionProps {
-  onOpenCalculator: () => void;
+  onOpenCalculator: (initialService?: ServiceId) => void;
   onOpenMegaMenu: () => void;
   onOpenEligibility: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onOpenCalculator, onOpenMegaMenu, onOpenEligibility }) => {
+const pathways = [
+  {
+    id: 'property',
+    label: 'Property investor',
+    title: 'Invest in Dubai property',
+    detail: 'Explore the property-investor residency route and the documents used to assess your case.',
+    criteria: 'Property value and ownership documents',
+    service: 'property',
+  },
+  {
+    id: 'executive',
+    label: 'Executive',
+    title: 'Build your career in the UAE',
+    detail: 'Review the executive pathway and the employment and qualification evidence it may require.',
+    criteria: 'Role, qualifications and salary evidence',
+    service: 'golden',
+  },
+  {
+    id: 'specialist',
+    label: 'Specialist talent',
+    title: 'Bring your expertise to Dubai',
+    detail: 'Explore specialist categories and the endorsements or credentials relevant to your field.',
+    criteria: 'Profession-specific credentials or nomination',
+    service: 'golden',
+  },
+] as const;
+
+export const HeroSection = ({
+  onOpenCalculator,
+  onOpenMegaMenu,
+  onOpenEligibility,
+}: HeroSectionProps) => {
+  const [selectedPathway, setSelectedPathway] = useState<(typeof pathways)[number]['id']>('property');
+  const activePathway = pathways.find(({ id }) => id === selectedPathway) ?? pathways[0];
+
   return (
-    <section
-      data-light-theme-exempt
-      className="relative w-full flex items-center justify-center overflow-hidden border-b border-[#E8D5B5] bg-[#F8F6F0] text-slate-900 transition-all"
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_78%_28%,rgba(197,160,89,0.18),transparent_36%),linear-gradient(120deg,#fffdf8_0%,#f7f3e9_56%,#eeeadf_100%)]"
+    <section data-scroll-reveal className="relative isolate overflow-hidden bg-[#121212] text-white">
+      <Image
+        src="/assets/golden-visa/dubai-residency.jpg"
+        alt=""
+        fill
+        preload
+        sizes="100vw"
+        className="object-cover object-center"
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 opacity-30 [background-image:linear-gradient(rgba(140,109,45,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(140,109,45,0.08)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:linear-gradient(110deg,transparent,black)]"
-      />
-
-      {/* ─── Hero Main Content Grid ─── */}
-      <div
-        className="relative z-10 w-full"
-        style={{
-          maxWidth: '1600px',
-          margin: '0 auto',
-          padding: 'calc(var(--site-header-offset, 80px) + 1.25rem) 1.25rem 1.75rem',
-        }}
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-10 items-center">
-
-          {/* LEFT: Typography & Strategic Headline */}
-          <div className="hero-copy-enter lg:col-span-7 flex flex-col items-start text-left relative">
-
-            {/* Subtle Golden/Amber Radial Background Glow behind Typography */}
-            <div className="pointer-events-none absolute -top-10 -left-10 -z-10 h-[300px] w-[300px] bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-amber-500/12 via-amber-500/5 to-transparent blur-3xl sm:h-[420px] sm:w-[480px]" />
-
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-400/40 bg-white/85 px-3 py-1 backdrop-blur-md shadow-xs">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#8C6D2D]" />
-              <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#765719] sm:text-xs">
-                Licensed UAE Document Clearing & Private Visa Facilitation
-              </p>
-            </div>
-
-            <h1 className="font-display text-2xl font-extrabold leading-[1.12] tracking-tight text-slate-950 sm:text-4xl lg:text-4xl xl:text-[3.2rem] 2xl:text-[3.6rem]">
-              UAE Long-Term Residency
-              <br />
-              <span className="gold-gradient-text font-display font-black">
-                10-Year Golden Visa
-              </span>
-            </h1>
-
-            <p className="mt-3.5 max-w-xl text-xs font-normal leading-relaxed text-slate-600 sm:text-sm lg:text-[0.95rem]">
-              We assist property investors, senior executives, entrepreneurs, and families with UAE residency applications. Get transparent government fee estimates, pre-approval eligibility checks, and step-by-step guidance through official GDRFA & DLD channels.
-            </p>
-
-            {/* Direct Paired CTAs */}
-            <div className="mt-5 flex w-full flex-col gap-2.5 sm:w-auto sm:flex-row sm:items-center">
-              <button
-                type="button"
-                onClick={onOpenCalculator}
-                className="group flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl gold-btn px-5 py-2.5 text-xs font-extrabold uppercase tracking-wider shadow-md shadow-amber-500/20 transition-all hover:scale-[1.01] sm:w-auto"
-              >
-                <Calculator className="h-4 w-4 shrink-0 text-slate-950" />
-                <span>Calculate Fee Estimate</span>
-                <ArrowRight className="h-3.5 w-3.5 shrink-0 text-slate-950 transition-transform group-hover:translate-x-1" />
-              </button>
-
-              <button
-                type="button"
-                onClick={onOpenEligibility}
-                className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-amber-600/40 bg-amber-500/10 hover:bg-amber-500/20 px-5 py-2.5 text-xs font-extrabold uppercase tracking-wider text-[#765719] transition-all sm:w-auto shadow-2xs"
-              >
-                <ClipboardCheck className="h-4 w-4 shrink-0 text-[#765719]" />
-                <span>Check Eligibility</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={onOpenMegaMenu}
-                className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-[#C5A059]/60 bg-white/80 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 transition-colors hover:bg-white sm:w-auto"
-              >
-                <span>Explore Services</span>
-                <ArrowRight className="h-3.5 w-3.5 shrink-0 text-[#765719]" />
-              </button>
-            </div>
-
-            {/* Key Trust Stats */}
-            <div className="mt-6 grid grid-cols-3 gap-2.5 sm:gap-4 pt-4 border-t border-slate-300/60 w-full max-w-sm sm:max-w-lg">
-              <div>
-                <div className="text-base font-black text-slate-950 sm:text-lg lg:text-xl">100% Upfront</div>
-                <div className="mt-0.5 text-[10px] font-medium leading-tight text-slate-600 sm:text-xs">Clear government & fee breakdown</div>
-              </div>
-              <div>
-                <div className="text-base font-black text-[#8C6D2D] sm:text-lg lg:text-xl">Official</div>
-                <div className="mt-0.5 text-[10px] font-medium leading-tight text-slate-600 sm:text-xs">GDRFA, ICP & DLD channels</div>
-              </div>
-              <div>
-                <div className="text-base font-black text-[#8C6D2D] sm:text-lg lg:text-xl">Guided</div>
-                <div className="mt-0.5 text-[10px] font-medium leading-tight text-slate-600 sm:text-xs">Case officer to Emirates ID</div>
-              </div>
-            </div>
+      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,15,15,.96)_0%,rgba(15,15,15,.83)_45%,rgba(15,15,15,.52)_100%)]" />
+      <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(ellipse_at_76%_46%,rgba(212,175,55,.2),transparent_40%)]" />
+      <div className="relative mx-auto grid min-h-[680px] max-w-[1440px] items-center gap-12 px-5 pb-14 pt-[calc(var(--site-header-offset,112px)+2rem)] sm:px-8 lg:grid-cols-[1.05fr_.8fr] lg:gap-16 lg:px-12 lg:pb-20">
+        <div className="max-w-2xl">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[.16em] text-white/90 backdrop-blur-md">
+            <FontAwesomeIcon icon={faShieldHalved} className="h-4 w-4 text-[#D4AF37]" />
+            UAE residency &amp; government services
           </div>
-
-          {/* RIGHT: Compact guided cost estimator entry point */}
-          <div className="hero-panel-enter lg:col-span-5 w-full">
-            <aside className="overflow-hidden rounded-2xl border border-amber-200/90 bg-white/95 shadow-[0_20px_60px_-25px_rgba(80,61,25,0.18)] backdrop-blur-xl">
-              <div className="h-1.5 w-full bg-gradient-to-r from-amber-600 via-amber-400 to-amber-600" />
-              <div className="p-4 sm:p-5 lg:p-6">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#8C6D2D]">
-                  <Sparkles className="h-3.5 w-3.5 text-amber-600" /> Instant Cost Estimator
-                </span>
-                <h2 className="mt-2 text-xl font-extrabold text-slate-950 sm:text-2xl">Build your visa estimate</h2>
-                <p className="mt-1.5 text-xs sm:text-sm leading-snug text-slate-600">
-                  Select your residency pathway and family profile to calculate an instant fee breakdown.
-                </p>
-                <ol className="mt-4 space-y-2.5">
-                  {[
-                    'Select a residency or family pathway',
-                    'Enter your property value or monthly salary',
-                    'Review your itemized total and government fee breakdown',
-                  ].map((item, index) => (
-                    <li key={item} className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-700">
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-amber-300 bg-amber-50 text-[10px] font-black text-[#765719]">0{index + 1}</span>
-                      <span className="leading-tight">{item}</span>
-                    </li>
-                  ))}
-                </ol>
-                <button
-                  type="button"
-                  onClick={onOpenCalculator}
-                  className="mt-5 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl gold-btn px-4 text-xs font-extrabold text-slate-950 shadow-md cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99]"
-                >
-                  <Calculator className="h-4 w-4" /> Calculate Fee Estimate <ArrowRight className="h-4 w-4" />
-                </button>
-                <div className="mt-3.5 flex items-center gap-1.5 border-t border-slate-200 pt-3 text-[11px] text-slate-600">
-                  <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-[#8C6D2D]" />
-                  <span className="truncate">Independent facilitation. Official fees itemized before filing.</span>
-                  <UserCheck className="ml-auto h-3.5 w-3.5 shrink-0 text-[#8C6D2D]" />
-                </div>
-              </div>
-            </aside>
+          <h1 className="max-w-2xl text-4xl font-semibold leading-[1.08] tracking-[-.04em] sm:text-5xl lg:text-6xl xl:text-7xl">
+            A more considered
+            <span className="mt-2 block text-[#E4C86A]">way to make Dubai home.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-sm leading-7 text-white/75 sm:text-base">
+            Clear guidance for UAE Golden Visa, family residency and corporate services—from choosing a route to preparing your application.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <button
+              type="button"
+              onClick={onOpenEligibility}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-6 text-sm font-bold text-[#171611] shadow-[0_10px_32px_rgba(212,175,55,.2)] transition hover:bg-[#e5c85f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            >
+              Check your eligibility <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={onOpenMegaMenu}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/5 px-6 text-sm font-semibold text-white transition hover:border-[#D4AF37] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+            >
+              Explore services <FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
+            </button>
           </div>
-
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium text-white/65">
+            <span className="inline-flex items-center gap-2"><FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-[#D4AF37]" /> Independent case guidance</span>
+            <span className="inline-flex items-center gap-2"><FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-[#D4AF37]" /> Transparent next steps</span>
+          </div>
         </div>
+
+        <aside className="w-full max-w-xl justify-self-center rounded-[28px] border border-white/20 bg-[#161616]/80 p-5 shadow-[0_30px_100px_rgba(0,0,0,.42)] backdrop-blur-xl sm:p-7 lg:justify-self-end">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-[#E4C86A]">
+            <FontAwesomeIcon icon={faWandMagicSparkles} className="h-4 w-4" /> Residency pathway guide
+          </div>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Start with your goals.</h2>
+          <p className="mt-2 text-sm leading-6 text-white/65">Choose a starting point to see the kind of information your case review may cover.</p>
+          <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {pathways.map((pathway) => (
+              <button
+                key={pathway.id}
+                type="button"
+                aria-pressed={selectedPathway === pathway.id}
+                onClick={() => {
+                  setSelectedPathway(pathway.id);
+                  onOpenCalculator(pathway.service);
+                }}
+                className={`min-h-11 rounded-xl border px-3 py-2 text-left text-xs font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E4C86A] ${
+                  selectedPathway === pathway.id
+                    ? 'border-[#D4AF37] bg-[#D4AF37]/15 text-[#F2D875]'
+                    : 'border-white/15 bg-white/[.04] text-white/70 hover:border-white/35 hover:text-white'
+                }`}
+              >
+                {pathway.label}
+              </button>
+            ))}
+          </div>
+          <div aria-live="polite" className="mt-5 min-h-[142px] rounded-2xl border border-white/10 bg-black/20 p-5">
+            <p className="text-xs font-medium uppercase tracking-wider text-white/50">Your selected pathway</p>
+            <h3 className="mt-2 text-lg font-semibold text-white">{activePathway.title}</h3>
+            <p className="mt-1 text-sm leading-6 text-white/65">{activePathway.detail}</p>
+            <p className="mt-3 text-xs font-semibold text-[#E4C86A]">{activePathway.criteria}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => onOpenCalculator()}
+            className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-bold text-[#1F1F1F] transition hover:bg-[#F9F9F8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4AF37]"
+          >
+            Open fee &amp; service estimator <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
+          </button>
+          <p className="mt-3 text-center text-[11px] leading-5 text-white/45">
+            Fees and eligibility depend on your case and the relevant UAE authority.
+          </p>
+        </aside>
       </div>
     </section>
   );
 };
-
-

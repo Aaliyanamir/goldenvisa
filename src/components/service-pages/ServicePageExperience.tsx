@@ -24,7 +24,11 @@ import { FamilyVisaPageContentWithFrame } from './FamilyVisaPageContent';
 import { PropertyVisaPageContentWithFrame } from './PropertyVisaPageContent';
 import { GoldenVisaPageContentWithFrame } from './GoldenVisaPageContent';
 import { NewbornVisaPageContentWithFrame } from './NewbornVisaPageContent';
+import { EmiratesIdPageContentWithFrame } from './EmiratesIdPageContent';
+import { ProServicesPageContentWithFrame } from './ProServicesPageContent';
 import { FamilyVisaCalculator, type ServiceId } from './FamilyVisaCalculator';
+import { MaidVisaCalculator } from './MaidVisaCalculator';
+import { calculateIloeEstimate } from './iloeCalculatorMath';
 
 const officialLinks = {
   icp: 'https://smartservices.icp.gov.ae/echannels/web/client/default.html#/login',
@@ -51,7 +55,6 @@ const serviceHeroImages: Partial<Record<string, { src: string; alt: string }>> =
 };
 
 const calculatorServices: Partial<Record<string, ServiceId>> = {
-  'Maid Visa': 'maid',
   'Emirates ID Services': 'emiratesId',
   'Corporate PRO Services': 'pro',
   'Amer Center Services': 'amer',
@@ -472,20 +475,15 @@ function IloeTools() {
   const [daysSinceLastDay, setDaysSinceLastDay] = useState('');
   const [missedSubscription, setMissedSubscription] = useState(false);
   const [latePremium, setLatePremium] = useState(false);
-  const monthlySalary = Number(salary);
-  const hasSalary = salary.trim() !== '' && Number.isFinite(monthlySalary) && monthlySalary > 0;
-  const categoryA = hasSalary && monthlySalary <= 16_000;
-  const monthlyCap = categoryA ? 10_000 : 20_000;
-  const monthlyBenefit = hasSalary ? Math.min(monthlySalary * 0.6, monthlyCap) : 0;
-  const maxBenefit = monthlyBenefit * 3;
-  const monthsPaid = Number(subscriptionMonths);
-  const elapsedDays = Number(daysSinceLastDay);
-  const eligibilityReady = subscriptionMonths !== '' && jobLossType !== '' && daysSinceLastDay !== '';
-  const appearsEligible = eligibilityReady
-    && Number.isFinite(monthsPaid) && monthsPaid >= 12
-    && jobLossType === 'involuntary'
-    && Number.isFinite(elapsedDays) && elapsedDays >= 0 && elapsedDays <= 30;
-  const fineEstimate = (missedSubscription ? 400 : 0) + (latePremium ? 200 : 0);
+  const estimate = calculateIloeEstimate({
+    salary,
+    subscriptionMonths,
+    jobLossType,
+    daysSinceLastDay,
+    missedSubscription,
+    latePremium,
+  });
+  const { hasSalary, categoryA, monthlyCap, monthlyBenefit, maxBenefit, eligibilityReady, appearsEligible, fineEstimate } = estimate;
   const money = (amount: number) => `AED ${Math.round(amount).toLocaleString('en-AE')}`;
 
   return (
@@ -852,6 +850,134 @@ export function ServicePageExperience({ title }: { title: string }) {
   if (title === 'Golden Visa') return <GoldenVisaPageContentWithFrame />;
   if (title === 'Property Visa') return <PropertyVisaPageContentWithFrame />;
   if (title === 'Newborn Visa') return <NewbornVisaPageContentWithFrame />;
+  if (title === 'Emirates ID') return <EmiratesIdPageContentWithFrame />;
+  if (title === 'PRO Services') return <ProServicesPageContentWithFrame />;
+
+  if (title === 'Property Revaluation') {
+    return (
+      <StandalonePageFrame currentView="service" showMobileStickyBar={false}>
+        <div className="gv-service-page">
+          <div className="gv-page-shell">
+            <nav className="gv-breadcrumb" aria-label="Breadcrumb">
+              <Link href="/">Home</Link><ChevronRight size={14} /><Link href="/#services">Services</Link><ChevronRight size={14} /><span aria-current="page">{content.title}</span>
+            </nav>
+
+            <header className="gv-hero">
+              <div className="gv-hero-copy">
+                <Eyebrow>{content.eyebrow}</Eyebrow>
+                <h1>{content.title}</h1>
+                <p>{content.description}</p>
+                <div className="gv-hero-actions">
+                  <a className="gv-button gv-button--gold" href="#consultation">Plan your valuation review <ArrowRight size={17} /></a>
+                  <a className="gv-button gv-button--outline" href={contactInfo.phoneHref}>Call an advisor <ArrowUpRight size={16} /></a>
+                </div>
+                <div className="gv-hero-trust"><BadgeCheck size={17} />Official property value assessment support · the authority decides the final figure</div>
+              </div>
+              {heroImage ? (
+                <aside className="gv-hero-photo">
+                  <Image
+                    src={heroImage.src}
+                    alt={heroImage.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 800px) 100vw, 42vw"
+                  />
+                  <div className="gv-hero-photo-caption"><strong>{content.heroMetric}</strong><span>{content.heroLabel}</span></div>
+                </aside>
+              ) : (
+                <aside className="gv-hero-visual" aria-label={`${content.heroMetric} ${content.heroLabel}`}>
+                  <div className="gv-visual-top"><span>UAE PROPERTY VALUE</span><span>DXB / UAE</span></div>
+                  <div className="gv-visual-rule" />
+                  <div className="gv-visual-main">
+                    <span className="gv-visual-mark"><FileCheck2 size={26} /></span>
+                    <div><strong>{content.heroMetric}</strong><span>{content.heroLabel}</span></div>
+                  </div>
+                  <div className="gv-visual-lines" aria-hidden="true"><span /><span /><span /></div>
+                  <div className="gv-visual-bottom"><span><span className="gv-visual-dot" aria-hidden="true" />RISK-READY DOCUMENT PREP</span><ArrowDownRight size={18} /></div>
+                  <span className="gv-visual-index" aria-hidden="true">GV / 01</span>
+                </aside>
+              )}
+            </header>
+
+            <section className="gv-metrics" aria-label={`${content.title} key information`}>
+              {content.metrics.map((metric) => <div className="gv-metric" key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}
+            </section>
+
+            {content.notice && (
+              <aside className={`gv-notice gv-notice--${content.notice.tone ?? 'info'}`} role="note">
+                <Clock3 size={21} /><div><strong>{content.notice.title}</strong><p>{content.notice.text}</p></div>
+              </aside>
+            )}
+
+            <section className="gv-section gv-overview">
+              <SectionHeading label="Overview" title={content.introTitle} text={content.intro} />
+            </section>
+
+            <section className="gv-section">
+              <SectionHeading label="Why it matters" title="A clear valuation supports the next legal or financial decision" text="The right document is not just a number. It is usually tied to a precise purpose, deadline, authority and property record." />
+              <div className="gv-card-grid">
+                {content.highlights.map((item, index) => (
+                  <article className="gv-info-card" key={item.title}>
+                    <span className="gv-card-number">0{index + 1}</span>
+                    <span className="gv-card-icon"><CheckCircle2 size={19} /></span>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="gv-section">
+              <SectionHeading label="Process" title={content.processTitle} text="A clear sequence keeps each approval and document stage visible." />
+              <ol className="gv-process-grid">
+                {content.process.map((step, index) => (
+                  <li className="gv-process-card" key={step.title}>
+                    <span className="gv-step-number">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="gv-process-line" aria-hidden="true" />
+                    <h3>{step.title}</h3>
+                    <p>{step.detail}</p>
+                  </li>
+                ))}
+              </ol>
+            </section>
+
+            {content.table && <ContentTable table={content.table} />}
+
+            <section className="gv-section gv-documents-section">
+              <div>
+                <SectionHeading label="Prepare your file" title={content.documentsTitle} text="The final checklist can change with the property, title deed status, receiving authority and intended use." />
+              </div>
+              <ul className="gv-document-grid">
+                {content.documents.map((document) => <li key={document}><span><Check size={15} /></span>{document}</li>)}
+              </ul>
+            </section>
+
+            <section className="gv-section gv-faq-section">
+              <SectionHeading label="Questions & answers" title="Frequently asked about property valuation" />
+              <div className="gv-faq-list">
+                {content.faqs.map((faq) => (
+                  <details key={faq.question}>
+                    <summary>{faq.question}<span aria-hidden="true">+</span></summary>
+                    <p>{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+
+            <LeadForm
+              content={content}
+              country={attestationCountry}
+              setCountry={setAttestationCountry}
+              attestationType={attestationType}
+              setAttestationType={setAttestationType}
+              poaType={poaType}
+            />
+            <p className="gv-disclaimer"><ShieldCheck size={14} />We are a private documentation and PRO-services provider, not a UAE government agency. Government fees, eligibility and processing times may change.</p>
+          </div>
+        </div>
+      </StandalonePageFrame>
+    );
+  }
 
   return (
     <StandalonePageFrame currentView="service" showMobileStickyBar={false}>
@@ -867,7 +993,9 @@ export function ServicePageExperience({ title }: { title: string }) {
               <h1>{content.title}</h1>
               <p>{content.description}</p>
               <div className="gv-hero-actions">
-                <a className="gv-button gv-button--gold" href="#consultation">Plan your next step <ArrowRight size={17} /></a>
+                {content.title === 'Maid Visa'
+                  ? <button className="gv-button gv-button--gold" type="button" onClick={() => setCalculatorOpen(true)}>Plan your maid visa <ArrowRight size={17} /></button>
+                  : <a className="gv-button gv-button--gold" href="#consultation">Plan your next step <ArrowRight size={17} /></a>}
                 <a className="gv-button gv-button--outline" href={contactInfo.phoneHref}>Call an advisor <ArrowUpRight size={16} /></a>
               </div>
               <div className="gv-hero-trust"><BadgeCheck size={17} />Private documentation support · Government approval remains with the authority</div>
@@ -892,7 +1020,7 @@ export function ServicePageExperience({ title }: { title: string }) {
                 <div><strong>{content.heroMetric}</strong><span>{content.heroLabel}</span></div>
               </div>
               <div className="gv-visual-lines" aria-hidden="true"><span /><span /><span /></div>
-              <div className="gv-visual-bottom"><span><i />TAILORED TO YOUR CASE</span><ArrowDownRight size={18} /></div>
+              <div className="gv-visual-bottom"><span><span className="gv-visual-dot" aria-hidden="true" />TAILORED TO YOUR CASE</span><ArrowDownRight size={18} /></div>
               <span className="gv-visual-index" aria-hidden="true">GV / 01</span>
               </aside>
             )}
@@ -1082,6 +1210,12 @@ export function ServicePageExperience({ title }: { title: string }) {
           open={calculatorOpen}
           onClose={() => setCalculatorOpen(false)}
           initialService={calculatorServices[content.title]}
+        />
+      )}
+      {content.title === 'Maid Visa' && (
+        <MaidVisaCalculator
+          open={calculatorOpen}
+          onClose={() => setCalculatorOpen(false)}
         />
       )}
     </StandalonePageFrame>

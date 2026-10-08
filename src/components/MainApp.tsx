@@ -10,18 +10,20 @@ import { ServicesSection } from '@/components/ServicesSection';
 import { RoadmapSection } from '@/components/RoadmapSection';
 import { FaqAndSocialProof } from '@/components/FaqAndSocialProof';
 import { BlogMainView } from '@/components/BlogMainView';
+import { HomeInsightsSection } from '@/components/HomeInsightsSection';
 import { AboutPage } from '@/components/AboutPage';
 import { Footer } from '@/components/Footer';
 import { VisaCalculatorModal } from '@/components/VisaCalculatorModal';
 import { MegaMenu } from '@/components/MegaMenu';
 import { FloatingActionButtons } from '@/components/FloatingActionButtons';
 import { EligibilityQuiz } from '@/components/EligibilityQuiz';
-import { ShieldCheck, Award, CheckCircle2, Sparkles } from 'lucide-react';
+import type { ServiceId } from '@/components/service-pages/FamilyVisaCalculator';
 
 export const MainApp: React.FC = () => {
   const router = useRouter();
   const [currentView, setCurrentView] = useState<'home' | 'blog' | 'about'>('home');
   const [calculatorOpen, setCalculatorOpen] = useState(false);
+  const [calculatorService, setCalculatorService] = useState<ServiceId | undefined>();
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [quizOpen, setQuizOpen] = useState(false);
 
@@ -32,6 +34,11 @@ export const MainApp: React.FC = () => {
     }
     setCurrentView(view);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const openCalculator = (initialService?: ServiceId) => {
+    setCalculatorService(initialService);
+    setCalculatorOpen(true);
   };
 
   return (
@@ -49,57 +56,17 @@ export const MainApp: React.FC = () => {
             <>
               {/* Hero Section */}
               <HeroSection
-                onOpenCalculator={() => setCalculatorOpen(true)}
+                onOpenCalculator={openCalculator}
                 onOpenMegaMenu={() => setMegaMenuOpen(true)}
                 onOpenEligibility={() => setQuizOpen(true)}
               />
-
-              {/* Trust & Authority Bar */}
-              <div className="bg-[#FAF8F5] dark:bg-[#0B0F19] border-b border-slate-200 dark:border-white/10 py-4 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center md:justify-between gap-4 sm:gap-6 text-xs text-slate-700 dark:text-slate-300 font-semibold">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
-                    <span>GDRFA & ICP System Integrated</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Award className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
-                    <span>Dubai Land Department (DLD) Compliant</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
-                    <span>Official Attestation & MOHRE Alignment</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-[#8C6D2D] dark:text-amber-400 shrink-0" />
-                    <span>100% Upfront Transparent Fee Structure</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Eligibility Quiz CTA Banner */}
-              <div className="bg-amber-500/10 dark:bg-[#090D16] border-b border-amber-500/20 dark:border-amber-500/15 py-5 px-4 sm:px-6 lg:px-8 text-slate-900 dark:text-white transition-colors duration-300">
-                <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-                  <div className="text-center sm:text-left">
-                    <p className="text-[11px] font-extrabold tracking-widest text-amber-900 dark:text-amber-400 uppercase mb-0.5">Free Eligibility Assessment</p>
-                    <p className="text-slate-900 dark:text-white font-bold text-sm sm:text-base">
-                      Not sure which visa applies to you? Take our 2-minute quiz.
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setQuizOpen(true)}
-                    className="shrink-0 px-6 py-3 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-widest cursor-pointer whitespace-nowrap shadow-md"
-                  >
-                    Check My Eligibility — Free
-                  </button>
-                </div>
-              </div>
 
               {/* Gallery Section */}
               <ResultsGallerySection />
 
               {/* Services */}
               <ServicesSection
-                onOpenCalculator={() => setCalculatorOpen(true)}
+                onOpenCalculator={() => openCalculator()}
               />
 
               {/* Roadmap */}
@@ -107,25 +74,10 @@ export const MainApp: React.FC = () => {
 
               {/* FAQ + Testimonials */}
               <FaqAndSocialProof
-                onOpenCalculator={() => setCalculatorOpen(true)}
+                onOpenCalculator={() => openCalculator()}
               />
 
-              {/* Blog Teaser */}
-              <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#FAF9F6] dark:bg-[#0B0F19] border-t border-slate-200 dark:border-white/10 transition-colors duration-300">
-                <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-                  <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#8C6D2D] dark:text-amber-400">Editorial Media</span>
-                    <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-1">Read the Latest UAE Golden Visa Insights</h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Regulatory breakdowns, DLD property rules, and corporate tax guides.</p>
-                  </div>
-                  <button
-                    onClick={() => navigate('blog')}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl gold-btn font-extrabold text-xs uppercase tracking-wider cursor-pointer shadow-sm whitespace-nowrap"
-                  >
-                    Explore All Articles
-                  </button>
-                </div>
-              </section>
+              <HomeInsightsSection />
             </>
           ) : currentView === 'about' ? (
             <AboutPage onOpenCalculator={() => setCalculatorOpen(true)} />
@@ -143,8 +95,9 @@ export const MainApp: React.FC = () => {
           />
 
           {/* Modals */}
-          <VisaCalculatorModal 
+          <VisaCalculatorModal
             isOpen={calculatorOpen}
+            initialService={calculatorService}
             onClose={() => setCalculatorOpen(false)}
           />
 

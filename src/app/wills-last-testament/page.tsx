@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
+import { WillsPageContentWithFrame } from '@/components/service-pages/WillsPageContent';
 
 export const metadata: Metadata = {
-  title: 'Wills & Last Testament in Dubai | Golden Visa Dubai',
-  description: 'Compare DIFC and Dubai Courts will registration, plan guardianship and asset instructions, and prepare for a UAE wills consultation.',
+  title: 'Wills & Last Testament Dubai & UAE | DIFC & Dubai Courts Wills',
+  description: 'Lawyer-drafted DIFC & Dubai Courts Wills registration for non-Muslim expatriates in Dubai and UAE. Protect real estate, bank accounts, business equity, and minor children guardianship.',
 };
 
 export default function WillsLastTestamentPage() {
-  return <ServicePageTemplate title="Wills & Last Testament" />;
+  return <WillsPageContentWithFrame />;
 }
+

@@ -148,7 +148,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       </section>
 
       <div className="about-trust-strip" aria-label="Service principles">
-        <span>UAE Residency</span><i /><span>Business Support</span><i /><span>Document Services</span><i /><span>Client Guidance</span>
+        <span>UAE Residency</span><span className="about-trust-divider" aria-hidden="true" /><span>Business Support</span><span className="about-trust-divider" aria-hidden="true" /><span>Document Services</span><span className="about-trust-divider" aria-hidden="true" /><span>Client Guidance</span>
       </div>
 
       <section className="about-founder">

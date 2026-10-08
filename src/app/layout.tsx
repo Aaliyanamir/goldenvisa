@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import "@/components/service-pages/service-pages.css";
+import { ScrollRevealProvider } from "@/components/ScrollRevealProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -62,7 +63,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="min-h-screen antialiased overflow-x-hidden">
-        {children}
+        <ScrollRevealProvider>{children}</ScrollRevealProvider>
 
         {/* ─── Tawk.to Live Chat Widget ─── */}
         {/* Replace property_id and widget_id with your actual Tawk.to values from tawk.to dashboard */}

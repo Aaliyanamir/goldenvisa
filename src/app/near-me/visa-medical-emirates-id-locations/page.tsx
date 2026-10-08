@@ -3,10 +3,9 @@ import { VisaMedicalEmiratesIdLocationsPageContentWithFrame } from '@/components
 
 export const metadata: Metadata = {
   title: 'Visa Medical & Emirates ID Locations | Golden Visa Dubai',
-  description: 'Find official DHA medical fitness centers and ICP Emirates ID biometrics locations in Dubai. Filter by Smart Salem 30-min screening, VIP 24h centers, and sort by nearest distance.',
+  description: 'Find official DHA medical fitness centers and ICP Emirates ID biometrics locations in Dubai.',
 };
 
-export default function VisaMedicalEmiratesIdLocationPage() {
+export default function VisaMedicalEmiratesIdLocationsPage() {
   return <VisaMedicalEmiratesIdLocationsPageContentWithFrame />;
 }
-

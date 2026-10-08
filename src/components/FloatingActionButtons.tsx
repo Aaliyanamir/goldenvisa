@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
 import { contactInfo } from '../lib/contactInfo';
-import { Calculator, ArrowUp, ShieldCheck, ClipboardCheck } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faCalculator, faClipboardCheck, faShieldHalved } from '@fortawesome/free-solid-svg-icons';
 import { WhatsAppIcon } from './WhatsAppIcon';
 
 interface FloatingActionProps {
@@ -83,7 +84,7 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({
 
           {/* Center Indicator: Arrow by default, hover reveals exact percentage */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <ArrowUp className="w-4 h-4 text-slate-800 dark:text-slate-100 group-hover:hidden transition-transform duration-200" />
+            <FontAwesomeIcon icon={faArrowUp} className="h-4 w-4 text-slate-800 transition-transform duration-200 group-hover:hidden dark:text-slate-100" />
             <span className="hidden group-hover:inline text-[10px] font-black text-[#8C6D2D] dark:text-amber-400 tabular-nums">
               {scrollProgress}%
             </span>
@@ -97,7 +98,7 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({
           {/* Micro Trust Bar */}
           <div className="mb-1.5 flex items-center justify-between px-2 text-[10px] font-bold text-slate-600 dark:text-slate-300 border-b border-slate-100 dark:border-white/10 pb-1">
             <span className="flex items-center gap-1 text-[#8C6D2D] dark:text-amber-400">
-              <ShieldCheck className="h-3 w-3 shrink-0" /> Licensed Facilitation
+              <FontAwesomeIcon icon={faShieldHalved} className="h-3 w-3 shrink-0" /> Licensed Facilitation
             </span>
             <span className="text-[9px] uppercase tracking-wider font-extrabold text-amber-700 dark:text-amber-300">
               Upfront Fee Guarantee
@@ -109,7 +110,7 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({
               onClick={onOpenCalculator}
               className="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-extrabold text-slate-950 shadow-sm transition-all active:scale-[0.98] gold-btn"
             >
-              <Calculator className="h-4 w-4 shrink-0 text-slate-950" />
+              <FontAwesomeIcon icon={faCalculator} className="h-4 w-4 shrink-0 text-slate-950" />
               <span className="truncate">{t.mobileSticky.calcBtn}</span>
             </button>
 
@@ -118,7 +119,7 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({
                 onClick={onOpenEligibility}
                 className="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-amber-600/30 bg-amber-50 dark:bg-amber-950/40 px-2 py-2 text-xs font-extrabold text-[#765719] dark:text-amber-300 shadow-2xs transition-all active:scale-[0.98]"
               >
-                <ClipboardCheck className="h-4 w-4 shrink-0 text-[#765719] dark:text-amber-300" />
+                <FontAwesomeIcon icon={faClipboardCheck} className="h-4 w-4 shrink-0 text-[#765719] dark:text-amber-300" />
                 <span className="truncate">Eligibility</span>
               </button>
             )}
@@ -138,4 +139,3 @@ export const FloatingActionButtons: React.FC<FloatingActionProps> = ({
     </>
   );
 };
-

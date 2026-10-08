@@ -293,7 +293,7 @@ function GoldenVisaPageContent() {
               <h2>A clear process, <strong>one approval at a time.</strong></h2>
               <p>The exact authority sequence differs by category. Confirm where to file before changing an existing visa status.</p>
             </div>
-            <ol className="gv-golden-process">{process.map(([title, detail], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><i aria-hidden="true" /><h3>{title}</h3><p>{detail}</p></li>)}</ol>
+            <ol className="gv-golden-process">{process.map(([title, detail], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><span className="gv-golden-process-divider" aria-hidden="true" /><h3>{title}</h3><p>{detail}</p></li>)}</ol>
           </section>
 
           <section className="gv-golden-documents-section">

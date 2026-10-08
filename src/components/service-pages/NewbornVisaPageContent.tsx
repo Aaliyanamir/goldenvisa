@@ -14,7 +14,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { StandalonePageFrame } from '@/components/StandalonePageFrame';
-import { FamilyVisaCalculator, type ServiceId } from './FamilyVisaCalculator';
+import { NewbornVisaCalculator } from './NewbornVisaCalculator';
 
 const phases = [
   { title: 'Pre-documentation', detail: 'Check both parents’ passports, Emirates IDs and UAE residence details. Confirm the marriage certificate and required attestation route before the birth file is opened.', icon: Heart },
@@ -35,7 +35,7 @@ const faqs = [
   ['What happens if the 120-day period is missed?', 'Late completion may lead to immigration fines or other action under the applicable rules. Contact the relevant authority promptly to confirm the current amount and resolve the case; do not rely on a general estimate.'],
   ['What is the correct order for a baby born in Dubai?', 'Usually: parents’ records and birth notification, UAE birth certificate, required MOFA attestation, baby’s passport or travel document, then newborn residence and Emirates ID application. Embassy requirements can affect the sequence.'],
   ['Does a newborn need a medical fitness test?', 'Medical fitness screening is generally for adult applicants, not newborns. The baby still needs the required residence and Emirates ID application steps. Confirm any case-specific instructions with the authority.'],
-  ['Can I calculate the fees before the passport is ready?', 'You can prepare an indicative fee guide while gathering the documents. The final application route and charges depend on sponsor visa type, location and current authority tariffs.'],
+  ['Can I calculate the fees before the passport is ready?', 'Yes. The estimate uses the sponsor visa duration and birth-certificate language. Passport fees depend on nationality and consulate, so they are not included; confirm current authority charges before applying.'],
   ['What if the parents’ marriage certificate is not attested?', 'Ask the issuing-country authority and the relevant UAE authority which attestation chain is needed. The required steps depend on where the certificate was issued and the application file.'],
 ] as const;
 
@@ -101,8 +101,8 @@ function NewbornVisaPageContent() {
           </section>
 
           <section className="gv-newborn-cost-section">
-            <div><span className="gv-newborn-eyebrow"><span aria-hidden="true" />Newborn visa cost calculator</span><h2>Get an itemized <strong>starting estimate.</strong></h2><p>Government charges depend on the sponsor’s visa type, whether the baby is inside the UAE and whether a family file is already open. The guide is indicative—not a live government quote.</p></div>
-            <div className="gv-newborn-cost-card"><div><span>NEWBORN VISA</span><BadgeCheck size={24} /></div><strong>Built around your sponsor’s visa</strong><p>Review the application route, location, family file and authority fee components step by step.</p><button type="button" onClick={() => setCalculatorOpen(true)}>Calculate newborn cost <ArrowRight size={16} /></button><small>Figures are illustrative. Confirm current charges before payment.</small></div>
+            <div><span className="gv-newborn-eyebrow"><span aria-hidden="true" />Newborn visa cost calculator</span><h2>Get an itemized <strong>starting estimate.</strong></h2><p>Choose the sponsor’s visa type and birth-certificate language to see the listed government fees. Passport issuance and case-specific charges are excluded; this is an indicative guide, not a live government quote.</p></div>
+            <div className="gv-newborn-cost-card"><div><span>NEWBORN VISA</span><BadgeCheck size={24} /></div><strong>Built around your sponsor’s visa</strong><p>Review sponsor visa duration, birth-certificate language and an itemized fee breakdown. Passport fees depend on nationality and consulate.</p><button type="button" onClick={() => setCalculatorOpen(true)}>Calculate newborn cost <ArrowRight size={16} /></button><small>Figures are illustrative. Confirm current charges before payment.</small></div>
           </section>
 
           <section className="gv-newborn-faq-section">
@@ -117,7 +117,7 @@ function NewbornVisaPageContent() {
           <p className="gv-newborn-disclaimer"><ShieldCheck size={14} />We are a private documentation support provider, not a UAE government agency. Deadlines, fines, document rules and fees can change; confirm your case directly with the relevant authority.</p>
         </div>
       </div>
-      <FamilyVisaCalculator open={calculatorOpen} onClose={() => setCalculatorOpen(false)} initialService={'newborn' satisfies ServiceId} />
+      <NewbornVisaCalculator open={calculatorOpen} onClose={() => setCalculatorOpen(false)} />
     </StandalonePageFrame>
   );
 }

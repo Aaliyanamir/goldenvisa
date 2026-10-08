@@ -15,6 +15,47 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html.scroll-reveal-enabled [data-scroll-reveal-state="pending"] {
+    transition:
+      translate 480ms cubic-bezier(0.22, 1, 0.36, 1),
+      scale 480ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="rise"] {
+    translate: 0 12px;
+  }
+
+  html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="from-left"] {
+    translate: -12px 0;
+  }
+
+  html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="from-right"] {
+    translate: 12px 0;
+  }
+
+  html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="scale"] {
+    translate: 0 8px;
+    scale: 0.99;
+  }
+
+  html.scroll-reveal-enabled [data-scroll-reveal-state="pending"]:focus-within {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  html.scroll-reveal-enabled [data-scroll-reveal-state="visible"] {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 @layer base {
   :root {
     --font-sans: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
@@ -23,33 +64,33 @@ html {
     --font-display: var(--font-body);
     --font-arabic: var(--font-body);
     --site-header-offset: 112px;
-    --gold-primary: #C5A059;
+    --gold-primary: #D4AF37;
     --gold-hover: #D4AF37;
-    --gold-dark: #8C6D2D;
-    --gold-subtle: #FDFBF7;
-    --gold-border: #E8D5B5;
+    --gold-dark: #B8860B;
+    --gold-subtle: #F9F9F8;
+    --gold-border: #E7E2D2;
     
-    --bg-page: #FAF9F6;
+    --bg-page: #FFFFFF;
     --bg-surface: #FFFFFF;
-    --bg-alt: #F4F1E9;
-    --bg-warm: #FAF9F6;
-    --text-main: #0F172A;
-    --text-muted: #64748B;
-    --border-subtle: #E2E8F0;
+    --bg-alt: #F9F9F8;
+    --bg-warm: #F9F9F8;
+    --text-main: #1F1F1F;
+    --text-muted: #686868;
+    --border-subtle: #E7E4DC;
   }
 
   html.dark {
     --gold-primary: #D4AF37;
-    --gold-hover: #E5C365;
-    --gold-dark: #A68436;
-    --gold-subtle: #19160F;
-    --gold-border: rgba(197, 160, 89, 0.3);
+    --gold-hover: #E3C55A;
+    --gold-dark: #B8860B;
+    --gold-subtle: #191919;
+    --gold-border: rgba(212, 175, 55, 0.3);
 
-    --bg-page: #050505;
-    --bg-surface: #111111;
-    --bg-alt: #090909;
-    --bg-warm: #17140D;
-    --text-main: #FAFAFA;
+    --bg-page: #121212;
+    --bg-surface: #1A1A1A;
+    --bg-alt: #181818;
+    --bg-warm: #191919;
+    --text-main: #F9F9F8;
     --text-muted: #B8B8B8;
     --border-subtle: rgba(255, 255, 255, 0.14);
   }
@@ -157,7 +198,7 @@ html:not(.dark) .white-gold-card .dark\:border-white\/10 {
 
 /* ─── Dark Mode Card & Global Overrides ─── */
 html.dark body {
-  background-color: #050505 !important;
+  background-color: #121212 !important;
   color: #F8FAFC !important;
 }
 
@@ -1904,8 +1945,8 @@ html.dark .service-page-theme .service-hero--photo .service-action--secondary {
 }
 
 #site-shell .site-footer {
-  border-top: 4px solid #b89243 !important;
-  background: linear-gradient(145deg, #191813 0%, #211f19 52%, #171611 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: #121212 !important;
   color: #d4d0c5 !important;
   box-shadow: 0 -18px 46px -38px rgba(30, 25, 15, 0.6);
 }

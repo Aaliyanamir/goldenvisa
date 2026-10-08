@@ -1,35 +1,46 @@
 import React from 'react';
-import { ArrowRight, BadgeCheck, FileCheck2, Globe2, MessagesSquare } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUpRightFromSquare, faFileCircleCheck, faGlobe, faComments } from '@fortawesome/free-solid-svg-icons';
 
 const servicePrinciples = [
-  { icon: FileCheck2, title: 'Clear requirements', detail: 'Understand the documents and eligibility criteria for your pathway.' },
-  { icon: Globe2, title: 'Remote coordination', detail: 'Manage reviews and updates from wherever you are.' },
-  { icon: MessagesSquare, title: 'Direct case support', detail: 'Get guidance from a dedicated contact throughout your application.' },
+  { icon: faFileCircleCheck, title: 'Know what to prepare', detail: 'Get a clearer view of the documents and criteria relevant to your route.' },
+  { icon: faGlobe, title: 'Coordinate from anywhere', detail: 'Keep your application moving with remote case coordination and updates.' },
+  { icon: faComments, title: 'Talk to a real person', detail: 'Get practical guidance from a team that can help you understand next steps.' },
 ];
 
 export const ResultsGallerySection: React.FC = () => (
-  <section className="border-b border-slate-200 bg-[#F3F0E8] px-4 py-16 dark:border-white/10 dark:bg-[#17140D] sm:px-6 lg:px-10">
-    <div className="mx-auto grid max-w-[1560px] gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+  <section data-scroll-reveal className="relative overflow-hidden bg-[#F9F9F8] px-5 py-20 sm:px-8 lg:py-24">
+    <div aria-hidden="true" className="absolute -right-24 top-0 h-72 w-72 rounded-full bg-[#D4AF37]/10 blur-3xl" />
+    <div className="relative mx-auto grid max-w-[1280px] gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
       <div>
-        <span className="inline-flex items-center gap-2 rounded-full border border-[#D8C796] bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-[#695324] dark:border-[#C5A059]/20 dark:bg-white/5 dark:text-[#DFC47E]">
-          <BadgeCheck className="h-4 w-4" /> Application support
+        <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-[#8A6A12]">
+          <span className="h-px w-8 bg-[#B8860B]" /> Support, built around your case
         </span>
-        <h2 className="mt-5 max-w-xl text-3xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-4xl">
+        <h2 className="mt-5 max-w-xl text-3xl font-semibold leading-tight tracking-[-.035em] text-[#1F1F1F] sm:text-4xl lg:text-5xl">
           A clear process for your UAE residency plans
         </h2>
-        <p className="mt-4 max-w-xl text-sm leading-7 text-slate-700 dark:text-slate-300">
-          Compare pathways, prepare the right documents, and get practical guidance at each stage of your application.
+        <p className="mt-5 max-w-lg text-sm leading-7 text-[#626262] sm:text-base">
+          Compare pathways, understand the documents involved and get practical guidance at each stage of your application.
         </p>
-        <a href="#services" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#695324] hover:text-[#8C6D2D] dark:text-[#DFC47E] dark:hover:text-white">
-          Explore services <ArrowRight className="h-4 w-4" />
+        <a href="#services" data-scroll-reveal className="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[#765800] transition hover:text-[#1F1F1F]">
+          Explore our services <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="h-4 w-4" />
         </a>
       </div>
-      <div className="grid gap-px overflow-hidden rounded-lg border border-[#D8C796] bg-[#E8E1D0] sm:grid-cols-3 dark:border-amber-100/15 dark:bg-amber-100/15">
-        {servicePrinciples.map(({ icon: Icon, title, detail }) => (
-          <article key={title} className="min-h-44 bg-white p-6 dark:bg-[#172520]">
-            <Icon className="h-6 w-6 text-[#8C6D2D] dark:text-[#DFC47E]" />
-            <h3 className="mt-5 text-base font-bold text-slate-950 dark:text-white">{title}</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{detail}</p>
+      <div className="home-stagger grid gap-3 sm:grid-cols-3">
+        {servicePrinciples.map(({ icon: Icon, title, detail }, index) => (
+          <article
+            key={title}
+            data-scroll-reveal
+            className={`group relative min-h-[230px] overflow-hidden rounded-[26px] border border-white/80 bg-white/65 p-6 shadow-[0_12px_36px_-28px_rgba(31,31,31,.32)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/70 hover:bg-white/90 hover:shadow-[0_20px_50px_-30px_rgba(31,31,31,.35)] ${
+              index === 1 ? 'sm:translate-y-5' : ''
+            }`}
+          >
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-[#D4AF37]/45 bg-[#D4AF37]/10 text-[#8A6A12] transition group-hover:bg-[#D4AF37] group-hover:text-[#1F1F1F]">
+              <FontAwesomeIcon icon={Icon} className="h-5 w-5" />
+            </div>
+            <h3 className="mt-8 text-base font-semibold text-[#1F1F1F]">{title}</h3>
+            <p className="mt-2 text-sm leading-6 text-[#66645F]">{detail}</p>
+            <span aria-hidden="true" className="absolute bottom-0 left-6 right-6 h-px origin-left scale-x-0 bg-[#D4AF37] transition-transform duration-300 group-hover:scale-x-100" />
           </article>
         ))}
       </div>

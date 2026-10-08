@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ServicePageTemplate } from '@/components/service-pages/ServicePageTemplate';
+import { DldTrusteePageContent } from '@/components/service-pages/DldTrusteePageContent';
 
 export const metadata: Metadata = {
   title: 'DLD Trustee Services | Golden Visa Dubai',
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function DldTrusteeServicesPage() {
-  return <ServicePageTemplate title="DLD Trustee Services" />;
+  return <DldTrusteePageContent />;
 }

@@ -41,26 +41,26 @@ type MedicalSpeed = 'normal' | 'vip';
 type CalculatorStep = 'service' | 'serviceRequest' | 'serviceDetails' | 'sponsor' | 'application' | 'location' | 'familyFile' | 'dependents' | 'medical';
 
 const serviceOptions: Array<{ id: ServiceId; label: string; detail: string }> = [
-  { id: 'family', label: 'Family Visa', detail: 'Spouse, child, parent or dependent' },
-  { id: 'golden', label: 'Golden Visa', detail: 'Property, professional, founder or student route' },
-  { id: 'property', label: 'Property Visa', detail: '2-year investor, retirement or Golden route' },
-  { id: 'newborn', label: 'Newborn Visa', detail: 'Residence for a baby born in the UAE' },
-  { id: 'maid', label: 'Maid Visa', detail: 'Domestic worker sponsorship and renewal' },
-  { id: 'emiratesId', label: 'Emirates ID', detail: 'New, renewal or replacement card' },
-  { id: 'pro', label: 'Corporate PRO Services', detail: 'Company retainer or one-off government task' },
-  { id: 'amer', label: 'Amer Center Services', detail: 'Application typing and submission support' },
-  { id: 'attestation', label: 'Document Attestation', detail: 'Country, document and attestation route' },
-  { id: 'translation', label: 'Legal Translation', detail: 'Certified translation and page-count quote' },
-  { id: 'poa', label: 'Power of Attorney', detail: 'Drafting, translation and notarization' },
-  { id: 'wills', label: 'Wills & Last Testament', detail: 'DIFC or Dubai Courts planning consultation' },
-  { id: 'dld', label: 'DLD Trustee Services', detail: 'Transfer, mortgage or title transaction' },
-  { id: 'revaluation', label: 'Property Revaluation', detail: 'DLD certificate for visa, sale or finance' },
-  { id: 'medical', label: 'Medical Fitness & EID Locations', detail: 'Medical screening speed and emirate' },
+  { id: 'family', label: 'Family Visa', detail: 'Fee estimate by sponsor, visa route and dependent count' },
+  { id: 'golden', label: 'Golden Visa', detail: 'Category and criteria guide · fees need a current quote' },
+  { id: 'property', label: 'Property Visa', detail: 'Investor / retirement threshold guide · quote review' },
+  { id: 'newborn', label: 'Newborn Visa', detail: 'Dedicated birth-to-residence fee estimate' },
+  { id: 'maid', label: 'Maid Visa', detail: 'Dedicated sponsorship route and quote-based cost planner' },
+  { id: 'emiratesId', label: 'Emirates ID', detail: 'New, renewal, replacement or secure status guidance' },
+  { id: 'pro', label: 'Corporate PRO Services', detail: 'Company task scope and itemized quote request' },
+  { id: 'amer', label: 'Amer Center Services', detail: 'Transaction route, appointment and live-fee check' },
+  { id: 'attestation', label: 'Document Attestation', detail: 'Country, document and authentication route review' },
+  { id: 'translation', label: 'Legal Translation', detail: 'Language pair and page-count quote request' },
+  { id: 'poa', label: 'Power of Attorney', detail: 'Drafting, language and notarization route review' },
+  { id: 'wills', label: 'Wills & Last Testament', detail: 'DIFC / Dubai Courts route and planning review' },
+  { id: 'dld', label: 'DLD Trustee Services', detail: 'Transfer, mortgage or title transaction quote' },
+  { id: 'revaluation', label: 'Property Revaluation', detail: 'Certificate purpose and property route review' },
+  { id: 'medical', label: 'Medical Fitness & EID Locations', detail: 'Screening type, centre and appointment guidance' },
   { id: 'visaValidity', label: 'Visa Validity Checker', detail: 'Find the right official ICP / GDRFA portal' },
-  { id: 'iloe', label: 'ILOE Insurance', detail: 'Plan category, subscription or compliance check' },
+  { id: 'iloe', label: 'ILOE Insurance', detail: 'Claim benefit, eligibility and fine estimator' },
 ];
 
-type QuoteServiceId = Exclude<ServiceId, 'family' | 'newborn'>;
+type QuoteServiceId = Exclude<ServiceId, 'family' | 'newborn' | 'maid'>;
 const serviceQuestions: Record<QuoteServiceId, {
   options: string[];
   detailLabel: string;
@@ -79,12 +79,6 @@ const serviceQuestions: Record<QuoteServiceId, {
     placeholder: 'Enter an approximate property value',
     note: 'Ownership, sole or joint title, property status and mortgage evidence affect the route. Fees require a current itemized quote.',
   },
-  maid: {
-    options: ['New sponsorship', 'Renewal', 'Eligibility review', 'Cancellation'],
-    detailLabel: 'Sponsor salary, household or current status',
-    placeholder: 'Share only the information needed for a first review',
-    note: 'Sponsor conditions, refundable deposits, insurance and government charges vary by case and emirate.',
-  },
   emiratesId: {
     options: ['New application', 'Renewal', 'Lost / damaged replacement', 'Track an existing application'],
     detailLabel: 'Application number stage or cardholder age',
@@ -92,10 +86,10 @@ const serviceQuestions: Record<QuoteServiceId, {
     note: 'For live status, use ICP with your PRAN / application reference. Card charges depend on validity and applicant category.',
   },
   pro: {
-    options: ['Corporate retainer', 'Individual PRO task', 'Multi-employee project', 'Trade licence / quota support'],
+    options: ['Single employee visa (new hire)', 'Employee visa renewal', 'Employee visa cancellation', 'Corporate retainer (5+ employees)', 'Trade licence & quota support'],
     detailLabel: 'Company emirate, employee count or request scope',
     placeholder: 'e.g. Dubai · 4 renewals · monthly support',
-    note: 'Government charges and professional retainer pricing are quoted separately after company-category review.',
+    note: 'Government charges (MOHRE, GDRFA, Medical, EID) and professional service charges are itemized based on company category and emirate.',
   },
   amer: {
     options: ['Visa application', 'Family sponsorship', 'Renewal / cancellation', 'Appointment preparation'],
@@ -166,7 +160,7 @@ const sponsorVisas: Array<{ id: SponsorVisa; label: string; detail: string; year
   { id: 'retirement', label: '5-Year Retirement Visa', detail: 'Property-based retirement visa', years: 5 },
 ];
 
-const emiratesIdFees: Record<2 | 5 | 10, number> = {
+export const emiratesIdFees: Record<2 | 5 | 10, number> = {
   2: 354,
   5: 754,
   10: 1254,
@@ -254,10 +248,12 @@ export function FamilyVisaCalculator({
   open,
   onClose,
   initialService,
+  onOpenDedicatedCalculator,
 }: {
   open: boolean;
   onClose: () => void;
   initialService?: ServiceId;
+  onOpenDedicatedCalculator?: (service: 'maid' | 'newborn' | 'iloe') => void;
 }) {
   const [stepIndex, setStepIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -301,7 +297,7 @@ export function FamilyVisaCalculator({
   const isLastStep = activeStepIndex === steps.length - 1;
   const selectedSponsor = sponsorVisas.find((visa) => visa.id === sponsorVisa);
   const selectedServiceOption = serviceOptions.find((service) => service.id === selectedService);
-  const serviceQuestion = selectedService && selectedService !== 'family' && selectedService !== 'newborn'
+  const serviceQuestion = selectedService && selectedService !== 'family' && selectedService !== 'newborn' && selectedService !== 'maid'
     ? serviceQuestions[selectedService]
     : null;
   const currentEstimate = category && sponsorVisa && location && hasFamilyFile !== null
@@ -530,7 +526,7 @@ export function FamilyVisaCalculator({
     medical: 'Medical fitness test',
   };
   const stepDescriptions: Record<CalculatorStep, string> = {
-    service: 'Select one of the 17 services. Family and newborn visas have a fee guide; other routes use service-specific checks and a tailored quote where fees vary.',
+    service: 'All 17 service routes are here. Family and newborn have fee guides, Maid has a quote-based planner, and ILOE has benefit / fine estimates. The other services provide criteria, route or quote checks instead of invented tariffs.',
     serviceRequest: 'Choose a route to continue. Your selection opens the matching details step automatically.',
     serviceDetails: serviceQuestion?.note ?? 'Share the broad application details needed for a route check.',
     sponsor: 'Your family’s fees depend on the visa you hold.',
@@ -618,7 +614,7 @@ export function FamilyVisaCalculator({
             <h2 id="gv-family-calculator-title">{selectedServiceOption ? `${selectedServiceOption.label} calculator` : 'UAE service calculator'}</h2>
           </div>
           <div className="gv-family-calculator-header-actions">
-            {selectedService && <button className="gv-family-calculator-change" type="button" onClick={() => chooseAnotherService()}>All 17 services</button>}
+            {selectedService && <button className="gv-family-calculator-change" type="button" onClick={() => chooseAnotherService()}>All services</button>}
             <button className="gv-family-calculator-close" type="button" onClick={closeCalculator} aria-label="Close service calculator"><X size={19} /></button>
           </div>
         </header>
@@ -627,7 +623,7 @@ export function FamilyVisaCalculator({
           <>
             <div className="gv-family-calculator-progress" aria-label={`Question ${activeStepIndex + 1} of ${steps.length}`}>
               <span>QUESTION {activeStepIndex + 1} OF {steps.length}</span>
-              <div><i style={{ width: `${((activeStepIndex + 1) / steps.length) * 100}%` }} /></div>
+              <div><span className="gv-family-calculator-progress-fill" style={{ width: `${((activeStepIndex + 1) / steps.length) * 100}%` }} /></div>
             </div>
 
             <section className="gv-family-calculator-content">
@@ -638,11 +634,28 @@ export function FamilyVisaCalculator({
 
               {activeStep === 'service' && (
                 <div className="gv-family-calculator-service-grid">
-                  {serviceOptions.map((service) => (
-                    <button key={service.id} type="button" onClick={() => chooseService(service.id)}>
-                      <span><strong>{service.label}</strong><small>{service.detail}</small></span><ArrowRight size={15} />
-                    </button>
-                  ))}
+                  {serviceOptions.map((service) => {
+                    if (service.id === 'newborn' || service.id === 'maid' || service.id === 'iloe') {
+                      if (onOpenDedicatedCalculator) {
+                        const dedicatedService = service.id;
+                        return (
+                          <button key={service.id} type="button" onClick={() => onOpenDedicatedCalculator(dedicatedService)}>
+                            <span><strong>{service.label}</strong><small>{service.detail}</small></span><ArrowRight size={15} />
+                          </button>
+                        );
+                      }
+                      return (
+                        <a className="gv-family-calculator-service-link" key={service.id} href={service.id === 'newborn' ? '/new-born' : service.id === 'maid' ? '/maid-visa' : '/iloe'}>
+                          <span><strong>{service.label}</strong><small>{service.detail}</small></span><ArrowRight size={15} />
+                        </a>
+                      );
+                    }
+                    return (
+                      <button key={service.id} type="button" onClick={() => chooseService(service.id)}>
+                        <span><strong>{service.label}</strong><small>{service.detail}</small></span><ArrowRight size={15} />
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
