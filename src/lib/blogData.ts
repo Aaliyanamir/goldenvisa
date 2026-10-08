@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Legal Counsel Desk',
-    image: '/assets/blog/article-1.jpg',
+    image: '/assets/blog/article-1.webp',
     featured: true,
   },
   {
@@ -39,7 +39,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'GDRFA Liaison Officer',
-    image: '/assets/blog/article-2.jpg',
+    image: '/assets/blog/article-2.webp',
   },
   {
     id: '3',
@@ -52,7 +52,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Executive Relations',
-    image: '/assets/blog/article-3.jpg',
+    image: '/assets/blog/article-3.webp',
   },
   {
     id: '4',
@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Corporate Formation Team',
-    image: '/assets/blog/article-4.jpg',
+    image: '/assets/blog/article-4.webp',
   },
   {
     id: '5',
@@ -78,7 +78,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Property Legal Liaison',
-    image: '/assets/blog/article-5.jpg',
+    image: '/assets/blog/article-5.webp',
   },
   {
     id: '6',
@@ -91,7 +91,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Immigration Specialist',
-    image: '/assets/blog/article-6.jpg',
+    image: '/assets/blog/article-6.webp',
   },
   {
     id: '7',
@@ -104,7 +104,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Innovation Board Officer',
-    image: '/assets/blog/article-7.jpg',
+    image: '/assets/blog/article-7.webp',
   },
   {
     id: '8',
@@ -117,7 +117,7 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Tax & Compliance Lead',
-    image: '/assets/blog/article-8.jpg',
+    image: '/assets/blog/article-8.webp',
   },
   {
     id: '9',
@@ -130,6 +130,6 @@ export const blogPosts: BlogPost[] = [
     month: 'AUG',
     year: '2026',
     author: 'Attestation Desk',
-    image: '/assets/blog/article-9.jpg',
+    image: '/assets/blog/article-9.webp',
   },
 ];

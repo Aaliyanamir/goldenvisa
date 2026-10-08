@@ -239,7 +239,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                   src={featuredPost.image}
                   alt={featuredPost.title}
                   fill
-                  priority
+                  preload
                   sizes="(min-width: 1024px) 60vw, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />

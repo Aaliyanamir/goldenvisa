@@ -39,7 +39,7 @@ export const CareerPage: React.FC = () => {
           <a href={`mailto:${contactInfo.generalEmail}?subject=${encodeURIComponent('Career inquiry')}`} className="gold-btn mt-8 inline-flex min-h-12 items-center gap-2 rounded-md px-5 text-sm font-bold">Introduce yourself <ArrowRight className="h-4 w-4" /></a>
         </div>
         <div className="career-orbit-shell">
-          <div className="relative z-10 flex min-h-[390px] flex-col justify-between overflow-hidden rounded-lg bg-slate-950 p-7 text-white shadow-xl sm:p-9" style={{ backgroundImage: "linear-gradient(180deg, rgba(7,18,19,.18) 0%, rgba(7,18,19,.92) 72%), url('/assets/blog/article-1.jpg')", backgroundPosition: 'center', backgroundSize: 'cover' }}>
+          <div className="relative z-10 flex min-h-[390px] flex-col justify-between overflow-hidden rounded-lg bg-slate-950 p-7 text-white shadow-xl sm:p-9" style={{ backgroundImage: "linear-gradient(180deg, rgba(7,18,19,.18) 0%, rgba(7,18,19,.92) 72%), url('/assets/blog/article-1.webp')", backgroundPosition: 'center', backgroundSize: 'cover' }}>
           <div className="relative z-10 flex items-start justify-between gap-4">
             <span className="rounded-full border border-white/30 bg-black/25 px-3 py-1.5 text-xs font-bold uppercase tracking-wider backdrop-blur-sm">People first, details matter</span>
             <BriefcaseBusiness className="h-7 w-7 text-amber-300" />

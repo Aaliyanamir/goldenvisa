@@ -21,7 +21,7 @@ const services = {
       desc: 'Explore the property-based residency route with a case review of your ownership, property value and supporting documents.',
       benefits: ['Property and title document review', 'Mortgage or off-plan case guidance', 'Family sponsorship options'],
       badge: 'Property',
-      image: '/assets/property/dubai-skyline.jpg',
+      image: '/assets/property/dubai-skyline.webp',
       imageAlt: 'Dubai skyline and modern residential towers',
     },
     {
@@ -33,7 +33,7 @@ const services = {
       desc: 'Understand the executive residency criteria and how your role, qualifications and employment evidence may fit.',
       benefits: ['Employment-document checklist', 'Qualification review guidance', 'Application route clarification'],
       badge: 'Leadership',
-      image: '/assets/blog/article-3.jpg',
+      image: '/assets/blog/article-3.webp',
       imageAlt: 'Corporate professional workspace in Dubai',
     },
     {
@@ -45,7 +45,7 @@ const services = {
       desc: 'Explore pathways for professionals and specialists, with guidance on category evidence and any relevant endorsement.',
       benefits: ['Profession-specific criteria review', 'Credential preparation guidance', 'Nomination process overview'],
       badge: 'Expertise',
-      image: '/assets/blog/article-7.jpg',
+      image: '/assets/blog/article-7.webp',
       imageAlt: 'Specialist professional working on research and innovation',
     },
     {
@@ -57,7 +57,7 @@ const services = {
       desc: 'Plan dependent residency applications with a clear view of relationship documents and sponsor requirements.',
       benefits: ['Dependent application planning', 'Relationship-document checklist', 'Guidance on next steps'],
       badge: 'Family',
-      image: '/assets/images/family-sponsorship.jpg',
+      image: '/assets/images/family-sponsorship.webp',
       imageAlt: 'Family preparing documents for UAE residency',
     },
   ],
@@ -71,7 +71,7 @@ const services = {
       desc: 'Get assistance with property-related documents and understand the steps for your DLD transaction.',
       benefits: ['Title document guidance', 'Mortgage and NOC coordination', 'Transaction-stage support'],
       badge: 'Property',
-      image: '/assets/property/dubai-skyline.jpg',
+      image: '/assets/property/dubai-skyline.webp',
       imageAlt: 'Dubai skyline',
     },
     {
@@ -83,7 +83,7 @@ const services = {
       desc: 'Understand the authentication steps for documents being prepared for use in the UAE.',
       benefits: ['Country-specific process guidance', 'Document checklist', 'Collection and delivery coordination'],
       badge: 'Documents',
-      image: '/assets/images/emirates-id-documents.jpg',
+      image: '/assets/images/emirates-id-documents.webp',
       imageAlt: 'Documents organized for an Emirates ID application',
     },
     {
@@ -95,7 +95,7 @@ const services = {
       desc: 'Arrange legal translation support and confirm the certification required for your intended use.',
       benefits: ['Language-pair review', 'Page-count quote guidance', 'Certification requirements explained'],
       badge: 'Translation',
-      image: '/assets/blog/article-9.jpg',
+      image: '/assets/blog/article-9.webp',
       imageAlt: 'Official paperwork prepared for translation',
     },
     {
@@ -107,7 +107,7 @@ const services = {
       desc: 'Coordinate business and employee transactions with a clear outline of required information and next steps.',
       benefits: ['Company and employee case support', 'Transaction checklist', 'Itemized quote by request'],
       badge: 'Corporate',
-      image: '/assets/blog/article-4.jpg',
+      image: '/assets/blog/article-4.webp',
       imageAlt: 'Contemporary Dubai business district',
     },
   ],

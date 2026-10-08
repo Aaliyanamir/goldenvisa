@@ -137,12 +137,12 @@ function ProServicesPageContent() {
           </div>
           <aside className="gv-pro-hero-card">
             <Image
-              src="/assets/service-pages/corporate-pro-team.jpg"
+              src="/assets/service-pages/corporate-pro-team.webp"
               alt="Business team coordinating corporate administration"
               width={420}
               height={280}
               className="gv-pro-hero-card-img"
-              priority
+              preload
             />
             <div className="gv-pro-hero-stat">
               <strong>MOHRE · GDRFA · ICP</strong>

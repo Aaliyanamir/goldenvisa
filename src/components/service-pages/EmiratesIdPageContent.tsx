@@ -119,7 +119,7 @@ function EmiratesIdPageContent() {
             <div className="gv-eid-hero-card-badge">
               <span>NEW FAMILY VISA</span>
             </div>
-            <Image src="/assets/images/emirates-id-documents.jpg" alt="Happy family with new UAE visa" width={420} height={280} className="gv-eid-hero-card-img" priority />
+            <Image src="/assets/images/emirates-id-documents.webp" alt="Happy family with new UAE visa" width={420} height={280} className="gv-eid-hero-card-img" preload />
             <div className="gv-eid-hero-stat">
               <strong>3–5 DAYS</strong>
               <span>typical processing after application</span>
@@ -186,7 +186,7 @@ function EmiratesIdPageContent() {
               <Link href="/family-visa" className="gv-eid-button">Learn more <ArrowRight size={16} /></Link>
             </div>
             <div className="gv-eid-banner-visual">
-              <Image src="/assets/images/emirates-id-documents.jpg" alt="Family visa promotion" width={500} height={320} className="gv-eid-banner-img" />
+              <Image src="/assets/images/emirates-id-documents.webp" alt="Family visa promotion" width={500} height={320} className="gv-eid-banner-img" />
               <div className="gv-eid-banner-badge">100%</div>
             </div>
           </div>

@@ -170,17 +170,17 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 {navCollapsed ? (
                   <div className="site-nav-brand-mark relative w-10 h-10 sm:w-11 sm:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden p-1.5 bg-gradient-to-tr from-amber-200/80 via-amber-100 to-amber-50 dark:from-amber-900/60 dark:to-amber-950/60 border border-amber-300/60 shadow-inner flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <Image src="/assets/images/Golden Visa-icon.png" alt="Golden Visa Dubai" width={42} height={42} sizes="42px" className="object-contain w-full h-full drop-shadow-sm" priority />
+                    <Image src="/assets/images/Golden Visa-icon.webp" alt="Golden Visa Dubai" width={42} height={42} sizes="42px" className="object-contain w-full h-full drop-shadow-sm" />
                   </div>
                 ) : (
                   <Image
-                    src="/assets/images/Golden Visa Dubai.png"
+                    src="/assets/images/Golden Visa Dubai.webp"
                     alt="Golden Visa Dubai"
                     width={1812}
                     height={477}
                     sizes="(min-width: 1280px) 175px, 165px"
                     className="site-nav-brand-copy h-auto w-[145px] sm:w-[165px] xl:w-[175px] object-contain"
-                    priority
+                    preload
                   />
                 )}
               </button>
@@ -325,7 +325,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Drawer Header */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
             <div className="flex items-center gap-2.5">
-              <Image src="/assets/images/Golden Visa Dubai.png" alt="Golden Visa Dubai" width={1812} height={477} sizes="155px" className="h-auto w-[155px] object-contain" />
+              <Image src="/assets/images/Golden Visa Dubai.webp" alt="Golden Visa Dubai" width={1812} height={477} sizes="155px" className="h-auto w-[155px] object-contain" />
             </div>
             <button
               onClick={() => setMobileMenuOpen(false)}

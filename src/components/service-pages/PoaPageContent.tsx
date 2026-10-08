@@ -329,7 +329,7 @@ export function PoaPageContent() {
           <div className="gv-poa-about-card">
             <div className="gv-poa-about-img-wrap">
               <Image
-                src="/assets/service-pages/power-of-attorney.jpg"
+                src="/assets/service-pages/power-of-attorney.webp"
                 alt="Legal professional preparing a Power of Attorney document in Dubai"
                 width={500}
                 height={340}

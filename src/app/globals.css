@@ -18,25 +18,31 @@ html {
 @media (prefers-reduced-motion: no-preference) {
   html.scroll-reveal-enabled [data-scroll-reveal-state="pending"] {
     transition:
-      translate 480ms cubic-bezier(0.22, 1, 0.36, 1),
-      scale 480ms cubic-bezier(0.22, 1, 0.36, 1);
+      translate 220ms ease-out,
+      scale 220ms ease-out;
   }
 
   html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="rise"] {
-    translate: 0 12px;
+    translate: 0 6px;
   }
 
   html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="from-left"] {
-    translate: -12px 0;
+    translate: -6px 0;
   }
 
   html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="from-right"] {
-    translate: 12px 0;
+    translate: 6px 0;
   }
 
   html.scroll-reveal-enabled [data-scroll-reveal-state="pending"][data-scroll-reveal="scale"] {
-    translate: 0 8px;
-    scale: 0.99;
+    translate: 0 4px;
+    scale: 0.995;
+  }
+
+  @media (max-width: 640px) and (prefers-reduced-motion: no-preference) {
+    html.scroll-reveal-enabled [data-scroll-reveal-state="pending"] {
+      transition-duration: 160ms;
+    }
   }
 
   html.scroll-reveal-enabled [data-scroll-reveal-state="pending"]:focus-within {
@@ -522,7 +528,7 @@ html.dark .site-nav-topbar {
   width: min(880px, 86vw);
   height: clamp(140px, 24vw, 250px);
   transform: translate(-50%, -50%);
-  background-image: url('/assets/images/Golden Visa Dubai.png');
+  background-image: url('/assets/images/Golden Visa Dubai.webp');
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

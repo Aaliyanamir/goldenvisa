@@ -17,6 +17,7 @@ import { VisaCalculatorModal } from '@/components/VisaCalculatorModal';
 import { MegaMenu } from '@/components/MegaMenu';
 import { FloatingActionButtons } from '@/components/FloatingActionButtons';
 import { EligibilityQuiz } from '@/components/EligibilityQuiz';
+import { ScrollRevealProvider } from '@/components/ScrollRevealProvider';
 import type { ServiceId } from '@/components/service-pages/FamilyVisaCalculator';
 
 export const MainApp: React.FC = () => {
@@ -53,7 +54,7 @@ export const MainApp: React.FC = () => {
           />
 
           {currentView === 'home' ? (
-            <>
+            <ScrollRevealProvider>
               {/* Hero Section */}
               <HeroSection
                 onOpenCalculator={openCalculator}
@@ -78,7 +79,7 @@ export const MainApp: React.FC = () => {
               />
 
               <HomeInsightsSection />
-            </>
+            </ScrollRevealProvider>
           ) : currentView === 'about' ? (
             <AboutPage onOpenCalculator={() => setCalculatorOpen(true)} />
           ) : (
@@ -117,7 +118,6 @@ export const MainApp: React.FC = () => {
           {/* Floating Triggers */}
           <FloatingActionButtons 
             onOpenCalculator={() => setCalculatorOpen(true)}
-            onOpenEligibility={() => setQuizOpen(true)}
           />
         </div>
     </LanguageProvider>

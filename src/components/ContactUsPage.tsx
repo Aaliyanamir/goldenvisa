@@ -84,7 +84,7 @@ export const ContactUsPage: React.FC = () => {
   return (
     <div className="bg-[var(--bg-page)] text-[var(--text-main)]">
       <section className="contact-hero relative isolate flex min-h-[520px] items-center overflow-hidden border-b border-[var(--border-subtle)] bg-[#111] px-5 py-16 text-white sm:px-8 lg:min-h-[590px] lg:px-12">
-        <div role="img" aria-label="Business district office towers in Dubai" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/assets/blog/article-4.jpg')" }} />
+        <div role="img" aria-label="Business district office towers in Dubai" className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/assets/blog/article-4.webp')" }} />
         <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/35" />
         <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
         <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">

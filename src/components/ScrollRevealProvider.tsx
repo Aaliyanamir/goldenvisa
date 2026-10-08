@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 
 interface ScrollRevealProviderProps {
   children: ReactNode;
@@ -24,7 +24,14 @@ const revealSelector = [
 const excludedSelector = 'header, nav, [role="dialog"], [aria-modal="true"]';
 
 export const ScrollRevealProvider = ({ children }: ScrollRevealProviderProps) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    const root = rootRef.current;
+    if (!root) {
+      return;
+    }
+
     if (
       !('IntersectionObserver' in window) ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -81,9 +88,9 @@ export const ScrollRevealProvider = ({ children }: ScrollRevealProviderProps) =>
       });
     });
 
-    scan(document.body);
+    scan(root);
     document.documentElement.classList.add('scroll-reveal-enabled');
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    mutationObserver.observe(root, { childList: true, subtree: true });
 
     return () => {
       mutationObserver.disconnect();
@@ -92,5 +99,5 @@ export const ScrollRevealProvider = ({ children }: ScrollRevealProviderProps) =>
     };
   }, []);
 
-  return children;
+  return <div ref={rootRef} className="contents">{children}</div>;
 };

@@ -110,10 +110,10 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
     <div className="about-page">
       <section className="about-hero">
         <Image
-          src="/assets/blog/article-3.jpg"
+          src="/assets/blog/article-3.webp"
           alt="Consultants reviewing paperwork together"
           fill
-          priority
+          preload
           sizes="100vw"
           className="about-hero-image"
         />
@@ -155,7 +155,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell about-founder-card">
           <div className="about-founder-profile">
             <Image
-              src="/assets/images/Bilal_photo.jpeg"
+              src="/assets/images/Bilal_photo.webp"
               alt="M. Bilal Saleem, leadership and client care"
               fill
               sizes="(max-width: 850px) 100vw, 360px"

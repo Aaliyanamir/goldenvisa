@@ -134,7 +134,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         {/* Header */}
         <div className="px-6 py-4 sm:py-5 border-b border-slate-100 dark:border-white/10 flex items-center justify-between bg-white dark:bg-[#111827] shrink-0">
           <div className="flex items-center gap-3">
-            <Image src="/assets/images/Golden Visa Dubai.png" alt="Golden Visa Dubai" width={1812} height={477} sizes="(min-width: 640px) 175px, 155px" className="h-auto w-[155px] sm:w-[175px] object-contain" />
+            <Image src="/assets/images/Golden Visa Dubai.webp" alt="Golden Visa Dubai" width={1812} height={477} sizes="(min-width: 640px) 175px, 155px" className="h-auto w-[155px] sm:w-[175px] object-contain" />
             <div>
               <p className="text-[11px] sm:text-xs text-slate-400 font-medium tracking-wide">
                 All services in one place

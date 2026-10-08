@@ -56,7 +56,7 @@ export const HeroSection = ({
   return (
     <section data-scroll-reveal className="relative isolate overflow-hidden bg-[#121212] text-white">
       <Image
-        src="/assets/golden-visa/dubai-residency.jpg"
+        src="/assets/golden-visa/dubai-residency.webp"
         alt=""
         fill
         preload

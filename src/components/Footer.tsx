@@ -60,12 +60,12 @@ export const Footer: React.FC<FooterProps> = ({
               {/* Logo */}
               <div className="flex flex-col items-start gap-2">
                 <Image
-                  src="/assets/images/Golden Visa Dubai.png"
+                  src="/assets/images/Golden Visa Dubai.webp"
                   alt="Golden Visa Dubai"
                   width={1812}
                   height={477}
                   sizes="190px"
-                  loading="eager"
+                  loading="lazy"
                   className="h-auto w-[190px]"
                 />
                 <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold uppercase tracking-wider">

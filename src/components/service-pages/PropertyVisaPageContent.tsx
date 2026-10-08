@@ -156,11 +156,11 @@ function PropertyVisaPageContent() {
 
           <div className="gv-property-hero-visual">
             <Image
-              src="/assets/property/dubai-skyline.jpg"
+              src="/assets/property/dubai-skyline.webp"
               alt="Dubai skyline and residential towers at sunset"
               width={2000}
               height={1333}
-              priority
+              preload
               sizes="(max-width: 760px) 100vw, 48vw"
             />
             <div className="gv-property-image-shade" />
@@ -211,7 +211,7 @@ function PropertyVisaPageContent() {
         <section className="gv-property-section gv-property-check" id="route-check">
           <div className="gv-property-check-image">
             <Image
-              src="/assets/property/dubai-villa.jpg"
+              src="/assets/property/dubai-villa.webp"
               alt="Modern villa with a pool, representing Dubai real estate investment"
               width={2000}
               height={1327}

@@ -62,7 +62,7 @@ function NewbornVisaPageContent() {
               <div className="gv-newborn-proof"><Baby size={16} />For UAE-born babies · document and visa support</div>
             </div>
             <div className="gv-newborn-hero-image">
-              <Image src="/assets/newborn/newborn-family.jpg" alt="Parent lifting and holding their young child" fill priority sizes="(max-width: 760px) 100vw, 48vw" />
+              <Image src="/assets/newborn/newborn-family.webp" alt="Parent lifting and holding their young child" fill preload sizes="(max-width: 760px) 100vw, 48vw" />
               <div className="gv-newborn-image-shade" />
               <div className="gv-newborn-image-caption"><span>FOR NEW PARENTS</span><strong>One small arrival.<br />A few important steps.</strong></div>
               <span className="gv-newborn-image-badge"><Baby size={15} />UAE NEWBORN VISA</span>

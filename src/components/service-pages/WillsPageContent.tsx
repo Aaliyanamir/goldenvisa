@@ -905,7 +905,7 @@ export function WillsPageContent() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 20 }}>
             <div style={{ background: '#FFFFFF', borderRadius: 20, border: '1px solid #EFE8DB', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
               <div style={{ position: 'relative', height: 210 }}>
-                <Image src="/assets/blog/article-1.jpg" alt="DIFC vs Dubai Courts Wills" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/blog/article-1.webp" alt="DIFC vs Dubai Courts Wills" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ padding: 20 }}>
                 <span style={{ display: 'inline-block', background: '#F8F1DF', color: '#8C6D2D', borderRadius: 999, padding: '4px 10px', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10 }}>Wills Comparison</span>
@@ -915,7 +915,7 @@ export function WillsPageContent() {
 
             <div style={{ background: '#FFFFFF', borderRadius: 20, border: '1px solid #EFE8DB', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
               <div style={{ position: 'relative', height: 210 }}>
-                <Image src="/assets/blog/article-2.jpg" alt="Guardianship for minor children" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/blog/article-2.webp" alt="Guardianship for minor children" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ padding: 20 }}>
                 <span style={{ display: 'inline-block', background: '#F8F1DF', color: '#8C6D2D', borderRadius: 999, padding: '4px 10px', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10 }}>Family Protection</span>
@@ -925,7 +925,7 @@ export function WillsPageContent() {
 
             <div style={{ background: '#FFFFFF', borderRadius: 20, border: '1px solid #EFE8DB', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
               <div style={{ position: 'relative', height: 210 }}>
-                <Image src="/assets/blog/article-3.jpg" alt="Protecting UAE real estate with a Will" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/blog/article-3.webp" alt="Protecting UAE real estate with a Will" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ padding: 20 }}>
                 <span style={{ display: 'inline-block', background: '#F8F1DF', color: '#8C6D2D', borderRadius: 999, padding: '4px 10px', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10 }}>Real Estate</span>

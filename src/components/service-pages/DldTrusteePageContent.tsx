@@ -66,10 +66,10 @@ export function DldTrusteePageContent() {
             <div className="gv-dld-hero-visual">
               <div className="gv-dld-hero-photo">
                 <Image
-                  src="/assets/property/dubai-skyline.jpg"
+                  src="/assets/property/dubai-skyline.webp"
                   alt="Dubai skyline at sunset with Burj Khalifa and central district"
                   fill
-                  priority
+                  preload
                   sizes="(max-width: 800px) 100vw, 48vw"
                 />
                 <div className="gv-dld-hero-photo-shade" />
@@ -161,7 +161,7 @@ export function DldTrusteePageContent() {
               </div>
               <div className="gv-dld-checklist-image">
                 <Image
-                  src="/assets/property/dubai-villa.jpg"
+                  src="/assets/property/dubai-villa.webp"
                   alt="Contemporary villa representing a Dubai property transaction"
                   fill
                   sizes="(max-width: 760px) 100vw, 34vw"

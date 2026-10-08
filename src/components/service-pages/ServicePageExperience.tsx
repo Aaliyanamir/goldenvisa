@@ -39,19 +39,19 @@ const officialLinks = {
 };
 
 const serviceHeroImages: Partial<Record<string, { src: string; alt: string }>> = {
-  'Maid Visa': { src: '/assets/images/maid-support.jpg', alt: 'Domestic worker completing household support' },
-  'Emirates ID Services': { src: '/assets/images/emirates-id-documents.jpg', alt: 'Identity application documents prepared for review' },
-  'Corporate PRO Services': { src: '/assets/service-pages/corporate-pro-team.jpg', alt: 'Business team coordinating corporate administration' },
-  'Amer Center Services': { src: '/assets/service-pages/amer-center.jpg', alt: 'Modern service-centre office interior' },
-  'Document Attestation': { src: '/assets/service-pages/document-attestation.jpg', alt: 'Official paperwork prepared for document verification' },
-  'Legal Translation': { src: '/assets/service-pages/legal-translation.jpg', alt: 'A document being prepared for professional translation' },
-  'Power of Attorney (POA)': { src: '/assets/service-pages/power-of-attorney.jpg', alt: 'Legal professional preparing a power of attorney document' },
-  'Wills & Last Testament': { src: '/assets/service-pages/wills-estate-planning.jpg', alt: 'A person carefully preparing estate planning documents in writing' },
-  'DLD Trustee Services': { src: '/assets/service-pages/dubai-property-trustee.jpg', alt: 'Contemporary residential property representing a Dubai property transaction' },
-  'Property Revaluation': { src: '/assets/service-pages/dld-property-valuation.jpg', alt: 'Modern property prepared for a professional real estate valuation' },
-  'Medical Fitness & EID Locations': { src: '/assets/service-pages/medical-fitness-center.jpg', alt: 'Healthcare professional reviewing medical information on a mobile device' },
-  'Visa Validity Checker': { src: '/assets/service-pages/visa-status-travel.jpg', alt: 'Passenger airplane in flight, representing visa and travel status checks' },
-  'ILOE Insurance': { src: '/assets/service-pages/iloe-workplace.jpg', alt: 'Colleagues discussing work and career planning' },
+  'Maid Visa': { src: '/assets/images/maid-support.webp', alt: 'Domestic worker completing household support' },
+  'Emirates ID Services': { src: '/assets/images/emirates-id-documents.webp', alt: 'Identity application documents prepared for review' },
+  'Corporate PRO Services': { src: '/assets/service-pages/corporate-pro-team.webp', alt: 'Business team coordinating corporate administration' },
+  'Amer Center Services': { src: '/assets/service-pages/amer-center.webp', alt: 'Modern service-centre office interior' },
+  'Document Attestation': { src: '/assets/service-pages/document-attestation.webp', alt: 'Official paperwork prepared for document verification' },
+  'Legal Translation': { src: '/assets/service-pages/legal-translation.webp', alt: 'A document being prepared for professional translation' },
+  'Power of Attorney (POA)': { src: '/assets/service-pages/power-of-attorney.webp', alt: 'Legal professional preparing a power of attorney document' },
+  'Wills & Last Testament': { src: '/assets/service-pages/wills-estate-planning.webp', alt: 'A person carefully preparing estate planning documents in writing' },
+  'DLD Trustee Services': { src: '/assets/service-pages/dubai-property-trustee.webp', alt: 'Contemporary residential property representing a Dubai property transaction' },
+  'Property Revaluation': { src: '/assets/service-pages/dld-property-valuation.webp', alt: 'Modern property prepared for a professional real estate valuation' },
+  'Medical Fitness & EID Locations': { src: '/assets/service-pages/medical-fitness-center.webp', alt: 'Healthcare professional reviewing medical information on a mobile device' },
+  'Visa Validity Checker': { src: '/assets/service-pages/visa-status-travel.webp', alt: 'Passenger airplane in flight, representing visa and travel status checks' },
+  'ILOE Insurance': { src: '/assets/service-pages/iloe-workplace.webp', alt: 'Colleagues discussing work and career planning' },
 };
 
 const calculatorServices: Partial<Record<string, ServiceId>> = {
@@ -879,7 +879,7 @@ export function ServicePageExperience({ title }: { title: string }) {
                     src={heroImage.src}
                     alt={heroImage.alt}
                     fill
-                    priority
+                    preload
                     sizes="(max-width: 800px) 100vw, 42vw"
                   />
                   <div className="gv-hero-photo-caption"><strong>{content.heroMetric}</strong><span>{content.heroLabel}</span></div>
@@ -1006,7 +1006,7 @@ export function ServicePageExperience({ title }: { title: string }) {
                   src={heroImage.src}
                   alt={heroImage.alt}
                   fill
-                  priority
+                  preload
                   sizes="(max-width: 800px) 100vw, 42vw"
                 />
                 <div className="gv-hero-photo-caption"><strong>{content.heroMetric}</strong><span>{content.heroLabel}</span></div>

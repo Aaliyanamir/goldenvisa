@@ -104,7 +104,7 @@ const documentCategories = [
     label: 'Commercial & Corporate',
     title: 'Corporate & Business Legal Translation',
     desc: 'Trade licenses, Articles of Association (MOA), Board Resolutions, Power of Attorney, Financial Statements, Audit Reports, and Commercial Agreements officially translated for UAE Ministries and Freezone Authorities.',
-    image: '/assets/service-pages/corporate-pro-team.jpg',
+    image: '/assets/service-pages/corporate-pro-team.webp',
     tags: ['Trade Licenses', 'MOAs & Amendments', 'Board Resolutions', 'Financial Audits', 'Contracts'],
   },
   {
@@ -113,7 +113,7 @@ const documentCategories = [
     label: 'Personal Certificates',
     title: 'Personal & Civil Certificate Translation',
     desc: 'Marriage certificates, Birth certificates, Death certificates, Police Clearance Certificates (PCC), Adoption papers, and Divorce decrees translated by sworn MOJ translators for GDRFA and family sponsorship.',
-    image: '/assets/images/emirates-id-documents.jpg',
+    image: '/assets/images/emirates-id-documents.webp',
     tags: ['Marriage Certificates', 'Birth Certificates', 'Police Clearance', 'Divorce Decrees', 'Affidavits'],
   },
   {
@@ -122,7 +122,7 @@ const documentCategories = [
     label: 'Educational & Academic',
     title: 'Academic & Qualification Translation',
     desc: 'High School Diplomas, University Degrees, Academic Transcripts, Marksheets, Training Certificates, and KHDA equivalency documents translated for MOHRE work permits and Golden Visa applications.',
-    image: '/assets/images/maid-support.jpg',
+    image: '/assets/images/maid-support.webp',
     tags: ['Degree Certificates', 'High School Diplomas', 'Transcripts', 'KHDA Documents', 'Professional Licenses'],
   },
 ];
@@ -649,7 +649,7 @@ export function LegalTranslationPageContent() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 20 }}>
             <div style={{ background: '#FFFFFF', borderRadius: 20, border: '1px solid #EFE8DB', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
               <div style={{ position: 'relative', height: 210 }}>
-                <Image src="/assets/blog/article-1.jpg" alt="Legal translation for Golden Visa" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/blog/article-1.webp" alt="Legal translation for Golden Visa" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ padding: 20 }}>
                 <span style={{ display: 'inline-block', background: '#F8F1DF', color: '#8C6D2D', borderRadius: 999, padding: '4px 10px', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10 }}>Golden Visa</span>
@@ -659,7 +659,7 @@ export function LegalTranslationPageContent() {
 
             <div style={{ background: '#FFFFFF', borderRadius: 20, border: '1px solid #EFE8DB', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
               <div style={{ position: 'relative', height: 210 }}>
-                <Image src="/assets/blog/article-2.jpg" alt="Degree certificate translation" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/blog/article-2.webp" alt="Degree certificate translation" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ padding: 20 }}>
                 <span style={{ display: 'inline-block', background: '#F8F1DF', color: '#8C6D2D', borderRadius: 999, padding: '4px 10px', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10 }}>MOHRE & KHDA</span>
@@ -669,7 +669,7 @@ export function LegalTranslationPageContent() {
 
             <div style={{ background: '#FFFFFF', borderRadius: 20, border: '1px solid #EFE8DB', overflow: 'hidden', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
               <div style={{ position: 'relative', height: 210 }}>
-                <Image src="/assets/blog/article-3.jpg" alt="Corporate MOA translation" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/blog/article-3.webp" alt="Corporate MOA translation" fill style={{ objectFit: 'cover' }} />
               </div>
               <div style={{ padding: 20 }}>
                 <span style={{ display: 'inline-block', background: '#F8F1DF', color: '#8C6D2D', borderRadius: 999, padding: '4px 10px', fontSize: 11, fontWeight: 800, textTransform: 'uppercase', marginBottom: 10 }}>Corporate</span>

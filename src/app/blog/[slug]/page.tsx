@@ -78,7 +78,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                 src={post.image}
                 alt={post.title}
                 fill
-                priority
+                preload
                 sizes="(min-width: 1280px) 1152px, 100vw"
                 className="object-cover opacity-75"
               />

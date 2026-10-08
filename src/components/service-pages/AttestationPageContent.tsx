@@ -58,19 +58,19 @@ const documentCards = [
     label: 'Educational',
     title: 'Educational certificates',
     desc: 'Academic and professional certificates attested for employment, licensing and university admission in the UAE — handled end to end, including the steps in the country that issued them.',
-    image: '/assets/images/maid-support.jpg',
+    image: '/assets/images/maid-support.webp',
   },
   {
     label: 'Personal & civil',
     title: 'Personal & civil documents',
     desc: 'Civil and family certificates attested so you can sponsor dependents and complete official UAE formalities — fully managed from doorstep collection to final MOFA attestation.',
-    image: '/assets/images/emirates-id-documents.jpg',
+    image: '/assets/images/emirates-id-documents.webp',
   },
   {
     label: 'Commercial',
     title: 'Commercial documents',
     desc: 'Company and trade documents attested for business setup, tenders, banking and overseas partners — we coordinate every official stage so they are accepted without delays.',
-    image: '/assets/service-pages/corporate-pro-team.jpg',
+    image: '/assets/service-pages/corporate-pro-team.webp',
   },
 ];
 
@@ -89,9 +89,9 @@ const reasons = [
 ];
 
 const articles = [
-  { title: 'How does UAE marriage certificate attestation work?', image: '/assets/blog/article-1.jpg', tag: 'Family visa' },
-  { title: 'What documents are needed for degree attestation in Dubai?', image: '/assets/blog/article-2.jpg', tag: 'Education' },
-  { title: 'MOFA attestation for business setup: the checklist', image: '/assets/blog/article-3.jpg', tag: 'Commercial' },
+  { title: 'How does UAE marriage certificate attestation work?', image: '/assets/blog/article-1.webp', tag: 'Family visa' },
+  { title: 'What documents are needed for degree attestation in Dubai?', image: '/assets/blog/article-2.webp', tag: 'Education' },
+  { title: 'MOFA attestation for business setup: the checklist', image: '/assets/blog/article-3.webp', tag: 'Commercial' },
 ];
 
 const faq = [
@@ -200,7 +200,7 @@ export function AttestationPageContent() {
               }}
             >
               <div style={{ position: 'relative', width: '100%', height: '100%', minHeight: 360 }}>
-                <Image src="/assets/service-pages/document-attestation.jpg" alt="Document attestation process" fill style={{ objectFit: 'cover' }} />
+                <Image src="/assets/service-pages/document-attestation.webp" alt="Document attestation process" fill style={{ objectFit: 'cover' }} />
                 <div
                   style={{
                     position: 'absolute',

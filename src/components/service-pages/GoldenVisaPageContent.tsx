@@ -196,7 +196,7 @@ function GoldenVisaPageContent() {
               <div className="gv-golden-trust"><ShieldCheck size={16} />Independent documentation support · decisions remain with UAE authorities</div>
             </div>
             <div className="gv-golden-hero-image">
-              <Image src="/assets/golden-visa/dubai-residency.jpg" alt="Burj Al Arab on the Dubai coastline" fill priority sizes="(max-width: 760px) 100vw, 48vw" />
+              <Image src="/assets/golden-visa/dubai-residency.webp" alt="Burj Al Arab on the Dubai coastline" fill preload sizes="(max-width: 760px) 100vw, 48vw" />
               <div className="gv-golden-image-shade" />
               <div className="gv-golden-image-caption"><span>GOLDEN VISA · UAE</span><strong>Six pathways.<br />One considered plan.</strong></div>
               <span className="gv-golden-image-stamp"><BadgeCheck size={15} />10 YEARS</span>
