@@ -20,7 +20,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 To show a live Google Reviews provider widget on the homepage, set `NEXT_PUBLIC_GOOGLE_REVIEWS_EMBED_URL` to the provider's embed URL before building. Without it, the section links to the Google Business review profile.
 
-To enable the language selector's automatic page translation, set `GOOGLE_TRANSLATE_API_KEY` in the server environment. Create a Google Cloud API key restricted to the Cloud Translation API, apply suitable usage quotas, and keep the key server-side; do not use a `NEXT_PUBLIC_` variable. Public page text and UI placeholders are sent to Google for translation. User-entered field values and calculator-entered details are excluded.
+The language selector translates page text, native select options, page titles/descriptions, and accessible UI attributes such as placeholders, image descriptions, and button labels. User-entered field values and calculator-entered details are excluded.
+
+Without `GOOGLE_TRANSLATE_API_KEY`, translations use Google's public, undocumented translation endpoint and require no API key. This fallback is free to call but has no availability, quota, privacy, or accuracy guarantee and may be throttled or discontinued. For production reliability, set `GOOGLE_TRANSLATE_API_KEY` to a server-side key restricted to the Cloud Translation API and configure billing/quotas. Do not use a `NEXT_PUBLIC_` variable. Machine translation is not guaranteed to be fully accurate; have legal, visa, and financial content reviewed by qualified translators.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

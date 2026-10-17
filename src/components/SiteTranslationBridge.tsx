@@ -24,7 +24,8 @@ const languageTargets: Partial<Record<Language, string>> = {
 };
 const translationCache = new Map<string, string>();
 const textRecords = new WeakMap<Text, TextRecord>();
-const placeholderRecords = new WeakMap<Element, TextRecord>();
+const attributeRecords = new WeakMap<Element, Map<string, TextRecord>>();
+const translatableAttributeNames = ['placeholder', 'title', 'aria-label', 'alt'] as const;
 
 function collectTextNodes(root: Node) {
   const nodes: Text[] = [];
@@ -32,7 +33,7 @@ function collectTextNodes(root: Node) {
     if (
       root.data.trim()
       && root.parentElement
-      && !root.parentElement.closest('script, style, noscript, textarea, input, select, option, [contenteditable="true"], [data-no-translate], [translate="no"], .notranslate')
+      && !root.parentElement.closest('script, style, noscript, textarea, input, [contenteditable="true"], [data-no-translate], [translate="no"], .notranslate')
     ) {
       nodes.push(root);
     }
@@ -47,7 +48,7 @@ function collectTextNodes(root: Node) {
     if (
       parent
       && text.data.trim()
-      && !parent.closest('script, style, noscript, textarea, input, select, option, [contenteditable="true"], [data-no-translate], [translate="no"], .notranslate')
+      && !parent.closest('script, style, noscript, textarea, input, [contenteditable="true"], [data-no-translate], [translate="no"], .notranslate')
     ) {
       nodes.push(text);
     }
@@ -57,13 +58,28 @@ function collectTextNodes(root: Node) {
   return nodes;
 }
 
-function collectPlaceholderElements(root: Node) {
+function attributesForTranslation(element: Element) {
+  const attributes: string[] = [...translatableAttributeNames];
+  if (element instanceof HTMLInputElement && ['button', 'submit', 'reset'].includes(element.type)) {
+    attributes.push('value');
+  }
+  if (element instanceof HTMLMetaElement) {
+    const key = element.getAttribute('name') ?? element.getAttribute('property');
+    if (['description', 'og:title', 'og:description', 'twitter:title', 'twitter:description'].includes(key ?? '')) {
+      attributes.push('content');
+    }
+  }
+  return attributes;
+}
+
+function collectTranslatableElements(root: Node) {
   const elements: Element[] = [];
-  if (root instanceof Element && root.hasAttribute('placeholder')) {
+  const selector = '[placeholder], [title], [aria-label], [alt], input[type="button"][value], input[type="submit"][value], input[type="reset"][value], meta[name="description"][content], meta[property="og:title"][content], meta[property="og:description"][content], meta[name="twitter:title"][content], meta[name="twitter:description"][content]';
+  if (root instanceof Element && root.matches(selector)) {
     elements.push(root);
   }
   if (root.nodeType === Node.ELEMENT_NODE || root.nodeType === Node.DOCUMENT_NODE || root.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-    (root as ParentNode).querySelectorAll('[placeholder]').forEach((element) => elements.push(element));
+    (root as ParentNode).querySelectorAll(selector).forEach((element) => elements.push(element));
   }
   return elements;
 }
@@ -85,14 +101,22 @@ export function SiteTranslationBridge() {
 
     let disposed = false;
     const observerOwnedChanges = new WeakMap<Text, number>();
+    const observerOwnedAttributes = new WeakMap<Element, Map<string, number>>();
     const pendingNodes = new Set<Text>();
-    const pendingPlaceholders = new Set<Element>();
+    const pendingAttributes = new Set<Element>();
     let observerTimer: ReturnType<typeof setTimeout> | undefined;
     let translationUnavailable = false;
     const setTranslatedText = (node: Text, value: string) => {
       if (node.data === value) return;
       observerOwnedChanges.set(node, (observerOwnedChanges.get(node) ?? 0) + 1);
       node.data = value;
+    };
+    const setTranslatedAttribute = (element: Element, name: string, value: string) => {
+      if (element.getAttribute(name) === value) return;
+      const changes = observerOwnedAttributes.get(element) ?? new Map<string, number>();
+      changes.set(name, (changes.get(name) ?? 0) + 1);
+      observerOwnedAttributes.set(element, changes);
+      element.setAttribute(name, value);
     };
 
     const translateNodes = async (nodes: Text[], force = false) => {
@@ -173,36 +197,56 @@ export function SiteTranslationBridge() {
       }
     };
 
-    const translatePlaceholders = async (elements: Element[]) => {
+    const translateAttributes = async (elements: Element[]) => {
       if (translationUnavailable) return;
-      const work: Array<{ element: Element; source: string }> = [];
+      const work: Array<{ element: Element; name: string; source: string }> = [];
 
       for (const element of elements) {
         if (element.closest('[data-no-translate], [translate="no"], .notranslate')) continue;
-        const current = element.getAttribute('placeholder');
-        if (!current?.trim()) continue;
-        const record = placeholderRecords.get(element);
-        const source = record && current === record.current ? record.source : current;
-        if (current !== source) element.setAttribute('placeholder', source);
-        placeholderRecords.set(element, { source, current: source });
-        work.push({ element, source });
+        const records = attributeRecords.get(element) ?? new Map<string, TextRecord>();
+        attributeRecords.set(element, records);
+        for (const name of attributesForTranslation(element)) {
+          const current = element.getAttribute(name);
+          if (!current?.trim()) continue;
+          const record = records.get(name);
+          const source = record && current === record.current ? record.source : current;
+          if (current !== source) setTranslatedAttribute(element, name, source);
+          records.set(name, { source, current: source });
+          work.push({ element, name, source });
+        }
       }
 
-      if (language === 'EN' || disposed || !work.length) return;
+      if (disposed || !work.length) return;
       await translateNodes(work.map(({ source }) => document.createTextNode(source)), true);
       if (translationUnavailable || disposed) return;
 
-      for (const { element, source } of work) {
+      for (const { element, name, source } of work) {
+        if (language === 'EN') {
+          setTranslatedAttribute(element, name, source);
+          attributeRecords.get(element)?.set(name, { source, current: source });
+          continue;
+        }
         const translated = translationCache.get(`${language}:${source}`);
         if (translated === undefined || !element.isConnected) continue;
-        element.setAttribute('placeholder', translated);
-        placeholderRecords.set(element, { source, current: translated });
+        setTranslatedAttribute(element, name, translated);
+        attributeRecords.get(element)?.set(name, { source, current: translated });
       }
     };
 
     const observeNewContent = (records: MutationRecord[]) => {
       if (translationUnavailable) return;
       for (const record of records) {
+        if (record.type === 'attributes' && record.target instanceof Element && record.attributeName) {
+          const changes = observerOwnedAttributes.get(record.target);
+          const ownChangeCount = changes?.get(record.attributeName) ?? 0;
+          if (ownChangeCount > 0) {
+            if (ownChangeCount === 1) changes?.delete(record.attributeName);
+            else changes?.set(record.attributeName, ownChangeCount - 1);
+            continue;
+          }
+          pendingAttributes.add(record.target);
+          continue;
+        }
         if (record.type === 'characterData' && record.target instanceof Text) {
           const ownChangeCount = observerOwnedChanges.get(record.target) ?? 0;
           if (ownChangeCount > 0) {
@@ -215,7 +259,7 @@ export function SiteTranslationBridge() {
         }
         record.addedNodes.forEach((node) => {
           collectTextNodes(node).forEach((text) => pendingNodes.add(text));
-          collectPlaceholderElements(node).forEach((element) => pendingPlaceholders.add(element));
+          collectTranslatableElements(node).forEach((element) => pendingAttributes.add(element));
         });
       }
 
@@ -223,24 +267,30 @@ export function SiteTranslationBridge() {
       observerTimer = setTimeout(() => {
         if (translationUnavailable) return;
         void translateNodes([...pendingNodes]);
-        void translatePlaceholders([...pendingPlaceholders]);
+        void translateAttributes([...pendingAttributes]);
         pendingNodes.clear();
-        pendingPlaceholders.clear();
+        pendingAttributes.clear();
       }, 120);
     };
 
     const observer = new MutationObserver(observeNewContent);
     if (language === 'EN') {
-      void translateNodes(collectTextNodes(document.body), true);
-      void translatePlaceholders(collectPlaceholderElements(document.body));
+      void translateNodes(collectTextNodes(document.documentElement), true);
+      void translateAttributes(collectTranslatableElements(document.documentElement));
       return () => {
         disposed = true;
       };
     }
 
-    observer.observe(document.body, { childList: true, characterData: true, subtree: true });
-    void translateNodes(collectTextNodes(document.body), true);
-    void translatePlaceholders(collectPlaceholderElements(document.body));
+    observer.observe(document.documentElement, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['placeholder', 'title', 'aria-label', 'alt', 'value', 'content'],
+    });
+    void translateNodes(collectTextNodes(document.documentElement), true);
+    void translateAttributes(collectTranslatableElements(document.documentElement));
 
     return () => {
       disposed = true;
