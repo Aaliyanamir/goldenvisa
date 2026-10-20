@@ -1,61 +1,92 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from 'react';
-import { Language, translations, TranslationData } from './translations';
-import { SiteTranslationBridge } from '@/components/SiteTranslationBridge';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import type { Language, TranslationData } from './translations';
+import { translations } from './translations';
+import { blogPosts, localizeBlogPost } from './blogData';
+import { isLocaleCode, languageLocales, localeCodes, localeHtmlLanguages, localeLanguages, localizedPath } from './locales';
+import { getRouteSeo } from './seoContent';
+
+const siteUrl = 'https://brightlinkconsulting.ae';
 
 interface LanguageContextType {
   language: Language;
-  setLanguage: (lang: Language) => void;
+  setLanguage: (language: Language) => void;
   t: TranslationData;
   isRTL: boolean;
+  localizeHref: (path: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const languageChangeEvent = 'golden-visa-language-change';
-
-function subscribeToLanguage(callback: () => void) {
-  window.addEventListener('storage', callback);
-  window.addEventListener(languageChangeEvent, callback);
-  return () => {
-    window.removeEventListener('storage', callback);
-    window.removeEventListener(languageChangeEvent, callback);
-  };
-}
-
-function getStoredLanguage(): Language {
-  const saved = window.localStorage.getItem('golden_visa_lang') as Language | null;
-  return saved && saved in translations ? saved : 'EN';
-}
-
-function getServerLanguage(): Language {
-  return 'EN';
-}
-
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const language = useSyncExternalStore(subscribeToLanguage, getStoredLanguage, getServerLanguage);
-
-  const setLanguage = useCallback((lang: Language) => {
-    window.localStorage.setItem('golden_visa_lang', lang);
-    window.dispatchEvent(new Event(languageChangeEvent));
-  }, []);
+export const LanguageProvider: React.FC<{ children: React.ReactNode; language: Language }> = ({ children, language }) => {
+  const pathname = usePathname();
+  const [activeLanguage, setActiveLanguage] = useState(language);
+  const previousPathname = useRef(pathname);
 
   useEffect(() => {
-    document.documentElement.dir = language === 'AR' ? 'rtl' : 'ltr';
-    document.documentElement.lang = language === 'ZH' ? 'zh-CN' : language.toLowerCase();
-  }, [language]);
+    if (previousPathname.current === pathname) return;
+    previousPathname.current = pathname;
+
+    const updateFromPathname = (currentPathname: string) => {
+      const locale = currentPathname.split('/')[1]?.toLowerCase();
+      if (locale && isLocaleCode(locale)) {
+        setActiveLanguage(localeLanguages[locale]);
+      }
+    };
+
+    updateFromPathname(pathname);
+    const handlePopState = () => updateFromPathname(window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.documentElement.lang = localeHtmlLanguages[languageLocales[activeLanguage]];
+    document.documentElement.dir = activeLanguage === 'AR' ? 'rtl' : 'ltr';
+
+    const segments = window.location.pathname.split('/').filter(Boolean);
+    if (segments[0] && isLocaleCode(segments[0])) segments.shift();
+    const path = `/${segments.join('/')}`.replace(/\/$/, '') || '/';
+    const locale = languageLocales[activeLanguage];
+    const blogSlug = path.startsWith('/blog/') ? path.slice('/blog/'.length) : '';
+    const blogPost = blogPosts.find((post) => post.slug === blogSlug);
+    const blogMetadata = blogPost ? localizeBlogPost(blogPost, activeLanguage) : null;
+    const title = blogMetadata
+      ? `${blogMetadata.title} | Golden Visa Dubai`
+      : getRouteSeo(path, locale).title;
+    const description = blogMetadata?.excerpt ?? getRouteSeo(path, locale).description;
+    const localizedUrl = (code: string) => `${siteUrl}/${code}${path === '/' ? '' : path}`;
+
+    document.title = title;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', description);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', localizedUrl(locale));
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', localizedUrl(locale));
+
+    for (const alternateLocale of localeCodes) {
+      const languageCode = alternateLocale === 'zh' ? 'zh-CN' : alternateLocale;
+      const link = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${languageCode}"]`);
+      link?.setAttribute('href', localizedUrl(alternateLocale));
+    }
+    document.querySelector<HTMLLinkElement>('link[rel="alternate"][hreflang="x-default"]')
+      ?.setAttribute('href', localizedUrl('en'));
+  }, [activeLanguage, pathname]);
 
   return (
     <LanguageContext.Provider
       value={{
-        language,
-        setLanguage,
-        t: translations[language] || translations.EN,
-        isRTL: language === 'AR',
+        language: activeLanguage,
+        setLanguage: setActiveLanguage,
+        t: translations[activeLanguage],
+        isRTL: activeLanguage === 'AR',
+        localizeHref: (path: string) => localizedPath(path, activeLanguage),
       }}
     >
-      <SiteTranslationBridge />
       {children}
     </LanguageContext.Provider>
   );

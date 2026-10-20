@@ -18,6 +18,8 @@ import {
   Users,
 } from 'lucide-react';
 import { contactInfo } from '../lib/contactInfo';
+import { useLanguage } from '@/lib/LanguageContext';
+import { aboutText } from '@/lib/aboutCopy';
 
 interface AboutPageProps {
   onOpenCalculator: () => void;
@@ -103,6 +105,7 @@ const visionContent = {
 } as const;
 
 export function AboutPage({ onOpenCalculator }: AboutPageProps) {
+  const { language } = useLanguage();
   const [activeVision, setActiveVision] = useState<keyof typeof visionContent>('mission');
   const vision = visionContent[activeVision];
 
@@ -120,18 +123,14 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-hero-shade" />
         <div className="about-shell about-hero-layout">
           <div className="about-hero-content">
-            <span className="about-eyebrow"><Sparkles size={14} />UAE residency and business support</span>
-            <h1>About Golden Visa Dubai<span> — your UAE consultancy.</span></h1>
-            <p>
-              Practical help for UAE residency, business paperwork and document
-              services—planned around your situation and the requirements of the
-              relevant authority.
-            </p>
+            <span className="about-eyebrow"><Sparkles size={14} />{aboutText(language, 'heroBadge')}</span>
+            <h1>{aboutText(language, 'heroTitle')}<span>{aboutText(language, 'heroHighlight')}</span></h1>
+            <p>{aboutText(language, 'heroIntro')}</p>
             <div className="about-actions">
-              <button type="button" onClick={onOpenCalculator}><Sparkles size={16} />Explore service options</button>
-              <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer"><Phone size={15} />Chat on WhatsApp</a>
+              <button type="button" onClick={onOpenCalculator}><Sparkles size={16} />{aboutText(language, 'heroExplore')}</button>
+              <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer"><Phone size={15} />{aboutText(language, 'whatsapp')}</a>
             </div>
-            <div className="about-hero-proof"><ShieldCheck size={17} />Private consultancy · Government decisions remain with the authority</div>
+            <div className="about-hero-proof"><ShieldCheck size={17} />{aboutText(language, 'heroProof')}</div>
           </div>
           <aside className="about-hero-card">
             <div className="about-hero-card-head"><span>ABOUT US</span><BadgeCheck size={19} /></div>
@@ -167,13 +166,10 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
             </div>
           </div>
           <div className="about-founder-copy">
-            <span className="about-eyebrow"><span />A considered beginning</span>
-            <h2>A strong future starts with <strong>a strong foundation.</strong></h2>
+            <span className="about-eyebrow"><span />{aboutText(language, 'founderEyebrow')}</span>
+            <h2>{aboutText(language, 'founderTitle')}</h2>
             <p>
-              A UAE application can involve more than one form or appointment.
-              Our role is to help make the moving parts easier to follow—from
-              understanding the request to preparing documents and tracking next
-              steps.
+              {aboutText(language, 'founderBody')}
             </p>
             <p>
               We work with individuals, families and businesses seeking practical
@@ -191,14 +187,9 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-licensed">
         <div className="about-shell about-licensed-layout">
           <div>
-            <span className="about-eyebrow"><span />Responsible government application support</span>
-            <h2>Official processes. <strong>Careful preparation.</strong></h2>
-            <p>
-              Golden Visa Dubai is a private consultancy and documentation
-              support provider. We help prepare and coordinate applications;
-              eligibility, approval and official processing are determined by
-              the relevant UAE authority.
-            </p>
+            <span className="about-eyebrow"><span />{aboutText(language, 'officialEyebrow')}</span>
+            <h2>{aboutText(language, 'officialTitle')}</h2>
+            <p>{aboutText(language, 'officialBody')}</p>
           </div>
           <div className="about-authority-card">
             <div><span>Service provider</span><strong>Private consultancy</strong></div>
@@ -212,9 +203,9 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-services">
         <div className="about-shell">
           <div className="about-section-heading">
-            <span className="about-eyebrow"><span />Our areas of support</span>
-            <h2>Residency, business &amp; <strong>document services.</strong></h2>
-            <p>Start with the service that best matches what you need to do.</p>
+            <span className="about-eyebrow"><span />{aboutText(language, 'servicesEyebrow')}</span>
+            <h2>{aboutText(language, 'servicesTitle')}</h2>
+            <p>{aboutText(language, 'servicesIntro')}</p>
           </div>
           <div className="about-service-grid">
             {serviceAreas.map(({ icon: Icon, title, text }, index) => (
@@ -232,9 +223,9 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-strength">
         <div className="about-shell">
           <div className="about-section-heading about-section-heading--center">
-            <span className="about-eyebrow"><span />What shapes our work</span>
-            <h2>Our strength is in <strong>the details.</strong></h2>
-            <p>Four practical priorities guide how we support every enquiry and file.</p>
+            <span className="about-eyebrow"><span />{aboutText(language, 'strengthEyebrow')}</span>
+            <h2>{aboutText(language, 'strengthTitle')}</h2>
+            <p>{aboutText(language, 'strengthIntro')}</p>
           </div>
           <div className="about-strength-grid">
             {[
@@ -256,8 +247,8 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-partner">
         <div className="about-shell about-partner-card">
           <div>
-            <span className="about-eyebrow"><span />Your trusted partner</span>
-            <h2>Business, residency &amp; <strong>professional services</strong> in the UAE.</h2>
+            <span className="about-eyebrow"><span />{aboutText(language, 'partnerEyebrow')}</span>
+            <h2>{aboutText(language, 'partnerTitle')}</h2>
             <p>
               Whether you are planning a residence application, handling
               employee paperwork or preparing an official document, our team can
@@ -271,16 +262,16 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
           </div>
           <div className="about-partner-cta">
             <HeartHandshake size={42} />
-            <strong>Let’s map out<br />your next step.</strong>
-            <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Talk to our team <ArrowRight size={15} /></a>
+            <strong>{aboutText(language, 'partnerCta')}</strong>
+            <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">{aboutText(language, 'partnerAction')} <ArrowRight size={15} /></a>
           </div>
         </div>
       </section>
 
       <section className="about-vision">
         <div className="about-shell about-vision-card">
-          <span className="about-eyebrow"><span />Our vision &amp; mission</span>
-          <h2>Your goals matter to us.</h2>
+          <span className="about-eyebrow"><span />{aboutText(language, 'visionEyebrow')}</span>
+          <h2>{aboutText(language, 'visionTitle')}</h2>
           <div className="about-vision-tabs" role="tablist" aria-label="Our mission, vision and values">
             {(Object.keys(visionContent) as Array<keyof typeof visionContent>).map((key) => (
               <button
@@ -330,8 +321,8 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-process">
         <div className="about-shell">
           <div className="about-section-heading">
-            <span className="about-eyebrow"><span />How we work with you</span>
-            <h2>A clear process, <strong>one step at a time.</strong></h2>
+            <span className="about-eyebrow"><span />{aboutText(language, 'processEyebrow')}</span>
+            <h2>{aboutText(language, 'processTitle')}</h2>
           </div>
           <ol className="about-process-grid">
             {process.map(([title, text], index) => (
@@ -348,8 +339,8 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
       <section className="about-results">
         <div className="about-shell">
           <div className="about-section-heading about-section-heading--center">
-            <span className="about-eyebrow"><span />A dependable service experience</span>
-            <h2>Clear process. <strong>Confident next steps.</strong></h2>
+            <span className="about-eyebrow"><span />{aboutText(language, 'resultsEyebrow')}</span>
+            <h2>{aboutText(language, 'resultsTitle')}</h2>
             <p>Rather than promise outcomes, we focus on the parts of the process we can help you prepare and understand.</p>
           </div>
           <div className="about-commitment-grid">
@@ -372,12 +363,12 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell about-cta-inner">
           <div>
             <span className="about-eyebrow"><span />Start with a conversation</span>
-            <h2>Plan your UAE application with confidence.</h2>
+            <h2>{aboutText(language, 'finalCta')}</h2>
             <p>Tell us what you need to do, and we will help identify the service and information to confirm before you proceed.</p>
           </div>
           <div className="about-actions">
-            <button type="button" onClick={onOpenCalculator}>Explore service options <ArrowRight size={16} /></button>
-            <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">Chat on WhatsApp <Phone size={15} /></a>
+            <button type="button" onClick={onOpenCalculator}>{aboutText(language, 'heroExplore')} <ArrowRight size={16} /></button>
+            <a href={contactInfo.whatsappHref} target="_blank" rel="noreferrer">{aboutText(language, 'whatsapp')} <Phone size={15} /></a>
           </div>
         </div>
       </section>
@@ -386,7 +377,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         <div className="about-shell">
           <div className="about-section-heading about-section-heading--center">
             <span className="about-eyebrow"><span />Service options</span>
-            <h2>Professional support, <strong>shaped around you.</strong></h2>
+            <h2>{aboutText(language, 'supportTitle')}</h2>
           </div>
           <div className="about-support-grid">
             {supportOptions.map(([title, text], index) => (
@@ -400,7 +391,7 @@ export function AboutPage({ onOpenCalculator }: AboutPageProps) {
         </div>
       </section>
 
-      <p className="about-disclaimer"><Check size={14} />Golden Visa Dubai provides private consultancy and documentation support. Government eligibility, fees and processing decisions are determined by the relevant UAE authorities.</p>
+      <p className="about-disclaimer"><Check size={14} />{aboutText(language, 'disclaimer')}</p>
     </div>
   );
 }

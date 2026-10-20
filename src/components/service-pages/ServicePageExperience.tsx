@@ -19,6 +19,8 @@ import {
 } from 'lucide-react';
 import { StandalonePageFrame } from '@/components/StandalonePageFrame';
 import { contactInfo } from '@/lib/contactInfo';
+import { useLanguage } from '@/lib/LanguageContext';
+import { servicePageText, serviceTitleText } from '@/lib/servicePageCopy';
 import { serviceCatalog, type ServicePageContent } from './serviceCatalog';
 import { FamilyVisaPageContentWithFrame } from './FamilyVisaPageContent';
 import { PropertyVisaPageContentWithFrame } from './PropertyVisaPageContent';
@@ -76,9 +78,10 @@ function SectionHeading({ label, title, text, id }: { label: string; title: stri
 }
 
 function ContentTable({ table }: { table: NonNullable<ServicePageContent['table']> }) {
+  const { language } = useLanguage();
   return (
     <section className="gv-section">
-      <SectionHeading label="At a glance" title={table.title} text={table.caption} />
+      <SectionHeading label={servicePageText(language, 'atGlance')} title={table.title} text={table.caption} />
       <div className="gv-table-wrap">
         <table className="gv-table">
           <thead><tr>{table.columns.map((column) => <th scope="col" key={column}>{column}</th>)}</tr></thead>
@@ -738,6 +741,7 @@ function LeadForm({
   setAttestationType: (type: string) => void;
   poaType: string;
 }) {
+  const { language } = useLanguage();
   const [messageLink, setMessageLink] = useState('');
   const [fileName, setFileName] = useState('');
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -771,15 +775,15 @@ function LeadForm({
   return (
     <section className="gv-lead" id="consultation">
       <div className="gv-lead-copy">
-        <Eyebrow>Personalized next step</Eyebrow>
+        <Eyebrow>{servicePageText(language, 'personalizedStep')}</Eyebrow>
         <h2>{content.formTitle}</h2>
         <p>{content.formDescription}</p>
-        <div className="gv-lead-assurance"><ShieldCheck size={17} />Your details are not stored by this page. You choose when to continue in WhatsApp.</div>
+        <div className="gv-lead-assurance"><ShieldCheck size={17} />{servicePageText(language, 'leadAssurance')}</div>
       </div>
       <form className="gv-lead-form" onSubmit={handleSubmit} onChange={() => { if (messageLink) setMessageLink(''); }}>
         {(content.interaction === 'translation' || content.interaction === 'attestation') && (
           <div className="gv-upload">
-            <label htmlFor="quote-file"><Upload size={18} />Add a document for your quote</label>
+            <label htmlFor="quote-file"><Upload size={18} />{servicePageText(language, 'addDocument')}</label>
             <input id="quote-file" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" onChange={(event) => setFileName(event.target.files?.[0]?.name ?? '')} />
             <p>{fileName ? `Selected: ${fileName}. Attach it yourself after WhatsApp opens; it has not been uploaded.` : 'PDF, JPG, PNG or Word. The file stays on your device and is not uploaded here.'}</p>
           </div>
@@ -821,16 +825,16 @@ function LeadForm({
           </>
         )}
         <div className="gv-form-row">
-          <label htmlFor="lead-name">Your name<input id="lead-name" name="name" autoComplete="name" required /></label>
-          <label htmlFor="lead-phone">Phone / WhatsApp<input id="lead-phone" name="phone" type="tel" autoComplete="tel" required /></label>
+          <label htmlFor="lead-name">{servicePageText(language, 'yourName')}<input id="lead-name" name="name" autoComplete="name" required /></label>
+          <label htmlFor="lead-phone">{servicePageText(language, 'phone')}<input id="lead-phone" name="phone" type="tel" autoComplete="tel" required /></label>
         </div>
-        <label htmlFor="lead-email">Email (optional)<input id="lead-email" name="email" type="email" autoComplete="email" /></label>
+        <label htmlFor="lead-email">{servicePageText(language, 'email')}<input id="lead-email" name="email" type="email" autoComplete="email" /></label>
         <label htmlFor="lead-request">What would you like help with?<textarea id="lead-request" name="request" rows={3} placeholder="Share only the details needed for an initial response." /></label>
-        <button className="gv-button gv-button--gold" type="submit">Prepare WhatsApp inquiry <ArrowRight size={17} /></button>
+        <button className="gv-button gv-button--gold" type="submit">{servicePageText(language, 'prepareInquiry')} <ArrowRight size={17} /></button>
         {messageLink && (
           <div className="gv-submit-followup" role="status">
-            <p>Your inquiry is ready. Nothing has been sent yet.</p>
-            <a className="gv-button gv-button--dark" href={messageLink} target="_blank" rel="noreferrer">Continue to WhatsApp <ArrowUpRight size={16} /></a>
+            <p>{servicePageText(language, 'inquiryReady')}</p>
+            <a className="gv-button gv-button--dark" href={messageLink} target="_blank" rel="noreferrer">{servicePageText(language, 'continueWhatsapp')} <ArrowUpRight size={16} /></a>
           </div>
         )}
       </form>
@@ -839,6 +843,7 @@ function LeadForm({
 }
 
 export function ServicePageExperience({ title }: { title: string }) {
+  const { language } = useLanguage();
   const [calculatorOpen, setCalculatorOpen] = useState(false);
   const [attestationCountry, setAttestationCountry] = useState('United Kingdom');
   const [attestationType, setAttestationType] = useState('Educational');
@@ -858,14 +863,14 @@ export function ServicePageExperience({ title }: { title: string }) {
       <StandalonePageFrame currentView="service" showMobileStickyBar={false}>
         <div className="gv-service-page">
           <div className="gv-page-shell">
-            <nav className="gv-breadcrumb" aria-label="Breadcrumb">
-              <Link href="/">Home</Link><ChevronRight size={14} /><Link href="/#services">Services</Link><ChevronRight size={14} /><span aria-current="page">{content.title}</span>
+            <nav className="gv-breadcrumb" aria-label={servicePageText(language, 'breadcrumb')}>
+              <Link href={`/${language.toLowerCase()}`}>{servicePageText(language, 'home')}</Link><ChevronRight size={14} /><Link href={`/${language.toLowerCase()}/#services`}>{servicePageText(language, 'services')}</Link><ChevronRight size={14} />              <span aria-current="page">{serviceTitleText(language, content.title)}</span>
             </nav>
 
             <header className="gv-hero">
               <div className="gv-hero-copy">
                 <Eyebrow>{content.eyebrow}</Eyebrow>
-                <h1>{content.title}</h1>
+                <h1>{serviceTitleText(language, content.title)}</h1>
                 <p>{content.description}</p>
                 <div className="gv-hero-actions">
                   <a className="gv-button gv-button--gold" href="#consultation">Plan your valuation review <ArrowRight size={17} /></a>
@@ -899,7 +904,7 @@ export function ServicePageExperience({ title }: { title: string }) {
               )}
             </header>
 
-            <section className="gv-metrics" aria-label={`${content.title} key information`}>
+            <section className="gv-metrics" aria-label={`${serviceTitleText(language, content.title)} key information`}>
               {content.metrics.map((metric) => <div className="gv-metric" key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}
             </section>
 
@@ -910,11 +915,11 @@ export function ServicePageExperience({ title }: { title: string }) {
             )}
 
             <section className="gv-section gv-overview">
-              <SectionHeading label="Overview" title={content.introTitle} text={content.intro} />
+              <SectionHeading label={servicePageText(language, 'overview')} title={content.introTitle} text={content.intro} />
             </section>
 
             <section className="gv-section">
-              <SectionHeading label="Why it matters" title="A clear valuation supports the next legal or financial decision" text="The right document is not just a number. It is usually tied to a precise purpose, deadline, authority and property record." />
+              <SectionHeading label={servicePageText(language, 'whyItMatters')} title="A clear valuation supports the next legal or financial decision" text="The right document is not just a number. It is usually tied to a precise purpose, deadline, authority and property record." />
               <div className="gv-card-grid">
                 {content.highlights.map((item, index) => (
                   <article className="gv-info-card" key={item.title}>
@@ -928,7 +933,7 @@ export function ServicePageExperience({ title }: { title: string }) {
             </section>
 
             <section className="gv-section">
-              <SectionHeading label="Process" title={content.processTitle} text="A clear sequence keeps each approval and document stage visible." />
+              <SectionHeading label={servicePageText(language, 'process')} title={content.processTitle} text="A clear sequence keeps each approval and document stage visible." />
               <ol className="gv-process-grid">
                 {content.process.map((step, index) => (
                   <li className="gv-process-card" key={step.title}>
@@ -945,7 +950,7 @@ export function ServicePageExperience({ title }: { title: string }) {
 
             <section className="gv-section gv-documents-section">
               <div>
-                <SectionHeading label="Prepare your file" title={content.documentsTitle} text="The final checklist can change with the property, title deed status, receiving authority and intended use." />
+                <SectionHeading label={servicePageText(language, 'prepareFile')} title={content.documentsTitle} text="The final checklist can change with the property, title deed status, receiving authority and intended use." />
               </div>
               <ul className="gv-document-grid">
                 {content.documents.map((document) => <li key={document}><span><Check size={15} /></span>{document}</li>)}
@@ -953,7 +958,7 @@ export function ServicePageExperience({ title }: { title: string }) {
             </section>
 
             <section className="gv-section gv-faq-section">
-              <SectionHeading label="Questions & answers" title="Frequently asked about property valuation" />
+              <SectionHeading label={servicePageText(language, 'questionsAnswers')} title="Frequently asked about property valuation" />
               <div className="gv-faq-list">
                 {content.faqs.map((faq) => (
                   <details key={faq.question}>
@@ -972,7 +977,7 @@ export function ServicePageExperience({ title }: { title: string }) {
               setAttestationType={setAttestationType}
               poaType={poaType}
             />
-            <p className="gv-disclaimer"><ShieldCheck size={14} />We are a private documentation and PRO-services provider, not a UAE government agency. Government fees, eligibility and processing times may change.</p>
+            <p className="gv-disclaimer"><ShieldCheck size={14} />{servicePageText(language, 'providerDisclaimer')}</p>
           </div>
         </div>
       </StandalonePageFrame>
@@ -983,22 +988,22 @@ export function ServicePageExperience({ title }: { title: string }) {
     <StandalonePageFrame currentView="service" showMobileStickyBar={false}>
       <div className="gv-service-page">
         <div className="gv-page-shell">
-          <nav className="gv-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">Home</Link><ChevronRight size={14} /><Link href="/#services">Services</Link><ChevronRight size={14} /><span aria-current="page">{content.title}</span>
+          <nav className="gv-breadcrumb" aria-label={servicePageText(language, 'breadcrumb')}>
+            <Link href={`/${language.toLowerCase()}`}>{servicePageText(language, 'home')}</Link><ChevronRight size={14} /><Link href={`/${language.toLowerCase()}/#services`}>{servicePageText(language, 'services')}</Link><ChevronRight size={14} />            <span aria-current="page">{serviceTitleText(language, content.title)}</span>
           </nav>
 
           <header className="gv-hero">
             <div className="gv-hero-copy">
               <Eyebrow>{content.eyebrow}</Eyebrow>
-              <h1>{content.title}</h1>
+              <h1>{serviceTitleText(language, content.title)}</h1>
               <p>{content.description}</p>
               <div className="gv-hero-actions">
                 {content.title === 'Maid Visa'
-                  ? <button className="gv-button gv-button--gold" type="button" onClick={() => setCalculatorOpen(true)}>Plan your maid visa <ArrowRight size={17} /></button>
-                  : <a className="gv-button gv-button--gold" href="#consultation">Plan your next step <ArrowRight size={17} /></a>}
-                <a className="gv-button gv-button--outline" href={contactInfo.phoneHref}>Call an advisor <ArrowUpRight size={16} /></a>
+                  ? <button className="gv-button gv-button--gold" type="button" onClick={() => setCalculatorOpen(true)}>{servicePageText(language, 'explore')} <ArrowRight size={17} /></button>
+                  : <a className="gv-button gv-button--gold" href="#consultation">{servicePageText(language, 'explore')} <ArrowRight size={17} /></a>}
+                <a className="gv-button gv-button--outline" href={contactInfo.phoneHref}>{servicePageText(language, 'callAdvisor')} <ArrowUpRight size={16} /></a>
               </div>
-              <div className="gv-hero-trust"><BadgeCheck size={17} />Private documentation support · Government approval remains with the authority</div>
+              <div className="gv-hero-trust"><BadgeCheck size={17} />{servicePageText(language, 'privateSupport')}</div>
             </div>
             {heroImage ? (
               <aside className="gv-hero-photo">
@@ -1026,7 +1031,7 @@ export function ServicePageExperience({ title }: { title: string }) {
             )}
           </header>
 
-          <section className="gv-metrics" aria-label={`${content.title} key information`}>
+          <section className="gv-metrics" aria-label={`${serviceTitleText(language, content.title)} key information`}>
             {content.metrics.map((metric) => <div className="gv-metric" key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}
           </section>
 
@@ -1037,7 +1042,7 @@ export function ServicePageExperience({ title }: { title: string }) {
           )}
 
           <section className="gv-section gv-overview">
-            <SectionHeading label="Overview" title={content.introTitle} text={content.intro} />
+            <SectionHeading label={servicePageText(language, 'overview')} title={content.introTitle} text={content.intro} />
           </section>
 
           {content.interaction === 'iloe' && <IloeTools />}
@@ -1136,7 +1141,7 @@ export function ServicePageExperience({ title }: { title: string }) {
           ))}
 
           <section className="gv-section">
-            <SectionHeading label="Process" title={content.processTitle} text="A clear sequence keeps each approval and document stage visible." />
+            <SectionHeading label={servicePageText(language, 'process')} title={content.processTitle} text="A clear sequence keeps each approval and document stage visible." />
             <ol className="gv-process-grid">
               {content.process.map((step, index) => (
                 <li className="gv-process-card" key={step.title}>
@@ -1152,7 +1157,7 @@ export function ServicePageExperience({ title }: { title: string }) {
 
           <section className="gv-section gv-documents-section">
             <div>
-              <SectionHeading label="Prepare your file" title={content.documentsTitle} text="The final checklist can change with your sponsor, authority, document origin and service route." />
+              <SectionHeading label={servicePageText(language, 'prepareFile')} title={content.documentsTitle} text="The final checklist can change with your sponsor, authority, document origin and service route." />
             </div>
             <ul className="gv-document-grid">
               {content.documents.map((document) => <li key={document}><span><Check size={15} /></span>{document}</li>)}
@@ -1178,7 +1183,7 @@ export function ServicePageExperience({ title }: { title: string }) {
           )}
 
           <section className="gv-section gv-faq-section">
-            <SectionHeading label="Questions & answers" title={`Frequently asked about ${content.title.toLowerCase()}`} />
+            <SectionHeading label={servicePageText(language, 'questionsAnswers')} title={`Frequently asked about ${serviceTitleText(language, content.title).toLowerCase()}`} />
             <div className="gv-faq-list">
               {content.faqs.map((faq) => (
                 <details key={faq.question}>
@@ -1202,7 +1207,7 @@ export function ServicePageExperience({ title }: { title: string }) {
             setAttestationType={setAttestationType}
             poaType={poaType}
           />
-          <p className="gv-disclaimer"><ShieldCheck size={14} />We are a private documentation and PRO-services provider, not a UAE government agency. Government fees, eligibility and processing times may change.</p>
+          <p className="gv-disclaimer"><ShieldCheck size={14} />{servicePageText(language, 'providerDisclaimer')}</p>
         </div>
       </div>
       {calculatorServices[content.title] && (

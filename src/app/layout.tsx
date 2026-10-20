@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
+import { headers } from 'next/headers';
+import { LanguageProvider } from '@/lib/LanguageContext';
+import { SiteTranslationBridge } from '@/components/SiteTranslationBridge';
+import { isLocaleCode, localeHtmlLanguages, localeLanguages, localeOpenGraphLanguages } from '@/lib/locales';
+import { getRouteSeo } from '@/lib/seoContent';
 import "./globals.css";
 import "@/components/service-pages/service-pages.css";
 
@@ -11,23 +16,49 @@ const poppins = Poppins({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Golden Visa Dubai | UAE Residency & Professional Services",
-  description: "Golden Visa Dubai supports UAE residency applications, family visas, property visas, and professional services.",
-  keywords: "UAE Golden Visa, Dubai Golden Visa 2026, 10 year residency UAE, GDRFA, DLD, real estate investor visa, UAE long term residency",
+const siteUrl = 'https://brightlinkconsulting.ae';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const requestHeaders = await headers();
+  const localeHeader = requestHeaders.get('x-site-locale') ?? 'en';
+  const locale = isLocaleCode(localeHeader) ? localeHeader : 'en';
+  const path = requestHeaders.get('x-site-path') ?? '/';
+  const localizedUrl = (code: string) => `${siteUrl}/${code}${path === '/' ? '' : path}`;
+  const seoContent = getRouteSeo(path, locale);
+
+  return {
+  title: seoContent.title,
+  description: seoContent.description,
+  keywords: seoContent.keywords || "UAE Golden Visa, Dubai Golden Visa 2026, 10 year residency UAE, GDRFA, DLD, real estate investor visa, UAE long term residency",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: localizedUrl(locale),
+    languages: {
+      en: localizedUrl('en'),
+      ar: localizedUrl('ar'),
+      ru: localizedUrl('ru'),
+      de: localizedUrl('de'),
+      es: localizedUrl('es'),
+      fr: localizedUrl('fr'),
+      tr: localizedUrl('tr'),
+      'zh-CN': localizedUrl('zh'),
+      'x-default': localizedUrl('en'),
+    },
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/assets/site-icon.png",
   },
   openGraph: {
-    title: "Golden Visa Dubai | UAE Residency & Professional Services",
-    description: "Business setup, Golden Visa, family visa, and professional services in the UAE.",
-    url: "https://brightlinkconsulting.ae",
+    title: seoContent.title,
+    description: seoContent.description,
+    url: localizedUrl(locale),
     siteName: "Golden Visa Dubai",
-    locale: "en_US",
+    locale: localeOpenGraphLanguages[locale],
     type: "website",
   },
-};
+  };
+}
 
 // ─── REPLACE THESE WITH YOUR REAL IDs ───
 const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // Replace with your GA4 Measurement ID
@@ -35,13 +66,18 @@ const TAWKTO_PROPERTY_ID = "your_property_id"; // Replace with your Tawk.to prop
 const TAWKTO_WIDGET_ID = "your_widget_id";     // Replace with your Tawk.to widget ID
 // ────────────────────────────────────────
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const requestHeaders = await headers();
+  const localeHeader = requestHeaders.get('x-site-locale') ?? 'en';
+  const locale = isLocaleCode(localeHeader) ? localeHeader : 'en';
+  const language = localeLanguages[locale];
+
   return (
-    <html lang="en" className={`${poppins.variable} scroll-smooth`}>
+    <html lang={localeHtmlLanguages[locale]} dir={language === 'AR' ? 'rtl' : 'ltr'} className={`${poppins.variable} scroll-smooth`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
@@ -62,7 +98,10 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="min-h-screen antialiased overflow-x-hidden">
-        {children}
+        <LanguageProvider language={language}>
+          {children}
+          <SiteTranslationBridge />
+        </LanguageProvider>
 
         {/* ─── Tawk.to Live Chat Widget ─── */}
         {/* Replace property_id and widget_id with your actual Tawk.to values from tawk.to dashboard */}

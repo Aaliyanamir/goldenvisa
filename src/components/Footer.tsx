@@ -3,6 +3,9 @@
 import React from 'react';
 import Image from 'next/image';
 import { contactInfo } from '../lib/contactInfo';
+import { useLanguage } from '../lib/LanguageContext';
+import { localizedPath } from '../lib/locales';
+import { siteText } from '../lib/siteCopy';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faClock,
@@ -35,6 +38,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenMegaMenu,
   onNavigateToBlog,
 }) => {
+  const { language } = useLanguage();
   const socialLinks = [
     { label: 'Facebook', href: 'https://www.facebook.com/brightlinkconsulting.uae/', icon: faFacebookF },
     { label: 'Instagram', href: 'https://www.instagram.com/brightlink.consulting/', icon: faInstagram },
@@ -69,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="h-auto w-[190px]"
                 />
                 <span className="text-[10px] text-slate-600 dark:text-slate-400 font-semibold uppercase tracking-wider">
-                  UAE Residency &amp; Legal Consultancy
+                  {siteText(language, 'footerDescriptor')}
                 </span>
               </div>
 
@@ -95,7 +99,7 @@ export const Footer: React.FC<FooterProps> = ({
                   <div className="w-7 h-7 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center group-hover:border-amber-500/40 transition-colors shrink-0">
                     <FontAwesomeIcon icon={faMessage} className="h-3.5 w-3.5 text-[#D4AF37]" />
                   </div>
-                  <span>Message us on WhatsApp</span>
+                  <span>{siteText(language, 'footerMessage')}</span>
                 </a>
 
                 {/* Phone 2 */}
@@ -137,9 +141,9 @@ export const Footer: React.FC<FooterProps> = ({
                     <FontAwesomeIcon icon={faClock} className="h-3.5 w-3.5 text-[#C5A059]" />
                   </div>
                   <div>
-                    <span className="block">Monday – Friday: 9 AM – 6 PM</span>
-                    <span className="block">Saturday: 10 AM – 5 PM</span>
-                    <span className="block text-slate-500">Sunday: Closed</span>
+                    <span className="block">{siteText(language, 'footerWeekdays')}</span>
+                    <span className="block">{siteText(language, 'footerSaturday')}</span>
+                    <span className="block text-slate-500">{siteText(language, 'footerSunday')}</span>
                   </div>
                 </div>
 
@@ -172,13 +176,13 @@ export const Footer: React.FC<FooterProps> = ({
 
               {/* Tagline */}
               <p className="text-slate-400 leading-relaxed text-xs max-w-sm">
-                Golden Visa Dubai is your UAE partner for residency, business setup, and professional services, with clear guidance throughout.
+                {siteText(language, 'footerTagline')}
               </p>
 
               {/* Compliance badge */}
               <div className="flex items-center gap-2 text-slate-400">
                 <FontAwesomeIcon icon={faShieldHalved} className="h-4 w-4 shrink-0 text-[#C5A059]" />
-                <span>100% Compliant with UAE GDRFA &amp; ICP Directives</span>
+                <span>{siteText(language, 'footerCompliance')}</span>
               </div>
             </div>
 
@@ -188,49 +192,49 @@ export const Footer: React.FC<FooterProps> = ({
               {/* Quick Links */}
               <div>
                 <h4 className="text-[#C5A059] font-extrabold uppercase tracking-wider text-xs mb-5 pb-2 border-b border-white/10">
-                  Quick Navigation
+                  {siteText(language, 'footerQuickNav')}
                 </h4>
                 <ul className="space-y-3 text-slate-300">
                   <li>
-                    <a href="#" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Home
+                      {siteText(language, 'footerHome')}
                     </a>
                   </li>
                   <li>
                     <button onClick={onOpenMegaMenu} className="hover:text-white transition-colors flex items-center gap-1.5 group cursor-pointer text-left">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      All Services
+                      {siteText(language, 'footerAllServices')}
                     </button>
                   </li>
                   <li>
-                    <a href="#roadmap" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/#roadmap', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Visa Roadmap
+                      {siteText(language, 'footerRoadmap')}
                     </a>
                   </li>
                   <li>
-                    <a href="#faq" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/#faq', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      FAQ
+                      {siteText(language, 'footerFaq')}
                     </a>
                   </li>
                   <li>
                     <button onClick={onNavigateToBlog} className="hover:text-amber-300 text-amber-400/90 font-semibold transition-colors flex items-center gap-1.5 group cursor-pointer text-left">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      News &amp; Blog
+                      {siteText(language, 'footerBlog')}
                     </button>
                   </li>
                   <li>
                     <button onClick={onOpenCalculator} className="hover:text-white transition-colors flex items-center gap-1.5 group cursor-pointer text-left">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Visa Fee Calculator
+                      {siteText(language, 'footerCalc')}
                     </button>
                   </li>
                   <li>
                     <a href={contactInfo.whatsappHref} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Contact Us
+                      {siteText(language, 'footerContact')}
                     </a>
                   </li>
                 </ul>
@@ -239,49 +243,49 @@ export const Footer: React.FC<FooterProps> = ({
               {/* Golden Visa Services */}
               <div>
                 <h4 className="text-[#C5A059] font-extrabold uppercase tracking-wider text-xs mb-5 pb-2 border-b border-white/10">
-                  Golden Visa Services
+                  {siteText(language, 'footerGoldenServices')}
                 </h4>
                 <ul className="space-y-3 text-slate-300">
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/golden-visa', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Dubai Golden Visa
+                      {siteText(language, 'footerGoldenVisa')}
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/property-visa', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Property Visa (AED 2M+)
+                      {siteText(language, 'footerPropertyVisa')}
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/golden-visa', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Executive Visa (C-Suite)
+                      {siteText(language, 'footerExecutiveVisa')}
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/golden-visa', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Talent &amp; Scientist Visa
+                      {siteText(language, 'footerTalentVisa')}
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/family-visa', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Family Sponsorship Visa
+                      {siteText(language, 'footerFamilyVisa')}
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/attestation', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      Document Attestation
+                      {siteText(language, 'footerAttestation')}
                     </a>
                   </li>
                   <li>
-                    <a href="#services" className="hover:text-white transition-colors flex items-center gap-1.5 group">
+                    <a href={localizedPath('/pro-services', language)} className="hover:text-white transition-colors flex items-center gap-1.5 group">
                       <FontAwesomeIcon icon={faChevronRight} className="h-3 w-3 shrink-0 text-amber-500/60 transition-transform group-hover:translate-x-0.5" />
-                      VIP PRO Concierge
+                      {siteText(language, 'footerPro')}
                     </a>
                   </li>
                 </ul>
@@ -292,30 +296,30 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* ─── Legal Links Row ─── */}
           <div className="py-4 flex items-center justify-center gap-3 flex-wrap text-slate-500 text-[11px] border-b border-white/10">
-            <a href="#" className="hover:text-white transition-colors">Terms &amp; Conditions</a>
+            <a href={localizedPath('/', language)} className="hover:text-white transition-colors">{siteText(language, 'footerTerms')}</a>
             <span className="text-white/20">|</span>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href={localizedPath('/', language)} className="hover:text-white transition-colors">{siteText(language, 'footerPrivacy')}</a>
             <span className="text-white/20">|</span>
-            <a href="#" className="hover:text-white transition-colors">Sitemap</a>
+            <a href="/sitemap.xml" className="hover:text-white transition-colors">{siteText(language, 'footerSitemap')}</a>
             <span className="text-white/20">|</span>
-            <a href="#" className="hover:text-white transition-colors">Refund Policy</a>
+            <a href={localizedPath('/', language)} className="hover:text-white transition-colors">{siteText(language, 'footerRefund')}</a>
           </div>
 
           {/* ─── Copyright ─── */}
           <div className="pt-5 text-center text-slate-500 text-[11px]">
-            © {new Date().getFullYear()} Golden Visa Dubai. All Rights Reserved
+            © {new Date().getFullYear()} Golden Visa Dubai. {siteText(language, 'footerAllRightsReserved')}
           </div>
 
           {/* ─── Legal Disclaimers ─── */}
           <div className="mt-5 pt-5 border-t border-white/10 space-y-3 text-[10px] sm:text-[11px] text-slate-600 leading-relaxed">
             <p>
-              Brightlink Management Consultancy LLC is an independent private consultancy licensed by Dubai DET (License No. 1053387), and is not a government authority. All approvals, licences, visas, certificates, and government documents are issued by the relevant UAE authorities.
+              {siteText(language, 'footerDisclaimerDesc')}
             </p>
             <p>
-              <strong className="text-slate-500">Privacy:</strong> We respect your privacy and handle personal information and documents with appropriate care. Information is used for the purpose of providing and facilitating the services requested and is handled in accordance with applicable regulations.
+              <strong className="text-slate-500">{siteText(language, 'footerPrivacyTitle')}</strong> {siteText(language, 'footerPrivacyDesc')}
             </p>
             <p>
-              <strong className="text-slate-500">Third-Party Disclaimer:</strong> This website is not affiliated with, sponsored by, or endorsed by Google LLC Meta Platforms, Inc. (Facebook) or their subsidiaries. Any references to third-party companies, platforms, trademarks, or services are only for identification or informative purposes only.
+              <strong className="text-slate-500">{siteText(language, 'footerThirdPartyTitle')}</strong> {siteText(language, 'footerThirdPartyDesc')}
             </p>
           </div>
 

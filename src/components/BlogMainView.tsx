@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { blogPosts, BlogPost } from '@/lib/blogData';
+import { blogPosts, localizeBlogPost } from '@/lib/blogData';
 import {
   ArrowRight,
   Award,
@@ -28,23 +28,29 @@ import {
   X,
 } from 'lucide-react';
 import { contactInfo } from '@/lib/contactInfo';
+import { useLanguage } from '@/lib/LanguageContext';
+import { localizedPath } from '@/lib/locales';
+import { blogCategories, blogText, blogTrendingTags, blogUiText } from '@/lib/blogCopy';
 
 interface BlogMainViewProps {
   onOpenCalculator: () => void;
 }
 
 export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) => {
+  const { language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [emailSubscribed, setEmailSubscribed] = useState<boolean>(false);
   const [emailInput, setEmailInput] = useState<string>('');
 
   const categories = ['All', 'Golden Visa', 'Real Estate', 'Corporate', 'Regulations'];
-  const trendingTags = ['10-Year Golden Visa', 'DLD Property Rules', 'Mortgaged Property NOC', 'MOJ Legal Translation', 'Family Visa Sponsoring'];
+  const trendingTags = blogTrendingTags(language);
+  const searchTags = ['10-Year Golden Visa', 'DLD Property Rules', 'Mortgaged Property NOC', 'MOJ Legal Translation', 'Family Visa Sponsoring'];
 
-  const featuredPost = blogPosts.find((p) => p.featured) || blogPosts[0];
+  const localizedPosts = blogPosts.map((post) => localizeBlogPost(post, language));
+  const featuredPost = localizedPosts.find((p) => p.featured) || localizedPosts[0];
 
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = localizedPosts.filter((post) => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
     const matchesSearch =
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -78,7 +84,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
           <div className="flex flex-wrap items-center justify-between gap-3 pb-8">
             <div className="inline-flex items-center gap-2 rounded-full border border-[#C5A059]/50 bg-white/80 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#8C6D2D] shadow-sm backdrop-blur-md">
               <Award className="h-3.5 w-3.5 text-[#C5A059]" />
-              <span>UAE Sovereign Insights & Legal Journal</span>
+              <span>{blogText(language, 'badge')}</span>
             </div>
 
             <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/40 bg-emerald-50/80 px-3.5 py-1 text-xs font-bold text-emerald-700 backdrop-blur-md">
@@ -86,21 +92,21 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span>Official 2026 GDRFA, DLD & MOHRE Regulations Verified</span>
+              <span>{blogUiText(language, 'verified')}</span>
             </div>
           </div>
 
           {/* Main Hero Title */}
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="text-4xl font-black tracking-tight text-[#15140F] sm:text-6xl lg:text-7xl leading-[1.08]">
-              Authoritative Guidance on <br className="hidden sm:inline" />
+              {blogText(language, 'titleLead')} <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-[#8C6D2D] via-[#C5A059] to-[#D4AF37] bg-clip-text text-transparent">
-                Golden Visas & UAE Laws
+                {blogText(language, 'titleHighlight')}
               </span>
             </h1>
 
             <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-[#5A4A2A] sm:text-base font-medium">
-              Executive legal briefings, property investment guidelines, corporate residency structures, and official document attestation procedures in Dubai and the UAE.
+              {blogText(language, 'intro')}
             </p>
 
             {/* Search Bar — warm white glass */}
@@ -109,7 +115,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                 <Search className="pointer-events-none absolute left-5 h-5 w-5 text-[#C5A059]" />
                 <input
                   type="text"
-                  placeholder="Search 50+ guides on Golden Visas, DLD property NOCs, Wills, Attestation..."
+                  placeholder={blogText(language, 'searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-transparent py-3 pl-12 pr-10 text-sm font-medium text-[#15140F] placeholder-[#9B8B6E] focus:outline-none"
@@ -129,20 +135,20 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                   className="hidden flex-shrink-0 cursor-pointer items-center gap-1.5 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md transition-all hover:from-[#d4af37] sm:flex"
                 >
                   <Sparkles className="h-3.5 w-3.5" />
-                  <span>Fee Calculator</span>
+                  <span>{blogText(language, 'calculator')}</span>
                 </button>
               </div>
 
               {/* Trending Tags */}
               <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs text-[#8C6D2D]">
                 <span className="inline-flex items-center gap-1 font-extrabold uppercase tracking-wider text-[#8C6D2D]">
-                  <TrendingUp className="h-3.5 w-3.5" /> Trending:
+                  <TrendingUp className="h-3.5 w-3.5" /> {blogText(language, 'trending')}
                 </span>
                 {trendingTags.map((tag) => (
                   <button
                     key={tag}
                     type="button"
-                    onClick={() => setSearchQuery(tag)}
+                    onClick={() => setSearchQuery(searchTags[trendingTags.indexOf(tag)])}
                     className="cursor-pointer rounded-lg border border-[#C5A059]/40 bg-white/70 px-2.5 py-1 text-[11px] font-semibold text-[#765719] transition-colors hover:border-[#C5A059] hover:bg-amber-50"
                   >
                     #{tag}
@@ -160,7 +166,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               </div>
               <div>
                 <div className="text-lg font-black text-[#15140F] sm:text-xl">50+</div>
-                <div className="text-[11px] font-medium text-[#7A6040]">Official Legal Guides</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">{blogUiText(language, 'guides')}</div>
               </div>
             </div>
 
@@ -170,7 +176,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               </div>
               <div>
                 <div className="text-lg font-black text-[#15140F] sm:text-xl">100%</div>
-                <div className="text-[11px] font-medium text-[#7A6040]">UAE Law Compliant</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">{blogUiText(language, 'lawCompliant')}</div>
               </div>
             </div>
 
@@ -180,7 +186,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               </div>
               <div>
                 <div className="text-lg font-black text-[#15140F] sm:text-xl">AED 2M+</div>
-                <div className="text-[11px] font-medium text-[#7A6040]">Property Visa Criteria</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">{blogUiText(language, 'propertyCriteria')}</div>
               </div>
             </div>
 
@@ -190,7 +196,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               </div>
               <div>
                 <div className="text-lg font-black text-[#15140F] sm:text-xl">24/7</div>
-                <div className="text-[11px] font-medium text-[#7A6040]">WhatsApp Assistance</div>
+                <div className="text-[11px] font-medium text-[#7A6040]">{blogUiText(language, 'assistance')}</div>
               </div>
             </div>
           </div>
@@ -202,9 +208,9 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2">
             <span className="hidden items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-[#8C6D2D] dark:text-[#D4AF37] sm:inline-flex">
-              <Filter className="h-3.5 w-3.5" /> Category:
+              <Filter className="h-3.5 w-3.5" /> {blogText(language, 'category')}
             </span>
-            {categories.map((cat) => (
+            {categories.map((cat, index) => (
               <button
                 key={cat}
                 type="button"
@@ -215,13 +221,13 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                     : 'border border-[#E8D5B5] bg-white text-slate-700 hover:bg-amber-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:bg-white/10'
                 }`}
               >
-                {cat}
+                {blogCategories(language)[index]}
               </button>
             ))}
           </div>
 
           <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
-            Showing <span className="font-extrabold text-slate-900 dark:text-white">{filteredPosts.length}</span> Articles
+            {blogText(language, 'showing')} <span className="font-extrabold text-slate-900 dark:text-white">{filteredPosts.length}</span> {blogText(language, 'articles')}
           </div>
         </div>
       </section>
@@ -230,7 +236,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
       {selectedCategory === 'All' && !searchQuery && featuredPost && (
         <section className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
           <div className="mb-4 inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-[#8C6D2D] dark:text-[#D4AF37]">
-            <Sparkles className="h-4 w-4" /> Feature Spotlight
+            <Sparkles className="h-4 w-4" /> {blogText(language, 'featured')}
           </div>
           <div className="group relative overflow-hidden rounded-3xl border border-[#E8D5B5] bg-white shadow-xl transition-all hover:border-[#C5A059] dark:border-white/10 dark:bg-[#111827]">
             <div className="grid grid-cols-1 lg:grid-cols-12">
@@ -268,7 +274,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                   </div>
 
                   <h2 className="mt-4 text-2xl font-extrabold leading-snug tracking-tight text-slate-900 transition-colors group-hover:text-[#8C6D2D] dark:text-white sm:text-3xl">
-                    <Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
+                    <Link href={localizedPath(`/blog/${featuredPost.slug}`, language)}>{featuredPost.title}</Link>
                   </h2>
 
                   <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 font-light">
@@ -278,10 +284,10 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
 
                 <div className="mt-8 flex items-center justify-between border-t border-slate-100 pt-6 dark:border-white/10">
                   <Link
-                    href={`/blog/${featuredPost.slug}`}
+                    href={localizedPath(`/blog/${featuredPost.slug}`, language)}
                     className="inline-flex items-center gap-2 text-sm font-extrabold text-[#8C6D2D] transition-all hover:gap-3 hover:text-amber-800 dark:text-[#D4AF37]"
                   >
-                    <span>Read Featured Story</span>
+                    <span>{blogText(language, 'readFeatured')}</span>
                     <ArrowRight className="h-4 w-4 text-[#C5A059]" />
                   </Link>
 
@@ -290,7 +296,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                     onClick={onOpenCalculator}
                     className="cursor-pointer text-xs font-bold text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                   >
-                    Check Eligibility
+                    {blogText(language, 'checkEligibility')}
                   </button>
                 </div>
               </div>
@@ -345,7 +351,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                     </div>
 
                     <h3 className="line-clamp-2 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-[#8C6D2D] dark:text-white">
-                      <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                      <Link href={localizedPath(`/blog/${post.slug}`, language)}>{post.title}</Link>
                     </h3>
 
                     <p className="mt-3 line-clamp-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 font-light">
@@ -356,10 +362,10 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
 
                 <div className="flex items-center justify-between border-t border-slate-100 px-6 py-4 dark:border-white/10">
                   <Link
-                    href={`/blog/${post.slug}`}
+                    href={localizedPath(`/blog/${post.slug}`, language)}
                     className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#8C6D2D] transition-all hover:gap-2 hover:text-amber-800 dark:text-[#D4AF37]"
                   >
-                    <span>Read Full Article</span>
+                    <span>{blogText(language, 'readArticle')}</span>
                     <ArrowRight className="h-3.5 w-3.5 text-[#C5A059]" />
                   </Link>
 
@@ -368,7 +374,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                     onClick={onOpenCalculator}
                     className="cursor-pointer text-[11px] font-semibold text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
                   >
-                    Calculate Fees
+                    {blogText(language, 'calculator')}
                   </button>
                 </div>
               </article>
@@ -377,8 +383,8 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
         ) : (
           <div className="rounded-2xl border border-[#E8D5B5] bg-white p-12 text-center dark:border-white/10 dark:bg-[#111827]">
             <Search className="mx-auto h-10 w-10 text-slate-400" />
-            <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">No articles found</h3>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Try adjusting your search query or filter settings.</p>
+            <h3 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">{blogText(language, 'noneFound')}</h3>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{blogText(language, 'refineSearch')}</p>
             <button
               type="button"
               onClick={() => {
@@ -387,7 +393,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
               }}
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#8C6D2D] px-4 py-2 text-xs font-bold text-white transition-colors hover:bg-[#735820]"
             >
-              Reset Filters
+              {blogText(language, 'all')}
             </button>
           </div>
         )}
@@ -397,10 +403,10 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-[#D4AF37]">
-                <Mail className="h-3.5 w-3.5" /> UAE Legal Briefing
+                <Mail className="h-3.5 w-3.5" /> {blogText(language, 'newsletter')}
               </div>
               <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-                Stay updated on <span className="text-[#D4AF37]">UAE Golden Visa & Legal Laws</span>
+                {blogText(language, 'newsletter')}
               </h3>
               <p className="mt-2 text-sm text-slate-300">
                 Get weekly sovereign intelligence, DLD property updates, and GDRFA immigration policy alerts delivered straight to your inbox.
@@ -417,7 +423,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                   <input
                     type="email"
                     required
-                    placeholder="Enter your corporate email..."
+                    placeholder={blogText(language, 'emailPlaceholder')}
                     value={emailInput}
                     onChange={(e) => setEmailInput(e.target.value)}
                     className="w-full rounded-xl border border-white/20 bg-white/10 px-4 py-3.5 text-xs text-white placeholder-slate-400 focus:border-[#C5A059] focus:outline-none sm:text-sm"
@@ -426,7 +432,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
                     type="submit"
                     className="inline-flex flex-shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md transition-all hover:from-[#d4af37] hover:to-[#9f7d36]"
                   >
-                    <span>Subscribe</span>
+                    <span>{blogText(language, 'subscribe')}</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
                 </form>
@@ -451,7 +457,7 @@ export const BlogMainView: React.FC<BlogMainViewProps> = ({ onOpenCalculator }) 
             onClick={onOpenCalculator}
             className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#C5A059] to-[#8C6D2D] px-6 py-3.5 text-xs font-extrabold uppercase tracking-wider text-white shadow-md transition-all hover:from-[#d4af37] hover:to-[#9f7d36] md:w-auto"
           >
-            <span>Launch Fee Estimator</span>
+            <span>{blogUiText(language, 'launchEstimator')}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>

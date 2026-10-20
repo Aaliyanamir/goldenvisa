@@ -11,6 +11,8 @@ import {
   faWandMagicSparkles,
 } from '@fortawesome/free-solid-svg-icons';
 import type { ServiceId } from '@/components/service-pages/FamilyVisaCalculator';
+import { useLanguage } from '@/lib/LanguageContext';
+import { siteText } from '@/lib/siteCopy';
 
 interface HeroSectionProps {
   onOpenCalculator: (initialService?: ServiceId) => void;
@@ -21,26 +23,26 @@ interface HeroSectionProps {
 const pathways = [
   {
     id: 'property',
-    label: 'Property investor',
-    title: 'Invest in Dubai property',
-    detail: 'Explore the property-investor residency route and the documents used to assess your case.',
-    criteria: 'Property value and ownership documents',
+    label: 'pathProperty',
+    title: 'pathPropertyTitle',
+    detail: 'pathPropertyDetail',
+    criteria: 'pathPropertyCriteria',
     service: 'property',
   },
   {
     id: 'executive',
-    label: 'Executive',
-    title: 'Build your career in the UAE',
-    detail: 'Review the executive pathway and the employment and qualification evidence it may require.',
-    criteria: 'Role, qualifications and salary evidence',
+    label: 'pathExecutive',
+    title: 'pathExecutiveTitle',
+    detail: 'pathExecutiveDetail',
+    criteria: 'pathExecutiveCriteria',
     service: 'golden',
   },
   {
     id: 'specialist',
-    label: 'Specialist talent',
-    title: 'Bring your expertise to Dubai',
-    detail: 'Explore specialist categories and the endorsements or credentials relevant to your field.',
-    criteria: 'Profession-specific credentials or nomination',
+    label: 'pathTalent',
+    title: 'pathTalentTitle',
+    detail: 'pathTalentDetail',
+    criteria: 'pathTalentCriteria',
     service: 'golden',
   },
 ] as const;
@@ -50,6 +52,7 @@ export const HeroSection = ({
   onOpenMegaMenu,
   onOpenEligibility,
 }: HeroSectionProps) => {
+  const { language } = useLanguage();
   const [selectedPathway, setSelectedPathway] = useState<(typeof pathways)[number]['id']>('property');
   const activePathway = pathways.find(({ id }) => id === selectedPathway) ?? pathways[0];
 
@@ -69,14 +72,14 @@ export const HeroSection = ({
         <div className="max-w-2xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[.16em] text-white/90 backdrop-blur-md">
             <FontAwesomeIcon icon={faShieldHalved} className="h-4 w-4 text-[#D4AF37]" />
-            UAE residency &amp; government services
+            {siteText(language, 'heroBadge')}
           </div>
           <h1 className="max-w-2xl text-4xl font-semibold leading-[1.08] tracking-[-.04em] sm:text-5xl lg:text-6xl xl:text-7xl">
-            A more considered
-            <span className="mt-2 block text-[#E4C86A]">way to make Dubai home.</span>
+            {siteText(language, 'heroTitle')}
+            <span className="mt-2 block text-[#E4C86A]">{siteText(language, 'heroTitleHighlight')}</span>
           </h1>
           <p className="mt-6 max-w-xl text-sm leading-7 text-white/75 sm:text-base">
-            Clear guidance for UAE Golden Visa, family residency and corporate services—from choosing a route to preparing your application.
+            {siteText(language, 'heroSubtitle')}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <button
@@ -84,28 +87,28 @@ export const HeroSection = ({
               onClick={onOpenEligibility}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#D4AF37] px-6 text-sm font-bold text-[#171611] shadow-[0_10px_32px_rgba(212,175,55,.2)] transition hover:bg-[#e5c85f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
             >
-              Check your eligibility <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
+              {siteText(language, 'heroEligibility')} <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
             </button>
             <button
               type="button"
               onClick={onOpenMegaMenu}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/35 bg-white/5 px-6 text-sm font-semibold text-white transition hover:border-[#D4AF37] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
             >
-              Explore services <FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
+              {siteText(language, 'heroExplore')} <FontAwesomeIcon icon={faChevronRight} className="h-4 w-4" />
             </button>
           </div>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-medium text-white/65">
-            <span className="inline-flex items-center gap-2"><FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-[#D4AF37]" /> Independent case guidance</span>
-            <span className="inline-flex items-center gap-2"><FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-[#D4AF37]" /> Transparent next steps</span>
+            <span className="inline-flex items-center gap-2"><FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-[#D4AF37]" /> {siteText(language, 'heroGuidance')}</span>
+            <span className="inline-flex items-center gap-2"><FontAwesomeIcon icon={faCheck} className="h-4 w-4 text-[#D4AF37]" /> {siteText(language, 'heroNextSteps')}</span>
           </div>
         </div>
 
         <aside className="w-full max-w-xl justify-self-center rounded-[28px] border border-white/20 bg-[#161616]/80 p-5 shadow-[0_30px_100px_rgba(0,0,0,.42)] backdrop-blur-xl sm:p-7 lg:justify-self-end">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-[#E4C86A]">
-            <FontAwesomeIcon icon={faWandMagicSparkles} className="h-4 w-4" /> Residency pathway guide
+            <FontAwesomeIcon icon={faWandMagicSparkles} className="h-4 w-4" /> {siteText(language, 'heroPathways')}
           </div>
-          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Start with your goals.</h2>
-          <p className="mt-2 text-sm leading-6 text-white/65">Choose a starting point to see the kind of information your case review may cover.</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{siteText(language, 'heroStart')}</h2>
+          <p className="mt-2 text-sm leading-6 text-white/65">{siteText(language, 'heroChoose')}</p>
           <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
             {pathways.map((pathway) => (
               <button
@@ -122,25 +125,25 @@ export const HeroSection = ({
                     : 'border-white/15 bg-white/[.04] text-white/70 hover:border-white/35 hover:text-white'
                 }`}
               >
-                {pathway.label}
+                {siteText(language, pathway.label)}
               </button>
             ))}
           </div>
           <div aria-live="polite" className="mt-5 min-h-[142px] rounded-2xl border border-white/10 bg-black/20 p-5">
-            <p className="text-xs font-medium uppercase tracking-wider text-white/50">Your selected pathway</p>
-            <h3 className="mt-2 text-lg font-semibold text-white">{activePathway.title}</h3>
-            <p className="mt-1 text-sm leading-6 text-white/65">{activePathway.detail}</p>
-            <p className="mt-3 text-xs font-semibold text-[#E4C86A]">{activePathway.criteria}</p>
+            <p className="text-xs font-medium uppercase tracking-wider text-white/50">{siteText(language, 'heroSelected')}</p>
+            <h3 className="mt-2 text-lg font-semibold text-white">{siteText(language, activePathway.title)}</h3>
+            <p className="mt-1 text-sm leading-6 text-white/65">{siteText(language, activePathway.detail)}</p>
+            <p className="mt-3 text-xs font-semibold text-[#E4C86A]">{siteText(language, activePathway.criteria)}</p>
           </div>
           <button
             type="button"
             onClick={() => onOpenCalculator()}
             className="mt-4 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-white px-5 text-sm font-bold text-[#1F1F1F] transition hover:bg-[#F9F9F8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4AF37]"
           >
-            Open fee &amp; service estimator <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
+            {siteText(language, 'heroEstimator')} <FontAwesomeIcon icon={faArrowRight} className="h-4 w-4" />
           </button>
           <p className="mt-3 text-center text-[11px] leading-5 text-white/45">
-            Fees and eligibility depend on your case and the relevant UAE authority.
+            {siteText(language, 'heroLegal')}
           </p>
         </aside>
       </div>

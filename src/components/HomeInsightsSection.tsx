@@ -3,31 +3,35 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faClock } from '@fortawesome/free-solid-svg-icons';
 import { blogPosts } from '@/lib/blogData';
+import { useLanguage } from '@/lib/LanguageContext';
+import { localizedPath } from '@/lib/locales';
 
-export const HomeInsightsSection = () => (
-  <section data-scroll-reveal className="bg-white px-5 py-20 sm:px-8 lg:py-24">
-    <div className="mx-auto max-w-[1280px]">
-      <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-        <div className="max-w-2xl">
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-[#8A6A12]">
-            <span className="h-px w-8 bg-[#B8860B]" /> The journal
-          </span>
-          <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] text-[#1F1F1F] sm:text-4xl lg:text-5xl">
-            Read the Latest UAE Golden Visa Insights
-          </h2>
-          <p className="mt-4 text-sm leading-7 text-[#686868] sm:text-base">
-            Practical reading on residency pathways, real estate and UAE document processes.
-          </p>
+export const HomeInsightsSection = () => {
+  const { language } = useLanguage();
+  return (
+    <section data-scroll-reveal className="bg-white px-5 py-20 sm:px-8 lg:py-24">
+      <div className="mx-auto max-w-[1280px]">
+        <div className="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-[#8A6A12]">
+              <span className="h-px w-8 bg-[#B8860B]" /> The journal
+            </span>
+            <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] text-[#1F1F1F] sm:text-4xl lg:text-5xl">
+              Read the Latest UAE Golden Visa Insights
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[#686868] sm:text-base">
+              Practical reading on residency pathways, real estate and UAE document processes.
+            </p>
+          </div>
+          <Link href={localizedPath('/blog', language)} data-scroll-reveal className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#765800] transition hover:text-[#1F1F1F]">
+            Explore all insights <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="h-4 w-4" />
+          </Link>
         </div>
-        <Link href="/blog" data-scroll-reveal className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#765800] transition hover:text-[#1F1F1F]">
-          Explore all insights <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="h-4 w-4" />
-        </Link>
-      </div>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.slice(0, 3).map((post, index) => (
-          <article key={post.id} data-scroll-reveal className={`group flex flex-col overflow-hidden rounded-[22px] border border-[#E7E4DC] bg-white transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/70 hover:shadow-[0_24px_60px_-40px_rgba(31,31,31,.4)] ${index === 0 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
-            <Link href={`/blog/${post.slug}`} className="relative block aspect-[1.62] overflow-hidden bg-[#F1EFE9]" aria-label={`Read ${post.title}`}>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {blogPosts.slice(0, 3).map((post, index) => (
+            <article key={post.id} data-scroll-reveal className={`group flex flex-col overflow-hidden rounded-[22px] border border-[#E7E4DC] bg-white transition duration-300 hover:-translate-y-1 hover:border-[#D4AF37]/70 hover:shadow-[0_24px_60px_-40px_rgba(31,31,31,.4)] ${index === 0 ? 'md:col-span-2 lg:col-span-1' : ''}`}>
+              <Link href={localizedPath(`/blog/${post.slug}`, language)} className="relative block aspect-[1.62] overflow-hidden bg-[#F1EFE9]" aria-label={`Read ${post.title}`}>
               <Image
                 src={post.image}
                 alt=""
@@ -46,10 +50,10 @@ export const HomeInsightsSection = () => (
                 <span>{post.day} {post.month} {post.year}</span>
               </div>
               <h3 className="mt-4 text-lg font-semibold leading-snug tracking-tight text-[#1F1F1F]">
-                <Link href={`/blog/${post.slug}`} className="transition group-hover:text-[#80600A]">{post.title}</Link>
+                <Link href={localizedPath(`/blog/${post.slug}`, language)} className="transition group-hover:text-[#80600A]">{post.title}</Link>
               </h3>
               <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#686868]">{post.excerpt}</p>
-              <Link href={`/blog/${post.slug}`} className="mt-auto inline-flex min-h-11 items-center gap-2 pt-5 text-sm font-semibold text-[#765800]">
+              <Link href={localizedPath(`/blog/${post.slug}`, language)} className="mt-auto inline-flex min-h-11 items-center gap-2 pt-5 text-sm font-semibold text-[#765800]">
                 Read article <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
             </div>
@@ -58,4 +62,5 @@ export const HomeInsightsSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};

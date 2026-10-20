@@ -1,4 +1,5 @@
 export type Language = 'EN' | 'AR' | 'RU' | 'DE' | 'ES' | 'FR' | 'TR' | 'ZH';
+import { registerLocalizedCopy } from './localizedCopyRegistry';
 
 export interface TranslationData {
   nav: {
@@ -11,6 +12,7 @@ export interface TranslationData {
     applyNow: string;
     callExpert: string;
   };
+
   hero: {
     badge: string;
     titleLine1: string;
@@ -885,3 +887,7 @@ export const translations: Record<Language, TranslationData> = {
     },
   },
 };
+
+for (const language of Object.keys(translations) as Language[]) {
+  registerLocalizedCopy(language, translations[language]);
+}

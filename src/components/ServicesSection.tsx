@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useLanguage } from '../lib/LanguageContext';
+import { homepageContent } from '@/lib/homepageContent';
+import { siteText } from '@/lib/siteCopy';
+import { localizedPath } from '@/lib/locales';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUpRightFromSquare, faCheck, faChevronDown, faWandMagicSparkles } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,113 +13,12 @@ interface ServicesSectionProps {
   onOpenCalculator: () => void;
 }
 
-const services = {
-  residency: [
-    {
-      id: 'property',
-      href: '/property-visa',
-      title: 'Real Estate Investor',
-      validity: 'Long-term residency',
-      minVal: 'Property investor pathway',
-      desc: 'Explore the property-based residency route with a case review of your ownership, property value and supporting documents.',
-      benefits: ['Property and title document review', 'Mortgage or off-plan case guidance', 'Family sponsorship options'],
-      badge: 'Property',
-      image: '/assets/property/dubai-skyline.webp',
-      imageAlt: 'Dubai skyline and modern residential towers',
-    },
-    {
-      id: 'executive',
-      href: '/golden-visa',
-      title: 'Executive & C-Suite',
-      validity: 'Category-specific route',
-      minVal: 'Leadership & employment criteria',
-      desc: 'Understand the executive residency criteria and how your role, qualifications and employment evidence may fit.',
-      benefits: ['Employment-document checklist', 'Qualification review guidance', 'Application route clarification'],
-      badge: 'Leadership',
-      image: '/assets/blog/article-3.webp',
-      imageAlt: 'Corporate professional workspace in Dubai',
-    },
-    {
-      id: 'talent',
-      href: '/golden-visa',
-      title: 'Specialized Talent',
-      validity: 'Category-specific route',
-      minVal: 'Credentials & nomination review',
-      desc: 'Explore pathways for professionals and specialists, with guidance on category evidence and any relevant endorsement.',
-      benefits: ['Profession-specific criteria review', 'Credential preparation guidance', 'Nomination process overview'],
-      badge: 'Expertise',
-      image: '/assets/blog/article-7.webp',
-      imageAlt: 'Specialist professional working on research and innovation',
-    },
-    {
-      id: 'family',
-      href: '/family-visa',
-      title: 'Family Sponsorship',
-      validity: 'Route depends on sponsor status',
-      minVal: 'Spouse, children & dependants',
-      desc: 'Plan dependent residency applications with a clear view of relationship documents and sponsor requirements.',
-      benefits: ['Dependent application planning', 'Relationship-document checklist', 'Guidance on next steps'],
-      badge: 'Family',
-      image: '/assets/images/family-sponsorship.webp',
-      imageAlt: 'Family preparing documents for UAE residency',
-    },
-  ],
-  legal: [
-    {
-      id: 'dld',
-      href: '/dld-trustee-services',
-      title: 'DLD Trustee Services',
-      validity: 'Transaction-specific support',
-      minVal: 'Property documents & NOCs',
-      desc: 'Get assistance with property-related documents and understand the steps for your DLD transaction.',
-      benefits: ['Title document guidance', 'Mortgage and NOC coordination', 'Transaction-stage support'],
-      badge: 'Property',
-      image: '/assets/property/dubai-skyline.webp',
-      imageAlt: 'Dubai skyline',
-    },
-    {
-      id: 'attestation',
-      href: '/attestation',
-      title: 'Document Attestation',
-      validity: 'Requirements depend on origin',
-      minVal: 'Personal, academic & commercial',
-      desc: 'Understand the authentication steps for documents being prepared for use in the UAE.',
-      benefits: ['Country-specific process guidance', 'Document checklist', 'Collection and delivery coordination'],
-      badge: 'Documents',
-      image: '/assets/images/emirates-id-documents.webp',
-      imageAlt: 'Documents organized for an Emirates ID application',
-    },
-    {
-      id: 'translation',
-      href: '/legal-translation',
-      title: 'Legal Translation',
-      validity: 'Certified options available',
-      minVal: 'Language pair & document specific',
-      desc: 'Arrange legal translation support and confirm the certification required for your intended use.',
-      benefits: ['Language-pair review', 'Page-count quote guidance', 'Certification requirements explained'],
-      badge: 'Translation',
-      image: '/assets/blog/article-9.webp',
-      imageAlt: 'Official paperwork prepared for translation',
-    },
-    {
-      id: 'pro',
-      href: '/pro-services',
-      title: 'Corporate PRO Services',
-      validity: 'Scope tailored to business',
-      minVal: 'Government transaction support',
-      desc: 'Coordinate business and employee transactions with a clear outline of required information and next steps.',
-      benefits: ['Company and employee case support', 'Transaction checklist', 'Itemized quote by request'],
-      badge: 'Corporate',
-      image: '/assets/blog/article-4.webp',
-      imageAlt: 'Contemporary Dubai business district',
-    },
-  ],
-};
-
 export const ServicesSection = ({ onOpenCalculator }: ServicesSectionProps) => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<'residency' | 'legal'>('residency');
   const [expandedService, setExpandedService] = useState<string | null>(null);
+
+  const localizedServices = (homepageContent[language] || homepageContent.EN).services;
 
   return (
     <section id="services" data-scroll-reveal className="bg-[#F9F9F8] px-5 py-20 sm:px-8 lg:py-24">
@@ -124,7 +26,7 @@ export const ServicesSection = ({ onOpenCalculator }: ServicesSectionProps) => {
         <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-[#8A6A12]">
-              <span className="h-px w-8 bg-[#B8860B]" /> Tailored support
+              <span className="h-px w-8 bg-[#B8860B]" /> {siteText(language, 'servicesSectionSupport')}
             </span>
             <h2 className="mt-4 text-3xl font-semibold tracking-[-.035em] text-[#1F1F1F] sm:text-4xl lg:text-5xl">
               {t.servicesSection.title || 'Comprehensive UAE Corporate & Visa Services'}
@@ -133,10 +35,10 @@ export const ServicesSection = ({ onOpenCalculator }: ServicesSectionProps) => {
               {t.servicesSection.subtitle}
             </p>
           </div>
-          <div className="inline-flex w-fit rounded-full border border-[#E2E0D9] bg-white p-1" role="tablist" aria-label="Service categories">
+          <div className="inline-flex w-fit rounded-full border border-[#E2E0D9] bg-white p-1" role="tablist" aria-label={siteText(language, 'a11yServiceCategories')}>
             {([
-              { id: 'residency', label: 'Residency' },
-              { id: 'legal', label: 'Business & legal' },
+              { id: 'residency', label: siteText(language, 'servicesTabResidency') },
+              { id: 'legal', label: siteText(language, 'servicesTabLegal') },
             ] as const).map((tab) => (
               <button
                 key={tab.id}
@@ -160,7 +62,7 @@ export const ServicesSection = ({ onOpenCalculator }: ServicesSectionProps) => {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {services[activeCategory].map((service) => {
+          {localizedServices[activeCategory].map((service) => {
             const isExpanded = expandedService === service.id;
             return (
               <article key={service.id} data-scroll-reveal className="group overflow-hidden rounded-[22px] border border-[#E5E3DD] bg-white transition duration-300 hover:border-[#D4AF37]/70 hover:shadow-[0_24px_60px_-38px_rgba(31,31,31,.45)]">
@@ -220,15 +122,15 @@ export const ServicesSection = ({ onOpenCalculator }: ServicesSectionProps) => {
                   </div>
 
                   <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[#EEEBE3] pt-4">
-                    <a href={service.href} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-[#1F1F1F] transition hover:text-[#8A6A12]">
-                      Explore pathway <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="h-4 w-4" />
+                    <a href={localizedPath(service.href, language)} className="inline-flex min-h-10 items-center gap-1.5 text-sm font-semibold text-[#1F1F1F] transition hover:text-[#8A6A12]">
+                      {siteText(language, 'servicesExplorePathway')} <FontAwesomeIcon icon={faArrowUpRightFromSquare} className="h-4 w-4" />
                     </a>
                     <button
                       type="button"
                       onClick={onOpenCalculator}
                       className="ml-auto inline-flex min-h-10 items-center justify-center rounded-full bg-[#D4AF37] px-4 text-xs font-bold text-[#1F1F1F] transition hover:bg-[#E3C55A]"
                     >
-                      {t.servicesSection.calculateFees || 'Fee estimate'}
+                      {t.servicesSection.calculateFees || siteText(language, 'servicesFeeEstimate')}
                     </button>
                   </div>
                 </div>

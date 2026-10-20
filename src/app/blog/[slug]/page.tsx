@@ -22,9 +22,14 @@ import {
   Sparkles,
   User,
 } from 'lucide-react';
+import { headers } from 'next/headers';
 import { StandalonePageFrame } from '@/components/StandalonePageFrame';
-import { blogPosts } from '@/lib/blogData';
+import { blogPosts, localizeBlogPost } from '@/lib/blogData';
 import { contactInfo } from '@/lib/contactInfo';
+import { isLocaleCode, localeLanguages, localeOpenGraphLanguages, localizedPath } from '@/lib/locales';
+import { blogArticleText, blogCategoryText } from '@/lib/blogCopy';
+
+const siteUrl = 'https://brightlinkconsulting.ae';
 
 export function generateStaticParams() {
   return blogPosts.map((post) => ({ slug: post.slug }));
@@ -35,20 +40,56 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = blogPosts.find((item) => item.slug === slug);
 
   if (!post) return { title: 'Article not found | Golden Visa Dubai' };
+
+  const requestHeaders = await headers();
+  const localeHeader = requestHeaders.get('x-site-locale') ?? 'en';
+  const locale = isLocaleCode(localeHeader) ? localeHeader : 'en';
+  const localizedPost = localizeBlogPost(post, localeLanguages[locale]);
+  const postPath = `/blog/${slug}`;
+  const localizedUrl = (code: string) => `${siteUrl}/${code}${postPath}`;
+
   return {
-    title: `${post.title} | Golden Visa Dubai`,
-    description: post.excerpt,
+    title: `${localizedPost.title} | Golden Visa Dubai`,
+    description: localizedPost.excerpt,
+    alternates: {
+      canonical: localizedUrl(locale),
+      languages: {
+        en: localizedUrl('en'),
+        ar: localizedUrl('ar'),
+        ru: localizedUrl('ru'),
+        de: localizedUrl('de'),
+        es: localizedUrl('es'),
+        fr: localizedUrl('fr'),
+        tr: localizedUrl('tr'),
+        'zh-CN': localizedUrl('zh'),
+        'x-default': localizedUrl('en'),
+      },
+    },
+    openGraph: {
+      title: `${localizedPost.title} | Golden Visa Dubai`,
+      description: localizedPost.excerpt,
+      url: localizedUrl(locale),
+      siteName: 'Golden Visa Dubai',
+      locale: localeOpenGraphLanguages[locale],
+      type: 'article',
+    },
   };
 }
 
 export default async function BlogArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = blogPosts.find((item) => item.slug === slug);
+  const foundPost = blogPosts.find((item) => item.slug === slug);
 
-  if (!post) notFound();
+  if (!foundPost) notFound();
+
+  const requestHeaders = await headers();
+  const localeHeader = requestHeaders.get('x-site-locale') ?? 'en';
+  const locale = isLocaleCode(localeHeader) ? localeHeader : 'en';
+  const language = localeLanguages[locale];
+  const post = localizeBlogPost(foundPost, language);
 
   // Find 3 related posts
-  const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3).map((relatedPost) => localizeBlogPost(relatedPost, language));
 
   return (
     <StandalonePageFrame currentView="blog">
@@ -57,15 +98,15 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           {/* Breadcrumb Navigation */}
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
             <Link
-              href="/blog"
+              href={localizedPath('/blog', language)}
               className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#8C6D2D] transition-colors hover:text-amber-800 dark:text-[#D4AF37]"
             >
-              <ArrowLeft size={16} /> Back to All Publications
+              <ArrowLeft size={16} /> {blogArticleText(localeLanguages[locale], 'back')}
             </Link>
             <div className="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400">
-              <span>Category:</span>
+              <span>{blogArticleText(localeLanguages[locale], 'category')}</span>
               <span className="rounded-md border border-amber-300 bg-amber-50 px-2.5 py-1 text-[11px] font-extrabold text-[#8C6D2D] dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-[#D4AF37]">
-                {post.category}
+                {blogCategoryText(localeLanguages[locale], post.category)}
               </span>
             </div>
           </div>
@@ -92,7 +133,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
               <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-10 sm:right-10">
                 <div className="flex flex-wrap items-center gap-3 text-xs font-bold text-amber-200">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-[#C5A059]/50 bg-white/10 px-3 py-1 text-xs backdrop-blur-md text-[#F0D784]">
-                    <BadgeCheck size={14} className="text-[#D4AF37]" /> Verified Official Guidance 2026
+                    <BadgeCheck size={14} className="text-[#D4AF37]" /> {blogArticleText(localeLanguages[locale], 'verified')}
                   </span>
                 </div>
                 <h1 className="mt-4 text-2xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl drop-shadow-lg">
@@ -115,7 +156,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                   {post.readTime}
                 </span>
                 <span>
-                  Published: {post.day} {post.month} {post.year}
+                  {blogArticleText(localeLanguages[locale], 'published')} {post.day} {post.month} {post.year}
                 </span>
               </div>
 
@@ -127,7 +168,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white transition-colors hover:bg-emerald-700"
                 >
-                  <MessageSquare size={14} /> Ask Expert
+                  <MessageSquare size={14} /> {blogArticleText(localeLanguages[locale], 'askExpert')}
                 </a>
               </div>
             </div>
@@ -138,7 +179,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
               <aside className="lg:col-span-4">
                 <div className="sticky top-[calc(var(--site-header-offset)+2rem)] rounded-2xl border border-[#E8D5B5] bg-[#FDFBF7] p-6 dark:border-white/10 dark:bg-[#1A2332]">
                   <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#8C6D2D] dark:text-[#D4AF37]">
-                    <BookOpen size={15} /> Article Sections
+                    <BookOpen size={15} /> {blogArticleText(localeLanguages[locale], 'sections')}
                   </div>
                   <nav className="mt-4 flex flex-col gap-2.5 text-xs font-bold text-slate-700 dark:text-slate-300">
                     <a href="#overview" className="flex items-center gap-2 transition-colors hover:text-[#8C6D2D] dark:hover:text-[#D4AF37]">
@@ -309,7 +350,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                       <MessageSquare size={16} /> Consult on WhatsApp <ArrowRight size={16} />
                     </a>
                     <Link
-                      href="/contact-us"
+                      href={localizedPath('/contact-us', language)}
                       className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3.5 text-xs font-bold text-white transition-colors hover:bg-white/20"
                     >
                       Book In-Person Meeting
@@ -326,7 +367,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
               <h3 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-2xl">
                 Related Legal Insights
               </h3>
-              <Link href="/blog" className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 dark:text-[#D4AF37]">
+              <Link href={localizedPath('/blog', language)} className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#8C6D2D] hover:text-amber-800 dark:text-[#D4AF37]">
                 View All <ArrowRight size={14} />
               </Link>
             </div>
@@ -346,7 +387,7 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
                       <span>{item.readTime}</span>
                     </div>
                     <h4 className="mt-2 line-clamp-2 text-base font-bold text-slate-900 transition-colors group-hover:text-[#8C6D2D] dark:text-white">
-                      <Link href={`/blog/${item.slug}`}>{item.title}</Link>
+                      <Link href={localizedPath(`/blog/${item.slug}`, language)}>{item.title}</Link>
                     </h4>
                   </div>
                 </div>

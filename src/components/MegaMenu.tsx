@@ -5,7 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '../lib/LanguageContext';
+import { localizedPath } from '../lib/locales';
 import { contactInfo } from '../lib/contactInfo';
+import { siteText } from '@/lib/siteCopy';
 import { WhatsAppIcon } from './WhatsAppIcon';
 import { 
   X, ChevronRight, Calculator,
@@ -27,7 +29,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
   onOpenCalculator,
   onNavigateToBlog 
 }) => {
-  const { isRTL } = useLanguage();
+  const { language, isRTL } = useLanguage();
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState('residency');
 
@@ -36,7 +38,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
   const serviceCategories = [
     {
       id: 'residency',
-      title: 'Residency & Visas',
+      title: siteText(language, 'menuResidency'),
       icon: Users,
       services: [
         { title: 'Golden Visa', href: '/golden-visa', icon: Award },
@@ -48,7 +50,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
     },
     {
       id: 'property',
-      title: 'Property Services',
+      title: siteText(language, 'menuProperty'),
       icon: Building2,
       services: [
         { title: 'Property Visa', href: '/property-visa', icon: Building2 },
@@ -58,7 +60,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
     },
     {
       id: 'documents',
-      title: 'Documents & PRO',
+      title: siteText(language, 'menuDocuments'),
       icon: FileText,
       services: [
         { title: 'PRO Services', href: '/pro-services', icon: Briefcase },
@@ -71,7 +73,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
     },
     {
       id: 'compliance',
-      title: 'Checks & Protection',
+      title: siteText(language, 'menuCompliance'),
       icon: ShieldCheck,
       services: [
         { title: 'Medical & EID Locations', href: '/near-me/visa-medical-emirates-id-location', icon: HeartPulse },
@@ -86,7 +88,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
   // 4. Company Links
   const companyLinks = [
     {
-      title: "Articles",
+      title: siteText(language, 'navArticles'),
       icon: BookOpen,
       action: () => {
         onClose();
@@ -94,27 +96,27 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
       },
     },
     {
-      title: "About Us",
+      title: siteText(language, 'navAbout'),
       icon: Info,
       action: () => {
         onClose();
-        router.push('/about');
+        router.push(localizedPath('/about', language));
       },
     },
     {
-      title: "Career",
+      title: siteText(language, 'navCareer'),
       icon: Briefcase,
       action: () => {
         onClose();
-        router.push('/career');
+        router.push(localizedPath('/career', language));
       },
     },
     {
-      title: "Contact Us",
+      title: siteText(language, 'navContact'),
       icon: Headphones,
       action: () => {
         onClose();
-        router.push('/contact-us');
+        router.push(localizedPath('/contact-us', language));
       },
     },
   ];
@@ -137,7 +139,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
             <Image src="/assets/images/Golden Visa Dubai.webp" alt="Golden Visa Dubai" width={1812} height={477} sizes="(min-width: 640px) 175px, 155px" className="h-auto w-[155px] sm:w-[175px] object-contain" />
             <div>
               <p className="text-[11px] sm:text-xs text-slate-400 font-medium tracking-wide">
-                All services in one place
+                {siteText(language, 'menuAllInOne')}
               </p>
             </div>
           </div>
@@ -145,7 +147,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
           <button 
             onClick={onClose}
             className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
-            aria-label="Close modal"
+            aria-label={siteText(language, 'menuClose')}
           >
             <X className="w-5 h-5" />
           </button>
@@ -155,8 +157,8 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
         <div className="flex-1 overflow-y-auto px-5 sm:px-7 py-5 space-y-6">
 
           {/* Service categories */}
-          <section aria-label="Browse services by category">
-            <div className="flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Service categories">
+          <section aria-label={siteText(language, 'menuBrowse')}>
+            <div className="flex gap-2 overflow-x-auto pb-2" role="group" aria-label={siteText(language, 'menuCategories')}>
               {serviceCategories.map((category) => {
                 const Icon = category.icon;
                 const isActive = activeCategory === category.id;
@@ -189,7 +191,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
                   return (
                     <Link
                       key={service.href}
-                      href={service.href}
+                      href={localizedPath(service.href, language)}
                       onClick={onClose}
                       className="group flex items-center justify-between gap-3 rounded-xl border border-slate-200/70 dark:border-white/10 p-3 text-left transition-colors hover:border-amber-300 hover:bg-amber-50/40 dark:hover:bg-amber-500/5"
                     >
@@ -211,7 +213,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
           <div className="pt-2">
             <div className="flex items-center gap-2 mb-3">
               <span className="w-2 h-2 rounded-full bg-rose-500 inline-block shrink-0" />
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">Company</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">{siteText(language, 'menuCompany')}</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
               {companyLinks.map((item, idx) => {
@@ -252,7 +254,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
               className="w-full py-3.5 px-5 rounded-xl gold-btn text-slate-950 font-extrabold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg transition-all active:scale-[0.98]"
             >
               <Calculator className="w-4 h-4 shrink-0 text-white" />
-              <span>Visa Calculator</span>
+              <span>{siteText(language, 'menuCalculator')}</span>
             </button>
 
             {/* Right Button: Green WhatsApp Direct Contact */}
@@ -263,7 +265,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({
               className="w-full py-3.5 px-5 rounded-2xl bg-[#8C6D2D] hover:bg-[#735820] text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-[0.98] text-center"
             >
               <WhatsAppIcon className="w-4 h-4 shrink-0" />
-              <span>WhatsApp</span>
+              <span>{siteText(language, 'menuWhatsapp')}</span>
             </a>
 
           </div>

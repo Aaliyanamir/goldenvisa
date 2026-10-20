@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { LanguageProvider } from '@/lib/LanguageContext';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { ResultsGallerySection } from '@/components/ResultsGallerySection';
@@ -18,10 +17,13 @@ import { MegaMenu } from '@/components/MegaMenu';
 import { FloatingActionButtons } from '@/components/FloatingActionButtons';
 import { EligibilityQuiz } from '@/components/EligibilityQuiz';
 import { ScrollRevealProvider } from '@/components/ScrollRevealProvider';
+import { useLanguage } from '@/lib/LanguageContext';
+import { localizedPath } from '@/lib/locales';
 import type { ServiceId } from '@/components/service-pages/FamilyVisaCalculator';
 
 export const MainApp: React.FC = () => {
   const router = useRouter();
+  const { language } = useLanguage();
   const [currentView, setCurrentView] = useState<'home' | 'blog' | 'about'>('home');
   const [calculatorOpen, setCalculatorOpen] = useState(false);
   const [calculatorService, setCalculatorService] = useState<ServiceId | undefined>();
@@ -30,7 +32,7 @@ export const MainApp: React.FC = () => {
 
   const navigate = (view: 'home' | 'blog' | 'about') => {
     if (view === 'blog') {
-      router.push('/blog');
+      router.push(localizedPath('/blog', language));
       return;
     }
     setCurrentView(view);
@@ -43,7 +45,6 @@ export const MainApp: React.FC = () => {
   };
 
   return (
-    <LanguageProvider>
         <div id="site-shell" className="site-shell min-h-screen selection:bg-amber-500 selection:text-slate-950 font-sans relative overflow-x-hidden transition-colors duration-300">
           {/* Navigation */}
           <Navbar
@@ -92,7 +93,7 @@ export const MainApp: React.FC = () => {
           <Footer 
             onOpenCalculator={() => setCalculatorOpen(true)}
             onOpenMegaMenu={() => setMegaMenuOpen(true)}
-            onNavigateToBlog={() => router.push('/blog')}
+            onNavigateToBlog={() => router.push(localizedPath('/blog', language))}
           />
 
           {/* Modals */}
@@ -106,7 +107,7 @@ export const MainApp: React.FC = () => {
             isOpen={megaMenuOpen}
             onClose={() => setMegaMenuOpen(false)}
             onOpenCalculator={() => setCalculatorOpen(true)}
-            onNavigateToBlog={() => router.push('/blog')}
+            onNavigateToBlog={() => router.push(localizedPath('/blog', language))}
           />
 
           <EligibilityQuiz
@@ -120,6 +121,5 @@ export const MainApp: React.FC = () => {
             onOpenCalculator={() => setCalculatorOpen(true)}
           />
         </div>
-    </LanguageProvider>
   );
 };
